@@ -1,5 +1,5 @@
 ---
-name: "Issue : \U0001F4E2 [project]"
+name: "Issue : \U0001F4E2"
 about: project
 title: ''
 labels: ''
