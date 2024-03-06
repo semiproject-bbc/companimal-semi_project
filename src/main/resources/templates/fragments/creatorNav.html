@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="creatorNavFragment">
+    <div class="sidetab">
+        <div class="sidewrap">
+            <div class="d-flex rolechangebtn">
+                <button class="supporterbtn">서포터</button>
+                <button class="creatorbtn focusbtn">크리에이터</button>
+            </div>
+            <div class="roleimage">
+                <img src="image/member.png" alt="이미지">
+            </div>
+            <div class="sidemenu">
+                <p>진행 중인 프로젝트</p>
+                <button>- 진행 중인 프로젝트 조회</button>
+                <p>진행 종료 프로젝트</p>
+                <button>- 진행 종료 프로젝트 조회</button>
+                <button>- 후원금 정산 진행 현황</button>
+                <p>프로젝트 문의</p>
+                <button>- 문의 내역</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</html>
