@@ -29,7 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="door-content" th:each="project : ${ selectProjectList }">
+            <th:block th:each="project : ${ selectProjectList }">
+            <div class="door-content">
                 <p class="d-day">D-2</p>
                 <div class="category-title">
                     <div class="category">
@@ -47,28 +48,28 @@
                     <p class="goal-won"> 원 달성</p>
                 </div>
                 <div class="heart-gray-icon-container">
-                    <button type="button" class="heart-button">
-                        <img class="heart-gray-icon" src="../common/image/heart-gray.png">
-                        <a href="../projectRegist/1_기본 정보.html"></a>
+                    <button type="button" class="heart-button" th:href="">
+                        <img class="heart-gray-icon" th:src="@{/image/heart-gray.png}">
                     </button>
-                    <button type="button" class="funding">펀딩 후원하기</button>
+                    <button type="button" class="funding" th:href="">펀딩 후원하기</button>
                 </div>
             </div>
+            </th:block>
         </div>
     </section>
     <section class="section2">
         <div class="content">
             <div class="story">
                 <p class="sub-info">프로젝트 스토리</p>
-                <img class="story-image" src="../common/image/petsonHome1.jpg">
-                <img class="story-image" src="../common/image/petsonHome2.jpg">
-                <img class="story-image" src="../common/image/petsonHome3.jpg">
-                <img class="story-image" src="../common/image/petsonHome4.jpg">
-                <img class="story-image" src="../common/image/petsonHome5.jpg">
-                <img class="story-image" src="../common/image/petsonHome6.jpg">
-                <img class="story-image" src="../common/image/petsonHome7.jpg">
-                <img class="story-image" src="../common/image/petsonHome8.jpg">
-                <img class="story-image" src="../common/image/petsonHome9.jpg">
+                <img class="story-image" th:src="@{/image/petsonHome1.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome2.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome3.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome4.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome5.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome6.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome7.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome8.jpg}">
+                <img class="story-image" th:src="@{/image/petsonHome9.jpg}">
                 <div class="creater-introduce">
                     <p class="intro-title">저희 히즈독은 소중한 반려가족의 특별한 라이프스타일을 디자인합니다.</p>
                     <p class="intro-content">약 1년이라는 시간동안 히즈독을 운영하면서 반려인들의 이야기를 들을 기회가 많았었는데요,
@@ -84,7 +85,7 @@
                         즉 '반려동물과 반려인만의 특별한 라이프스타일'을 디자인하는 가치 공간으로 확장해나가게 되었습니다.
                     </p>
                 </div>
-                <img class="story-image" src="../common/image/petsonHome10.jpg">
+                <img class="story-image" th:src="@{/image/petsonHome10.jpg}">
                 <div class="shipping-policy">
                     <p class="sub-info">배송 안내</p>
                     <p class="sub-content">• 발송 예정일 : 추후 공지 예정<br>
@@ -105,7 +106,7 @@
                 <div class="creater">
                     <p class="sub-info">크리에이터 정보</p>
                     <div class="creater-info">
-                        <div><img class="creater-image" src="../common/image/creater1.png"></div>
+                        <div><img class="creater-image" th:src="@{/image/creater1.png}"></div>
                         <div>크리에이터 명<br>
                             070-XXXX-XXXX<br>
                             Creater@email.com</div>

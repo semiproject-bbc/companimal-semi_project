@@ -1,0 +1,235 @@
+.nav-tab {
+    width: 160px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 0px;
+    background-color: #ffd57e;
+    margin: 6px;
+}
+.nav-choose {
+    padding-right: 10px;
+    font-weight: bold;
+    border: 0px;
+    background-color: white;
+    color: #fca652;
+    margin: 4px;
+    margin-left: 14px;
+}
+
+.nav-list {
+    padding-right: 10px;
+    font-weight: 100px;
+    border: 0px;
+    background-color: white;
+    margin: 4px;
+    margin-left: 14px;
+}
+
+.main {
+    padding-left: 15%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 20px;
+}
+
+.title {
+    font-size: 21px;
+    font-weight: bold;
+
+}
+
+.sub-title {
+    font-size:18px;
+    font-weight: bold;
+}
+
+.select-box {
+    width: 752px;
+}
+
+.input-title {
+    width: 745px;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+}
+
+.input-text {
+    width: 745px;
+    height: 170px;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+}
+
+.input-name {
+    width: 580px;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+}
+
+.input-number {
+    width: 148px;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+}
+
+.input-value {
+    width: 200px;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+}
+
+.plus {
+    font-weight: bold;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+    background-color: #fca652;
+}
+
+.remove {
+    font-weight: bold;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+    background-color: white
+}
+
+.tip {
+    width: 720px;
+    height: 150px;
+    background-color: #ffefa0;
+    float: left;
+    font-size: 15px;
+    align-self: center;
+    font-weight: 400;
+    padding-left: 30px;
+    letter-spacing : 0.7px;
+    line-height : 25px;
+}
+
+.tip-long {
+    width: 690px;
+    height: 190px;
+    background-color: #ffefa0;
+    float: left;
+    font-size: 15px;
+    align-self: center;
+    font-weight: 400;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    letter-spacing : 0.7px;
+    line-height : 25px;
+}
+
+.tip-long-long {
+    width: 690px;
+    height: 270px;
+    background-color: #ffefa0;
+    float: left;
+    font-size: 15px;
+    align-self: center;
+    font-weight: 400;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    letter-spacing : 0.7px;
+    line-height : 28px;
+}
+
+.tip-long-long-long {
+    width: 690px;
+    height: 270px;
+    background-color: #ffefa0;
+    float: left;
+    font-size: 15px;
+    align-self: center;
+    font-weight: 400;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    letter-spacing : 0.4px;
+    line-height : 28px;
+}
+
+.choose {
+    color: #D5D5D5;
+}
+
+
+.tip-title {
+    font-size: 19px;
+    color: #fca652;
+    font-weight: bold;
+}
+.tip-content {
+    font-size: 17px;
+}
+
+.btn-reward {
+    width:150px;
+    height:50px;
+    background-color:#fca652;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#ffffff;
+    font-weight:bold;
+    font-size:18px;
+    border-radius: 3px;
+    margin: 30px;
+}
+
+.container {
+    display: table-column;
+}
+
+.next {
+    width: 70px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 0px;
+    background-color: #D5D5D5;
+    color: white;
+    border-radius: 3px;
+    border-style: ridge;
+    margin: 10px;
+    /* float:right; */
+    /* margin-right: 85px; */
+}
+
+.before {
+    border-color: #fca652;
+    width: 70px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    color: #fca652;
+    border-radius: 3px;
+    border-style: ridge;
+    /* margin: 10px; */
+    /* float:right; */
+    /* margin-right: 85px; */
+    /* margin-top: 20px; */
+    margin-top: 10%;
+}
+
+.before-next {
+    margin-left:  730px;
+}
+
+.side {
+    width:30%;
+}
+.main {
+    width:70%;
+    margin-bottom: 3%;
+}
