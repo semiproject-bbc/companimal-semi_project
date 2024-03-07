@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/login_layout}">
+      layout:decorate="~{layouts/logout_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="UTF-8" />
 </head>
 
 <th:block layout:fragment="content">
-    <p>메인 페이지</p>
+    <button onclick="location.href='contents/project/projectDetail.html'">펀딩 상세페이지</button>
 </th:block>
 
 </html>

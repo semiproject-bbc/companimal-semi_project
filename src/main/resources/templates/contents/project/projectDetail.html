@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/logout_layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/projectDetail.css">
+</head>
+
+<th:block layout:fragment="content">
+    <section>
+        <div class="door">
+            <div class="door-image">
+                <div class="slider">
+                    <input type="radio" name="slide" id="slide1" checked>
+                    <input type="radio" name="slide" id="slide2">
+                    <input type="radio" name="slide" id="slide3">
+                    <ul id="imgholder" class="imgs">
+                        <li><img class="detail-main-image" src="../common/image/detail_main_image1.png"></li>
+                        <li><img class="detail-main-image" src="../common/image/detail_main_image2.png"></li>
+                        <li><img class="detail-main-image" src="../common/image/detail_main_image3.png"></li>
+                    </ul>
+                    <div class="bullets">
+                        <label for="slide1">&nbsp;</label>
+                        <label for="slide2">&nbsp;</label>
+                        <label for="slide3">&nbsp;</label>
+                    </div>
+                </div>
+            </div>
+            <div class="door-content" th:each="project : ${ selectProjectList }">
+                <p class="d-day">D-2</p>
+                <div class="category-title">
+                    <div class="category">
+                        <button type="button" class="category_button">
+                            <img class="category-image" src="../common/image/living.png">
+                        </button>
+                        <p class="living" th:text="${ project.cateMain }">생활용품</p>
+                    </div>
+                    <p class="title" th:text="${ project.proName }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반려동물을 위한 공간,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        프리미엄 냉온시스템 펫 매트</p>
+                </div>
+                <p class="introduce">프로젝트 소개</p>
+                <div class="goal-container">
+                    <p class="goal-price">3,100,000</p>
+                    <p class="goal-won"> 원 달성</p>
+                </div>
+                <div class="heart-gray-icon-container">
+                    <button type="button" class="heart-button">
+                        <img class="heart-gray-icon" src="../common/image/heart-gray.png">
+                        <a href="../projectRegist/1_기본 정보.html"></a>
+                    </button>
+                    <button type="button" class="funding">펀딩 후원하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section2">
+        <div class="content">
+            <div class="story">
+                <p class="sub-info">프로젝트 스토리</p>
+                <img class="story-image" src="../common/image/petsonHome1.jpg">
+                <img class="story-image" src="../common/image/petsonHome2.jpg">
+                <img class="story-image" src="../common/image/petsonHome3.jpg">
+                <img class="story-image" src="../common/image/petsonHome4.jpg">
+                <img class="story-image" src="../common/image/petsonHome5.jpg">
+                <img class="story-image" src="../common/image/petsonHome6.jpg">
+                <img class="story-image" src="../common/image/petsonHome7.jpg">
+                <img class="story-image" src="../common/image/petsonHome8.jpg">
+                <img class="story-image" src="../common/image/petsonHome9.jpg">
+                <div class="creater-introduce">
+                    <p class="intro-title">저희 히즈독은 소중한 반려가족의 특별한 라이프스타일을 디자인합니다.</p>
+                    <p class="intro-content">약 1년이라는 시간동안 히즈독을 운영하면서 반려인들의 이야기를 들을 기회가 많았었는데요,
+                        수많은 이야기 중에서도 제 이목을 크게 집중시켰던 것은 바로 강아지의 신체구조상
+                        여름철 더위가 너무 고통이라는 이야기였습니다. 게다가 항상 반려견을 동반하여 외출할 수 없기 때문에
+                        집에 홀로 두고 나올 때면, 에어컨을 틀고 외출할 수밖에 없어 요즘같이 냉난방비 폭탄인 시즌에는 그 비용도 만만치 않다는 이야기였습니다.<br>
+                        저희는
+                        <mark class="intro-line">“어떻게 하면, 여름철에는 시원하고 겨울철에는 따뜻한 공간을 선물할 수 있으며,
+                            반려인의 현실적인 문제들을 동시에 해결할 수 있을까”</mark><br>
+                        라는 질문에서 시작하여 펫슨홈 개발을 생각하게 되었습니다.<br>
+                        처음에는 단순히 시원하고 따뜻한 공간을 만드는 것에만 집중하였지만,
+                        점차 반려인에게도 느낌 있는 공간, 더 나아가서는  반려동물과 반려인의 깊은 소통이 일어나는 공간,
+                        즉 '반려동물과 반려인만의 특별한 라이프스타일'을 디자인하는 가치 공간으로 확장해나가게 되었습니다.
+                    </p>
+                </div>
+                <img class="story-image" src="../common/image/petsonHome10.jpg">
+                <div class="shipping-policy">
+                    <p class="sub-info">배송 안내</p>
+                    <p class="sub-content">• 발송 예정일 : 추후 공지 예정<br>
+                        • 택배사 명 : 우체국 택배 (예정)<br>
+                        • 배송 문의 상담 가능 시간 : 10시 ~ 17시<br></p>
+                    <p class="sub-info">환불 불가 정책</p>
+                    <p class="sub-content">• 포장 및 배송 중 발생될 수 있는 미세한 스크레치 및 찍힘은
+                        환불이 어렵습니다.<br>
+                        • 색상, 사이즈 측정 방식, 가공 환경에 따라 1-3mm 정도 차이가
+                        날 수 있습니다.</p>
+                    <p class="sub-info">A/S 규정</p>
+                    <P class="sub-content">• 보증 기간 : 리워드 수령일로부터 1년<br>
+                        • 규정 : 정상 신체품에서 발생한 하자의 경우 1:1 문의를 통해 해결합니다.<br>
+                        • A/S 불가 규정 : 보증 기간 이내일지라도 사용자의 고의 또는 과실로 인하여 발생한 제품 하자인 경우<br></P>
+                </div>
+            </div>
+            <div class="creater-reward">
+                <div class="creater">
+                    <p class="sub-info">크리에이터 정보</p>
+                    <div class="creater-info">
+                        <div><img class="creater-image" src="../common/image/creater1.png"></div>
+                        <div>크리에이터 명<br>
+                            070-XXXX-XXXX<br>
+                            Creater@email.com</div>
+                    </div>
+                </div>
+                <div class="reward">
+                    <p class="sub-info">리워드 선택</p>
+                    <div class="reward-list">
+                        <div class="reward-1">
+                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</div>
+                            <div class="op-limit">
+                                <div class="reward-option">색상 : 기본</div>
+                                <div class="reward-limitCount">현재 100개 남음!</div>
+                            </div>
+                            <div class="reward-content">
+                                <span class="reward-price">120,000원</span><br>
+                                <span class="reward-etc">배송비 2500원</span><br>
+                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
+                            </div>
+                        </div><br>
+                        <div class="reward-2">
+                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</div>
+                            <div class="op-limit">
+                                <div class="reward-option">색상 : 기본</div>
+                                <div class="reward-limitCount">현재 100개 남음!</div>
+                            </div>
+                            <div class="reward-content">
+                                <span class="reward-price">120,000원</span><br>
+                                <span class="reward-etc">배송비 2500원</span><br>
+                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
+                            </div>
+                        </div><br>
+                        <div class="reward-3">
+                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>
+                            <div class="op-limit">
+                                <div class="reward-option">색상 : 블랙 코팅</div>
+                                <div class="reward-limitCount">현재 230개 남음!</div>
+                            </div>
+                            <div class="reward-content">
+                                <span class="reward-price">130,000원</span><br>
+                                <span class="reward-etc">배송비 2500원</span><br>
+                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
+                            </div>
+                        </div><br>
+                        <div class="reward-4">
+                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>
+                            <div class="op-limit">
+                                <div class="reward-option">색상 : 기본</div>
+                                <div class="reward-limitCount">현재 105개 남음!</div>
+                            </div>
+                            <div class="reward-content">
+                                <span class="reward-price">130,000원</span><br>
+                                <span class="reward-etc">배송비 2500원</span><br>
+                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reward-choose">
+                        <div class="reward-choose-list">
+                            <!-- 선택한 것 입력 -->
+                            <div class="reward-choose1">
+                                <span>펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</span><br>
+                                <div class="count-price">
+                                    <div class="counts">
+                                        <div class="minus">-</div>
+                                        <div class="number">1</div>
+                                        <div class="plus">+</div>
+                                    </div>
+                                    <div class="price">120,000원</div>
+                                </div>
+                            </div>
+                            <div class="reward-choose2">
+                                <span>펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</span><br>
+                                <div class="count-price">
+                                    <div class="counts">
+                                        <div class="minus">-</div>
+                                        <div class="number">1</div>
+                                        <div class="plus">+</div>
+                                    </div>
+                                    <div class="price">130,000원</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <hr><br>
+                            <div class="reward-all-price">
+                                <div class="all-price">총 펀딩 금액</div>
+                                <div class="all-price">250,000원</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+</html>
