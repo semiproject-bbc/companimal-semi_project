@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/login_layout}">
+      layout:decorate="~{layouts/logout_layout}">
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="projectDetail.css">
+    <link rel="stylesheet" href="css/projectDetail.css">
 </head>
 
 <th:block layout:fragment="content">
@@ -28,16 +28,16 @@
                     </div>
                 </div>
             </div>
-            <div class="door-content">
+            <div class="door-content" th:each="project : ${ selectProjectList }">
                 <p class="d-day">D-2</p>
                 <div class="category-title">
                     <div class="category">
                         <button type="button" class="category_button">
                             <img class="category-image" src="../common/image/living.png">
                         </button>
-                        <p class="living">생활용품</p>
+                        <p class="living" th:text="${ project.cateMain }">생활용품</p>
                     </div>
-                    <p class="title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반려동물을 위한 공간,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p class="title" th:text="${ project.proName }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반려동물을 위한 공간,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         프리미엄 냉온시스템 펫 매트</p>
                 </div>
                 <p class="introduce">프로젝트 소개</p>
