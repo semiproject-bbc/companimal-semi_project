@@ -1,0 +1,272 @@
+/* font */
+/*@font-face {*/
+/*    font-family: 'nexon';*/
+/*    src: url('../common/nexonLv1/NEXON\ Lv1\ Gothic_TTF/');*/
+/*}*/
+
+.d-flex {
+    display:flex;
+}
+input:focus {
+    outline:none;
+}
+
+/* button */
+button:hover {
+    cursor:pointer;
+}
+.btn1 {
+    width:100px;
+    height:40px;
+    background-color:#fca652;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#ffffff;
+    font-weight:bold;
+    font-size:18px;
+}
+.btn2 {
+    width:100px;
+    height:40px;
+    background-color:#ffffff;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#000000;
+    font-size:18px;
+}
+.btn3 {
+    width:100px;
+    height:40px;
+    background-color:#d5d5d5;
+    border:#d5d5d5 2px solid;
+    border-radius:5px;
+    color:#000000;
+    font-size:18px;
+}
+
+/* header */
+header {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    width:1400px;
+    margin:auto;
+}
+
+.miniNav {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-end;
+}
+
+.miniNav button:not(:last-child):hover {
+    color:#fca652;
+}
+
+.miniNav-item {
+    margin: 10px;
+}
+
+.heart-icon {
+    height: 35px;
+    width: 35px;
+}
+
+.bell-icon {
+    width: 33px;
+    height: 33px;
+}
+
+.myPage, .logout, .signup, .login {
+    border: 0px;
+    background-color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.projectRegist {
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 0px;
+    border-radius:5px;
+    background-color: #fca652;
+    color: white;
+    margin-left: 30px;
+}
+.projectRegist:hover {
+    background-color: #ff8000;
+    border:#ff8000;
+}
+
+.companimal {
+    margin: 0;
+    margin-top:20px;
+    height: 40px;
+    font-size: 40px;
+    font-style: italic;
+    font-weight: 400px;
+    align-self: center;
+    height: 120px;
+}
+
+.mainNav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-bar a {
+    text-decoration-line: none;
+    font-size: 27px;
+    font-weight: bold;
+    margin: 10px;
+    margin-right: 70px;
+    color: black;
+}
+
+.menu-bar {
+    display: flex;
+}
+
+.menu-bar a:hover {
+    color:#fca652;
+}
+
+.keyword-search {
+    width: 308px;
+    border-radius: 25px;
+    background-color: #f6f6f6;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 11px;
+}
+
+.search-box {
+    width: 200px;
+    font-family: Inter;
+    font-size: 20px;
+    height: 24px;
+    border:0px;
+    background-color: #f6f6f6;
+}
+.keyword-search button {
+    border:0px;
+    background-color: #f6f6f6;
+}
+.keyword-search-icon {
+    height: 24px;
+    width: 24px;
+
+}
+
+/* section */
+section {
+    width:1400px;
+    margin:auto;
+    display:flex;
+    padding:50px 0;
+}
+.oneSection {
+    width:1400px;
+    margin:auto;
+    padding:50px 0;
+
+}
+.sidetab {
+    width:30%;
+}
+.sidewrap {
+    width:80%;
+    margin:auto;
+    text-align: center;
+}
+.rolechangebtn {
+    justify-content: center;
+}
+.rolechangebtn button {
+    width:120px;
+    text-align:center;
+    font-size:18px;
+    padding:8px 0;
+}
+.supporterbtn {
+    background-color: #ffd57e;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border:#ffd57e;
+}
+.creatorbtn {
+    background-color: #ffd57e;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border:#ffd57e;
+}
+.managerbtn {
+    width:180px;
+    height:40px;
+    background-color: #fca652;
+    border:#fca652;
+    border-radius: 5px;;
+    color:#ffffff;
+    font-size:18px;
+    font-weight:bold;
+}
+.focusbtn {
+    background-color: #fca652;
+    border:#fca652;
+    color:#ffffff;
+    font-weight:bold;
+}
+.roleimage {
+    margin:30px 0;
+}
+.roleimage img {
+    text-align:center;
+    width:200px;
+    border-radius: 50%;
+}
+.sidemenu {
+    display:flex;
+    flex-direction: column;
+    width:80%;
+    margin:auto;
+}
+.sidemenu p {
+    padding:10px 0;
+    background-color: #ffd57e;
+    border-radius: 5px;
+    text-align: center;
+    font-size:18px;
+}
+.sidemenu button {
+    border:none;
+    background-color:#ffffff;
+    text-align:start;
+    font-size:18px;
+    margin-left:20px;
+    margin-bottom:10px;
+}
+.sidemenu button:focus {
+    font-weight:bold;
+    color:#fca652;
+}
+
+.main {
+    width:70%;
+}
+
+/* footer */
+footer {
+    width:1400px;
+    margin:auto;
+}
+.footer {
+    display:flex;
+    padding:0 20px;
+}
+.footer div {
+    width:50%;
+}

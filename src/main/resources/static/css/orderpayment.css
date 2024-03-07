@@ -1,0 +1,368 @@
+html {
+    width: 1400px;
+    margin: auto;
+    padding: 5%;
+
+    section {
+        font-size: 18px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+
+
+        .orderPayment-headers {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+
+            .orderPayment-header {
+                font-size: 30px;
+                font-weight: bolder;
+            }
+
+            .processBytheSide {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                span {
+                    color: #d5d5d5;
+                }
+            }
+
+            .productInfo {
+                align-items: center;
+            }
+
+        }
+
+        .productInfo {
+            font-size: 30px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .ProductInformation {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            margin: 50px 0px;
+            height: 500px;
+
+
+            .productImage {
+                box-sizing: border-box;
+                margin: 20px 0px;
+                height: 500px;
+                width: 600px;
+            }
+
+            .productInfo-container {
+                box-sizing: border-box;
+                height: 500px;
+                width: 600px;
+                margin: 20px 0px;
+                border-style: solid;
+                border-color: #d5d5d5;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .productName-container,
+                .rewardName-container,
+                .NoOfProject-container,
+                .coupon-container,
+                .orderFee-container {
+                    display: flex;
+                    flex-direction: row;
+                    margin: 5%;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+
+                .projectName,
+                .rewardName,
+                .NoOfProject,
+                .coupon,
+                .orderFee {
+                    width: 150px;
+                    font-weight: bolder;
+                    font-size: 22px;
+                }
+
+                .projectNameInfo,
+                .rewardNameInfo,
+                .deliverFeeAmount,
+                .couponDiscount,
+                .orderAmount {
+                    max-width: 450px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
+
+            }
+        }
+
+        /* 펀딩 서포터, 배송지 section */
+        .fundingSupporterAndRewardDestination {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+
+            .fundingSupporter-container {
+                height: 470px;
+                width: 600px;
+                margin: 20px 0px;
+
+                .fundingSupporter-title {
+                    font-size: 25px;
+                    font-weight: bolder;
+                    margin-bottom: 20px;
+                }
+
+                .fundingSupporter-container2 {
+                    /* border-style: solid;
+                    border-color: #D5D5D5;
+                    height: 400px; */
+                    box-sizing: border-box;
+                    height: 400px;
+                    border-style: solid;
+                    border-color: #D5D5D5;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .supporterName-container,
+                    .supporterEmail-container,
+                    .supporterPhoneNumber-container {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        padding: 15px;
+                        margin-top: auto;
+                        margin-bottom: auto;
+                    }
+
+                    .supporterName,
+                    .supporterEmail,
+                    .supporterPhoneNumber {
+                        font-size: 25px;
+                        margin-bottom: 10px;
+                    }
+
+                    .supporterNameInputtedValue,
+                    .supporterEmailInputtedValue,
+                    .supporterPhoneNumberInputtedValue {
+                        color: #D5D5D5;
+                        margin-top: 2%;
+                        font-size: 25px;
+                    }
+                    .tNcPayment-container {
+                        display: flex;
+                        padding: 1% 1% 1% 2%;
+
+
+                        .conditions {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-left: 2%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .rewardDestination-container {
+            height: 470;
+            width: 600px;
+            margin: 20px 0px;
+
+            .rewardDestination-title {
+                font-size: 25px;
+                font-weight: bolder;
+                margin-bottom: 20px;
+            }
+
+            .rewardDestination-container2 {
+                box-sizing: border-box;
+                height: 400px;
+                width: 600px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .rewardGetPersonName,
+            .rewardGetPersonAddress,
+            .rewardToNotify {
+                font-size: 25px;
+            }
+
+            .rewardGetPersonName-container,
+            .rewardGetPersonAddress-container,
+            .rewardToNotify-container {
+                margin-bottom: 40px;
+
+            }
+
+            .rewardGetPersonNameInfo,
+            .rewardGetPersonAddressInfo,
+            .rewardToNotifyText {
+                margin-top: 2%;
+                font-size: 25px;
+                width: 96%;
+                height: 55px;
+                padding-left: 2%;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+            }
+
+        }
+        /* 결제 수단 */
+        .payment {
+            display: flex;
+            margin-top: 2%;
+            margin-bottom: 2%;
+
+            .paymentMethod-container {
+                height: 130px;
+                width: 300px;
+
+                .paymentMethod {
+                    font-size: 30px;
+                    font-weight: bolder;
+                    margin-bottom: 5%;
+                }
+
+                .kakaopay {
+                    height: 70px;
+                    width: 70px;
+                }
+            }
+
+            .finalPayment-container {
+                margin-left: 27%;
+                height: 130px;
+                width: 450px;
+
+                .finalPayment {
+                    font-size: 30px;
+                    font-weight: bolder;
+                    margin-bottom: 35px;
+                }
+
+                .finalPaymentAmount {
+                    font-size: 40px;
+                    font-weight: bolder;
+                    span {
+                        font-size: 20px;
+                    }
+                }
+
+            }
+        }
+
+        .agreeTotNc-allcontainer {
+
+            width: 750px;
+            margin-top: 20px;
+
+            .agreeToTermsAndConditions {
+                font-size: 35px;
+                font-weight: bolder;
+                margin-bottom: 20px;
+            }
+
+            .agreeToTermsAndConditions-container {
+                border-style: solid;
+                border-color: #D5D5D5;
+                font-size: 25px;
+
+
+                .agreeToAll-container,
+                .tNcPaymentMethods-container,
+                .tNc3rdParty-container,
+                .tNcResponsible-container,
+                .tNchoowon-container {
+                    display: flex;
+
+                    margin: 3% 2%;
+                }
+
+                .agreeToAll,
+                .tNcPaymentMethods,
+                .tNc3rdParty,
+                .tNcResponsible,
+                .tNchoowon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: 2%;
+                }
+                .positionSee {
+                    align-self: self-end;
+                }
+                .see {
+                    display: flex;
+                    align-items: center;
+                    margin-left: auto;
+                    font-size: 15px;
+                }
+
+            }
+        }
+
+        .paymentButton-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 150px;
+            align-self: center;
+
+        }
+
+        .ontoPayment {
+            height: 70px;
+            width: 400px;
+            border-style: solid;
+            border-color: #D5D5D5;
+            color: #D5D5D5;
+            justify-content: center;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .checked {
+            /* Style for checked state */
+            background-color: orange; /* Change to desired color */
+        }
+
+        input[type="checkbox"] {
+            width: 2em;
+            height: 2rem;
+            accent-color: #FCA652;
+        }
+
+        .seeClass {
+            text-decoration: none;
+        }
+    }
+}
+
+/* In your main CSS file */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0000; /* Semi-transparent black */
+    opacity: 0.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

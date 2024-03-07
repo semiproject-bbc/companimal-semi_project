@@ -1,0 +1,13 @@
+section {
+    width: 1400px;
+    height: 1600px;
+    padding: 2% 5% 5% 7%;
+
+    .searchResult {
+        font-size: 25px;
+        span {
+            font-weight: bolder;
+            color: #FCA652;
+        }
+    }
+}
