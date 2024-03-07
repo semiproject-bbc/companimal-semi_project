@@ -1,0 +1,71 @@
+section {
+    width: 1400px;
+    margin:auto;
+    font-size: 18px;
+    .contents{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 5%;
+        .sectionHeader {
+            display: flex;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 4%;
+            span {
+                font-style: lemon;
+            }
+        }
+
+        .mainPic {
+            height: 30%;
+            width: 30%;
+            align-self: center;
+            margin-bottom: 6%;
+        }
+        .CompanimalText {
+            text-align: center;
+        }
+    }
+
+    .text {
+        font-size: 25px;
+        text-align: center;
+
+
+        .textHeader,
+        .text1,
+        .text2,
+        .text3,
+        .text4,
+        .text5 {
+            margin-bottom: 2%;
+        }
+
+        .textHeader {
+            font-size: 50px;
+            font-family: "La Belle Aurore", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+        span {
+            font-family: "Lemonada", cursive;
+            font-optical-sizing: auto;
+            font-weight: bolder;
+            font-style: normal;
+        }
+    }
+
+    .CompanimalSign {
+        font-family: "Oooh Baby", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 35px;
+
+        margin: 5% 0% 10% 70%;
+
+    }
+}
+
+
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/logout_manager_layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<th:block layout:fragment="content">
+    <div class="main">
+        <h2>후원금 최종 정산 심사</h2>
+        <table class="listTable">
+            <colgroup>
+                <col style="width:15%">
+                <col style="width:20%">
+                <col style="width:35%">
+                <col style="width:15%">
+                <col style="width:15%">
+            </colgroup>
+            <tr>
+                <th>심사 번호</th>
+                <th>심사 요청 일시</th>
+                <th>제목</th>
+                <th>승인</th>
+                <th>심사 상황</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td>-</td>
+                <td>승인 완료</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td><button class="evadetail">승인</button></td>
+                <td>승인 대기</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td><button class="evadetail">승인</button></td>
+                <td>승인 대기</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td><button class="evadetail">승인</button></td>
+                <td>승인 대기</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td><button class="evadetail">승인</button></td>
+                <td>승인 대기</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td>-</td>
+                <td>승인 완료</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td>-</td>
+                <td>승인 완료</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td>-</td>
+                <td>승인 완료</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td>-</td>
+                <td>승인 완료</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>2024.03.04</td>
+                <td>프로젝트 제목입니다.</td>
+                <td>-</td>
+                <td>승인 완료</td>
+            </tr>
+        </table>
+    </div>
+</th:block>
+
+</html>

@@ -29,16 +29,16 @@
                     </div>
                 </div>
             </div>
-            <div class="door-content">
+            <div class="door-content" th:each="project : ${ selectProjectList }">
                 <p class="d-day">D-2</p>
                 <div class="category-title">
                     <div class="category">
                         <button type="button" class="category_button">
-                            <img class="category-image" th:src="@{/image/living.png}">
+                            <img class="category-image" src="../common/image/living.png">
                         </button>
-                        <p class="living">생활용품</p>
+                        <p class="living" th:text="${ project.cateMain }">생활용품</p>
                     </div>
-                    <p class="title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반려동물을 위한 공간,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p class="title" th:text="${ project.proName }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반려동물을 위한 공간,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         프리미엄 냉온시스템 펫 매트</p>
                 </div>
                 <p class="introduce">프로젝트 소개</p>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="heart-gray-icon-container">
                     <button type="button" class="heart-button">
-                        <img class="heart-gray-icon" th:src="@{/image/heart-gray.png}">
+                        <img class="heart-gray-icon" src="../common/image/heart-gray.png">
                         <a href="../projectRegist/1_기본 정보.html"></a>
                     </button>
                     <button type="button" class="funding">펀딩 후원하기</button>
