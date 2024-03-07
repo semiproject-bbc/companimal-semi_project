@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/logout_supporter_layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<th:block layout:fragment="content">
+    <div class="main">
+        <div>
+            <button class="couponbox d-flex" th:onclick="|location.href='@{/member/coupon}'|">
+                <img src="/image/coupon.png" alt="쿠폰">
+                <span>쿠폰</span>
+                <span class="minibar">|</span>
+                <span>5장</span>
+            </button>
+        </div>
+        <div class="adbox">광고</div>
+        <div class="activeBox">
+            <h2>나의 활동</h2>
+            <div class="myactive d-flex">
+                <button>
+                    <img src="/image/heart.png" alt="관심">
+                    <span>관심 프로젝트</span>
+                </button>
+                <button th:onclick="|location.href='@{/member/noticecenter}'|">
+                    <img src="/image/bell.png" alt="알림">
+                    <span>알림</span>
+                </button>
+                <button>
+                    <img src="/image/orderlist.png" alt="주문 목록">
+                    <span>주문 목록</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</html>

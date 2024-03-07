@@ -1,0 +1,87 @@
+body {
+    width: 1400px;
+    margin: auto;
+}
+
+section {
+    .main {
+        .projectInfo-outerlayer {
+            margin: 0% 4%;
+            /* border-style: solid;
+            border-color: #d5d5d5; */
+            padding: 3% 5%;
+
+            .orderList {
+                font-size: 35px;
+                font-weight: bolder;
+                margin-bottom: 10%;
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        .projectInfo-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .image1 {
+                height: 450px;
+                width: 600px;
+                align-items: center;
+                margin-bottom: 25px;
+            }
+
+            .projectDetails-container {
+                width: 600px;
+                display: flex;
+                flex-direction: column;
+                border-style: solid;
+                border-color: #d5d5d5;
+
+
+                .projectName-container,
+                .projectDescription-container,
+                .orderNo-container,
+                .orderDate-container,
+                .paymentDate-container,
+                .paymentAmount-container {
+                    display: flex;
+                    justify-content: left;
+                    margin: 2% 0%;
+                    padding: 2%;
+                    font-size: 25px;
+                }
+
+                .projectName,
+                .projectDescriptionName,
+                .orderNo,
+                .orderDate,
+                .paymentDate,
+                .paymentAmount {
+                    width: 250px;
+                }
+            }
+
+            .confirmation-container {
+                margin-top: 3%;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 200px;
+    background-color: #FCA652;
+    color: white;
+    border-color: #FCA652;
+    border-style: solid;
+    font-size: 25px;
+    font-weight: bolder;
+}

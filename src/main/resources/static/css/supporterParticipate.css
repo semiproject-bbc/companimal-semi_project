@@ -1,0 +1,121 @@
+html {
+    width: 1400px;
+    margin: auto;
+}
+
+
+.participateProject-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .projectbox img {
+        width: 90%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .projectbox {
+        margin-bottom: 3%;
+    }
+
+    .supporterOrderHistory {
+        display: flex;
+        justify-content: center;
+        margin: 0% 2%;
+    }
+}
+.inquiryHistory {
+    .creatorInquiry {
+        background-color: #fca652;
+        border-style: solid;
+        border-color: #fca652;
+        color: white;
+        font-size: 25px;
+        border-radius: 5px;
+        width: 90%;
+        padding:15px 0;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .myInquiry {
+        background-color: #FFD57E;
+        color: white;
+        font-size: 25px;
+        border-radius: 5px;
+        width: 90%;
+        padding:15px 0;
+        font-weight: bold;
+        text-align: center;
+    }
+
+}
+
+
+.projectInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 3% 0% 3% 0%;
+    font-size: 20px;
+
+    .projectDate {
+        color: #d5d5d5;
+        font-weight: bolder;
+
+    }
+    .deliverStatus {
+        color: white;
+        background-color: #fca652;
+        padding: 1%;
+    }
+}
+
+.pjpercentage {
+    color:#fca652;
+    font-weight:bold;
+    margin:15px 0;
+}
+.endpjbtn {
+    width:90%;
+    justify-content: space-between;
+    margin-bottom: 3%;
+    margin-left: 2%;
+
+}
+.endpjbtn button {
+    display:inline-block;
+    width:48%;
+    font-size:18px;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding:10px 0;
+}
+.purchaseConfirmation {
+    background-color:#ffffff;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#000000;
+    font-size:18px;
+}
+
+.orderDetails {
+    background-color:white;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:black;
+    font-size:18px;
+}
+.inquiryHistory {
+    margin-left: 2%;
+    margin-bottom: 5%;
+
+}
+
+.purchaseConfirmed {
+    background: color #d5d5d5;;
+    border:#d5d5d5 2px solid;
+    border-radius:5px;
+    color:#000000;
+    font-size:18px;
+}
