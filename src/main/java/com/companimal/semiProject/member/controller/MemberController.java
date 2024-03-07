@@ -69,3 +69,4 @@ public class MemberController {
         return "contents/member/noticecenter";
     }
 }
+
