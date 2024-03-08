@@ -1,0 +1,277 @@
+.account-intro-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.AccountContainer_title{
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.registIdField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.idField {
+    height: 58px;
+    width: 354px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.idDuplicateCheckButton {
+    width: 115px;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.registPasswordField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+    
+}
+
+.passwordField {
+    height: 58px;
+    width: 469px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.registPasswordCheckField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+    
+}
+
+.passwordCheckField {
+    height: 58px;
+    width: 469px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.registNicknameField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.nicknameField {
+    height: 58px;
+    width: 354px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.nicknameDuplicateCheckButton {
+    width: 115px;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.registNameField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+    
+}
+
+.nameField {
+    height: 58px;
+    width: 469px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.registPhoneNumberField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+    
+}
+
+.phoneNumberField {
+    height: 58px;
+    width: 469px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.registEmailField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.emailField {
+    height: 58px;
+    width: 239px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.emailSelect {
+    width: 115px;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: medium;
+    text-align-last: center;
+}
+
+.emailSendButton {
+    width: 115px;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.registEmailCheckField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.emailCertificationNumberField {
+    height: 58px;
+    width: 354px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.certificationNumberCheckButton {
+    width: 115px;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.agreement {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .agreement-contents {
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 469px;
+  }
+  
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .term {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .icon {
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .agreementName{
+    margin-left: 20px;
+  }
+  
+  .view {
+    margin-right: 30px;
+  }
+
+.registButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.registSubmitButton {
+    height: 58px;
+    width: 469px;
+    background-color: #fca652;
+    border: 1px solid #fca652;
+    box-sizing: border-box;
+    border-radius: 5px;
+    
+}
+
+.registSubmitButton:hover {
+    background-color: #ff8000;
+    border: 1px solid #ff8000;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+
+.registSubmitButtonText {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    font-size: 25px;
+    
+}
+
+
+

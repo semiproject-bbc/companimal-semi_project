@@ -1,4 +1,4 @@
-package com.companimal.semiProject.config.handler;
+package com.companimal.semiProject.config.handler;//package com.companimal.semiProject.config.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +37,7 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
 
         } else {
             errorMessage = "알 수 없는 오류로 로그인 요청을 처리할 수 없습니다. 관리자에게 문의해 주세요.";
+            exception.printStackTrace();
         }
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");

@@ -4,19 +4,17 @@ import com.companimal.semiProject.member.model.dto.LoginMemberDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class AuthDetails implements UserDetails {
 
     private LoginMemberDTO loginMemberDTO;
 
-    public AuthDetails() {
-    }
-
     public AuthDetails(LoginMemberDTO loginMemberDTO) {
         this.loginMemberDTO = loginMemberDTO;
     }
-    public LoginMemberDTO getMemberDTO() {
+    public LoginMemberDTO getloginMemberDTO() {
         return loginMemberDTO;
     }
 
@@ -26,36 +24,39 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        loginMemberDTO.getRole().forEach(role -> authorities.add(() -> role));
+
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return loginMemberDTO.getMemberPwd();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return loginMemberDTO.getMemberId();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

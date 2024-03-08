@@ -28,15 +28,15 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/login", "/member/regist", "/auth/fail", "/main").permitAll();
+            auth.requestMatchers("auth/login", "contents/member/regist", "/auth/fail", "/main", "/").permitAll();
             auth.requestMatchers("manager/*").hasAnyAuthority(MemberRole.MANAGER.getRole());
-            auth.requestMatchers("member/*").hasAnyAuthority(MemberRole.CREATOR.getRole(), MemberRole.SUPPORTER.getRole());
             auth.requestMatchers("creator/*").hasAnyAuthority(MemberRole.CREATOR.getRole());
-            auth.anyRequest().authenticated();
+            auth.anyRequest().permitAll();
+
         }).formLogin(login -> {
             login.loginPage("/auth/login");
-            login.usernameParameter("user");
-            login.passwordParameter("pass");
+            login.usernameParameter("memberId");
+            login.passwordParameter("memberPwd");
             login.defaultSuccessUrl("/", true);
             login.failureHandler(authFailHandler);
 

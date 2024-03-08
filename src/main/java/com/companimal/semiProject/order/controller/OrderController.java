@@ -1,12 +1,8 @@
 package com.companimal.semiProject.order.controller;
 
-import com.companimal.semiProject.order.model.dto.OrderOpDTO;
-import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
-import com.companimal.semiProject.order.model.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/") // @RequestMapping (value = "hello")
@@ -26,7 +22,7 @@ public class OrderController {
 
     @GetMapping("/index") // test
     public String getIndexPage() {
-        return "index"; // orderpayment page으로 이동이 되는지 확인할 것
+        return "main"; // orderpayment page으로 이동이 되는지 확인할 것
     }
 
 //    @GetMapping("/orderpayment")

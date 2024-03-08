@@ -18,8 +18,10 @@ public class AuthService implements UserDetailsService {
     private MemberService memberService;
 
     @Override
-    public UserDetails loadUserByUsername(String membername) throws UsernameNotFoundException {
-        LoginMemberDTO login = memberService.findByMembername(membername);
+    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+
+        LoginMemberDTO login = memberService.findByMembername(memberId);
+;
         if (Objects.isNull(login)) {
             throw new UsernameNotFoundException("해당하는 회원 정보가 존재하지 않습니다.");
         }

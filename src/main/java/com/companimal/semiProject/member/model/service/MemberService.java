@@ -16,15 +16,15 @@ public class MemberService {
     private MemberMapper memberMapper;
 
     @Autowired
-    private PasswordEncoder paasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-    public int regist(MemberDTO memberDTO) {
+    public int registMember(MemberDTO memberDTO) {
 
-        memberDTO.setMemberPWD(paasswordEncoder.encode(memberDTO.getMemberPWD()));
+        memberDTO.setMemberPwd(passwordEncoder.encode(memberDTO.getMemberPwd()));
 
         int result = 0;
         try {
-            result = memberMapper.regist(memberDTO);
+            result = memberMapper.registMember(memberDTO);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,13 +32,16 @@ public class MemberService {
         return result;
     }
 
-    public LoginMemberDTO findByMembername(String membername) {
+    public LoginMemberDTO findByMembername(String memberId) {
 
-        LoginMemberDTO login = memberMapper.findByMemberName(membername);
+        LoginMemberDTO login = memberMapper.findByMemberName(memberId);
+
 
         if (!Objects.isNull(login)) {
+
             return login;
         } else {
+
             return null;
         }
     }

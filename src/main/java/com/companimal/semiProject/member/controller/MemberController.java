@@ -18,13 +18,17 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("/regist")
-    public void regist() {
+    public String regist() {
+        return "contents/member/regist";
     }
 
     @PostMapping("/regist")
     public ModelAndView regist(ModelAndView mv, @ModelAttribute MemberDTO memberDTO) {
 
-        int result = memberService.regist(memberDTO);
+        System.out.println(memberDTO);
+        System.out.println("========================");
+        System.out.println(memberDTO);
+        int result = memberService.registMember(memberDTO);
 
         String message ="";
 
@@ -33,7 +37,7 @@ public class MemberController {
             mv.setViewName("auth/login");
         } else {
             message = "회원가입에 실패하였습니다.";
-            mv.setViewName("user/regist");
+            mv.setViewName("contents/member/regist");
         }
 
         mv.addObject("message", message);

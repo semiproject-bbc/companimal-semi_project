@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LoginMemberDTO {
+public class LoginMemberDTO implements java.io.Serializable{
 
-    private int memberCode;
     private String memberId;
-    private String memberPWD;
+    private String memberPwd;
     private String memberNickname;
+    private String memberName;
     private String memberPhone;
     private String memberEmail;
     private MemberRole memberRole;
@@ -19,11 +19,11 @@ public class LoginMemberDTO {
     public LoginMemberDTO() {
     }
 
-    public LoginMemberDTO(int memberCode, String memberId, String memberPWD, String memberNickname, String memberPhone, String memberEmail, MemberRole memberRole) {
-        this.memberCode = memberCode;
+    public LoginMemberDTO(String memberId, String memberPwd, String memberName, String memberNickname, String memberPhone, String memberEmail, MemberRole memberRole) {
         this.memberId = memberId;
-        this.memberPWD = memberPWD;
+        this.memberPwd = memberPwd;
         this.memberNickname = memberNickname;
+        this.memberName = memberName;
         this.memberPhone = memberPhone;
         this.memberEmail = memberEmail;
         this.memberRole = memberRole;
@@ -37,13 +37,6 @@ public class LoginMemberDTO {
         return new ArrayList<>();
     }
 
-    public int getMemberCode() {
-        return memberCode;
-    }
-
-    public void setMemberCode(int memberCode) {
-        this.memberCode = memberCode;
-    }
 
     public String getMemberId() {
         return memberId;
@@ -53,12 +46,20 @@ public class LoginMemberDTO {
         this.memberId = memberId;
     }
 
-    public String getMemberPWD() {
-        return memberPWD;
+    public String getMemberPwd() {
+        return memberPwd;
     }
 
-    public void setMemberPWD(String memberPWD) {
-        this.memberPWD = memberPWD;
+    public void setMemberPwd(String memberPwd) {
+        this.memberPwd = memberPwd;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
     public String getMemberNickname() {
@@ -97,7 +98,7 @@ public class LoginMemberDTO {
     public String toString() {
         return "LoginMemberDTO{" +
                 "memberId='" + memberId + '\'' +
-                ", memberPWD='" + memberPWD + '\'' +
+                ", memberPWD='" + memberPwd + '\'' +
                 ", memberNickname='" + memberNickname + '\'' +
                 ", memberPhone='" + memberPhone + '\'' +
                 ", memberEmail='" + memberEmail + '\'' +

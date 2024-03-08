@@ -1,0 +1,91 @@
+.account-intro-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.AccountContainer_title{
+    display: flex;
+    justify-content: center;
+}
+
+.SignInForm_idField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.idField {
+    height: 58px;
+    width: 354px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+    
+}
+
+.SignInForm_passwordField {
+    align-self: stretch;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 30px;
+    
+}
+
+.passwordField {
+    height: 58px;
+    width: 354px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+.loginSubmitButton {
+    height: 58px;
+    width: 354px;
+    background-color: #fca652;
+    border: 1px solid #fca652;
+    box-sizing: border-box;
+    border-radius: 5px;
+    
+}
+
+.loginSubmitButton:hover {
+    background-color: #ff8000;
+    border: 1px solid #ff8000;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+
+.loginButtonText {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    font-size: large;
+    
+}
+
+.SignInForm_loginAction {
+    display: flex;
+}
+
+.SignInForm_forgotId a,
+.SignInForm_forgotPassword a,
+.SignInForm_regist a {
+    color: #000000; 
+    text-decoration: none;
+    margin: 0 17px;
+    display: flex;
+    
+}
+
+

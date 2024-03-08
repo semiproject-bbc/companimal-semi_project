@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <title>COMPANIMAL</title>
+    <link rel="stylesheet" href="./regist.css">
+    <link rel="stylesheet" href="../common/common.css">
+    <script src="login.js"></script>
+</head> 
+<body>
+
+    <div class="MainWeapper_contest">
+        
+        <div class="account-intro-login">
+
+            <div class="AccountContainer_container">
+
+                <h1 class="AccountContainer_title">회원가입</h1>
+
+
+                
+                <form class="registForm_form" th:action="@{/member/regist}" th:method="post">
+
+                    <div class="registFormRegistField">
+
+                        <div class="registIdField" >
+
+                            <input name="memberId"  class="idField" maxlength="20" placeholder="   아이디" type="text" >
+                            
+                            <button class="idDuplicateCheckButton">중복 확인</button>
+                        </div>
+
+                        <div class="registPasswordField">
+
+                            <input name="memberPwd" class="passwordField" maxlength="20" placeholder="   비밀번호" type="password" >
+                        </div>
+
+                        <div class="registPasswordCheckField">
+
+                            <input class="passwordCheckField" maxlength="20" placeholder="   비밀번호 확인" type="password" >
+                        </div>
+
+                        <div  class="registNicknameField">
+
+                            <input name="memberNickname" class="nicknameField" maxlength="20" placeholder="   닉네임" type="text" >
+
+                            <button class="nicknameDuplicateCheckButton">중복 확인</button>
+                        </div>      
+                        
+                        <div id="memberName" class="registNameField">
+
+                            <input name="memberName" class="nameField" maxlength="20" placeholder="   이름" type="text" >
+                        </div>
+
+                        <div  class="registPhoneNumberField">
+
+                            <input name="memberPhone" class="phoneNumberField" maxlength="20" placeholder="   휴대폰 번호" type="text" >
+                        </div>
+
+                        <div  class="registEmailField">
+
+                            <input name="memberEmail" class="emailField" maxlength="20" placeholder="   이메일" type="text" >
+
+                            <select class="emailSelect"> 
+                                <option selected disabled>선택</option>
+                                <option value="naver.com">@naver.com</option>
+                                <option value="gmail.com">@gmail.com</option>
+                                <option value="hanmail.net">@hanmail.net</option>
+                                <option value="direct">직접 입력</option>
+                            </select>
+
+                            <button class="emailSendButton">전송</button>
+                        </div>  
+
+                        <div class="registEmailCheckField">
+
+                            <input class="emailCertificationNumberField" maxlength="20" placeholder="   이메일 인증 번호" type="text" >
+
+                            <button class="certificationNumberCheckButton">확인</button>
+                        </div>  
+
+                    </div>
+
+                    <div class="agreement">
+                        <img class="icon" alt="" src="../common/image/check.png">
+                        <p>이용 약관 전체 동의</p>
+                      </div>
+                      
+                      <section class="agreement-contents">
+                        <div class="terms">
+                          <div class="item">
+                            <div class="term">
+                              <img class="icon" alt="" src="../common/image/check.png">
+                              <p class="agreementName">회원가입 약관</p>
+                            </div>
+                            <p class="view">보기</p>
+                          </div>
+                          <div class="item">
+                            <div class="term">
+                              <img class="icon" alt="" src="../common/image/check.png">
+                              <p class="agreementName">개인정보 수집 및 이용 동의</p>
+                            </div>
+                            <p class="view">보기</p>
+                          </div>
+                          <div class="item">
+                            <div class="term">
+                              <img class="icon" alt="" src="../common/image/check.png">
+                              <p class="agreementName">만 14세 이상입니다.</p>
+                            </div>
+                            <p class="view">보기</p>
+                          </div>
+                        </div>
+                      </section>
+
+                    <div class="registButton">
+                        <input name="memberRole" value="SUPPORTER" type="hidden"/>
+                    <button class="registSubmitButton" type="submit">
+                        <span class="registSubmitButtonText">가입</span>
+                    </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+        
+    </div>
+    
+</body>
+</html>

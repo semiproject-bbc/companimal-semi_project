@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberMapper {
 
-    int regist(MemberDTO memberDTO);
+    int registMember(MemberDTO memberDTO);
 
-    LoginMemberDTO findByMemberName(String membername);
+    LoginMemberDTO findByMemberName(String memberId);
 }

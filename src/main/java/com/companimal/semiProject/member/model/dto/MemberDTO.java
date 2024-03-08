@@ -1,39 +1,28 @@
 package com.companimal.semiProject.member.model.dto;
 
-import com.companimal.semiProject.common.MemberRole;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class MemberDTO {
 
     private String memberId;
-    private String memberPWD;
+    private String memberPwd;
     private String memberNickname;
+    private String memberName;
     private String memberPhone;
     private String memberEmail;
-    private MemberRole memberRole;
+    private String memberRole;
 
     public MemberDTO() {
     }
 
-    public MemberDTO(String memberId, String memberPWD, String memberNickname, String memberPhone, String memberEmail, MemberRole memberRole) {
+    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole) {
         this.memberId = memberId;
-        this.memberPWD = memberPWD;
+        this.memberPwd = memberPwd;
         this.memberNickname = memberNickname;
         this.memberPhone = memberPhone;
         this.memberEmail = memberEmail;
         this.memberRole = memberRole;
+        this.memberName = memberName;
     }
 
-    public List<String> getRole() {
-        if (this.memberRole.getRole().length() > 0) {
-            return Arrays.asList(this.memberRole.getRole().split(","));
-        }
-
-        return new ArrayList<>();
-    }
     public String getMemberId() {
         return memberId;
     }
@@ -42,16 +31,24 @@ public class MemberDTO {
         this.memberId = memberId;
     }
 
-    public String getMemberPWD() {
-        return memberPWD;
+    public String getMemberPwd() {
+        return memberPwd;
     }
 
-    public void setMemberPWD(String memberPWD) {
-        this.memberPWD = memberPWD;
+    public void setMemberPwd(String memberPwd) {
+        this.memberPwd = memberPwd;
     }
 
     public String getMemberNickname() {
         return memberNickname;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
     public void setMemberNickname(String memberNickname) {
@@ -74,11 +71,19 @@ public class MemberDTO {
         this.memberEmail = memberEmail;
     }
 
+    public String getMemberRole() {
+        return memberRole;
+    }
+
+    public void setMemberRole(String memberRole) {
+        this.memberRole = memberRole;
+    }
+
     @Override
     public String toString() {
         return "MemberDTO{" +
                 "memberId='" + memberId + '\'' +
-                ", memberPWD='" + memberPWD + '\'' +
+                ", memberPWD='" + memberPwd + '\'' +
                 ", memberNickname='" + memberNickname + '\'' +
                 ", memberPhone='" + memberPhone + '\'' +
                 ", memberEmail='" + memberEmail + '\'' +
