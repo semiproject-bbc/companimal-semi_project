@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.companimal.semiProject.project.model.dao.ProjectMapper">
+
+    <resultMap id="projectResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="delStatus" column="del_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+    </resultMap>
+
+    <resultMap id="projectCateResultMap" type="com.companimal.semiProject.project.model.dto.ProjectCateDTO">
+        <id property="proCateCode" column="pro_cate_code"/>
+        <result property="proCateName" column="pro_cate_name"/>
+        <result property="proCateType" column="pro_cate_type"/>
+    </resultMap>
+
+    <resultMap id="projectRewardResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
+        <id property="rewCode" column="rew_code"/>
+        <result property="rewNum" column="rew_num"/>
+        <result property="proCode" column="pro_code"/>
+        <result property="rewName" column="rew_name"/>
+        <result property="rewExplain" column="rew_explain"/>
+        <result property="rewSf" column="rew_sf"/>
+    </resultMap>
+
+    <resultMap id="projectRewardOptResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
+        <id property="rewOptCode" column="rew_opt_code"/>
+        <result property="rewCode" column="rew_code"/>
+        <result property="rewOptNum" column="rew_opt_num"/>
+        <result property="rewOptName" column="rew_opt_name"/>
+        <result property="rewOptVal" column="rew_opt_val"/>
+        <result property="rewOptLimit" column="rew_opt_limit"/>
+        <result property="rewAmount" column="rew_amount"/>
+    </resultMap>
+
+    <resultMap id="projectImageResultMap" type="com.companimal.semiProject.project.model.dto.ProjectImageDTO">
+        <id property="proImgNum" column="pro_img_num"/>
+        <id property="proCode" column="pro_code"/>
+        <result property="proImgPath" column="pro_img_path"/>
+        <result property="proImgName" column="pro_img_name"/>
+        <result property="proImgOriName" column="pro_img_ori_name"/>
+    </resultMap>
+
+    <resultMap id="projectFileResultMap" type="com.companimal.semiProject.project.model.dto.ProjectFileDTO">
+        <id property="proFileNum" column="pro_file_num"/>
+        <id property="proCode" column="pro_code"/>
+        <result property="proFilePath" column="pro_file_path"/>
+        <result property="proFileName" column="pro_file_name"/>
+        <result property="proFileOriName" column="pro_file_ori_name"/>
+    </resultMap>
+    
+    <resultMap id="projectDetailResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="delStatus" column="del_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+        <collection property="reward" resultMap="projectRewardResultMap"/>
+        <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>
+        <collection property="image" resultMap="projectImageResultMap"/>
+        <collection property="file" resultMap="projectFileResultMap"/>
+    </resultMap>
+
+    <!-- 프로젝트 상세페이지 조회에서 등록한 정보 가져오는 쿼리 -->
+    <select id="selectProject" resultMap="projectResultMap">
+        SELECT pro_code
+                ,pro_name
+                ,pro_intro
+                ,goal_amount
+                ,start_date
+                ,end_date
+                ,pro_story
+                ,pol_no_refund
+                ,pol_as
+                ,mem_id
+                ,est_date
+                ,ach_rate
+                ,del_status
+                ,cate_main
+                ,cate_sub
+          FROM project
+         WHERE del_status = 'N'
+    </select>
+
+    <select id="selectProjectDetail" resultMap="projectDetailResultMap">
+        SELECT p.pro_code
+        ,p.pro_name
+        ,p.pro_intro
+        ,p.goal_amount
+        ,p.start_date
+        ,p.end_date
+        ,p.pro_story
+        ,p.pol_no_refund
+        ,p.pol_as
+        ,p.mem_id
+        ,p.est_date
+        ,p.ach_rate
+        ,p.del_status
+        ,p.cate_main
+        ,p.cate_sub
+        ,r.rew_name
+        ,r.rew_explain
+        ,r.rew_sf
+        ,o.rew_opt_name
+        ,o.rew_opt_val
+        ,o.rew_opt_limit
+        ,o.rew_amount
+        ,i.pro_img_name
+        ,f.pro_file_name
+        ,c1.pro_cate_name
+        ,c2.pro_cate_name
+          FROM project p
+          JOIN reward r ON (p.pro_code = r.pro_code)
+          JOIN reward_opt o ON (r.rew_code = o.rew_code)
+          JOIN project_image i ON (p.pro_code = i.pro_code)
+          JOIN project_file f ON (p.pro_code = f.pro_code)
+          JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
+          JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)
+         WHERE del_status = 'N'
+    </select>
+
+    <!-- 프로젝트 등록 시 db에 저장할 쿼리 -->
+    <insert id="insertProject" parameterType="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        INSERT INTO project ( pro_code
+                                ,pro_name
+                                ,pro_intro
+                                ,goal_amount
+                                ,start_date
+                                ,end_date
+                                ,pro_story
+                                ,pol_no_refund
+                                ,pol_as
+                                ,mem_id
+                                ,est_date
+                                ,ach_rate
+                                ,del_status
+                                ,cate_main
+                                ,cate_sub
+                                )
+        VALUES ( #{ proCode }
+                ,#{ proName }
+                ,#{ proIntro }
+                ,#{ goalAmount }
+                ,#{ startDate }
+                ,#{ endDate }
+                ,#{ proStory }
+                ,#{ polNoRefund }
+                ,#{ polAs }
+                ,#{ memId }
+                ,#{ estDate }
+                ,#{ achRate }
+                ,#{ delStatus }
+                ,#{ cateMain }
+                ,#{ cateSub }
+                )
+    </insert>
+
+    <!-- 프로젝트 상세페이지 조회에서 카테고리 이름 가져오는 쿼리 -->
+    <select id="selectProjectCate" resultMap="projectCateResultMap">
+        SELECT pro_cate_name
+          FROM project_cate
+         WHERE pro_cate_code = #{ proCateCode }
+    </select>
+</mapper>
