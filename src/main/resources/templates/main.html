@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{layouts/logout_layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/login_layout}"x
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
@@ -8,8 +9,13 @@
 </head>
 
 <th:block layout:fragment="content">
+
+    <div sec:authorize="hasAnyAuthority('SUPPORTER')">서포터</div>
     <button onclick="location.href='contents/project/projectDetail'">펀딩 상세페이지</button>
     <button onclick="location.href='/member/regist'">회원가입</button>
+    <form th:action="@{/auth/logout}" th:method="post">
+        <button>로그아웃</button>
+    </form>
 </th:block>
 
 </html>
