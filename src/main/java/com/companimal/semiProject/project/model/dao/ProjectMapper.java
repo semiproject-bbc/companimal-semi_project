@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface ProjectMapper {
     List<ProjectDTO> selectProject();
+
+    int insertProject(ProjectDTO project);
+
+    List<ProjectDTO> selectProjectDetail();
 }

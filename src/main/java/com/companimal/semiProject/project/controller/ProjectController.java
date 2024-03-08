@@ -5,6 +5,7 @@ import com.companimal.semiProject.project.model.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,20 +21,45 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/projectDetail")
-    public String selectProject(Model model) {
+//    @GetMapping("/projectDetail")
+//    public String selectProject(Model model) {
+//
+//        List<ProjectDTO> selectProjectList = projectService.selectProject();
+//
+//        System.out.println(selectProjectList);
+//
+//        model.addAttribute("selectProjectList", selectProjectList);
+//
+//        return "contents/project/projectDetail";
+//    }
 
-        List<ProjectDTO> selectProjectList = projectService.selectProject();
+    @GetMapping("/projectDetail")
+    public String selectProjectDetail(Model model) {
+        List<ProjectDTO> selectProjectList = projectService.selectProjectDetail();
+
+        System.out.println(selectProjectList);
 
         model.addAttribute("selectProjectList", selectProjectList);
 
         return "contents/project/projectDetail";
     }
 
-//    @GetMapping("/project/projectRegist1")
-//    public String insertProject() {
-//
-//        return "redirect:/projectRegist1";
-//    }
+    @GetMapping("/projectRegistBefore")
+    public String goInsertProjectBefore() {
+        return "contents/project/projectRegistBefore";
+    }
+
+    @GetMapping("/projectRegist")
+    public String goInsertProject() {
+        return "contents/project/projectRegist";
+    }
+
+    @PostMapping("/projectRegist")
+    public String insertProject(@ModelAttribute ProjectDTO project) {
+
+        projectService.insertProject(project);
+
+        return "contents/project/projectRegistAfter";
+    }
 
 }

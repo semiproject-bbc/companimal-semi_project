@@ -1,6 +1,7 @@
 package com.companimal.semiProject.project.model.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ProjectDTO implements java.io.Serializable {
 
@@ -19,6 +20,11 @@ public class ProjectDTO implements java.io.Serializable {
     private String delStatus;       // 삭제 여부
     private int cateMain;           // 메인 카테고리
     private int cateSub;            // 서브 카테고리
+    private int dDay;               // 종료일 d-day
+    private List<ProjectRewardDTO> reward;
+    private List<ProjectRewardOptDTO> rewardOpt;
+    private List<ProjectImageDTO> image;
+    private List<ProjectFileDTO> file;
 
     public ProjectDTO() {
     }
