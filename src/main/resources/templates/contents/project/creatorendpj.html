@@ -6,66 +6,63 @@
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jsmodal.js}"></script>
 </head>
 
 <th:block layout:fragment="content">
     <div class="main">
         <h2>진행 종료 프로젝트 조회</h2>
         <div class="d-flex d-wrap projectlistbox">
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/image/etc1.jpg" alt="프로젝트 썸네일" />
-                </a>
-                <div>
-                    <h3>펀딩 프로젝트 제목1입니다.</h3>
-                    <p class="pjpercentage">103% 달성</p>
+            <th:block th:each="endpjlist : ${endProjectList}">
+                <div class="projectbox">
+                    <input type="hidden" id="projectCode" th:value="${endpjlist.proCode}">
+                    <a href="#">
+                        <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
+                    </a>
+                    <div>
+                        <h3 th:text="${endpjlist.proName}"></h3>
+                        <p class="pjpercentage" th:text="${endpjlist.achRate}"></p>
+                        <p class="pjpercentage">% 달성</p>
+                    </div>
+                    <div class="d-flex endpjbtn">
+                        <button class="supportdetail" th:onclick="|location.href='@{/project/supportlist(id=${endpjlist.proCode})}'|">후원 내역 조회</button>
+                        <button class="modalbtn shipmentbtn" data-bs-toggle="modal" data-bs-target="#shipmentModal" th:onclick="shipmentModalOpen()">배송 예정일 미입력</button>
+                    </div>
                 </div>
-                <div class="d-flex endpjbtn">
-                    <button class="supportdetail" th:onclick="|location.href='@{/project/supportlist}'|">후원 내역 조회</button>
-                    <button class="modalbtn shipmentbtn">배송 예정일 미입력</button>
-                </div>
+            </th:block>
+        </div>
+    </div>
+
+    <div class="modal" id="shipmentModal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <div class="text-end">
+                <button class="cancelBtn closeBtn" th:onclick="shipmentModalClose()">
+                    <img src="/image/x1.png" class="shipmentclose" alt="x">
+                </button>
             </div>
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/image/etc2.jpg" alt="프로젝트 썸네일" />
-                </a>
-                <div>
-                    <h3>펀딩 프로젝트 제목2입니다.</h3>
-                    <p class="pjpercentage">133% 달성</p>
+            <h3>배송 예정일을 입력하세요.</h3>
+            <form th:action="@{/project/shipment}" method="post">
+                <div class="d-flex shipmentModal">
+                    <input type="text" id="shipmetValue" name="shipmentinput" placeholder="YYYY.MM.DD" />
+                    <button type="submit" id="shipmentpush" class="shipmentpush">입력</button>
                 </div>
-                <div class="endpjbtn d-flex">
-                    <button class="supportdetail">후원 내역 조회</button>
-                    <button class="modalbtn shipmentbtn">배송 예정일 미입력</button>
-                </div>
-            </div>
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/image/etc3.jpg" alt="프로젝트 썸네일" />
-                </a>
-                <div>
-                    <h3>펀딩 프로젝트 제목3입니다.</h3>
-                    <p class="pjpercentage">129% 달성</p>
-                </div>
-                <div class="endpjbtn d-flex">
-                    <button class="supportdetail">후원 내역 조회</button>
-                    <button class="modalbtn shipmentbtn">배송 예정일 미입력</button>
-                </div>
-            </div>
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/image/etc1.jpg" alt="프로젝트 썸네일" />
-                </a>
-                <div>
-                    <h3>펀딩 프로젝트 제목4입니다.</h3>
-                    <p class="pjpercentage">103% 달성</p>
-                </div>
-                <div class="endpjbtn d-flex">
-                    <button class="supportdetail">후원 내역 조회</button>
-                    <button class="modalbtn shipmentbtn">발송 예정일 미입력</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </th:block>
 
+<script>
+    $('#shipmentpush').click(function() {
+        const shipmentDate = $('#shipmentValue').val();
+        const projectCode = $('projectCode').val();
+        $.ajax({
+            url: "/project/shipment",
+            type: "post",
+            data: {
+                shipmentDate : shipmentDate${'#shipmentValue'}
+        })
+    })
+</script>
 </html>
