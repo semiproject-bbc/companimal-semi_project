@@ -258,7 +258,18 @@
     
 }
 
-.registSubmitButton:hover {
+.registSubmitButton.disabled {
+    background-color: #d5d5d5;
+    border: 1px solid #d5d5d5;
+}
+
+.registSubmitButton.enabled {
+    background-color: #FFA500;
+    border: 1px solid #FFA500;
+}
+
+
+.registSubmitButton.enabled:hover {
     background-color: #ff8000;
     border: 1px solid #ff8000;
     box-sizing: border-box;

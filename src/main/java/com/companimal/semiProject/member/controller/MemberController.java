@@ -1,21 +1,24 @@
 package com.companimal.semiProject.member.controller;
 
+import com.companimal.semiProject.email.MailService;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.member.model.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
+    private final MailService mailService;
+
+    public MemberController(MemberService memberService, MailService mailService) {
+        this.memberService = memberService;
+        this.mailService = mailService;
+    }
 
     @GetMapping("/regist")
     public String regist() {
@@ -45,6 +48,20 @@ public class MemberController {
         return mv;
     }
 
+    @ResponseBody
+    @PostMapping("/sendEmail")
+    public void sendEmail(@RequestParam("email") String email, HttpSession session) {
+
+        mailService.sendMail(email, session);
+    }
+
+    @ResponseBody
+    @PostMapping("/verifyEmail")
+    public boolean verifyEmail(@RequestParam("email") String email, @RequestParam("authCode") String inputAuthCode, HttpSession session) {
+        String authCode = (String) session.getAttribute(email);
+        return authCode != null && authCode.equals(inputAuthCode);
+    }
+
     @RequestMapping("/mypage")
     public String showMypage() {
         System.out.println("마이페이지 확인");
@@ -72,4 +89,5 @@ public class MemberController {
 
         return "contents/member/noticecenter";
     }
+
 }
