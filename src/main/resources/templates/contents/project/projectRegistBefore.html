@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/logout_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/projectRegist.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script type="text/javascript" th:src="@{/js/projectRegist.js}"></script>
+</head>
+
+<th:block layout:fragment="content">
+    <section>
+        <div class="projectRegistBefore">
+            <p class="guideTitle">"누구나 쉽고 간편하게 크리에이터가 되어 보세요!"</p>
+            <button onclick="location.href='/project/projectRegist'" type="button" class="btn">지금 시작하기</button>
+            <p class="guideTitle">프로젝트 진행 과정</p>
+            <div class="img-group">
+                <div>
+                    <img class="process-img" th:src="@{/image/process1.png}">
+                    <h2>프로젝트 작성</h2>
+                </div>
+                <div>
+                    <img class="process-img" th:src="@{/image/process2.png}">
+                    <h2>프로젝트 심사 및 승인</h2>
+                </div>
+                <div>
+                    <img class="process-img" th:src="@{/image/process3.png}">
+                    <h2>프로젝트 등록</h2>
+                </div>
+                <div>
+                    <img class="process-img" th:src="@{/image/process4.png}">
+                    <h2>프로젝트 오픈</h2>
+                </div>
+                <div>
+                    <img class="process-img" th:src="@{/image/process5.png}">
+                    <h2>펀딩 참여</h2>
+                </div>
+                <div>
+                    <img class="process-img" th:src="@{/image/process6.png}">
+                    <h2>리워드 증정</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="process"><p class="guideTitle">프로젝트 일정 가이드</p>
+            <div class="process-step">
+                <div class="process1 boxing">펀딩 심사</div>
+                <div class="explain">최대 7일까지 소요될 수 있습니다.</div>
+            </div>
+            <div class="process-step">
+                <div class="process2 boxing">펀딩 기간</div>
+                <div class="explain">7일 ~ 60일을 권장합니다.</div>
+            </div>
+            <div class="process-step">
+                <div class="process3 boxing">결제 기간</div>
+                <div class="explain">펀딩 종료 후 7일 동안 결제 진행됩니다.</div>
+            </div>
+            <div class="process-step">
+                <div class="process4 boxing">배송 기간</div>
+                <div class="explain">발송 예정일 ~ 7일</div>
+            </div>
+            <div class="process-step">
+                <div class="process5 boxing">정산일</div>
+                <div class="explain">발송 예정일로부터 3주 뒤 모든 리워드가 자동으로 '구매 확정' 처리됩니다.<br>
+                    모든 리워드 구매 확정 후 다음날 정산 진행 됩니다. (영업일 기준)</div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+</html>

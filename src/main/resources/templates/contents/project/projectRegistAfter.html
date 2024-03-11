@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/logout_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/projectRegist.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+
+<th:block layout:fragment="content">
+    <section>
+        <div class="after">
+            <p class="finish">펀딩 프로젝트 등록이 완료되었습니다.</p>
+            <p class="eva">심사는 최대 7일까지 진행될 수 있습니다.</p><br>
+            <img class="check-img" th:src="@{/image/checkColor.png}">
+        </div>
+    </section>
+</th:block>
+
+</html>
