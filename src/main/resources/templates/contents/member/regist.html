@@ -60,15 +60,16 @@
 
                         <div class="registEmailField">
                             <input id="email" name="memberEmail" class="emailField" placeholder="   이메일" type="text" >
-                            <select class="emailSelect" onchange="checkDirectInput()">
+                            <div id="atSign">@</div>
+                            <input id="email2" name="memberEmail2" class="emailField2" disabled>
+                            <select class="emailSelect">
                                 <option selected disabled>선택</option>
                                 <option value="naver.com">@naver.com</option>
                                 <option value="gmail.com">@gmail.com</option>
                                 <option value="hanmail.net">@hanmail.net</option>
                                 <option value="direct">직접 입력</option>
                             </select>
-                            <input id="directEmail" style="display:none;" placeholder="도메인 직접 입력"/>
-                            <button type="button" id="sendEmail" class="emailSendButton" onclick="combineEmail()">전송</button>
+                            <button type="button" id="sendEmail" class="emailSendButton">전송</button>
                         </div>
 
                         <div class="registEmailCheckField">

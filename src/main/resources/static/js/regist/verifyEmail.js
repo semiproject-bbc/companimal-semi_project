@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $(".certificationNumberCheckButton").click(function(){
-        const email = $("#email").val();
+        let email = $("#email").val() + "@" + $("#email2").val();
         let authCode = $(".emailCertificationNumberField").val();
         $.ajax({
             url: '/member/verifyEmail',

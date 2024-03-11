@@ -25,6 +25,7 @@ public class MailService {
 
         javaMailSender.send(simpleMessage);
 
+        System.out.println(authCode);
         session.setAttribute(email, authCode);
     }
 

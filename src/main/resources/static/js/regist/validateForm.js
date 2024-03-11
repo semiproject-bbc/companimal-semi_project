@@ -24,7 +24,7 @@ $(document).ready(function() {
         validateMemberPhone();
     });
 
-    $('#email').blur(function() {
+    $('#email, #email2').blur(function() {
         validateMemberEmail();
     });
 });
@@ -34,7 +34,7 @@ function validateMemberId() {
     if (memberId.length < 6 || memberId.length > 20) {
         $('#modalText').text('아이디는 6자 이상 20자 이하로 입력해주세요.');
         $('#myModal').show();
-        isValid = false;
+        updateStatus('formValid', false);
     } else {
         updateStatus('formValid', true);
     }
@@ -45,7 +45,7 @@ function validateMemberPwd() {
     if(memberPwd.length < 6 || memberPwd.length > 20) {
         $('#modalText').text('비밀번호는 6자 이상 20자 이하로 입력해주세요.');
         $('#myModal').show();
-        isValid = false;
+        updateStatus('formValid', false);
     } else {
         updateStatus('formValid', true);
     }
@@ -57,7 +57,7 @@ function validatePasswordCheck() {
     if (memberPwd2 !== passwordCheck) {
         $('#modalText').text('비밀번호가 일치하지 않습니다.');
         $('#myModal').show();
-        isValid = false;
+        updateStatus('formValid', false);
     } else {
         updateStatus('formValid', true);
     }
@@ -68,7 +68,7 @@ function validateMemberNickname() {
     if(memberNickname.length < 2 || memberNickname.length > 10) {
         $('#modalText').text('닉네임은 2자 이상 10자 이하로 입력해주세요..');
         $('#myModal').show();
-        isValid = false;
+        updateStatus('formValid', false);
     } else {
         updateStatus('formValid', true);
     }
@@ -79,7 +79,7 @@ function validateMemberName() {
     if(memberName.length < 2 || memberName.length > 20) {
         $('#modalText').text('이름은 2자 이상 20자 이하로 입력해주세요.');
         $('#myModal').show();
-        isValid = false;
+        updateStatus('formValid', false);
     } else {
         updateStatus('formValid', true);
     }
@@ -91,22 +91,11 @@ function validateMemberPhone() {
     if(!phoneRegex.test(memberPhone)) {
         $('#modalText').text('유효하지 않은 휴대폰 번호입니다.');
         $('#myModal').show();
-        isValid = false;
+        updateStatus('formValid', false);
     } else {
         updateStatus('formValid', true);
     }
 }
 
-function validateMemberEmail() {
-    let memberEmail = $('#email').val();
-    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if(!emailRegex.test(memberEmail)) {
-        $('#modalText').text('유효하지 않은 이메일 주소입니다.');
-        $('#myModal').show();
-        isValid = false;
-    } else {
-        updateStatus('formValid', true);
-    }
-}
 
 

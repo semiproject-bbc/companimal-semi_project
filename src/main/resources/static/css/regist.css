@@ -21,7 +21,7 @@
 
 .idField {
     height: 58px;
-    width: 354px;
+    width: 413px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -31,7 +31,7 @@
 }
 
 .idDuplicateCheckButton {
-    width: 115px;
+    width: 90px;
     background-color: #fff;
     border-radius: 5px;
     font-size: medium;
@@ -48,7 +48,7 @@
 
 .passwordField {
     height: 58px;
-    width: 469px;
+    width: 503px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -68,7 +68,7 @@
 
 .passwordCheckField {
     height: 58px;
-    width: 469px;
+    width: 503px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -87,7 +87,7 @@
 
 .nicknameField {
     height: 58px;
-    width: 469px;
+    width: 503px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -107,7 +107,7 @@
 
 .nameField {
     height: 58px;
-    width: 469px;
+    width: 503px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -127,7 +127,7 @@
 
 .phoneNumberField {
     height: 58px;
-    width: 469px;
+    width: 503px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -142,11 +142,13 @@
     justify-content: center;
     display: flex;
     margin-bottom: 15px;
+    align-items: center;
+    justify-content: center;
 }
 
 .emailField {
     height: 58px;
-    width: 239px;
+    width: 130px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -155,8 +157,25 @@
     font-size: large;
 }
 
+.emailField2 {
+    height: 58px;
+    width: 130px;
+    align-self: stretch;
+    border: 1px solid #9d9d9d;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    font-size: large;
+}
+
+#atSign {
+    font-size: large;
+    margin: 0 10px;
+}
 .emailSelect {
     width: 115px;
+    height: 58px;
+
     background-color: #fff;
     border-radius: 5px;
     font-size: medium;
@@ -164,7 +183,8 @@
 }
 
 .emailSendButton {
-    width: 115px;
+    height: 58px;
+    width: 90px;
     background-color: #fff;
     border-radius: 5px;
     font-size: medium;
@@ -180,7 +200,7 @@
 
 .emailCertificationNumberField {
     height: 58px;
-    width: 354px;
+    width: 413px;
     align-self: stretch;
     border: 1px solid #9d9d9d;
     border-radius: 5px;
@@ -190,7 +210,7 @@
 }
 
 .certificationNumberCheckButton {
-    width: 115px;
+    width: 90px;
     background-color: #fff;
     border-radius: 5px;
     font-size: medium;

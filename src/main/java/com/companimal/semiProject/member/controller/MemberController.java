@@ -52,6 +52,7 @@ public class MemberController {
     @PostMapping("/sendEmail")
     public void sendEmail(@RequestParam("email") String email, HttpSession session) {
 
+        System.out.println(email);
         mailService.sendMail(email, session);
     }
 
