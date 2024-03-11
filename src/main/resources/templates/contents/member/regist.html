@@ -27,51 +27,49 @@
 
                         <div class="registIdField" >
 
-                            <input name="memberId"  class="idField" maxlength="20" placeholder="   아이디" type="text" >
+                            <input id="memberId" name="memberId"  class="idField" maxlength="20" placeholder="   아이디" type="text" >
                             <button type="button" class="idDuplicateCheckButton">중복 확인</button>
                         </div>
 
                         <div class="registPasswordField">
 
-                            <input name="memberPwd" class="passwordField" maxlength="20" placeholder="   비밀번호" type="password" >
+                            <input id="memberPwd" name="memberPwd" class="passwordField" maxlength="20" placeholder="   비밀번호" type="password" >
                         </div>
 
                         <div class="registPasswordCheckField">
 
-                            <input class="passwordCheckField" maxlength="20" placeholder="   비밀번호 확인" type="password" >
+                            <input id="passwordCheck" class="passwordCheckField" maxlength="20" placeholder="   비밀번호 확인" type="password" >
 
                         </div>
 
                         <div  class="registNicknameField">
 
-                            <input name="memberNickname" class="nicknameField" maxlength="20" placeholder="   닉네임" type="text" >
+                            <input id="memberNickname" name="memberNickname" class="nicknameField" maxlength="20" placeholder="   닉네임" type="text" >
 
                         </div>      
                         
-                        <div id="memberName" class="registNameField">
+                        <div class="registNameField">
 
-                            <input name="memberName" class="nameField" maxlength="20" placeholder="   이름" type="text" >
+                            <input id="memberName" name="memberName" class="nameField" maxlength="20" placeholder="   이름" type="text" >
                         </div>
 
                         <div  class="registPhoneNumberField">
 
-                            <input name="memberPhone" class="phoneNumberField" maxlength="20" placeholder="   휴대폰 번호" type="text" >
+                            <input id="memberPhone" name="memberPhone" class="phoneNumberField" maxlength="20" placeholder="   휴대폰 번호" type="text" >
                         </div>
 
-                        <div  class="registEmailField">
-
+                        <div class="registEmailField">
                             <input id="email" name="memberEmail" class="emailField" placeholder="   이메일" type="text" >
-
-                            <select class="emailSelect"> 
+                            <select class="emailSelect" onchange="checkDirectInput()">
                                 <option selected disabled>선택</option>
                                 <option value="naver.com">@naver.com</option>
                                 <option value="gmail.com">@gmail.com</option>
                                 <option value="hanmail.net">@hanmail.net</option>
                                 <option value="direct">직접 입력</option>
                             </select>
-
-                            <button type="button" id="sendEmail" class="emailSendButton">전송</button>
-                        </div>  
+                            <input id="directEmail" style="display:none;" placeholder="도메인 직접 입력"/>
+                            <button type="button" id="sendEmail" class="emailSendButton" onclick="combineEmail()">전송</button>
+                        </div>
 
                         <div class="registEmailCheckField">
 
@@ -140,9 +138,11 @@
         </div>
     </div>
 
-    <script th:src="@{/js/emailAuth.js}"></script>
-    <script th:src="@{/js/verifyEmail.js}"></script>
-    <script th:src="@{/js/modalClose.js}"></script>
-    <script th:src="@{/js/idDuplicateCheck.js}"></script>
+    <script th:src="@{/js/regist/emailAuth.js}"></script>
+    <script th:src="@{/js/regist/verifyEmail.js}"></script>
+    <script th:src="@{/js/regist/modalClose.js}"></script>
+    <script th:src="@{/js/regist/idDuplicateCheck.js}"></script>
+    <script th:src="@{/js/regist/validateForm.js}"></script>
+    <script th:src="@{/js/regist/registEnabled.js}"></script>
 </body>
 </html>

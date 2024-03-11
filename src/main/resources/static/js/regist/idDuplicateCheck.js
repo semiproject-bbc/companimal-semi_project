@@ -8,10 +8,12 @@ $(".idDuplicateCheckButton").click(function(){
             if(isDuplicate) {
                 $('#modalText').text('사용할 수 없는 아이디입니다. 다른 아이디를 입력해주세요.');
                 $('#myModal').show();
+                updateStatus('idChecked', false);
 
             } else {
                 $('#modalText').text('사용 가능한 아이디 입니다.');
                 $('#myModal').show();
+                updateStatus('idChecked', true);
             }
         },
         error: function() {
