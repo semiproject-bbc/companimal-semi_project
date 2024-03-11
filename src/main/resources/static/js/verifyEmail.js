@@ -11,13 +11,16 @@ $(document).ready(function(){
             },
             success: function(isValid) {
                 if(isValid) {
-                    alert('인증되었습니다.');
+                    $('#modalText').text('인증되었습니다.');
+                    $('#myModal').show();
+
                 } else {
-                    alert('인증 번호가 일치하지 않습니다. 다시 시도해주세요.');
+                    $('#modalText').text('인증번호가 일치하지 않습니다.\n 다시 시도해주세요.');
+                    $('#myModal').show();
                 }
             },
             error: function() {
-                alert('인증 과정 중 오류가 발생했습니다. 다시 시도해주세요.');
+                alert('인증 과정 중 오류가 발생했습니다. \n다시 시도해주세요.');
             }
         });
     });

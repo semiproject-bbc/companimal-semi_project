@@ -1,4 +1,4 @@
-package com.companimal.semiProject.email;
+package com.companimal.semiProject.member.model.service;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

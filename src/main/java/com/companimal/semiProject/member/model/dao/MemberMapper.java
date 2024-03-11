@@ -10,4 +10,6 @@ public interface MemberMapper {
     int registMember(MemberDTO memberDTO);
 
     LoginMemberDTO findByMemberName(String memberId);
+
+    int idDuplicateCheck(String id);
 }

@@ -28,8 +28,7 @@
                         <div class="registIdField" >
 
                             <input name="memberId"  class="idField" maxlength="20" placeholder="   아이디" type="text" >
-                            
-                            <button class="idDuplicateCheckButton">중복 확인</button>
+                            <button type="button" class="idDuplicateCheckButton">중복 확인</button>
                         </div>
 
                         <div class="registPasswordField">
@@ -40,13 +39,13 @@
                         <div class="registPasswordCheckField">
 
                             <input class="passwordCheckField" maxlength="20" placeholder="   비밀번호 확인" type="password" >
+
                         </div>
 
                         <div  class="registNicknameField">
 
                             <input name="memberNickname" class="nicknameField" maxlength="20" placeholder="   닉네임" type="text" >
 
-                            <button class="nicknameDuplicateCheckButton">중복 확인</button>
                         </div>      
                         
                         <div id="memberName" class="registNameField">
@@ -129,26 +128,21 @@
         
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('.registForm_form input').on('keyup', function() {
-                var empty = false;
-                $('.registForm_form input').each(function() {
-                    if ($(this).val() == '') {
-                        empty = true;
-                    }
-                });
+    <div id="myModal" class="modal">
 
-                if (empty) {
-                    $('#registSubmitButton').addClass('disabled').prop('disabled', true);
-                } else {
-                    $('#registSubmitButton').removeClass('disabled').addClass('enabled').prop('disabled', false);
-                }
-            });
-        });
-    </script>
+        <div class="modalContent">
+
+            <span class="close">&times;</span>
+
+            <div class="modalText">
+                <p id="modalText">모달 내용</p>
+            </div>
+        </div>
+    </div>
 
     <script th:src="@{/js/emailAuth.js}"></script>
     <script th:src="@{/js/verifyEmail.js}"></script>
+    <script th:src="@{/js/modalClose.js}"></script>
+    <script th:src="@{/js/idDuplicateCheck.js}"></script>
 </body>
 </html>

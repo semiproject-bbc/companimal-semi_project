@@ -1,6 +1,7 @@
 package com.companimal.semiProject.member.controller;
 
-import com.companimal.semiProject.email.MailService;
+import com.companimal.semiProject.member.model.service.DuplicateCheckService;
+import com.companimal.semiProject.member.model.service.MailService;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.member.model.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -14,10 +15,12 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MailService mailService;
+    private final DuplicateCheckService duplicateCheckService;
 
-    public MemberController(MemberService memberService, MailService mailService) {
+    public MemberController(MemberService memberService, MailService mailService, DuplicateCheckService duplicateCheckService) {
         this.memberService = memberService;
         this.mailService = mailService;
+        this.duplicateCheckService = duplicateCheckService;
     }
 
     @GetMapping("/regist")
@@ -28,9 +31,6 @@ public class MemberController {
     @PostMapping("/regist")
     public ModelAndView regist(ModelAndView mv, @ModelAttribute MemberDTO memberDTO) {
 
-        System.out.println(memberDTO);
-        System.out.println("========================");
-        System.out.println(memberDTO);
         int result = memberService.registMember(memberDTO);
 
         String message ="";
@@ -60,6 +60,19 @@ public class MemberController {
     public boolean verifyEmail(@RequestParam("email") String email, @RequestParam("authCode") String inputAuthCode, HttpSession session) {
         String authCode = (String) session.getAttribute(email);
         return authCode != null && authCode.equals(inputAuthCode);
+    }
+
+    @ResponseBody
+    @GetMapping("/idDuplicateCheck")
+    public Boolean idDuplicateCheck(@RequestParam("id") String id) {
+        int result = duplicateCheckService.idDuplicateCheck(id);
+        boolean isDuplicate = true;
+
+        if (result == 0) {
+            isDuplicate = false;
+        }
+
+        return isDuplicate;
     }
 
     @RequestMapping("/mypage")
