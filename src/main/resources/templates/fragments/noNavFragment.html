@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:fragment="noNavFragment">
+    <div sec:authorize="hasAnyAuthority('MANAGER')" class="sidetab">
+        <div class="sidewrap">
+            <div>
+                <button class="managerbtn">매니저</button>
+            </div>
+            <div class="roleimage">
+                <img src="/image/member.png" alt="이미지">
+            </div>
+            <div class="sidemenu">
+                <p>심사 관리</p>
+                <button>- 크리에이터 심사</button>
+                <button>- 펀딩 프로젝트 심사</button>
+                <button>- 후원금 최종 정산 심사</button>
+                <p>신고 관리</p>
+                <button>- 펀딩 프로젝트 신고 관리</button>
+                <button>- 게시판 신고 관리</button>
+                <button>- 댓글 신고 관리</button>
+            </div>
+        </div>
+    </div>
+
+    <div sec:authorize="hasAnyAuthority('CREATOR')" class="sidetab">
+        <div class="sidewrap">
+            <div class="d-flex rolechangebtn">
+                <button class="supporterbtn">서포터</button>
+                <button class="creatorbtn focusbtn">크리에이터</button>
+            </div>
+            <div class="roleimage">
+                <img src="/image/member.png" alt="이미지">
+            </div>
+            <div class="sidemenu">
+                <p>진행 중인 프로젝트</p>
+                <button>- 진행 중인 프로젝트 조회</button>
+                <p>진행 종료 프로젝트</p>
+                <button th:onclick="|location.href='@{/project/endprolist}'|">- 진행 종료 프로젝트 조회</button>
+                <button th:onclick="|location.href='@{/project/calculationlist}'|">- 후원금 정산 진행 현황</button>
+                <p>프로젝트 문의</p>
+                <button>- 문의 내역</button>
+            </div>
+        </div>
+    </div>
+
+    <div sec:authorize="hasAnyAuthority('SUPPORTER')" class="sidetab">
+        <div class="sidewrap">
+            <div class="d-flex rolechangebtn">
+                <button class="supporterbtn focusbtn">서포터</button>
+                <button class="creatorbtn" th:onclick="|location.href='@{/member/creator}'|">크리에이터</button>
+            </div>
+            <div class="roleimage">
+                <img src="/image/profileimg.png" alt="이미지">
+            </div>
+            <div class="sidemenu">
+                <p>내 정보</p>
+                <button th:onclick="|location.href='@{/member/profile}'|">- 프로필</button>
+                <button th:onclick="|location.href='@{/member/noticecenter}'|">- 알림 센터</button>
+                <p>프로젝트</p>
+                <button>- 참여 프로젝트</button>
+                <button>- 관심 프로젝트</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
