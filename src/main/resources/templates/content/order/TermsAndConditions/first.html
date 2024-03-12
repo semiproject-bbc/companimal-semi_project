@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/static/css/firstTermsAndConditions.css">
+<!--    <link rel="stylesheet" href="static/css/firstTermsAndConditions.css" th:href="@{/css/firstTermsAndConditions.css}">-->
+<!--    <script src="/js/termsAndCondition.js"/>-->
 </head>
-<body>
+<th:block th:fragment="condition1">
     <div class="firstTermsAndConditions">
         <div class="termsAndConditions-container">
             <div class="termsAndConditionsHeader">
                 <div class="termsAndConditionsTitle">전자금융거래 이용약관</div>
-                <a class="close" href="#">
-                    <img class="close" src="/static/image/close.png">
-                </a>
+                <button class="close-button" onclick="closeButton(this)">&times;</button>  <!-- &times; : easier to center -->
+<!--                <a class="close" href="#">-->
+<!--                    <img class="close" src="/static/image/close.png">-->
+<!--&lt;!&ndash;                    <button th:class="close-button">&times;</button>&ndash;&gt;-->
+<!--                </a>-->
             </div>
             <div class="termsAndConditionsContext-container">
                 <div class="termsAndConditionsContext">
@@ -149,11 +152,12 @@
                     </pre>
                 </div>
             </div>
-            <div class="agree-container">
-                <button onclick="location.href''" class="agree-container1">
-                    <div class="agree"> 동의하기</div>
-                </button>
-            </div>
+<!--            <div class="agree-container">-->
+<!--                <button onclick="location.href" class="agree-container1">-->
+<!--                    <div class="agree"> 동의하기</div>-->
+<!--                </button>-->
+<!--            </div>-->
+        </div>
     </div>
-</body>
+</th:block>
 </html>

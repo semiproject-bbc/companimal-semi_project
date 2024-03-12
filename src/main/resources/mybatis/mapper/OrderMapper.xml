@@ -1,12 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.companimal.semiProject.order.model.dao.OrderMapper">
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--<!DOCTYPE mapper-->
+<!--        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="com.companimal.semiProject.order.model.dao.OrderMapper">-->
 
-    <insert id="" parameterType="OrderPaymentDTO">
-        INSERT INTO
-    </insert>
+<!--    <resultMap id="orderResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">-->
+<!--        <id property="orderCode" column="ORDER_CODE"/>-->
+<!--        <result property="orderDate" column="ORDER_DATE"/>-->
+<!--        <result property="memId" column="MEM_ID"/>-->
+<!--        <result property="address" column="ADDRESS"/>-->
+<!--        <result property="request" column="REQUEST"/>-->
+<!--        <result property="recipient" column="RECIPIENT"/>-->
+<!--        <result property="finalPay" column="FINAL_PAY"/>-->
+<!--        <result property="proCode" column="PRO_CODE"/>-->
+<!--        <result property="couCode" column="COU_CODE"/>-->
+<!--    </resultMap>-->
+
+<!--    <insert id="getOrderPaymentInfo" parameterType="OrderPaymentDTO">-->
+<!--        INSERT INTO ORDER_PAYMENT (-->
+<!--                                   ORDER_DATE,-->
+<!--                                   MEM_ID,-->
+<!--                                   ADDRESS,-->
+<!--                                   REQUEST,-->
+<!--                                   RECIPIENT,-->
+<!--                                   FINAL_PAY,-->
+<!--                                   PRO_CODE,-->
+<!--                                   COU_CODE-->
+<!--        )-->
+<!--            VALUES (-->
+<!--                    #{ orderDate },-->
+<!--                    #{ memId },-->
+<!--                    #{ address },-->
+<!--                    #{ request },-->
+<!--                    #{ recipient },-->
+<!--                    #{ finalPay },-->
+<!--                    #{ proCode },-->
+<!--                    #{ couCode }-->
+<!--                   )-->
+<!--    </insert>-->
 
 
-</mapper>
+<!--</mapper>-->

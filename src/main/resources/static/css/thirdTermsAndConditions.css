@@ -18,7 +18,7 @@ html {
     .termsAndConditions-container {
         display: table-column;
         justify-content: center;
-        height: 260px;
+        height: 220px;
         width: 500px;
         border-style: solid;
         border-color: #d5d5d5;
@@ -38,7 +38,7 @@ html {
             text-align: left;
             text-decoration: underline;
             text-underline-offset: 10px;
-            margin: 5% 3% 3% 5%;
+            margin: 5% 3% 3% 7%;
             font-size: 20px;
             font-weight: bolder;
         }
@@ -63,16 +63,13 @@ html {
             margin-right: 5%;
         }
         button {
-            height: 50px;
-            width: 90px;
             border-style: solid;
-            border-color: #FCA652;
-            background-color: #FCA652;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 5%;
             cursor: pointer;
+            border: none;
+            outline: none;
+            background: none;
+            margin: 4% 5% 5% 5%;
+            font-size: 30px;
 
             .agree {
                 display: flex;

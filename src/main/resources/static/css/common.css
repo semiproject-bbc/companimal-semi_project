@@ -270,3 +270,8 @@ footer {
 .footer div {
     width:50%;
 }
+
+hr {
+    border: 1px solid #D5D5D5;
+    margin: 20px 0;
+}
