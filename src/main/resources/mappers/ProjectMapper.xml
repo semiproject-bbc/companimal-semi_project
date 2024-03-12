@@ -83,9 +83,10 @@
         <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>
         <collection property="image" resultMap="projectImageResultMap"/>
         <collection property="file" resultMap="projectFileResultMap"/>
+        <collection property="cate" resultMap="projectCateResultMap"/>
     </resultMap>
 
-    <!-- 프로젝트 상세페이지 조회에서 등록한 정보 가져오는 쿼리 -->
+    <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
     <select id="selectProject" resultMap="projectResultMap">
         SELECT pro_code
                 ,pro_name
@@ -104,35 +105,37 @@
                 ,cate_sub
           FROM project
          WHERE del_status = 'N'
+<!--           AND TO_DAYS(now())-TO_DAYS('end_date');-->
     </select>
 
+    <!-- 프로젝트 상세페이지 조회에서 DB에 저장한 정보 가져오는 쿼리 -->
     <select id="selectProjectDetail" resultMap="projectDetailResultMap">
         SELECT p.pro_code
-        ,p.pro_name
-        ,p.pro_intro
-        ,p.goal_amount
-        ,p.start_date
-        ,p.end_date
-        ,p.pro_story
-        ,p.pol_no_refund
-        ,p.pol_as
-        ,p.mem_id
-        ,p.est_date
-        ,p.ach_rate
-        ,p.del_status
-        ,p.cate_main
-        ,p.cate_sub
-        ,r.rew_name
-        ,r.rew_explain
-        ,r.rew_sf
-        ,o.rew_opt_name
-        ,o.rew_opt_val
-        ,o.rew_opt_limit
-        ,o.rew_amount
-        ,i.pro_img_name
-        ,f.pro_file_name
-        ,c1.pro_cate_name
-        ,c2.pro_cate_name
+                ,p.pro_name
+                ,p.pro_intro
+                ,p.goal_amount
+                ,p.start_date
+                ,p.end_date
+                ,p.pro_story
+                ,p.pol_no_refund
+                ,p.pol_as
+                ,p.mem_id
+                ,p.est_date
+                ,p.ach_rate
+                ,p.del_status
+                ,p.cate_main
+                ,p.cate_sub
+                ,r.rew_name
+                ,r.rew_explain
+                ,r.rew_sf
+                ,o.rew_opt_name
+                ,o.rew_opt_val
+                ,o.rew_opt_limit
+                ,o.rew_amount
+                ,i.pro_img_name
+                ,f.pro_file_name
+                ,c1.pro_cate_name
+                ,c2.pro_cate_name
           FROM project p
           JOIN reward r ON (p.pro_code = r.pro_code)
           JOIN reward_opt o ON (r.rew_code = o.rew_code)
@@ -145,8 +148,8 @@
 
     <!-- 프로젝트 등록 시 db에 저장할 쿼리 -->
     <insert id="insertProject" parameterType="com.companimal.semiProject.project.model.dto.ProjectDTO">
-        INSERT INTO project ( pro_code
-                                ,pro_name
+        INSERT INTO project (
+                                pro_name
                                 ,pro_intro
                                 ,goal_amount
                                 ,start_date
@@ -161,28 +164,112 @@
                                 ,cate_main
                                 ,cate_sub
                                 )
-        VALUES ( #{ proCode }
-                ,#{ proName }
-                ,#{ proIntro }
-                ,#{ goalAmount }
-                ,#{ startDate }
-                ,#{ endDate }
-                ,#{ proStory }
-                ,#{ polNoRefund }
-                ,#{ polAs }
-                ,#{ memId }
-                ,#{ estDate }
-                ,#{ achRate }
-                ,#{ delStatus }
-                ,#{ cateMain }
-                ,#{ cateSub }
+          VALUES (
+                    #{ proName }
+                    ,#{ proIntro }
+                    ,#{ goalAmount }
+                    ,#{ startDate }
+                    ,#{ endDate }
+                    ,#{ proStory }
+                    ,#{ polNoRefund }
+                    ,#{ polAs }
+                    ,#{ memId }
+                    ,#{ estDate }
+                    ,#{ achRate }
+                    ,#{ delStatus }
+                    ,#{ cateMain }
+                    ,#{ cateSub }
+                    )
+          INTO projectRewardOpt ( rewOptName
+                                ,rewOptVal
+                                ,rewOptLimit
+                                ,rewAmount
+                                )
+          VALUES ( #{ rew_opt_name }
+                ,#{ rew_opt_val }
+                ,#{ rew_opt_limit }
+                ,#{ rew_amount }
                 )
     </insert>
 
-    <!-- 프로젝트 상세페이지 조회에서 카테고리 이름 가져오는 쿼리 -->
-    <select id="selectProjectCate" resultMap="projectCateResultMap">
-        SELECT pro_cate_name
-          FROM project_cate
-         WHERE pro_cate_code = #{ proCateCode }
-    </select>
+    <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
+        INSERT INTO project_reward (
+                                    rew_code
+                                    ,rew_num
+                                    ,pro_code
+                                    ,rew_name
+                                    ,rew_explain
+                                    ,rew_sf
+                                    )
+        VALUES (
+                #{ rewCode }
+                ,#{ rewNum }
+                ,#{ proCode }
+                ,#{ rewName }
+                ,#{ rewExplain }
+                ,#{ rewSf }
+                )
+    </insert>
+
+    <insert id="insertProjectRewardOpt" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
+        INSERT INTO project_reward (
+                                    rew_opt_code
+                                    ,rew_code
+                                    ,rew_opt_num
+                                    ,pro_opt_name
+                                    ,rew_opt_val
+                                    ,rew_opt_limit
+                                    ,rew_amount
+                                    )
+        VALUES (
+                #{ rewOptCode }
+                ,#{ rewCode }
+                ,#{ rewOptNum }
+                ,#{ proOptName }
+                ,#{ rewOptVal }
+                ,#{ rewOptLimit }
+                ,#{ rewAmount }
+                )
+    </insert>
+
+    <insert id="insertProjectFile" parameterType="com.companimal.semiProject.project.model.dto.ProjectFileDTO">
+        INSERT INTO project_file (
+                                pro_file_num
+                                ,pro_code
+                                ,pro_file_path
+                                ,pro_file_name
+                                ,pro_file_ori_name
+                                )
+        VALUES (
+                #{ proFileNum }
+                ,#{ proCode }
+                ,#{ proFilePath }
+                ,#{ proFileName }
+                ,#{ proFileOriName }
+                )
+    </insert>
+
+    <insert id="insertProjectImage" parameterType="com.companimal.semiProject.project.model.dto.ProjectFileDTO">
+        INSERT INTO project_image (
+                                pro_img_num
+                                ,pro_code
+                                ,pro_img_path
+                                ,pro_img_name
+                                ,pro_img_ori_name
+                                )
+        VALUES (
+                #{ proFileNum }
+                ,#{ proCode }
+                ,#{ proFilePath }
+                ,#{ proFileName }
+                ,#{ proFileOriName }
+                )
+    </insert>
+
+<!--    &lt;!&ndash; 프로젝트 상세페이지 조회에서 카테고리 이름 가져오는 쿼리 &ndash;&gt;-->
+<!--    <select id="selectProjectCate" resultMap="projectCateResultMap">-->
+<!--        SELECT pro_cate_name-->
+<!--          FROM project_cate-->
+<!--         WHERE pro_cate_code = #{ proCateCode }-->
+<!--    </select>-->
 </mapper>

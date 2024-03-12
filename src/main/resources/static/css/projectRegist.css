@@ -133,6 +133,10 @@ section {
     font-weight: bold;
 }
 
+.tip-story {
+    display: grid;
+}
+
 .select-box {
     width: 752px;
 }
@@ -215,6 +219,7 @@ section {
     padding-bottom: 10px;
     letter-spacing : 0.7px;
     line-height : 25px;
+    margin-bottom: 30px;
 }
 
 .tip-long-long {

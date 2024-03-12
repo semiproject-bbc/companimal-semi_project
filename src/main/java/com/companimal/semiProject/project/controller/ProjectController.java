@@ -4,11 +4,10 @@ import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import com.companimal.semiProject.project.model.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -21,17 +20,17 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-//    @GetMapping("/projectDetail")
-//    public String selectProject(Model model) {
-//
-//        List<ProjectDTO> selectProjectList = projectService.selectProject();
-//
-//        System.out.println(selectProjectList);
-//
-//        model.addAttribute("selectProjectList", selectProjectList);
-//
-//        return "contents/project/projectDetail";
-//    }
+    @GetMapping("/projectPage")
+    public String selectProject(Model model) {
+
+        List<ProjectDTO> selectProjectList = projectService.selectProject();
+
+        System.out.println(selectProjectList);
+
+        model.addAttribute("selectProjectList", selectProjectList);
+
+        return "contents/project/projectDetail";
+    }
 
     @GetMapping("/projectDetail")
     public String selectProjectDetail(Model model) {
@@ -55,9 +54,10 @@ public class ProjectController {
     }
 
     @PostMapping("/projectRegist")
-    public String insertProject(@ModelAttribute ProjectDTO project) {
+    public String insertProject(@RequestParam MultipartFile file
+                                , @ModelAttribute ProjectDTO project) throws IOException {
 
-        projectService.insertProject(project);
+        projectService.insertProject(file, project);
 
         return "contents/project/projectRegistAfter";
     }

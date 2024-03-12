@@ -48,10 +48,14 @@
                     <p class="goal-won"> 원 달성</p>
                 </div>
                 <div class="heart-gray-icon-container">
-                    <button type="button" class="heart-button">
-                        <img class="heart-gray-icon" th:src="@{/image/heart-gray.png}">
-                    </button>
+                    <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
+                    <button onclick="toggleImg()" type="button" class="heart-button"></button>
                     <button type="button" class="funding">펀딩 후원하기</button>
+                    <script>
+                        function toggleImg() {
+                            document.getElementById("img").src = "/image/heart.png";
+                        }
+                    </script>
                 </div>
             </div>
 <!--            </th:block>-->
@@ -116,21 +120,22 @@
                     <p class="sub-info">리워드 선택</p>
                     <div class="reward-list">
                         <div class="reward-1">
-                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</div>
-                            <div class="op-limit">
-                                <div class="reward-option">색상 : 기본</div>
+                            <div class="reward-title" th:each=" reward : ${ project.reward }" th:text="${ reward.rewName }">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</div>
+                            <div class="op-limit" th:each="rewardOpt : ${ project.rewardOpt }">
+                                <div class="reward-option" th:text="${ rewardOpt.rewOptName }"> : </div>
+                                <div class="reward-option" th:text="${ rewardOpt.rewOptVal }"></div>
                                 <div class="reward-limitCount">현재 100개 남음!</div>
                             </div>
-                            <div class="reward-content">
-                                <span class="reward-price">120,000원</span><br>
-                                <span class="reward-etc">배송비 2500원</span><br>
-                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
+                            <div class="reward-content" th:each="rewardOpt : ${ project.rewardOpt }">
+                                <span class="reward-price" th:text="${ rewardOpt.rewAmount }">120,000원</span><br>
+                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewSf }">배송비 2500원</span><br>
+                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewExplain }">간단한 리워드 설명이 들어갑니다.</span>
                             </div>
                         </div><br>
                         <div class="reward-2">
                             <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</div>
                             <div class="op-limit">
-                                <div class="reward-option">색상 : 기본</div>
+                                <div class="reward-option">색상 : 블랙 코팅</div>
                                 <div class="reward-limitCount">현재 100개 남음!</div>
                             </div>
                             <div class="reward-content">
@@ -142,7 +147,7 @@
                         <div class="reward-3">
                             <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>
                             <div class="op-limit">
-                                <div class="reward-option">색상 : 블랙 코팅</div>
+                                <div class="reward-option">색상 : 기본</div>
                                 <div class="reward-limitCount">현재 230개 남음!</div>
                             </div>
                             <div class="reward-content">
@@ -154,7 +159,7 @@
                         <div class="reward-4">
                             <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>
                             <div class="op-limit">
-                                <div class="reward-option">색상 : 기본</div>
+                                <div class="reward-option">색상 : 블랙 코팅</div>
                                 <div class="reward-limitCount">현재 105개 남음!</div>
                             </div>
                             <div class="reward-content">

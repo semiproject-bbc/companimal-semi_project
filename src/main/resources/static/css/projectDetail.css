@@ -168,6 +168,11 @@ ul.imgs li{
         height: 63px;
     }
 
+    .funding:hover {
+        background-color: #ff8000;
+        border:#ff8000;
+    }
+
     .funding {
         border-color: #fca652;
         background-color: #fca652;
