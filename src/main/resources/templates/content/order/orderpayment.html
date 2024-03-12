@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/logout_layout}">
+<head>
+    <meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>orderPayment</title>
+    <link rel="stylesheet" href="/css/orderpayment.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,400;0,600;0,700;1,400&display=swap"/>
+    <script type="text/javascript" src="/js/orderpayment.js"></script>
+    <link rel="stylesheet" href="/css/firstTermsAndConditions.css">
+
+</head>
+<!-- header
+<header th:class="header">
+    <iframe src="/static/css/common.css" th:width="100%" th:height="100%" th:frameborder="0"></iframe>
+</header>
+ section -->
+<th:block layout:fragment="content">
+
+    <div class="orderPayment-headers">
+        <div class="orderPayment-header">주문 / 결제</div>
+        <div class="processBytheSide">
+            <b>주문 / 결제 </b>
+            <span class="span">&nbsp;&gt; 완료</span> <!--&gt;-->
+        </div>
+    </div>
+    <div class="productInfo">주문제품 정보</div>
+
+    <div class="ProductInformation">
+        <img th:class="productImage" loading="lazy" alt="강아지 제품에 대한 정보 소개" th:src="@{/image/dogItem.png}">
+        <div class="productInfo-container">
+            <div class="productName-container">
+                <div class="projectName">프로젝트명</div>
+                <div class="projectNameInfo">${ proName }</div>
+            </div>
+            <div class="rewardName-container">
+                <div class="rewardName">리워드명</div>
+                <div class="rewardNameInfo">${ rewName }</div>
+            </div>
+
+            <div class="NoOfProject-container">
+                <div class="NoOfProject">갯수</div>
+                <div class="deliverFeeAmount">${ orderAmount }</div>
+            </div>
+            <div class="coupon-container">
+                <div class="coupon">쿠폰 할인</div>
+                <div class="couponDiscount">${ couAmount }</div>
+            </div>
+            <div class="orderFee-container">
+                <div class="orderFee">주문 금액</div>
+                <div class="orderAmount">${ finalPay }</div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 펀딩 서포터, 리워드 배송기 section -->
+    <div class="fundingSupporterAndRewardDestination">
+        <div class="fundingSupporter-container">
+            <div class="fundingSupporter-title">펀딩 서포터</div>
+            <div class="fundingSupporter-container2">
+                <div class="supporterName-container">
+                    <div class="supporterName">이름</div>
+                    <div class="supporterNameInputtedValue">${ memName }</div>
+                </div>
+                <div class="supporterEmail-container">
+                    <div class="supporterEmail">이메일</div>
+                    <div class="supporterEmailInputtedValue">${ memEmail }</div>
+                </div>
+                <div class="supporterPhoneNumber-container">
+                    <div class="supporterPhoneNumber">휴대폰 번호</div>
+                    <div class="supporterPhoneNumberInputtedValue">${ memPhone }</div>
+                </div>
+
+                <div class="tNcPayment-container">
+                    <input type="checkbox" class="checkbox">
+                    <div class="conditions">(필수) 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.</div>
+                </div>
+            </div>
+        </div>
+
+
+        <form class="rewardDestination-container" action="" method="post">
+            <div class="rewardDestination-title">리워드 배송지</div>
+            <div class="rewardDestination-container2">
+                <div class="rewardGetPersonName-container">
+                    <div class="rewardGetPersonName">수취인명</div>
+                    <input class="rewardGetPersonNameInfo" placeholder="이름" th:type="text">
+                </div>
+                <div class="rewardGetPersonAddress-container">
+                    <div class="rewardGetPersonAddress">주소</div>
+                    <input class="rewardGetPersonAddressInfo" placeholder="주소" type="text">
+                </div>
+                <div class="rewardToNotify-container">
+                    <div class="rewardToNotify">배송 시 요청 사항</div>
+                    <input class="rewardToNotifyText" placeholder="ex) 부재시 경비실에 보관해주세요." type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <hr>
+
+    <!-- 결제 수단 + 최종 결제 금액 section -->
+
+    <div class="payment">
+        <div class="paymentMethod-container">
+            <div class="paymentMethod">결제 수단</div>
+            <input type="image" th:class="kakaopay" loading="lazy" alt="kakaopay" th:src="@{/image/kakaopayIcon.png}">
+        </div>
+        <div class="finalPayment-container">
+            <div class="finalPayment">최종 결제 금액</div>
+            <div class="finalPaymentAmount">${ finalPay } + ${ rewSf }<span> (배송비 : ${ rewSf } 포함)</span></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 약관 동의 section -->
+    <div class="agreeTotNc-allcontainer">
+        <div class="agreeToTermsAndConditions">약관 동의</div>
+        <div class="agreeToTermsAndConditions-container">
+            <div class="agreeToAll-container">
+                <input type="checkbox" class="agreeToAllCheckbox">
+                <div class=agreeToAll>전체 동의</div>
+            </div>
+            <hr>
+            <div class="tNcPaymentMethods-container">
+                <input type="checkbox" class="subCheckbox1">
+                <div class="tNcPaymentMethods">구매 조건, 결제 진행 . 및결제 대행 서비스 동의 (필수)</div>
+                <div class="see overlay" id="overlay1">
+<!--                    <div class="btn-open" th:id="condition1" th:href="@{/TermsAndConditions/first.html}">보기</div>-->
+                    <div class="btn-open"
+                         data-bs-toggle="modal"
+                         data-bs-target="#seeCondition1"
+                         onclick="openCondition(this)"
+                         id="condition1">보기</div>
+
+                </div>
+            </div>
+            <div class="tNc3rdParty-container">
+                <input type="checkbox" class="subCheckbox2">
+                <div class="tNc3rdParty">개인정보 제3자 제공 동의 (필수)</div>
+                <div class="see overlay" id="overlay2">
+                    <div class="btn-open"
+                         data-bs-toggle="modal"
+                         data-bs-target="#seeCondition2"
+                         onclick="openCondition(this)"
+                         id="condition2">보기</div>
+                </div>
+            </div>
+            <div class="tNcResponsible-container">
+                <input type="checkbox" class="subCheckbox3">
+                <div class="tNcResponsible">책임 규정에 대한 동의 (필수)</div>
+                <div class="see overlay" id="overlay3">
+                    <div class="btn-open"
+                         data-bs-toggle="modal"
+                         data-bs-target="#seeCondition3"
+                         onclick="openCondition(this)"
+                         id="condition3">보기</div>
+                </div>
+            </div>
+            <div class="tNchoowon-container">
+                <input type="checkbox" class="subCheckbox4">
+                <div class="tNchoowon">후원 유의 사항 확인 (필수)</div>
+                <div class="see overlay" id="overlay4">
+                    <div class="btn-open"
+                         data-bs-toggle="modal"
+                         data-bs-target="#seeCondition4"
+                         onclick="openCondition(this)"
+                         id="condition4">보기</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="paymentButton-container">
+        <form method="post" action="/kakaoPay" class="ontoPaymentPage">
+            <button method="post" type="submit" class="ontoPayment">결제하기</button>
+        </form>
+    </div>
+
+    <div class="modal display-hidden" id="modal1">
+        <div class="modalContent display-hidden" id="modal2">
+            <div th:include ="~{ /content/order/TermsAndConditions/first :: condition1 }" class="display-hidden modalContent" id="seeCondition1"></div>
+            <div th:include ="~{ /content/order/TermsAndConditions/second :: condition2 }" class="display-hidden modalContent" id="seeCondition2"></div>
+            <div th:include ="~{ /content/order/TermsAndConditions/third :: condition3 }" class="display-hidden modalContent" id="seeCondition3"></div>
+            <div th:include ="~{ /content/order/TermsAndConditions/fourth :: condition4 }" class="display-hidden modalContent" id="seeCondition4"></div>
+
+<!--            <div th:replace ="/content/order/TermsAndConditions/first :: condition1" class="display-hidden modalContent" id="seeCondition1"></div>-->
+<!--            <div th:replace ="/content/order/TermsAndConditions/second :: condition2" class="display-hidden modalContent" id="seeCondition2"></div>-->
+<!--            <div th:replace ="/content/order/TermsAndConditions/third :: condition3" class="display-hidden modalContent" id="seeCondition3"></div>-->
+<!--            <div th:replace ="/content/order/TermsAndConditions/fourth :: condition4" class="display-hidden modalContent" id="seeCondition4"></div>-->
+<!--            <div layout:fragment= "condition1" class="display-hidden modalContent" id="seeCondition1"></div>-->
+<!--            <div layout:fragment= "condition2" class="display-hidden modalContent" id="seeCondition2"></div>-->
+<!--            <div layout:fragment= "condition3" class="display-hidden modalContent" id="seeCondition3"></div>-->
+<!--            <div layout:fragment= "condition4" class="display-hidden modalContent" id="seeCondition4"></div>-->
+        </div>
+    </div>
+</th:block>
+</html>

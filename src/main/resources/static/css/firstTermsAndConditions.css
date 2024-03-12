@@ -16,6 +16,7 @@ html {
     align-items: center;
     height: 100%;
 
+
     .termsAndConditions-container {
         display: table-column;
         justify-content: center;
@@ -27,6 +28,7 @@ html {
         .termsAndConditionsHeader {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             .close {
                 height: 25px;
                 width: 25px;
@@ -38,14 +40,14 @@ html {
             text-align: left;
             text-decoration: underline;
             text-underline-offset: 10px;
-            margin: 5% 3% 3% 5%;
+            margin: 5% 3% 3% 7%;
             font-size: 20px;
             font-weight: bolder;
             
         }
         .termsAndConditionsContext-container {
-            padding: 0% 2.5%;
-            margin: 3% 5% 0% 5%;
+            padding: 0px 40px;
+            /*margin: 3% 5% 5% 5%;*/
             height: 80%;
             overflow-y: scroll;
             white-space: normal;
@@ -63,16 +65,14 @@ html {
             margin-top: 2%;
         }
         button {
-            height: 50px;
-            width: 90px;
             border-style: solid;
-            border-color: #FCA652;
-            background-color: #FCA652;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 5%;
             cursor: pointer;
+            border: none;
+            outline: none;
+            background: none;
+            margin: 6% 5% 5% 5%;
+            font-size: 30px;
+
 
             .agree {
                 display: flex;
@@ -98,3 +98,4 @@ pre {
     white-space: pre-wrap;
     word-wrap: break-words;
 }
+
