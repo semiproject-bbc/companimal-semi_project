@@ -8,7 +8,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,17 +28,17 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-//    @GetMapping("/projectDetail")
-//    public String selectProject(Model model) {
-//
-//        List<ProjectDTO> selectProjectList = projectService.selectProject();
-//
-//        System.out.println(selectProjectList);
-//
-//        model.addAttribute("selectProjectList", selectProjectList);
-//
-//        return "contents/project/projectDetail";
-//    }
+    @GetMapping("/projectPage")
+    public String selectProject(Model model) {
+
+        List<ProjectDTO> selectProjectList = projectService.selectProject();
+
+        System.out.println(selectProjectList);
+
+        model.addAttribute("selectProjectList", selectProjectList);
+
+        return "contents/project/projectDetail";
+    }
 
     @GetMapping("/projectDetail")
     public String selectProjectDetail(Model model) {
@@ -61,9 +62,10 @@ public class ProjectController {
     }
 
     @PostMapping("/projectRegist")
-    public String insertProject(@ModelAttribute ProjectDTO project) {
+    public String insertProject(@RequestParam MultipartFile file
+                                , @ModelAttribute ProjectDTO project) throws IOException {
 
-        projectService.insertProject(project);
+        projectService.insertProject(file, project);
 
         return "contents/project/projectRegistAfter";
     }
