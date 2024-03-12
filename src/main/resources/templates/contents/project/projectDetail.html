@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/logout_layout}">
+      layout:decorate="~{layouts/noNavLayout}">
 
 <head>
     <meta charset="UTF-8" />
@@ -31,18 +31,18 @@
                 </div>
             </div>
 <!--            <th:block th:each="project : ${ selectProjectList }">-->
-            <div class="door-content" th:each="project : ${ selectProjectList }">
+            <div class="door-content" th:each="project : ${ selectProject }">
                 <p th:text="${ project.endDate }" class="d-day"></p>
                 <div class="category-title">
                     <div class="category">
                         <button type="button" class="category_button">
                             <img class="category-image" th:src="@{/image/living.png}">
                         </button>
-                        <p class="living" th:text="${ project.cateMain }"></p>
+                        <p class="living" th:text="${ project.cate.proCateName }"></p>
                     </div>
                     <p class="title" th:text="${ project.proName }"></p>
                 </div>
-                <p class="introduce">프로젝트 소개</p>
+                <p class="introduce" th:text="${ project.proIntro }"></p>
                 <div class="goal-container">
                     <p class="goal-price">3,100,000</p>
                     <p class="goal-won"> 원 달성</p>
@@ -62,7 +62,7 @@
         </div>
     </section>
     <section class="section2">
-        <div class="content" th:each="project : ${ selectProjectList }">
+        <div class="content" th:each="project : ${ selectProject }">
             <div class="story">
                 <p class="sub-info">프로젝트 스토리</p>
                 <img class="story-image" th:src="@{/image/petsonHome1.jpg}">
@@ -93,17 +93,10 @@
                 <div class="shipping-policy">
                     <p class="sub-info">배송 안내</p>
                     <p class="sub-content">• 발송 예정일 : 추후 공지 예정<br>
-                        • 택배사 명 : 우체국 택배 (예정)<br>
-                        • 배송 문의 상담 가능 시간 : 10시 ~ 17시<br></p>
                     <p class="sub-info">환불 불가 정책</p>
-                    <p class="sub-content">• 포장 및 배송 중 발생될 수 있는 미세한 스크레치 및 찍힘은
-                        환불이 어렵습니다.<br>
-                        • 색상, 사이즈 측정 방식, 가공 환경에 따라 1-3mm 정도 차이가
-                        날 수 있습니다.</p>
+                    <p name="polNoRefund" class="sub-content"></p>
                     <p class="sub-info">A/S 규정</p>
-                    <P class="sub-content">• 보증 기간 : 리워드 수령일로부터 1년<br>
-                        • 규정 : 정상 신체품에서 발생한 하자의 경우 1:1 문의를 통해 해결합니다.<br>
-                        • A/S 불가 규정 : 보증 기간 이내일지라도 사용자의 고의 또는 과실로 인하여 발생한 제품 하자인 경우<br></P>
+                    <P name="polAs" class="sub-content"></P>
                 </div>
             </div>
             <div class="creater-reward">
@@ -120,60 +113,61 @@
                     <p class="sub-info">리워드 선택</p>
                     <div class="reward-list">
                         <div class="reward-1">
-                            <div class="reward-title" th:each=" reward : ${ project.reward }" th:text="${ reward.rewName }">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</div>
+                            <div class="reward-title" th:each=" reward : ${ project.reward }" th:text="${ reward.rewName }"></div>
                             <div class="op-limit" th:each="rewardOpt : ${ project.rewardOpt }">
-                                <div class="reward-option" th:text="${ rewardOpt.rewOptName }"> : </div>
+                                <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>
                                 <div class="reward-option" th:text="${ rewardOpt.rewOptVal }"></div>
                                 <div class="reward-limitCount">현재 100개 남음!</div>
                             </div>
                             <div class="reward-content" th:each="rewardOpt : ${ project.rewardOpt }">
-                                <span class="reward-price" th:text="${ rewardOpt.rewAmount }">120,000원</span><br>
-                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewSf }">배송비 2500원</span><br>
-                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewExplain }">간단한 리워드 설명이 들어갑니다.</span>
+                                <span class="reward-price" th:text="${ rewardOpt.rewAmount }"></span><br>
+                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewSf }"></span><br>
+                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewExplain }"></span>
                             </div>
                         </div><br>
-                        <div class="reward-2">
-                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</div>
-                            <div class="op-limit">
-                                <div class="reward-option">색상 : 블랙 코팅</div>
-                                <div class="reward-limitCount">현재 100개 남음!</div>
-                            </div>
-                            <div class="reward-content">
-                                <span class="reward-price">120,000원</span><br>
-                                <span class="reward-etc">배송비 2500원</span><br>
-                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
-                            </div>
-                        </div><br>
-                        <div class="reward-3">
-                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>
-                            <div class="op-limit">
-                                <div class="reward-option">색상 : 기본</div>
-                                <div class="reward-limitCount">현재 230개 남음!</div>
-                            </div>
-                            <div class="reward-content">
-                                <span class="reward-price">130,000원</span><br>
-                                <span class="reward-etc">배송비 2500원</span><br>
-                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
-                            </div>
-                        </div><br>
-                        <div class="reward-4">
-                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>
-                            <div class="op-limit">
-                                <div class="reward-option">색상 : 블랙 코팅</div>
-                                <div class="reward-limitCount">현재 105개 남음!</div>
-                            </div>
-                            <div class="reward-content">
-                                <span class="reward-price">130,000원</span><br>
-                                <span class="reward-etc">배송비 2500원</span><br>
-                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>
-                            </div>
-                        </div>
+<!--                        <div class="reward-2">-->
+<!--                            <div class="reward-title" th:each=" reward : ${ project.reward }" th:text="${ reward.rewName }"></div>-->
+<!--                            <div class="op-limit" th:each="rewardOpt : ${ project.rewardOpt }">-->
+<!--                                <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>-->
+<!--                                <div class="reward-limitCount" th:text="${ rewardOpt.rewOptVal }">현재 100개 남음!</div>-->
+<!--                            </div>-->
+<!--                            <div class="reward-content" th:each="rewardOpt : ${ project.rewardOpt }">-->
+<!--                                <span class="reward-price" th:text="${ rewardOpt.rewAmount }"></span><br>-->
+<!--                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewSf }"></span><br>-->
+<!--                                <span class="reward-etc" th:each="reward : ${ project.reward }" th:text="${ reward.rewExplain }"></span>-->
+<!--                            </div>-->
+<!--                        </div><br>-->
+<!--                        <div class="reward-3">-->
+<!--                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>-->
+<!--                            <div class="op-limit">-->
+<!--                                <div class="reward-option">색상 : 기본</div>-->
+<!--                                <div class="reward-limitCount">현재 230개 남음!</div>-->
+<!--                            </div>-->
+<!--                            <div class="reward-content">-->
+<!--                                <span class="reward-price">130,000원</span><br>-->
+<!--                                <span class="reward-etc">배송비 2500원</span><br>-->
+<!--                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>-->
+<!--                            </div>-->
+<!--                        </div><br>-->
+<!--                        <div class="reward-4">-->
+<!--                            <div class="reward-title">펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</div>-->
+<!--                            <div class="op-limit">-->
+<!--                                <div class="reward-option">색상 : 블랙 코팅</div>-->
+<!--                                <div class="reward-limitCount">현재 105개 남음!</div>-->
+<!--                            </div>-->
+<!--                            <div class="reward-content">-->
+<!--                                <span class="reward-price">130,000원</span><br>-->
+<!--                                <span class="reward-etc">배송비 2500원</span><br>-->
+<!--                                <span class="reward-etc">간단한 리워드 설명이 들어갑니다.</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                     <div class="reward-choose">
                         <div class="reward-choose-list">
                             <!-- 선택한 것 입력 -->
                             <div class="reward-choose1">
                                 <span>펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</span><br>
+                                <span class="op-choose">기본</span><br>
                                 <div class="count-price">
                                     <div class="counts">
                                         <div class="minus">-</div>
@@ -185,6 +179,7 @@
                             </div>
                             <div class="reward-choose2">
                                 <span>펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</span><br>
+                                <span class="op-choose">블랙 코팅</span><br>
                                 <div class="count-price">
                                     <div class="counts">
                                         <div class="minus">-</div>

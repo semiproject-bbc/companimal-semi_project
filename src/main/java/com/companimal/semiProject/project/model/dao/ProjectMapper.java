@@ -1,21 +1,17 @@
 package com.companimal.semiProject.project.model.dao;
 
-import com.companimal.semiProject.project.model.dto.ProjectDTO;
-import com.companimal.semiProject.project.model.dto.ProjectFileDTO;
-import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
-import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
+import com.companimal.semiProject.project.model.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface ProjectMapper {
-    List<ProjectDTO> selectProject();
+    ProjectDTO selectProject();
 
     int insertProject(ProjectDTO project);
 
-    List<ProjectDTO> selectProjectDetail();
-
+    ProjectDTO selectProjectDetail();
 
     int insertProjectReward(List<ProjectRewardDTO> reward);
 
@@ -24,12 +20,19 @@ public interface ProjectMapper {
     int insertProjectFile(ProjectFileDTO projectFile);
 
     int insertProjectImage(ProjectFileDTO projectImage);
-  
+
+    void selectProjectCate(List<ProjectCateDTO> cate);
+
     List<ProjectDTO> selectEndProjectList();
 
     ProjectDTO selectSupportList(int id);
 
     int updateShipment(ProjectDTO estDateDto);
+
+    int insertFile(ProjectFileDTO projectFile);
+
+    int insertImage(ProjectImageDTO projectImage);
+
 
 //    List<ProjectDTO> selectCalculationList();
 

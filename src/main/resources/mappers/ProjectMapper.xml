@@ -79,30 +79,38 @@
         <result property="delStatus" column="del_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
+<!--        <association property="rewName" resultMap="projectRewardResultMap"/>-->
+<!--        <association property="rewExplain" resultMap="projectRewardResultMap"/>-->
+<!--        <association property="rewSf" resultMap="projectRewardResultMap"/>-->
+<!--        <association property="rewOptName" resultMap="projectRewardOptResultMap"/>-->
+<!--        <association property="rewOptVal" resultMap="projectRewardOptResultMap"/>-->
+<!--        <association property="rewOptLimit" resultMap="projectRewardOptResultMap"/>-->
+<!--        <association property="rewAmount" resultMap="projectRewardOptResultMap"/>-->
+<!--        <association property="proCateName" resultMap="projectCateResultMap"/>-->
         <collection property="reward" resultMap="projectRewardResultMap"/>
         <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>
         <collection property="image" resultMap="projectImageResultMap"/>
-        <collection property="file" resultMap="projectFileResultMap"/>
+<!--        <collection property="file" resultMap="projectFileResultMap"/>-->
         <collection property="cate" resultMap="projectCateResultMap"/>
     </resultMap>
 
-    <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">
-        <id property="order_no" column="orderNo" />
-        <id property="new_opt_code" column="newOptCode" />
-        <result property="order_amount" column="orderAmount" />
-    </resultMap>
+<!--    <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">-->
+<!--        <id property="order_no" column="orderNo" />-->
+<!--        <id property="new_opt_code" column="newOptCode" />-->
+<!--        <result property="order_amount" column="orderAmount" />-->
+<!--    </resultMap>-->
 
-    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
-        <id property="order_no" column="orderNo" />
-        <result property="order_date" column="orderDate" />
-        <result property="mem_id" column="memId" />
-        <result property="address" column="address" />
-        <result property="request" column="request" />
-        <result property="recipient" column="recipient" />
-        <result property="final_pay" column="finalPay" />
-        <result property="pro_code" column="proCode" />
-        <result property="cou_code" column="couCode" />
-    </resultMap>
+<!--    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">-->
+<!--        <id property="order_no" column="orderNo" />-->
+<!--        <result property="order_date" column="orderDate" />-->
+<!--        <result property="mem_id" column="memId" />-->
+<!--        <result property="address" column="address" />-->
+<!--        <result property="request" column="request" />-->
+<!--        <result property="recipient" column="recipient" />-->
+<!--        <result property="final_pay" column="finalPay" />-->
+<!--        <result property="pro_code" column="proCode" />-->
+<!--        <result property="cou_code" column="couCode" />-->
+<!--    </resultMap>-->
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
     <select id="selectProject" resultMap="projectResultMap">
@@ -123,6 +131,7 @@
                 ,cate_sub
           FROM project
          WHERE del_status = 'N'
+           AND pro_code = #{ proCode }
 <!--           AND TO_DAYS(now())-TO_DAYS('end_date');-->
     </select>
 
@@ -141,8 +150,6 @@
                 ,p.est_date
                 ,p.ach_rate
                 ,p.del_status
-                ,p.cate_main
-                ,p.cate_sub
                 ,r.rew_name
                 ,r.rew_explain
                 ,r.rew_sf
@@ -151,17 +158,18 @@
                 ,o.rew_opt_limit
                 ,o.rew_amount
                 ,i.pro_img_name
-                ,f.pro_file_name
+<!--                ,f.pro_file_name-->
                 ,c1.pro_cate_name
                 ,c2.pro_cate_name
           FROM project p
           JOIN reward r ON (p.pro_code = r.pro_code)
           JOIN reward_opt o ON (r.rew_code = o.rew_code)
           JOIN project_image i ON (p.pro_code = i.pro_code)
-          JOIN project_file f ON (p.pro_code = f.pro_code)
+<!--          JOIN project_file f ON (p.pro_code = f.pro_code)-->
           JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
           JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)
          WHERE del_status = 'N'
+           AND p.pro_code = #{ proCode }
     </select>
 
     <!-- 프로젝트 등록 시 db에 저장할 쿼리 -->
@@ -198,16 +206,6 @@
                     ,#{ cateMain }
                     ,#{ cateSub }
                     )
-          INTO projectRewardOpt ( rewOptName
-                                ,rewOptVal
-                                ,rewOptLimit
-                                ,rewAmount
-                                )
-          VALUES ( #{ rew_opt_name }
-                ,#{ rew_opt_val }
-                ,#{ rew_opt_limit }
-                ,#{ rew_amount }
-                )
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
@@ -284,11 +282,51 @@
                 )
     </insert>
 
-<!--    &lt;!&ndash; 프로젝트 상세페이지 조회에서 카테고리 이름 가져오는 쿼리 &ndash;&gt;-->
-<!--    <select id="selectProjectCate" resultMap="projectCateResultMap">-->
-<!--        SELECT pro_cate_name-->
-<!--          FROM project_cate-->
-<!--         WHERE pro_cate_code = #{ proCateCode }-->
+<!--    <insert id="insertProjectCate" parameterType="com.companimal.semiProject.project.model.dto.ProjectCateDTO">-->
+<!--        INSERT INTO project_cate (-->
+<!--        pro_code-->
+<!--    </insert>-->
+
+    <!-- 프로젝트 상세페이지 조회에서 카테고리 이름 가져오는 쿼리 -->
+    <select id="selectProjectCate" resultMap="projectCateResultMap">
+        SELECT pro_cate_name
+          FROM project_cate
+         WHERE pro_cate_code = #{ proCateCode }
+    </select>
+
+    <insert id="insertFile" parameterType="com.companimal.semiProject.project.model.dto.ProjectFileDTO">
+        INSERT INTO project_file (
+        pro_file_num
+        ,pro_code
+        ,pro_file_path
+        ,pro_file_name
+        ,pro_file_ori_name
+        )
+        VALUES (
+        #{ proFileNum }
+        ,#{ proCode }
+        ,#{ proFilePath }
+        ,#{ proFileName }
+        ,#{ proFileOriName }
+        )
+    </insert>
+
+    <insert id="insertImage" parameterType="com.companimal.semiProject.project.model.dto.ProjectImageDTO">
+        INSERT INTO project_image (
+        pro_img_num
+        ,pro_code
+        ,pro_img_path
+        ,pro_img_name
+        ,pro_img_ori_name
+        )
+        VALUES (
+        #{ proImgNum }
+        ,#{ proCode }
+        ,#{ proImgPath }
+        ,#{ proImgName }
+        ,#{ proImgOriName }
+        )
+    </insert>
 
     <!-- 종료된 프로젝트 가져오는 쿼리 -->
     <select id="selectEndProjectList" resultMap="projectResultMap">

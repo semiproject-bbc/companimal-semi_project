@@ -335,6 +335,12 @@ ul.imgs li{
                 padding: 30px;
 
                 .reward-choose-list {
+                    .op-choose {
+                        /*color: #6F6F6F;*/
+                        /*text-decoration: underline;*/
+                        background-color: #ffefa0;
+                        margin-top: 50px;
+                    }
 
                     .reward-choose1, .reward-choose2 {
                         width:auto;

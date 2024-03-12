@@ -1,6 +1,10 @@
-.btn:hover {
+.btn:hover, .btn-reward:hover, .plus:hover {
     background-color: #ff8000;
     border:#ff8000;
+}
+.remove:hover {
+    background-color: #9d9d9d;
+    border: #9d9d9d;
 }
 
 section {
@@ -183,6 +187,10 @@ section {
     border-style: ridge;
     border-radius: 3px;
     background-color: #fca652;
+}
+
+.option-add {
+    display: flex;
 }
 
 .remove {

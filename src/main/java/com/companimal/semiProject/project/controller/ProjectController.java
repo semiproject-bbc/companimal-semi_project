@@ -31,22 +31,20 @@ public class ProjectController {
     @GetMapping("/projectPage")
     public String selectProject(Model model) {
 
-        List<ProjectDTO> selectProjectList = projectService.selectProject();
+        ProjectDTO selectProject = projectService.selectProject();
 
-        System.out.println(selectProjectList);
-
-        model.addAttribute("selectProjectList", selectProjectList);
+        model.addAttribute("selectProject", selectProject);
 
         return "contents/project/projectDetail";
     }
 
     @GetMapping("/projectDetail")
     public String selectProjectDetail(Model model) {
-        List<ProjectDTO> selectProjectList = projectService.selectProjectDetail();
+        ProjectDTO selectProject = projectService.selectProjectDetail();
 
-        System.out.println(selectProjectList);
+        System.out.println(selectProject);
 
-        model.addAttribute("selectProjectList", selectProjectList);
+        model.addAttribute("selectProject", selectProject);
 
         return "contents/project/projectDetail";
     }
@@ -65,7 +63,25 @@ public class ProjectController {
     public String insertProject(@RequestParam MultipartFile file
                                 , @ModelAttribute ProjectDTO project) throws IOException {
 
+
+        System.out.println(project);
+
         projectService.insertProject(file, project);
+
+        return "contents/project/projectRegistAfter";
+
+    }
+
+    @GetMapping("/projectImage")
+    public String imageInsert() {
+        return "contents/project/projectImage";
+    }
+
+    @PostMapping("projectImage")
+    public String projectImage(@RequestParam MultipartFile file1
+                               /*@RequestParam MultipartFile file2*/) {
+
+        projectService.insertImage(file1);
 
         return "contents/project/projectRegistAfter";
     }
