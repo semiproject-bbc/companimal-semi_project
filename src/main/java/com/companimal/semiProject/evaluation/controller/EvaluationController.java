@@ -1,6 +1,7 @@
 package com.companimal.semiProject.evaluation.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -12,5 +13,10 @@ public class EvaluationController {
         System.out.println("후원금 최종 정산 심사");
 
         return "contents/evaluation/evacalculationlist";
+    }
+
+    @RequestMapping("/creatorEvaluationRegist")
+    public String creatorEvaluationRegist() {
+        return "/contents/evaluation/creatorEvaluationRegist";
     }
 }
