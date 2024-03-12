@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <title>COMPANIMAL</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script src="login.js"></script>
+</head> 
+<body>
+    <div class="MainWeapper_contest">
+        
+        <div class="account-intro-login">
+
+            <div class="AccountContainer_container">
+
+                <h1 class="AccountContainer_title">로그인</h1>
+                
+                <form class="SignInForm_form" th:action="@{/auth/login}" th:method="post">
+
+                    <div class="SignInForm_loginField">
+
+                        <div class="SignInForm_idField" >
+
+                            <input name="memberId" class="idField" maxlength="20" placeholder="   아이디 입력" type="text" >
+
+                        </div>
+                        <div class="SignInForm_passwordField">
+
+                            <input name="memberPwd" class="passwordField" maxlength="20" placeholder="   비밀번호 입력" type="password" >
+                            
+                        </div>
+
+                    </div>
+                    <button class="loginSubmitButton" type="submit">
+                        <span class="loginButtonText">로그인</span>
+                    </button>
+                    
+                    <div class="SignInForm_loginAction">
+
+                        <p class="SignInForm_forgotId">
+                            <a href="/아이디찾기 주소" data-test-id="findIdLink">아이디찾기</a>
+                        </p>
+
+                        <P class="SignInForm_separator">|</P>
+
+                        <p class="SignInForm_forgotPassword">
+                            
+                            <a href="/비밀번호찾기 주소" data-test-id="findIdLink">비밀번호찾기</a>
+                        </p >
+
+                        <p class="SignInForm_separator">|</p>
+
+                        <p class="SignInForm_regist">
+                            <a href="/회원가입 주소" data-test-id="findIdLink">회원가입</a>
+                        </p>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+        
+    </div>
+</body>
+</html>

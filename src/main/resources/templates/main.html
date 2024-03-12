@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/login_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+</head>
+
+<th:block layout:fragment="content">
+
+    <div sec:authorize="hasAnyAuthority('SUPPORTER')">서포터</div>
+    <button onclick="location.href='contents/project/projectDetail'">펀딩 상세페이지</button>
+    <button onclick="location.href='/member/regist'">회원가입</button>
+    <form th:action="@{/auth/logout}" th:method="post">
+        <button>로그아웃</button>
+    </form>
+    <button onclick="location.href='/evaluation/creatorEvaluationRegist'">크리에이터 심사</button>
+</th:block>
+
+</html>
