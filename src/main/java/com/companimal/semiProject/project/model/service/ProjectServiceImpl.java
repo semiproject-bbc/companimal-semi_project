@@ -37,4 +37,29 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectDTO> selectProjectDetail() {
         return projectMapper.selectProjectDetail();
     }
+
+    @Override
+    public List<ProjectDTO> selectEndProjectList() {
+        return projectMapper.selectEndProjectList();
+    }
+
+    @Override
+    public ProjectDTO selectSupportList(int id) {
+        return projectMapper.selectSupportList(id);
+    }
+
+    @Override
+    public int updateShipment(ProjectDTO estDateDto) {
+        int result = projectMapper.updateShipment(estDateDto);
+
+        return result;
+    }
+
+
+    //    @Override
+//    public List<ProjectDTO> selectCalculationList() {
+//        return projectMapper.selectCalculationList();
+//    }
+
+
 }
