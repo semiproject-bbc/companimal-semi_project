@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="headerFragment">
     <header>
         <div class="miniNav">
-            <button class="signup miniNav-item" href="">회원가입</button>
-            <button id="login" class="login miniNav-item" type="button">로그인</button>
+            <div sec:authorize="!isAuthenticated()">
+                <button class="signup miniNav-item" onclick="location.href='/member/regist'">회원가입</button>
+                <button id="login" class="login miniNav-item" type="button" onclick="location.href='/auth/login'">로그인</button>
+            </div>
+
+            <div sec:authorize="isAuthenticated()">
+                <div class="miniNav">
+                    <a class="heart miniNav-item" href="">
+                        <img class="heart-icon" src="/image/heart.png">
+                    </a>
+                    <a class="bell miniNav-item" href="">
+                        <img class="bell-icon" src="/image/bell.png">
+                    </a>
+                    <button class="myPage miniNav-item" th:onclick="|location.href='@{/member/mypage}'|">마이페이지</button>
+                    <form th:action="@{/auth/logout}" th:method="post">
+                        <button id="logout" class="logout miniNav-item" type="button">로그아웃</button>
+                    </form>
+                </div>
+            </div>
             <button id="projectRegist" class="projectRegist miniNav-item">프로젝트 등록</button>
         </div>
-        <div class="companimal" onclick="location.href='/'">Companimal</div>
+        <div class="companimal" onclick="location.href=''">Companimal</div>
+        <div class="mainNav">
+            <div class="menu-bar">
+                <a class="funding+" href="">펀딩+</a>
+                <a class="community" href="">커뮤니티</a>
+                <a class="story" href="">스토리</a>
+            </div>
+            <div class="keyword-search">
+                <input class="search-box" placeholder="키워드 검색" type="text">
+                <button type="button">
+                    <img class="keyword-search-icon" src="/image/search.png">
+                </button>
+            </div>
+        </div>
         <div>
             <hr>
         </div>
