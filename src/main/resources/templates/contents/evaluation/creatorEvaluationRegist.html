@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/evaluation/creatorEvaluationRegist}">
+</head>
+<body>
+    <section>
+        <div class="sidetab">
+            <div class="sidewrap">
+                <div class="rolechangebtn">
+                    <button class="supporterbtn">서포터</button>
+                    <button class="creatorbtn focusbtn">크리에이터</button>
+                </div>
+                <div class="roleimage">
+                    <img src="../common/image/member.png" alt="이미지">
+                </div>
+                <div class="sidemenu">
+                    <p>진행 중인 프로젝트</p>
+                    <button>- 진행 중인 프로젝트 조회</button>
+                    <p>진행 종료 프로젝트</p>
+                    <button>- 진행 종료 프로젝트 조회</button>
+                    <button>- 후원금 정산 진행 현황</button>
+                    <p>프로젝트 문의</p>
+                    <button>- 문의 내역</button>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <p class="creatorEvaluationRegist">개인 크리에이터 심사 등록</p>
+
+            <form class="creatorEvaluationRegistForm">
+
+                <div class="evaluationRegistForm">
+
+                    <div class="creatorNameField">
+
+                        <input class="creatorNameInput" type="text" placeholder="   크리에이터 명">
+                    </div>
+
+                    <div class="productPlanField">
+                        
+                        <input type="text" class="productPlanInput preInserted" value="   상품 기획서" readonly onfocus="this.className='productPlanInput';">
+
+                        <button class="productPlanSubmitButton">
+                            <img class="SubmitButtonImage" src="../common/image/file_upload.png" alt="">
+                            <p class="SubmitButtonText">파일 업로드</p>    
+                        </button>    
+                    </div>
+
+                    <div class="productPortfolioField">
+                        
+                        <input type="text" class="productPortfolioInput preInserted" value="   포트폴리오" readonly onfocus="this.className='productPortfolioInput';">
+
+                        <button class="productPortfolioSubmitButton">
+                            <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">
+                            <p class="SubmitButtonText">파일 업로드</p>    
+                        </button>    
+                    </div>
+
+                    <button class="evlauationRegistSubmitButton" type="submit"> 
+                        <p class="evaluationRegistText">심사 등록</p>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
