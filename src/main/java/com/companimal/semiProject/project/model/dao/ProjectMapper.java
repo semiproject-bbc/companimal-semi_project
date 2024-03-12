@@ -12,4 +12,13 @@ public interface ProjectMapper {
     int insertProject(ProjectDTO project);
 
     List<ProjectDTO> selectProjectDetail();
+
+    List<ProjectDTO> selectEndProjectList();
+
+    ProjectDTO selectSupportList(int id);
+
+    int updateShipment(ProjectDTO estDateDto);
+
+//    List<ProjectDTO> selectCalculationList();
+
 }

@@ -45,9 +45,11 @@ input:focus {
     border-radius:10px;
 }
 .pjpercentage {
+    display:inline-block;
     color:#fca652;
     font-weight:bold;
-    margin:15px 0;
+    margin-top:0px;
+    margin-bottom:15px;
 }
 .endpjbtn {
     width:90%;

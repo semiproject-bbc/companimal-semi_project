@@ -1,46 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/logout_creator_layout}">
+      layout:decorate="~{layouts/common_layout}">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <!--    <script type="text/javascript" th:src="@{/js/event.js}"></script>-->
 </head>
 
 <th:block layout:fragment="content">
     <div class="main">
         <h2>후원금 정산 진행 현황</h2>
         <div class="d-flex d-wrap projectlistbox">
-            <div class="projectbox">
-                <a href="#">
-                    <img src="../../image/etc1.jpg" alt="프로젝트 썸네일" />
+            <div class="projectbox" th:each="callist : ${calculationList}">
+                <a th:href="@{/project/projectDetail(id=${callist.proCode})}">
+                    <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
                 </a>
-                <h3>펀딩 프로젝트 제목1입니다.</h3>
+                <h3 th:text="${callist.proName}"></h3>
                 <div class="d-flex calBox">
-                    <p class="pjpercentage">103% 달성</p>
-                    <p class="gray-back">발송 예정일 미입력</p>
-                </div>
-            </div>
-            <div class="projectbox">
-                <a href="#">
-                    <img src="../../image/etc2.jpg" alt="프로젝트 썸네일" />
-                </a>
-                <h3>펀딩 프로젝트 제목2입니다.</h3>
-                <div class="d-flex calBox">
-                    <p class="pjpercentage">110% 달성</p>
-                    <p class="orange-back">최종 정산 완료</p>
-                </div>
-            </div>
-            <div class="projectbox">
-                <a href="#">
-                    <img src="../../image/etc3.jpg" alt="프로젝트 썸네일" />
-                </a>
-                <h3>펀딩 프로젝트 제목3입니다.</h3>
-                <div class="d-flex calBox">
-                    <p class="pjpercentage">133% 달성</p>
-                    <p class="yellow-back">중간 정산 완료</p>
+                    <div>
+                        <span class="pjpercentage" th:text="${callist.achRate}"></span>
+                        <span class="pjpercentage">% 달성</span>
+                    </div>
+                    <p th:if="${#strings.isEmpty(callist.estDate)}" class="gray-back">발송 예정일 미입력</p>
+                    <p th:if="${callist.estDate}" class="gray-back">중간 정산 전</p>
+                    <!--<p th:if="${callist.estDate}" class="yellow-back">중간 정산 완료</p>
+                    <p th:if="${callist.estDate}" class="orange-back">최종 정산 완료</p>-->
                 </div>
             </div>
         </div>
