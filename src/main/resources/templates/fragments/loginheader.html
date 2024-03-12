@@ -4,8 +4,8 @@
 <th:block th:fragment="loginHeaderFragment">
     <header>
         <div class="miniNav">
-            <button class="signup miniNav-item" href="">회원가입</button>
-            <button id="login" class="login miniNav-item" type="button">로그인</button>
+            <button class="signup miniNav-item" onclick="location.href='/member/regist'">회원가입</button>
+            <button id="login" class="login miniNav-item" type="button" onclick="location.href='/auth/login'">로그인</button>
             <button id="projectRegist" class="projectRegist miniNav-item">프로젝트 등록</button>
         </div>
         <div class="companimal" onclick="location.href='/'">Companimal</div>
