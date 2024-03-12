@@ -86,6 +86,24 @@
         <collection property="cate" resultMap="projectCateResultMap"/>
     </resultMap>
 
+    <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">
+        <id property="order_no" column="orderNo" />
+        <id property="new_opt_code" column="newOptCode" />
+        <result property="order_amount" column="orderAmount" />
+    </resultMap>
+
+    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
+        <id property="order_no" column="orderNo" />
+        <result property="order_date" column="orderDate" />
+        <result property="mem_id" column="memId" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="final_pay" column="finalPay" />
+        <result property="pro_code" column="proCode" />
+        <result property="cou_code" column="couCode" />
+    </resultMap>
+
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
     <select id="selectProject" resultMap="projectResultMap">
         SELECT pro_code
@@ -271,5 +289,69 @@
 <!--        SELECT pro_cate_name-->
 <!--          FROM project_cate-->
 <!--         WHERE pro_cate_code = #{ proCateCode }-->
+
+    <!-- 종료된 프로젝트 가져오는 쿼리 -->
+    <select id="selectEndProjectList" resultMap="projectResultMap">
+        SELECT pro_code
+        ,pro_name
+        ,pro_intro
+        ,goal_amount
+        ,start_date
+        ,end_date
+        ,pro_story
+        ,pol_no_refund
+        ,pol_as
+        ,mem_id
+        ,est_date
+        ,ach_rate
+        ,del_status
+        ,cate_main
+        ,cate_sub
+        FROM project
+        WHERE del_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '')
+    </select>
+
+    <update id="updateShipment" parameterType="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        UPDATE project
+            SET est_date=#{newShipment}
+            WHERE pro_code=#{proCode}
+    </update>
+
+<!--    <select id="selectSupportList" resultMap="projectResultMap">-->
+<!--        SELECT-->
+<!--            o.mem_id,-->
+<!--            o.final_pay,-->
+<!--            o.order_date-->
+<!--        FROM project p-->
+<!--        JOIN reward r ON (p.pro_code = r.pro_code)-->
+<!--        JOIN reward_opt o ON (r.rew_code = o.rew_code)-->
+<!--        JOIN order_opt t ON (o.rew_opt_code = t.rew_opt_code)-->
+<!--        JOIN order_payment m ON (t.order_no = m.order_code)-->
+<!--        JOIN order_payment pm ON (p.pro_code = pm.pro_code)-->
+<!--        JOIN default_member dm ON (m.mem_id = dm.mem_id)-->
+<!--        WHERE p.pro_code = #{proCode}-->
+<!--    </select>-->
+
+<!--    <select id="selectCalculationList" resultMap="projectResultMap">-->
+<!--        SELECT pro_code-->
+<!--        ,pro_name-->
+<!--        ,pro_intro-->
+<!--        ,goal_amount-->
+<!--        ,start_date-->
+<!--        ,end_date-->
+<!--        ,pro_story-->
+<!--        ,pol_no_refund-->
+<!--        ,pol_as-->
+<!--        ,mem_id-->
+<!--        ,est_date-->
+<!--        ,ach_rate-->
+<!--        ,del_status-->
+<!--        ,cate_main-->
+<!--        ,cate_sub-->
+<!--        FROM project-->
+<!--        WHERE del_status = 'N'-->
+<!--            and ach_rate > 100-->
+<!--            and mem_id = "user01"-->
+<!--            and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '')-->
 <!--    </select>-->
 </mapper>

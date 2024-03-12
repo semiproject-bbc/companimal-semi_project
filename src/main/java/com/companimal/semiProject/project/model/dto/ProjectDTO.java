@@ -2,6 +2,7 @@ package com.companimal.semiProject.project.model.dto;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.multipart.MultipartFile;
+import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 
 import java.sql.Date;
 import java.util.List;
@@ -31,8 +32,14 @@ public class ProjectDTO implements java.io.Serializable {
     private List<ProjectCateDTO> cate;              // 프로젝트 카테고리 DTO
     private int imageAttached;
     private MultipartFile projectImage;
+    private List<OrderPaymentDTO> orderPayment;
 
     public ProjectDTO() {
+    }
+
+    public ProjectDTO(int proCode, Date estDate) {
+        this.proCode = proCode;
+        this.estDate = estDate;
     }
 
     public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub) {

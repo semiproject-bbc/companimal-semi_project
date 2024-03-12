@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.companimal.semiProject.member.model.dao.MemberMapper">
+    
+    <resultMap id="login" type="com.companimal.semiProject.member.model.dto.LoginMemberDTO">
+        <id property="memberId" column="MEM_ID"/>
+        <result property="memberPwd" column="MEM_PWD"/>
+        <result property="memberNickname" column="MEM_NICKNAME"/>
+        <result property="memberName" column="MEM_NAME"/>
+        <result property="memberPhone" column="MEM_PHONE"/>
+        <result property="memberEmail" column="MEM_EMAIL"/>
+        <result property="memberRole" column="MEM_AUTHORITY"/>
+    </resultMap>
+
+    <insert id="registMember" parameterType="com.companimal.semiProject.member.model.dto.MemberDTO">
+        INSERT
+        INTO DEFAULT_MEMBER (MEM_ID
+                            ,MEM_PWD
+                            ,MEM_NICKNAME
+                            ,MEM_NAME
+                            ,MEM_PHONE
+                            ,MEM_EMAIL
+                            ,MEM_AUTHORITY
+        )
+        VALUES ( #{ memberId}
+               ,#{ memberPwd}
+               ,#{ memberNickname}
+               ,#{ memberName}
+               ,#{ memberPhone}
+               ,#{ memberEmail}
+               ,#{ memberRole}
+               )
+    </insert>
+
+    <select id="findByMemberName" resultMap="login" parameterType="string">
+        SELECT
+            MEM_ID
+             ,MEM_PWD
+             ,MEM_NICKNAME
+             ,MEM_NAME
+             ,MEM_PHONE
+             ,MEM_EMAIL
+             ,MEM_AUTHORITY
+        FROM DEFAULT_MEMBER
+        WHERE MEM_ID = #{ memberId }
+    </select>
+
+    <select id="idDuplicateCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM DEFAULT_MEMBER
+        WHERE MEM_ID = #{ id }
+    </select>
+
+</mapper>

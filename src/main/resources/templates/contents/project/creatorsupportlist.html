@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/logout_creator_layout}">
+      layout:decorate="~{layouts/common_layout}">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <!--    <script type="text/javascript" th:src="@{/js/event.js}"></script>-->
 </head>
 
 <th:block layout:fragment="content">
@@ -19,13 +18,13 @@
                 <th>후원 날짜</th>
                 <th>후원 상태</th>
             </tr>
-            <tr>
-                <td>azizzang</td>
-                <td>28000원</td>
-                <td>2024.02.25</td>
+            <tr th:each="supportlist : ${supportList}">
+                <td th:text="${supportlist.memId}"></td>
+                <td th:text="${supportlist.finalPay}">28000원</td>
+                <td th:text="${supportlist.orderDate}">2024.02.25</td>
                 <td>환불</td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td>jeongheeK</td>
                 <td>32000원</td>
                 <td>2024.02.25</td>
@@ -78,7 +77,7 @@
                 <td>45000원</td>
                 <td>2024.02.14</td>
                 <td>후원</td>
-            </tr>
+            </tr>-->
         </table>
     </div>
 </th:block>
