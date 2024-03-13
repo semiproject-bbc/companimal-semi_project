@@ -1,9 +1,3 @@
-// $.onload(function () {
-//     document.getElementById("regist2").style.display = "none";
-//     document.getElementById("regist3").style.display = "none";
-//     document.getElementById("regist4").style.display = "none";
-//     document.getElementById("regist5").style.display = "none";
-// });
 
 window.onload = function () {
 
@@ -11,10 +5,8 @@ window.onload = function () {
     document.getElementById("regist3").style.display = "none";
     document.getElementById("regist4").style.display = "none";
     document.getElementById("regist5").style.display = "none";
-    summernoteInit();
 }
-
-function summernoteInit() {
+$(document).ready(function (){
 
     $('#summernote').summernote({
         placeholder: '안녕하세요. 스토리 작성을 시작한 크리에이터님 환영해요!\n&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;' +
@@ -72,53 +64,33 @@ function summernoteInit() {
     $('#summernote').summernote('reset');
     $('#summernote').summernote('undo');
     $('#summernote').summernote('redo');
-
-}
+});
 
 function regist1() {
 
-    document.getElementById("regist1").style.display = "block";
+    document.getElementById("regist1").style.display = "flex";
     document.getElementById("regist2").style.display = "none";
     document.getElementById("regist3").style.display = "none";
     document.getElementById("regist4").style.display = "none";
     document.getElementById("regist5").style.display = "none";
-
-    // $("#regist1").show;
-    // $("#regist2").hide;
-    // $("#regist3").hide;
-    // $("#regist4").hide;
-    // $("#regist5").hide;
-
 };
 
 function regist2() {
 
     document.getElementById("regist1").style.display = "none";
-    document.getElementById("regist2").style.display = "block";
+    document.getElementById("regist2").style.display = "flex";
     document.getElementById("regist3").style.display = "none";
     document.getElementById("regist4").style.display = "none";
     document.getElementById("regist5").style.display = "none";
-
-    // $("#regist1").hide;
-    // $("#regist2").show;
-    // $("#regist3").hide;
-    // $("#regist4").hide;
-    // $("#regist5").hide;
 };
 
 function regist3() {
 
     document.getElementById("regist1").style.display = "none";
     document.getElementById("regist2").style.display = "none";
-    document.getElementById("regist3").style.display = "block";
+    document.getElementById("regist3").style.display = "flex";
     document.getElementById("regist4").style.display = "none";
     document.getElementById("regist5").style.display = "none";
-
-    // $("#regist1").hide;
-    // $("#regist2").hide;
-    // $("#regist3").show;
-    // $("#regist4").hide;
-    // $("#regist5").hide;
 };
 
 function regist4() {
@@ -126,14 +98,8 @@ function regist4() {
     document.getElementById("regist1").style.display = "none";
     document.getElementById("regist2").style.display = "none";
     document.getElementById("regist3").style.display = "none";
-    document.getElementById("regist4").style.display = "block";
+    document.getElementById("regist4").style.display = "flex";
     document.getElementById("regist5").style.display = "none";
-
-    // $("#regist1").hide;
-    // $("#regist2").hide;
-    // $("#regist3").hide;
-    // $("#regist4").show;
-    // $("#regist5").hide;
 };
 
 function regist5() {
@@ -142,13 +108,7 @@ function regist5() {
     document.getElementById("regist2").style.display = "none";
     document.getElementById("regist3").style.display = "none";
     document.getElementById("regist4").style.display = "none";
-    document.getElementById("regist5").style.display = "block";
-
-    // $("#regist1").hide;
-    // $("#regist2").hide;
-    // $("#regist3").hide;
-    // $("#regist4").hide;
-    // $("#regist5").show;
+    document.getElementById("regist5").style.display = "flex";
 };
 
 /* regist side-bar 버튼 안눌리게 하는 설정 */
@@ -206,67 +166,34 @@ function uploadSummernoteImageFile(file, editor) {
     });
 };
 
-document.getElementById('btn1').onclick = function () {
-    alert('a');
-};
+// document.getElementById('btn1').onclick = function () {
+//     alert('a');
+// };
 
-// $('#summernote').summernote('insertText');
-// $('#summernote').summernote('disable');
-// $('#summernote').summernote('enable');
-// $('#summernote').summernote('reset');
-// $('#summernote').summernote('undo');
-// $('#summernote').summernote('redo');
-//
-//
-// $('#summernote').summernote({
-//     placeholder: '안녕하세요. 스토리 작성을 시작한 크리에이터님 환영해요!\n' +
-//     '쉽게 작성할 수 있도록 안내 문구를 제공하고 있어요!\n' +
-//     '\n' +
-//     '*스토리를 모두 작성하셨다면,\n' +
-//     ' 제출 전 안내 문구들을 반드시 지워주세요!\n' +
-//     '\n' +
-//     '*스토리는 최대 5000자 작성가능합니다.\n' +
-//     '\n' +
-//     '이 프로젝트를 준비하게 된 배경\n' +
-//     '• 후원금을 모금하는 목적, 제품을 준비하게 된 배경에 대해 설명해주세요.\n' +
-//     '\n' +
-//     '이번에 선보이는 프로젝트의 스토리\n' +
-//     '• 해당 프로젝트의 핵심 목표와 준비한 리워드에 대해 설명해주세요.\n' +
-//     '• 리워드의 사진을 보여주며 설명해주세요.\n' +
-//     '• 다른 제품과의 차별점을 설명해주세요.\n' +
-//     '\n' +
-//     '크리에이터 소개\n' +
-//     '• 크리에이터님에 대한 소개글을 작성해주세요.\n' +
-//     '\n' +
-//     '컴패니멀을 선택한 이유\n' +
-//     '• 많은 크라우드 펀딩 서비스 중 컴패니멀에서 프로젝트를 진행하는 이유를 알려주세요.\n' +
-//     '\n' +
-//     '스토리를 모두 작성했다면 [다음] 버튼을 눌러 추가 정보들을 작성해주세요.',
-//     tabsize: 2,
-//     height: 500,
-//     toolbar: [
-//     ['fontname', ['fontname']],
-//     ['fontsize', ['fontsize']],
-//     ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
-//     ['color', ['forecolor', 'color']],
-//     ['para', ['ul', 'ol', 'paragraph']],
-//     ['table', ['table']],
-//     ['insert', ['link', 'picture']]
-//     ],
-//     fontNames: ['Arial',
-//     'Arial Black',
-//     'Comic Sans MS',
-//     'Courier New',
-//     '맑은 고딕',
-//     '궁서',
-//     '굴림체',
-//     '굴림',
-//     '돋움체',
-//     '바탕체'],
-//     fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18',
-//     '20', '22', '24', '26', '28',
-//     '30', '36', '46', '50', '72']
-// });
-//
+$(document).ready(function () {
+    const maxFields = 11;
+    let fieldCount = 1;
+
+    $('#plus').click(function (e) {
+        e.preventDefault();
+        if(fieldCount < maxFields) {
+            fieldCount++;
+            $('#input-wrap').append(`
+        <div class="input-list" id="input-list">
+            <input name="rewOptName" type="text" class="input-number" placeholder="옵션 (예시 : 색상)">
+            <input name="rewOptLimit" type="text" class="input-number" placeholder="제한 수량">
+            <input name="rewAmount" type="text" class="input-number" placeholder="리워드 금액">
+            <input name="rewOptVal" type="text" class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
+            <button type="button" class="remove" onclick="remove()">x</button><br>
+        </div>
+        `);
+        }
+    });
+
+    function remove() {
+        $(this).parent('.input-list').remove();
+        fieldCount--;
+    };
+});
 
 

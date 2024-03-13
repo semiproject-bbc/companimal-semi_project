@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/noNavLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/projectRegist.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+
+<th:block layout:fragment="content">
+    <form th:action="@{/project/projectImage}" method="post" enctype="multipart/form-data">
+    <section>
+        <div class="nav-bar-height side">
+            <button class="nav-tab">프로젝트 관리</button><br>
+            <button class="nav-list">1.기본 정보</button><br>
+            <button class="nav-choose">2.프로젝트 정보</button><br>
+            <button class="nav-list">3.스토리 작성</button><br>
+            <button class="nav-list">4.리워드 설계</button><br>
+            <button class="nav-list">5.정책</button><br>
+        </div>
+        <div class="container">
+                <div class="main">
+                    <p class="title">프로젝트 등록</p>
+                    <p class="sub-title">프로젝트 정보</p>
+                    <input name="file1" type="file" placeholder="관련 인증 서류 등록"><br><br>
+<!--                    <input name="file2" type="file" placeholder="파일 추가"><br><br>-->
+
+                </div>
+                <div class="before-next">
+                    <button th:type="submit" class="next">등록</button><br>
+                </div>
+        </div>
+    </section>
+    </form>
+</th:block>
+
+</html>
