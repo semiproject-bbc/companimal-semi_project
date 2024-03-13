@@ -1,7 +1,9 @@
 package com.companimal.semiProject.evaluation.model.service;
 
 import com.companimal.semiProject.evaluation.model.dao.EvaluationMapper;
+import com.companimal.semiProject.evaluation.model.dto.CreatorEvaDTO;
 import com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO;
+import com.companimal.semiProject.evaluation.model.dto.EvaluationDTO;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -49,6 +52,15 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         } else {
             System.out.println("크리에이터 정보 등록 실패");
         }
+
+        // 심사 테이블 등록
+        EvaluationDTO evaluationDTO = new EvaluationDTO();
+        evaluationDTO.setEvaDateTime(new Timestamp(System.currentTimeMillis()));
+        evaluationDTO.setEvaSituation("처리중");
+        evaluationMapper.insertEvaluation();
+
+        // 크리에이터 심사 테이블 등록
+        CreatorEvaDTO creatorEvaDTO = new CreatorEvaDTO(creatorId, evaluationDTO.getEvaNum());
 
         int fileNo = 1;
         InsertCreatorFile(fileNo, creatorId ,producPlan);

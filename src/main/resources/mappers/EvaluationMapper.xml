@@ -47,4 +47,19 @@
                 ,#{ creFileOriName }
                )
     </insert>
+
+    <insert id="insertEvaluation" parameterType="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
+        INSERT
+        INTO EVALUATION (
+                         EVA_DATETIME
+                         ,EVA_SITUATION
+                         )
+        VALUES (
+                #{ evaDateTime }
+                #{ evaSituation }
+               )
+        <selectKey keyProperty="evaNum" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
 </mapper>

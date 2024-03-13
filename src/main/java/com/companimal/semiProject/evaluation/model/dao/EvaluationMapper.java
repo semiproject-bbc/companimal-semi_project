@@ -12,5 +12,7 @@ public interface EvaluationMapper {
     boolean insertCreatorInfo(CreatorInfoDTO creatorInfoDTO);
 
     boolean InsertCreatorFile(CreatorFileDTO creatorFileDTO);
+
+    void insertEvaluation();
     //    List<CalculationListDTO> selectEvaCalculationList();
 }

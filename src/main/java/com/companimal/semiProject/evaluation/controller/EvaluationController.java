@@ -56,5 +56,10 @@ public class EvaluationController {
         return "/main";
     }
 
+    @GetMapping("/manager/creatorEvaluation")
+    public String creatorEvaluation() {
+        return "/contents/evaluation/manager/creatorEvaluation";
+    }
+
 }
 

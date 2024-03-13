@@ -1,14 +1,14 @@
 package com.companimal.semiProject.evaluation.model.dto;
 
-public class EvaluationCreaterDTO implements java.io.Serializable {
+public class CreatorEvaDTO implements java.io.Serializable {
 
     private String memId;   // 크리에이터 아이디
     private int evaNum;     // 심사 번호
 
-    public EvaluationCreaterDTO() {
+    public CreatorEvaDTO() {
     }
 
-    public EvaluationCreaterDTO(String memId, int evaNum) {
+    public CreatorEvaDTO(String memId, int evaNum) {
         this.memId = memId;
         this.evaNum = evaNum;
     }
