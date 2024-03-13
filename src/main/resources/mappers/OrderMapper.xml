@@ -4,6 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.companimal.semiProject.order.model.dao.OrderMapper">
 
+    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
+        <id property="orderNo" column="order_no" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="finalPay" column="final_pay" />
+        <result property="proCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
+    </resultMap>
 
+    <update id="updatePurchaseConfirm" parameterType="String">
+        UPDATE order_payment
+            SET purchase_status = now()
+            WHERE order_code = #{orderCode}
+    </update>
 
 </mapper>

@@ -1,174 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/login_layout}">
+      layout:decorate="~{layouts/navLayout}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,400;0,600;0,700;1,400&display=swap"/>
-    <link rel="stylesheet" th:href="@{/static/css/supporterParticipate.css}">
-    <link rel="stylesheet" th:href="@{/static/css/common.css}"> <!-- 다시 수정할 것...! -->
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/supporterParticipate.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
 </head>
-<body>
-<!-- <header class="header">
-    <iframe src="../기본템플렛/header.html" width="100%" height="350px" frameborder="0"></iframe>
-</header> -->
-<section>
-    <div class="sidetab">
-        <div class="sidewrap">
-            <div class="rolechangebtn">
-                <button class="supporterbtn focusbtn">서포터</button>
-                <button class="creatorbtn">크리에이터</button>
-            </div>
-            <div class="roleimage">
-                <img src="/static/image/profilePic.jpeg" alt="profile picture">
-            </div>
-            <div class="sidemenu">
-                <p>내 정보</p>
-                <button>- 프로필</button>
-                <button>- 알림 센터</button>
-                <p>프로젝트</p>
-                <button>- 참여 프로젝트</button>
-                <button>- 관심 프로젝트</button>
-            </div>
-        </div>
-    </div>
+
+<th:block layout:fragment="content">
     <div class="main">
         <div class="participateProject-container">
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
-                </a>
-                <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
-                </div>
-                <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
-                </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
-            </div>
 
-            <div class="projectbox">
+            <div class="projectbox" th:each="participatelist : ${participateList}">
                 <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
+                    <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
                 </a>
                 <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
+                    <div class="projectTitle" th:text="${participatelist.project.get(0).proName}"></div>
+                    <div class="projectDate" th:text="${participatelist.orderPayment.get(0).orderDate}"></div>
+<!--                    <div class="deliverStatus">배송 완료</div>-->
                 </div>
                 <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
+                    <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.orderPayment.get(0).purchaseStatus != null}">구매 확정 완료</button>
+<!--                    <button class="orderDetails" th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}">구매 미확정(비활성화 - 중간 정산 완료 이후 활성화)</button>-->
+                    <button class="orderDetails"
+                            th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}"
+                            th:onclick="purchaseModalOpen([[${participatelist.orderPayment.get(0).orderCode}]])">구매 미확정
+                    </button>
+                    <button class="orderDetails">내역 조회</button>
                 </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
-            </div>
-
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
-                </a>
-                <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
-                </div>
-                <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
-                </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
-            </div>
-
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
-                </a>
-                <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
-                </div>
-                <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
-                </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
-            </div>
-
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
-                </a>
-                <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
-                </div>
-                <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
-                </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
-            </div>
-
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
-                </a>
-                <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
-                </div>
-                <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
-                </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
-            </div>
-
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
-                </a>
-                <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
-                </div>
-                <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
-                </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
-            </div>
-
-            <div class="projectbox">
-                <a href="#">
-                    <img src="/static/image/profilePic.jpeg" alt="프로젝트 썸네일" />
-                </a>
-                <div class="projectInfo">
-                    <div class="projectTitle">project title</div>
-                    <div class="projectDate">날짜</div>
-                    <div class="deliverStatus">배송 완료</div>
-                </div>
-                <div class="d-flex endpjbtn">
-                    <button class="purchaseConfirmed">구매 확정 완료</button>
-                    <button class="orderDetails">크리에이터 문의하기</button>
-                </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</div>
+                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</button></div>
             </div>
         </div>
 
     </div>
-</section>
-<!-- <footer class="footer">
-    <iframe src="../기본템플렛/footer.html" width="100%" height="200px" frameborder="0">
-</footer> -->
-</body>
+
+    <div class="modal" id="purchaseModal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <p>* 구매 확정을 하시면 수정할 수 없습니다.</p>
+            <h3>구매를 확정하시겠습니까?</h3>
+            <div class="d-flex buttonBox">
+                <button type="submit" id="purchasepush" class="purchasepush confirmBtn" th:onclick="updatePurchase()">구매 확정</button>
+                <button class="cancelBtn" onclick="purchaseModalClose()">취소</button>
+            </div>
+        </div>
+    </div>
+</th:block>
 </html>

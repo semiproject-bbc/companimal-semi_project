@@ -1,6 +1,6 @@
 package com.companimal.semiProject.project.model.dto;
 
-import org.springframework.context.annotation.Bean;
+import com.companimal.semiProject.order.model.dto.OrderOptDTO;
 import org.springframework.web.multipart.MultipartFile;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 
@@ -32,7 +32,19 @@ public class ProjectDTO implements java.io.Serializable {
     private List<ProjectCateDTO> cate;              // 프로젝트 카테고리 DTO
     private int imageAttached;
     private MultipartFile projectImage;
+
+
+
+
+
     private List<OrderPaymentDTO> orderPayment;
+    private List<OrderOptDTO> orderOpt;
+
+
+
+
+
+
 
     public ProjectDTO() {
     }
@@ -42,25 +54,49 @@ public class ProjectDTO implements java.io.Serializable {
         this.estDate = estDate;
     }
 
-    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub) {
-        this.proCode = proCode;
-        this.proName = proName;
-        this.proIntro = proIntro;
-        this.goalAmount = goalAmount;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.proStory = proStory;
-        this.polNoRefund = polNoRefund;
-        this.polAs = polAs;
-        this.memId = memId;
-        this.estDate = estDate;
-        this.achRate = achRate;
-        this.delStatus = delStatus;
-        this.cateMain = cateMain;
-        this.cateSub = cateSub;
-    }
+//    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub) {
+//        this.proCode = proCode;
+//        this.proName = proName;
+//        this.proIntro = proIntro;
+//        this.goalAmount = goalAmount;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//        this.proStory = proStory;
+//        this.polNoRefund = polNoRefund;
+//        this.polAs = polAs;
+//        this.memId = memId;
+//        this.estDate = estDate;
+//        this.achRate = achRate;
+//        this.delStatus = delStatus;
+//        this.cateMain = cateMain;
+//        this.cateSub = cateSub;
+//    }
+//
+//    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate) {
+//        this.proCode = proCode;
+//        this.proName = proName;
+//        this.proIntro = proIntro;
+//        this.goalAmount = goalAmount;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//        this.proStory = proStory;
+//        this.polNoRefund = polNoRefund;
+//        this.polAs = polAs;
+//        this.memId = memId;
+//        this.estDate = estDate;
+//        this.achRate = achRate;
+//        this.delStatus = delStatus;
+//        this.cateMain = cateMain;
+//        this.cateSub = cateSub;
+//        this.dDay = dDay;
+//        this.reward = reward;
+//        this.rewardOpt = rewardOpt;
+//        this.image = image;
+//        this.file = file;
+//        this.cate = cate;
+//    }
 
-    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate) {
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int imageAttached, MultipartFile projectImage, List<OrderPaymentDTO> orderPayment) {
         this.proCode = proCode;
         this.proName = proName;
         this.proIntro = proIntro;
@@ -82,6 +118,36 @@ public class ProjectDTO implements java.io.Serializable {
         this.image = image;
         this.file = file;
         this.cate = cate;
+        this.imageAttached = imageAttached;
+        this.projectImage = projectImage;
+    }
+
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int imageAttached, MultipartFile projectImage, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt) {
+        this.proCode = proCode;
+        this.proName = proName;
+        this.proIntro = proIntro;
+        this.goalAmount = goalAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.proStory = proStory;
+        this.polNoRefund = polNoRefund;
+        this.polAs = polAs;
+        this.memId = memId;
+        this.estDate = estDate;
+        this.achRate = achRate;
+        this.delStatus = delStatus;
+        this.cateMain = cateMain;
+        this.cateSub = cateSub;
+        this.dDay = dDay;
+        this.reward = reward;
+        this.rewardOpt = rewardOpt;
+        this.image = image;
+        this.file = file;
+        this.cate = cate;
+        this.imageAttached = imageAttached;
+        this.projectImage = projectImage;
+        this.orderPayment = orderPayment;
+        this.orderOpt = orderOpt;
     }
 
     public int getProCode() {
@@ -252,6 +318,23 @@ public class ProjectDTO implements java.io.Serializable {
         this.cate = cate;
     }
 
+
+    public List<OrderPaymentDTO> getOrderPayment() {
+        return orderPayment;
+    }
+
+    public void setOrderPayment(List<OrderPaymentDTO> orderPayment) {
+        this.orderPayment = orderPayment;
+    }
+
+    public List<OrderOptDTO> getOrderOpt() {
+        return orderOpt;
+    }
+
+    public void setOrderOpt(List<OrderOptDTO> orderOpt) {
+        this.orderOpt = orderOpt;
+    }
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
@@ -276,6 +359,10 @@ public class ProjectDTO implements java.io.Serializable {
                 ", image=" + image +
                 ", file=" + file +
                 ", cate=" + cate +
+                ", imageAttached=" + imageAttached +
+                ", projectImage=" + projectImage +
+                ", orderPayment=" + orderPayment +
+                ", orderOpt=" + orderOpt +
                 '}';
     }
 }

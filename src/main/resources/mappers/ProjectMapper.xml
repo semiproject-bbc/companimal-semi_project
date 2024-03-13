@@ -86,23 +86,76 @@
         <collection property="cate" resultMap="projectCateResultMap"/>
     </resultMap>
 
+
+
+
+
+
+
+
+
+
+
+<!--    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">-->
+<!--        <id property="mem_id" column="memId" />-->
+<!--        <result property="mem_pwd" column="memPwd" />-->
+<!--        <result property="mem_nickname" column="memNickname" />-->
+<!--        <result property="mem_name" column="memName" />-->
+<!--        <result property="mem_phone" column="memPhone" />-->
+<!--        <result property="mem_email" column="memEmail" />-->
+<!--        <result property="mem_authority" column="memAuthorty" />-->
+<!--    </resultMap>-->
+
     <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">
-        <id property="order_no" column="orderNo" />
-        <id property="new_opt_code" column="newOptCode" />
-        <result property="order_amount" column="orderAmount" />
+        <id property="orderNo" column="order_no" />
+        <id property="newOptCode" column="new_opt_code" />
+        <result property="orderAmount" column="order_amount" />
     </resultMap>
 
     <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
-        <id property="order_no" column="orderNo" />
-        <result property="order_date" column="orderDate" />
-        <result property="mem_id" column="memId" />
+        <id property="orderNo" column="order_no" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
         <result property="address" column="address" />
         <result property="request" column="request" />
         <result property="recipient" column="recipient" />
-        <result property="final_pay" column="finalPay" />
-        <result property="pro_code" column="proCode" />
-        <result property="cou_code" column="couCode" />
+        <result property="finalPay" column="final_pay" />
+        <result property="proCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
     </resultMap>
+
+    <resultMap id="selectSupportListResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="delStatus" column="del_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+        <collection property="orderPayment" column="orderPaymentResultMap" />
+        <collection property="orderOpt" column="orderOptResultMap" />
+        <collection property="reward" resultMap="projectRewardResultMap"/>
+        <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>
+
+    </resultMap>
+
+
+
+
+
+
+
+
+
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
     <select id="selectProject" resultMap="projectResultMap">
@@ -198,16 +251,6 @@
                     ,#{ cateMain }
                     ,#{ cateSub }
                     )
-          INTO projectRewardOpt ( rewOptName
-                                ,rewOptVal
-                                ,rewOptLimit
-                                ,rewAmount
-                                )
-          VALUES ( #{ rew_opt_name }
-                ,#{ rew_opt_val }
-                ,#{ rew_opt_limit }
-                ,#{ rew_amount }
-                )
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
@@ -311,27 +354,49 @@
         WHERE del_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '')
     </select>
 
+    <!-- 배송 예정일 업데이트 쿼리 -->
     <update id="updateShipment" parameterType="com.companimal.semiProject.project.model.dto.ProjectDTO">
         UPDATE project
-            SET est_date=#{newShipment}
+            SET est_date=#{estDate}
             WHERE pro_code=#{proCode}
     </update>
 
-<!--    <select id="selectSupportList" resultMap="projectResultMap">-->
-<!--        SELECT-->
-<!--            o.mem_id,-->
-<!--            o.final_pay,-->
-<!--            o.order_date-->
-<!--        FROM project p-->
-<!--        JOIN reward r ON (p.pro_code = r.pro_code)-->
-<!--        JOIN reward_opt o ON (r.rew_code = o.rew_code)-->
-<!--        JOIN order_opt t ON (o.rew_opt_code = t.rew_opt_code)-->
-<!--        JOIN order_payment m ON (t.order_no = m.order_code)-->
-<!--        JOIN order_payment pm ON (p.pro_code = pm.pro_code)-->
-<!--        JOIN default_member dm ON (m.mem_id = dm.mem_id)-->
-<!--        WHERE p.pro_code = #{proCode}-->
-<!--    </select>-->
 
+
+
+
+
+
+    <!-- 서포터 후원 리스트 가져오는 쿼리 -->
+    <select id="selectSupportList" parameterType="_int" resultMap="selectSupportListResultMap">
+        SELECT
+            p.pro_code,
+            p.est_date,
+            o.order_date,
+            o.mem_id,
+            o.final_pay,
+            t1.rew_amount,
+            d.order_amount
+            FROM project p
+            JOIN order_payment o ON (p.pro_code = o.pro_code)
+            JOIN order_opt d ON (o.order_code = d.order_no)
+            JOIN reward r ON (p.pro_code = r.pro_code)
+            JOIN reward_opt t1 ON (r.rew_code = t1.rew_code)
+            JOIN reward_opt t2 ON (t2.rew_opt_code = d.rew_opt_code)
+            WHERE p.pro_code = #{id}
+            ORDER BY o.purchase_status
+    </select>
+
+
+
+
+
+
+
+
+
+
+    <!-- 후원 정산 내역 -->
 <!--    <select id="selectCalculationList" resultMap="projectResultMap">-->
 <!--        SELECT pro_code-->
 <!--        ,pro_name-->

@@ -16,7 +16,6 @@ public interface ProjectMapper {
 
     List<ProjectDTO> selectProjectDetail();
 
-
     int insertProjectReward(List<ProjectRewardDTO> reward);
 
     int insertProjectRewardOpt(List<ProjectRewardOptDTO> rewardOpt);
@@ -27,11 +26,10 @@ public interface ProjectMapper {
   
     List<ProjectDTO> selectEndProjectList();
 
-    ProjectDTO selectSupportList(int id);
-
     int updateShipment(ProjectDTO estDateDto);
 
-//    List<ProjectDTO> selectCalculationList();
+    List<ProjectDTO> selectSupportList(int id);
 
+//    List<ProjectDTO> selectCalculationList();
 
 }

@@ -8,10 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Log
 @Controller
+@RequestMapping("/order")
 public class OrderController {
 
-//    private final OrderService orderService;
-//
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    //
 //    @Autowired
 //    public OrderController(OrderService orderService) {
 //        this.orderService = orderService;
@@ -53,11 +59,6 @@ public class OrderController {
     public String fourthtNcPage() {
         return "content/order/TermsAndConditions/fourth";
     }
-
-
-
-
-
 
 //    @GetMapping("/index") // test
 //    public String getIndexPage() {
@@ -122,4 +123,20 @@ public class OrderController {
 //        rttr.addFlashAttribute("message", "배송 정보 저장 성공");
 //        return "redirect:/order/orderconfirmation";
 //    }
+
+    @ResponseBody
+    @PostMapping("/updatePurchaseStatus")
+    public String updatePurchaseConfirm(@RequestParam("orderCode") String orderCode) {
+
+        int result = orderService.updatePurchaseConfirm(orderCode);
+
+        if(result > 0) {
+            System.out.println("구매 확정 완료");
+        }else {
+            System.out.println("구매 확정 실패");
+        }
+
+        return "redirect:participateProject";
+
+    }
 }

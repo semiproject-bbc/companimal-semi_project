@@ -43,6 +43,9 @@ button:hover {
     color:#000000;
     font-size:18px;
 }
+.noPointer {
+    cursor:default !important;
+}
 
 /* header */
 header {
