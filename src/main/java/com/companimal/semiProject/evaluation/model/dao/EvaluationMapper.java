@@ -9,6 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface EvaluationMapper {
-    int insertCreatorInfo(CreatorInfoDTO creatorInfoDTO);
+    boolean insertCreatorInfo(CreatorInfoDTO creatorInfoDTO);
+
+    boolean InsertCreatorFile(CreatorFileDTO creatorFileDTO);
     //    List<CalculationListDTO> selectEvaCalculationList();
 }

@@ -2,7 +2,7 @@ package com.companimal.semiProject.evaluation.model.dto;
 
 public class CreatorFileDTO {
     private int creEvaNum;         // '파일 번호'
-    private String memberId;       // '크리에이터 아이디'
+    private String memId;       // '크리에이터 아이디'
     private String creFilePath;    // '파일 저장경로'
     private String creFileName;    // '파일 저장명'
     private String creFileOriName; // '원본 파일명'
@@ -10,9 +10,9 @@ public class CreatorFileDTO {
     public CreatorFileDTO() {
     }
 
-    public CreatorFileDTO(int creEvaNum, String memberId, String creFilePath, String creFileName, String creFileOriName) {
+    public CreatorFileDTO(int creEvaNum, String memId, String creFilePath, String creFileName, String creFileOriName) {
         this.creEvaNum = creEvaNum;
-        this.memberId = memberId;
+        this.memId = memId;
         this.creFilePath = creFilePath;
         this.creFileName = creFileName;
         this.creFileOriName = creFileOriName;
@@ -26,12 +26,12 @@ public class CreatorFileDTO {
         this.creEvaNum = creEvaNum;
     }
 
-    public String getMemberId() {
-        return memberId;
+    public String getMemId() {
+        return memId;
     }
 
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
+    public void setMemId(String memId) {
+        this.memId = memId;
     }
 
     public String getCreFilePath() {
@@ -62,7 +62,7 @@ public class CreatorFileDTO {
     public String toString() {
         return "CreatorFileDTO{" +
                 "creEvaNum=" + creEvaNum +
-                ", memberId='" + memberId + '\'' +
+                ", memberId='" + memId + '\'' +
                 ", creFilePath='" + creFilePath + '\'' +
                 ", creFileName='" + creFileName + '\'' +
                 ", creFileOriName='" + creFileOriName + '\'' +

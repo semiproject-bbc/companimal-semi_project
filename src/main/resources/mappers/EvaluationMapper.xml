@@ -29,4 +29,22 @@
                 ,#{ depositorName }
                )
     </insert>
+
+    <insert id="InsertCreatorFile" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO">
+        INSERT
+        INTO CREATOR_FILE (
+                             CRE_EVA_NUM
+                            ,MEM_ID
+                            ,CRE_FILE_PATH
+                            ,CRE_FILE_NAME
+                            ,CRE_FILE_ORI_NAME
+                          )
+        VALUES (
+                 #{ creEvaNum }
+                ,#{ memId }
+                ,#{ creFilePath }
+                ,#{ creFileName }
+                ,#{ creFileOriName }
+               )
+    </insert>
 </mapper>

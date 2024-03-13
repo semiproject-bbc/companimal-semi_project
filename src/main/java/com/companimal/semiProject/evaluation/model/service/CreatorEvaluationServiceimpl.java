@@ -25,23 +25,37 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         this.evaluationMapper = evaluationMapper;
         this.resourceLoader = resourceLoader;
     }
+
     @Override
     @Transactional
     public void insertCreatorInfo(MultipartFile creatorProductPlan
             , MultipartFile creatorProductPortfolio
             , MultipartFile creatorImg
             , CreatorInfoDTO creatorInfoDTO
-            ) throws IOException {
+            , String creatorId
+    ) throws IOException {
 
         Map<String, String> producPlan = saveFile(creatorProductPlan);
         Map<String, String> producPortfolio = saveFile(creatorProductPortfolio);
         Map<String, String> img = saveFile(creatorImg);
 
+        creatorInfoDTO.setMemId(creatorId);
         creatorInfoDTO.setCreImgName(img.get("savedFileName"));
         creatorInfoDTO.setCreImgPath(img.get("filePath"));
         creatorInfoDTO.setCreImgOriName(img.get("originFileName"));
 
-        int result = evaluationMapper.insertCreatorInfo(creatorInfoDTO);
+        if (evaluationMapper.insertCreatorInfo(creatorInfoDTO)) {
+            System.out.println("크리에이터 정보 등록 성공");
+        } else {
+            System.out.println("크리에이터 정보 등록 실패");
+        }
+
+        int fileNo = 1;
+        InsertCreatorFile(fileNo, creatorId ,producPlan);
+        fileNo++;
+        InsertCreatorFile(fileNo, creatorId ,producPortfolio);
+        fileNo++;
+        InsertCreatorFile(fileNo, creatorId ,img);
 
     }
 
@@ -78,5 +92,25 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
 
         return fileInfo;
     }
+
+    @Transactional
+    public void InsertCreatorFile(int fileNo, String creatorId, Map<String, String> creatorFile) {
+        CreatorFileDTO creatorFileDTO = new CreatorFileDTO();
+
+        creatorFileDTO.setCreEvaNum(fileNo);
+        creatorFileDTO.setMemId(creatorId);
+        creatorFileDTO.setCreFilePath(creatorFile.get("savedFileName"));
+        creatorFileDTO.setCreFileName(creatorFile.get("filePath"));
+        creatorFileDTO.setCreFileOriName(creatorFile.get("originFileName"));
+
+        if (evaluationMapper.InsertCreatorFile(creatorFileDTO)) {
+            System.out.println("크리에이터 파일 등록 성공");
+        } else {
+            System.out.println("크리에이터 파일 등록 실패");
+
+        }
+
+    }
+
 
 }

@@ -49,9 +49,9 @@ public class EvaluationController {
             , @ModelAttribute CreatorInfoDTO creatorInfoDTO
             , Authentication authentication) throws IOException {
 
-        creatorInfoDTO.setMemId(authentication.getName());
+        String creatorId = authentication.getName();
 
-        creatorEvaluationService.insertCreatorInfo(creatorProductPlan, creatorProductPortfolio, creatorImg, creatorInfoDTO);
+        creatorEvaluationService.insertCreatorInfo(creatorProductPlan, creatorProductPortfolio, creatorImg, creatorInfoDTO, creatorId);
 
         return "/main";
     }
