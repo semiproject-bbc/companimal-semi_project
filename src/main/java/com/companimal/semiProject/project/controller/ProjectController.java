@@ -73,7 +73,6 @@ public class ProjectController {
     public String insertProject(@RequestParam MultipartFile file
                                 , @ModelAttribute ProjectDTO project) throws IOException {
 
-
         System.out.println(project);
 
         projectService.insertProject(file, project);

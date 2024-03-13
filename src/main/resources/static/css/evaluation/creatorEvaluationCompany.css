@@ -1,0 +1,68 @@
+.main {
+    position: relative;
+}
+
+
+
+.creatorEvaluationCompany {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.evaluationCompanyRegistrationNumberField {
+    display: flex;
+
+}
+.companyRegistrationNumberTextbox {
+    width: 200px;
+    height: 50px;
+    background-color: #d5d5d5;
+    border: 1px solid #d5d5d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 1px;
+    
+}
+
+.companyRegistrationNumberField {
+    width: 600px;
+    height: 50px;
+    border: 1px solid #d5d5d5;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1px;
+}
+
+.buttons {
+    position: absolute; 
+    right: 176px; 
+    bottom: -170px; 
+}
+
+.return {
+    width: 70px;    
+    height: 35px;    
+    font-size: 16px;    
+    font-weight: bold;    
+    border: 1px solid #fca652;    
+    background-color: #fff;   
+    color: #fca652;    
+    border-radius: 3px;    
+    margin-right: 10px;
+    
+}
+
+.accept {
+    width: 70px;    
+    height: 35px;    
+    font-size: 16px;    
+    font-weight: bold;    
+    border: 0px;    
+    background-color: #fca652;    
+    color: white;    
+    border-radius: 3px;    
+}

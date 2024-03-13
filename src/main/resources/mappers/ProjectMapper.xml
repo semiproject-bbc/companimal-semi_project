@@ -241,6 +241,7 @@
                     ,#{ cateMain }
                     ,#{ cateSub }
                     )
+
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">

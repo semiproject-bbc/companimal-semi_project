@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.companimal.semiProject.evaluation.model.dao.EvaluationMapper">
+
+    <insert id="insertCreatorInfo" parameterType="com.companimal.semiProject.project.model.dto.CreatorInfoDTO">
+        INSERT
+        INTO CREATOR_iNFO (
+                           MEM_ID
+                           ,CRE_INQ_PHONE
+                           ,CRE_INQ_EMAIL
+                           ,CRE_IMG_NAME
+                           ,CRE_IMG_PATH
+                           ,CRE_IMG_ORI_NAME
+                           ,BANK_NAME
+                           ,ACCOUNT_NO
+                           ,DEPOSITOR_NAME
+                            )
+        VALUES (
+                 #{ memId }
+                ,#{ creInqPhone }
+                ,#{ creInqEmail }
+                ,#{ creImgName }
+                ,#{ creImgPath }
+                ,#{ creImgOriName }
+                ,#{ bankName }
+                ,#{ accountNo }
+                ,#{ depositorName }
+               )
+    </insert>
+
+    <insert id="InsertCreatorFile" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO">
+        INSERT
+        INTO CREATOR_FILE (
+                             CRE_EVA_NUM
+                            ,MEM_ID
+                            ,CRE_FILE_PATH
+                            ,CRE_FILE_NAME
+                            ,CRE_FILE_ORI_NAME
+                          )
+        VALUES (
+                 #{ creEvaNum }
+                ,#{ memId }
+                ,#{ creFilePath }
+                ,#{ creFileName }
+                ,#{ creFileOriName }
+               )
+    </insert>
+
+    <insert id="insertEvaluation" parameterType="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
+        INSERT
+        INTO EVALUATION (
+                         EVA_DATETIME
+                         ,EVA_SITUATION
+                         )
+        VALUES (
+                #{ evaDateTime }
+                #{ evaSituation }
+               )
+        <selectKey keyProperty="evaNum" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+</mapper>
