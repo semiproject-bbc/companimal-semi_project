@@ -80,7 +80,7 @@ ul.imgs li{
     width: 50%;
 }
 .detail-main-image {
-    width: 96%;
+    width: 100%;
 }
 
 .d-day {
@@ -126,17 +126,19 @@ ul.imgs li{
 }
 
 .introduce {
-    font-size: 31px;
+    font-size: 25px;
     color: #9F9F9F;
     font-weight: bold;
-    margin-left: 40%;
+    margin-left: 200px;
+    margin-right: 70px;
     margin-top: 2%;
     margin-bottom: 0%;
 }
 
 .goal-container {
     display: flex;
-    margin-left: 28%;
+    margin-left: 250px;
+    margin-right: 200px;
     font-size: 46px;
     font-weight: bold;
 
@@ -177,9 +179,9 @@ ul.imgs li{
         border-color: #fca652;
         background-color: #fca652;
         color: white;
-        border-radius: 5%;
+        border-radius: 10px;
         border-style: solid;
-        width: 425px;
+        width: 460px;
         height: 80px;
         font-size: 22px;
         font-weight: bold;
@@ -261,13 +263,18 @@ ul.imgs li{
         .reward {
             margin-bottom: 30px;
 
-            .reward-list {
+            .reward-scroll {
                 width: 450px;
                 height: 1050px;
                 border:#ffd57e 2px solid;
                 overflow-y: scroll;
+                overflow-x: hidden;
+            }
 
-                .reward-1, .reward-2, .reward-3, .reward-4 {
+            .reward-list {
+                width: 450px;
+
+                .reward-1 {
                     width: 400px;
                     border-bottom:#ffd57e 2px solid;
                     border-right:#ffd57e 2px solid;
@@ -288,7 +295,7 @@ ul.imgs li{
                     }
 
                     .reward-option {
-                        width: 250px;
+                        width: 180px;
                         height: 30px;
                         background-color: #F6F6F6;
                         border-radius: 2%;
@@ -298,7 +305,7 @@ ul.imgs li{
                     }
 
                     .reward-limitCount {
-                        width: 150px;
+                        width: 200px;
                         height: 30px;
                         background-color: #ffd57e;
                         border-radius: 2%;
@@ -309,8 +316,8 @@ ul.imgs li{
 
                     .reward-content {
                         width: 360px;
-                        height: 150px;
-                        line-height : 46px;
+                        /*height: 150px;*/
+                        line-height : 30px;
                         border-top:#ffd57e 2px solid;
                         text-align: left;
                         padding-left: 40px;

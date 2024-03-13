@@ -1,13 +1,16 @@
 package com.companimal.semiProject.project.model.dto;
 
+import java.util.List;
+
 public class ProjectRewardDTO implements java.io.Serializable {
 
-    private String rewCode;         // 리워드 코드
-    private int rewNum;             // 리워드 번호
-    private int proCode;            // 프로젝트 코드
-    private String rewName;         // 리워드명
-    private String rewExplain;      // 리워드 설명
-    private int rewSf;              // 배송비
+    private String rewCode;                      // 리워드 코드
+    private int rewNum;                          // 리워드 번호
+    private int proCode;                         // 프로젝트 코드
+    private String rewName;                      // 리워드명
+    private String rewExplain;                   // 리워드 설명
+    private int rewSf;                           // 배송비
+    private List<ProjectRewardOptDTO> rewardOpt; // 프로젝트 리워드 옵션 DTO
 
     public ProjectRewardDTO() {
     }
@@ -19,6 +22,16 @@ public class ProjectRewardDTO implements java.io.Serializable {
         this.rewName = rewName;
         this.rewExplain = rewExplain;
         this.rewSf = rewSf;
+    }
+
+    public ProjectRewardDTO(String rewCode, int rewNum, int proCode, String rewName, String rewExplain, int rewSf, List<ProjectRewardOptDTO> rewardOpt) {
+        this.rewCode = rewCode;
+        this.rewNum = rewNum;
+        this.proCode = proCode;
+        this.rewName = rewName;
+        this.rewExplain = rewExplain;
+        this.rewSf = rewSf;
+        this.rewardOpt = rewardOpt;
     }
 
     public String getRewCode() {
@@ -69,6 +82,14 @@ public class ProjectRewardDTO implements java.io.Serializable {
         this.rewSf = rewSf;
     }
 
+    public List<ProjectRewardOptDTO> getRewardOpt() {
+        return rewardOpt;
+    }
+
+    public void setRewardOpt(List<ProjectRewardOptDTO> rewardOpt) {
+        this.rewardOpt = rewardOpt;
+    }
+
     @Override
     public String toString() {
         return "ProjectRewardDTO{" +
@@ -78,6 +99,7 @@ public class ProjectRewardDTO implements java.io.Serializable {
                 ", rewName='" + rewName + '\'' +
                 ", rewExplain='" + rewExplain + '\'' +
                 ", rewSf=" + rewSf +
+                ", rewardOpt=" + rewardOpt +
                 '}';
     }
 }

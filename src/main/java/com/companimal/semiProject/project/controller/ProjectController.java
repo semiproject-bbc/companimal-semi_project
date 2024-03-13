@@ -28,6 +28,15 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
+//    @GetMapping("/")
+//    public String selectAllProject(Model model) {
+//        List<ProjectDTO> selectAllProjectList = projectService.selectAllProject();
+//
+//        model.addAttribute("selectAllProjectList", selectAllProjectList);
+//
+//        return "main";
+//    }
+
     @GetMapping("/projectPage")
     public String selectProject(Model model) {
 
@@ -38,9 +47,10 @@ public class ProjectController {
         return "contents/project/projectDetail";
     }
 
-    @GetMapping("/projectDetail")
-    public String selectProjectDetail(Model model) {
-        ProjectDTO selectProject = projectService.selectProjectDetail();
+    @GetMapping("/projectDetail/{proCode}")
+    public String selectProjectDetail(Model model, Integer proCode, ProjectDTO project) {
+
+        ProjectDTO selectProject = projectService.selectProjectDetail(proCode, project);
 
         System.out.println(selectProject);
 

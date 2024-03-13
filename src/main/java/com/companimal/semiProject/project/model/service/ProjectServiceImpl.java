@@ -26,6 +26,13 @@ public class ProjectServiceImpl implements ProjectService {
         this.resourceLoader = resourceLoader;
     }
 
+    @Override
+    public List<ProjectDTO> selectAllProject() {
+        List<ProjectDTO> selectAllProjectList = projectMapper.selectAllProject();
+
+        return selectAllProjectList;
+    }
+
     /* 하드코딩 (지울예정) */
     @Override
     public ProjectDTO selectProject() {
@@ -36,39 +43,38 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional
     public void insertProject(MultipartFile file, ProjectDTO project) {
 
-//        ProjectFileDTO projectFile = null;
-//        ProjectFileDTO projectImage = null;
-//        try {
-//            projectFile = FileUpload(file);
-//            projectImage = FileUpload(file);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        int result1 = projectMapper.insertProject(project);
-//
-//        ProjectDTO projectDTO = new ProjectDTO();
-//        ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
-//        ProjectFileDTO projectFileDTO = new ProjectFileDTO();
-//
-////        projectDTO.getRewardOpt().get(1).getRewAmount(); => 펀딩 상세페이지 조회할 때 가져올 타임리프 정보
-//
-//        projectRewardDTO.setProCode(projectDTO.getProCode());
-//        projectFileDTO.setProCode(projectDTO.getProCode());
-//
-//        int result2 = projectMapper.insertProjectReward(project.getReward());
-//        int result3 = projectMapper.insertProjectRewardOpt(project.getRewardOpt());
-//        int result4 = projectMapper.insertProjectFile(projectFile);
-//        int result5 = projectMapper.insertProjectImage(projectImage);
-//
-////        projectMapper.insertProjectFile(projectFile);
-//
-//        if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0 && result5 > 0) {
-//            System.out.println("프로젝트 등록 성공!");
-//        } else {
-//            System.out.println("프로젝트 등록 실패~!");
-//        }
+        ProjectFileDTO projectFile = null;
+        ProjectFileDTO projectImage = null;
+        try {
+            projectFile = FileUpload(file);
+            projectImage = FileUpload(file);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int result1 = projectMapper.insertProject(project);
+
+        ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
+        ProjectFileDTO projectFileDTO = new ProjectFileDTO();
+
+//        projectDTO.getRewardOpt().get(1).getRewAmount(); => 펀딩 상세페이지 조회할 때 가져올 타임리프 정보
+
+        projectRewardDTO.setProCode(project.getProCode());
+        projectFileDTO.setProCode(project.getProCode());
+
+        int result2 = projectMapper.insertProjectReward(project.getReward());
+        int result3 = projectMapper.insertProjectRewardOpt(project.getRewardOpt());
+        int result4 = projectMapper.insertProjectFile(projectFile);
+        int result5 = projectMapper.insertProjectImage(projectImage);
+
+//        projectMapper.insertProjectFile(projectFile);
+
+        if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0 && result5 > 0) {
+            System.out.println("프로젝트 등록 성공!");
+        } else {
+            System.out.println("프로젝트 등록 실패~!");
+        }
     }
 
     @Override
@@ -257,8 +263,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public ProjectDTO selectProjectDetail() {
-        return projectMapper.selectProjectDetail();
+    public ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project) {
+        return projectMapper.selectProjectDetail(proCode, project);
     }
 
     @Override
