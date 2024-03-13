@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+.banner {
+    width: 100%;
+}
+
+.bannerImage {
+    width: 100%;
+    height: auto;
+}
+
+.mainPageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.mainContentContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+
+}
+
+.mainContentInfoBoxContainer {
+    color: #000000;
+    text-decoration: none;
+}
+
+.infoStringWrapper,
+.title,
+.MainContentCreaterNameWrapper {
+    color: #000000;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.infoStringWrapper {
+    color: #ff8000;
+    font-weight: bold;
+}
+
+.achieve-rate {
+    margin-bottom: 20px;
+}
+
+.ach {
+    color: #ff8000;
+}
+
+.thumbnailImage {
+    width: 100%;
+    height: auto;
+}

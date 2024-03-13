@@ -15,11 +15,6 @@
 
     <script>
         document.onload = function (){
-            // document.getElementById("regist2").style.display = "none";
-            // document.getElementById("regist3").style.display = "none";
-            // document.getElementById("regist4").style.display = "none";
-            // document.getElementById("regist5").style.display = "none";
-
             $("#regist2").hide;
             $("#regist3").hide;
             $("#regist4").hide;
@@ -96,9 +91,9 @@
                         <p class="title">프로젝트 등록</p>
                         <p class="sub-title">프로젝트 정보</p>
                         <label>관련 인증 서류 등록</label>
-                        <input type="file1" value="File Upload"><br><br>
+                        <input type="file1"><br><br>
                         <label>파일 추가</label>
-                        <input type="file2" placeholder="파일 추가" value="File Upload"><br><br>
+                        <input type="file2" placeholder="파일 추가"><br><br>
                         <input name="goalAmount" type="text" class="input-title" placeholder="목표 금액 (최소 50만 ~ 최대 1억원)" ><br><br>
     <!--                    <form action="#">-->
                         <input name="startDate" type="date" value="프로젝트 시작 일정 선택" class="select-box">
@@ -185,7 +180,7 @@
                             <!-- 리워드 추가 버튼 클릭시 -->
                             <div class="option-add">
                                 <div class="input-list" id="input-list">
-                                    <input name="rewOptName" type="text" class="input-number" onclick="add_textbox()" placeholder="옵션 (예시 : 색상)">
+                                    <input name="rewOptName" type="text" class="input-number" placeholder="옵션 (예시 : 색상)">
                                     <input name="rewOptLimit" type="text" class="input-number" placeholder="제한 수량">
                                     <input name="rewAmount" type="text" class="input-number" placeholder="리워드 금액">
                                     <input name="rewOptVal" type="text" class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
@@ -193,37 +188,7 @@
                                 <button type="button" class="plus" id="plus">+</button>
                             </div>
                         </div>
-<!--                        <button type="button" class="remove">x</button><br>-->
-                        <script>
-                            const add_textbox = () => {
-                                const box = document.getElementById("input-wrap");
-                                const newP = document.createElement('p');
-                                newP.innerHTML = "<input name=\"rewOptName\" type=\"text\" class=\"input-number\" onclick=\"add_textbox()\" placeholder=\"옵션 (예시 : 색상)\">\n" +
-                                    "                                    <input name=\"rewOptLimit\" type=\"text\" class=\"input-number\" placeholder=\"제한 수량\">\n" +
-                                    "                                    <input name=\"rewAmount\" type=\"text\" class=\"input-number\" placeholder=\"리워드 금액\">\n" +
-                                    "                                    <input name=\"rewOptVal\" type=\"text\" class=\"input-value\" placeholder=\"옵션값 (예시 : 블랙, 화이트, 레드)\">";
-
-                                box.appendChild(newP);
-                            }
-
-                            const remove = (obj) => {
-                                document.getElementById('box').removeChild(obj.parentNode);
-                            }
-                            const wrapper = $('#input-wrap');
-                            const input = $('#input-list');
-                            const addButton = $('#plus');
-                            const maxFields = 10;
-                            let fieldCount = 1;
-
-                            addButton.click(function (e) {
-                                e.preventDefault();
-                                if(fieldCount < maxFields) {
-                                    fieldCount++;
-                                    wrapper.append(input);
-                                };
-                            });
-                        </script>
-
+                        <button type="button" class="remove">x</button><br>
                         <div class="before-next">
                             <button type="button" class="save">저장</button><br>
                             <!-- 리워드 추가 버튼 클릭 -->

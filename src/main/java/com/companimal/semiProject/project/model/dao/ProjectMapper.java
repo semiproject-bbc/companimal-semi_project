@@ -7,11 +7,14 @@ import java.util.List;
 
 @Mapper
 public interface ProjectMapper {
+
+    List<ProjectDTO> selectAllProject();
+
     ProjectDTO selectProject();
 
     int insertProject(ProjectDTO project);
 
-    ProjectDTO selectProjectDetail();
+    ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project);
 
     int insertProjectReward(List<ProjectRewardDTO> reward);
 
