@@ -54,10 +54,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int updatePurchaseConfirm(String orderCode) {
-        int result = OrderMapper.updatePurchaseConfirm(orderCode);
+        int result = orderMapper.updatePurchaseConfirm(orderCode);
 
         return result;
     }
-
 }
 
