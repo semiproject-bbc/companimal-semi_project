@@ -1,5 +1,12 @@
 package com.companimal.semiProject.member.model.dto;
 
+import com.companimal.semiProject.order.model.dto.OrderOptDTO;
+import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
+import com.companimal.semiProject.project.model.dto.ProjectDTO;
+
+import java.sql.Timestamp;
+import java.util.List;
+
 public class MemberDTO {
 
     private String memberId;
@@ -9,18 +16,22 @@ public class MemberDTO {
     private String memberPhone;
     private String memberEmail;
     private String memberRole;
+    private List<ProjectDTO> project;
+    private List<OrderPaymentDTO> orderPayment;
 
     public MemberDTO() {
     }
 
-    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole) {
+    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole, List<ProjectDTO> project, List<OrderPaymentDTO> orderPayment) {
         this.memberId = memberId;
         this.memberPwd = memberPwd;
         this.memberNickname = memberNickname;
+        this.memberName = memberName;
         this.memberPhone = memberPhone;
         this.memberEmail = memberEmail;
         this.memberRole = memberRole;
-        this.memberName = memberName;
+        this.project = project;
+        this.orderPayment = orderPayment;
     }
 
     public String getMemberId() {
@@ -79,15 +90,35 @@ public class MemberDTO {
         this.memberRole = memberRole;
     }
 
+    public List<ProjectDTO> getProject() {
+        return project;
+    }
+
+    public void setProject(List<ProjectDTO> project) {
+        this.project = project;
+    }
+
+    public List<OrderPaymentDTO> getOrderPayment() {
+        return orderPayment;
+    }
+
+    public void setOrderPayment(List<OrderPaymentDTO> orderPayment) {
+        this.orderPayment = orderPayment;
+    }
+
     @Override
     public String toString() {
         return "MemberDTO{" +
                 "memberId='" + memberId + '\'' +
-                ", memberPWD='" + memberPwd + '\'' +
+                ", memberPwd='" + memberPwd + '\'' +
                 ", memberNickname='" + memberNickname + '\'' +
+                ", memberName='" + memberName + '\'' +
                 ", memberPhone='" + memberPhone + '\'' +
                 ", memberEmail='" + memberEmail + '\'' +
                 ", memberRole='" + memberRole + '\'' +
+                ", project=" + project +
+                ", orderPayment=" + orderPayment +
                 '}';
     }
+
 }

@@ -51,5 +51,13 @@ public class OrderServiceImpl implements OrderService {
     public List<MemberDTO> memberInfo(String name) {
         return orderMapper.findMemberInfo();
     }
+
+    @Override
+    public int updatePurchaseConfirm(String orderCode) {
+        int result = OrderMapper.updatePurchaseConfirm(orderCode);
+
+        return result;
+    }
+
 }
 

@@ -273,17 +273,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO selectSupportList(int id) {
-        return projectMapper.selectSupportList(id);
-    }
-
-    @Override
     public int updateShipment(ProjectDTO estDateDto) {
         int result = projectMapper.updateShipment(estDateDto);
 
         return result;
     }
 
+    @Override
+    public List<ProjectDTO> selectSupportList(int id) {
+        return projectMapper.selectSupportList(id);
+    }
 
     //    @Override
 //    public List<ProjectDTO> selectCalculationList() {

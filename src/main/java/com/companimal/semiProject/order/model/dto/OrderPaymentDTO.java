@@ -13,12 +13,12 @@ public class OrderPaymentDTO {
     private int finalPay;           // 최종 결제 금액
     private int proCode;            // 프로젝트 코드
     private String couCode;         // 쿠폰 코드
-    private String purchaseStatus;  // 구매 상태
+    private Timestamp purchaseStatus;   // 구매 상태
 
     public OrderPaymentDTO() {
     }
 
-    public OrderPaymentDTO(String orderCode, Timestamp orderDate, String memId, String address, String request, String recipient, int finalPay, int proCode, String couCode, String purchaseStatus) {
+    public OrderPaymentDTO(String orderCode, Timestamp orderDate, String memId, String address, String request, String recipient, int finalPay, int proCode, String couCode, Timestamp purchaseStatus) {
         this.orderCode = orderCode;
         this.orderDate = orderDate;
         this.memId = memId;
@@ -103,11 +103,11 @@ public class OrderPaymentDTO {
         this.couCode = couCode;
     }
 
-    public String getPurchaseStatus() {
+    public Timestamp getPurchaseStatus() {
         return purchaseStatus;
     }
 
-    public void setPurchaseStatus(String purchaseStatus) {
+    public void setPurchaseStatus(Timestamp purchaseStatus) {
         this.purchaseStatus = purchaseStatus;
     }
 
@@ -123,7 +123,7 @@ public class OrderPaymentDTO {
                 ", finalPay=" + finalPay +
                 ", proCode=" + proCode +
                 ", couCode='" + couCode + '\'' +
-                ", purchaseStatus='" + purchaseStatus + '\'' +
+                ", purchaseStatus=" + purchaseStatus +
                 '}';
     }
 }

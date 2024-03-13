@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/common_layout}">
+      layout:decorate="~{layouts/navLayout}">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/modal.js}"></script>
 </head>
@@ -25,13 +26,21 @@
                         <p class="pjpercentage" th:text="${endpjlist.achRate}"></p>
                         <p class="pjpercentage">% 달성</p>
                     </div>
-                    <div class="d-flex endpjbtn">
+                    <!-- 발송예정일 미입력 and 프로젝트 달성률 100 이상 -->
+                    <div class="d-flex endpjbtn" th:if="${endpjlist.estDate == null and endpjlist.achRate >= 100}">
                         <button class="supportdetail" th:onclick="|location.href='@{/project/supportlist(id=${endpjlist.proCode})}'|">후원 내역 조회</button>
                         <button class="modalbtn shipmentbtn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#shipmentModal"
+                                data-bs-toggle="modal" data-bs-target="#shipmentModal"
                                 th:onclick="shipmentModalOpen([[${endpjlist.proCode}]])">배송 예정일 미입력
                         </button>
+                    </div>
+                    <!-- 발송예쩡일 입력 and 프로젝트 달성률 100 이상 -->
+                    <div class="d-flex endpjbtn" th:if="${endpjlist.estDate != null} and ${endpjlist.achRate >= 100}">
+                        <button class="supportdetail" th:onclick="|location.href='@{/project/supportlist(id=${endpjlist.proCode})}'|">후원 내역 조회</button>
+                        <button class="disableShipmentbtn noPointer" disabled>배송 예정일 입력 완료</button>
+                    </div>
+                    <div class="endpjbtn2" th:if="${endpjlist.achRate < 100}">
+                        <button class="supportdetail" th:onclick="|location.href='@{/project/supportlist(id=${endpjlist.proCode})}'|">후원 내역 조회</button>
                     </div>
                 </div>
             </th:block>
@@ -47,12 +56,10 @@
                 </button>
             </div>
             <h3>배송 예정일을 입력하세요.</h3>
-            <!--            <form th:action="@{/project/shipment}" method="post">-->
-            <div class="d-flex shipmentModal">
+            <div class="d-flex contentModal">
                 <input type="text" id="shipmentValue" name="estDate" placeholder="YYYY.MM.DD" />
-                <button type="submit" id="shipmentpush" class="shipmentpush" th:onclick="updateShipment()">입력</button>
+                <button type="submit" id="shipmentpush" class="modaldatapush" th:onclick="updateShipment()">입력</button>
             </div>
-            <!--            </form>-->
         </div>
     </div>
 </th:block>

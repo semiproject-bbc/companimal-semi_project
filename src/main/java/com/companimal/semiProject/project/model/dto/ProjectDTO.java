@@ -1,5 +1,6 @@
 package com.companimal.semiProject.project.model.dto;
 
+import com.companimal.semiProject.order.model.dto.OrderOptDTO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.multipart.MultipartFile;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
@@ -42,6 +43,7 @@ public class ProjectDTO implements java.io.Serializable {
 //    private int imageAttached;
 //    private MultipartFile projectImage;
     private List<OrderPaymentDTO> orderPayment;
+    private List<OrderOptDTO> orderOpt;
 
     public ProjectDTO() {
     }
@@ -93,7 +95,33 @@ public class ProjectDTO implements java.io.Serializable {
         this.cate = cate;
     }
 
-//    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, String proCateName, String rewName, String rewExplain, int rewSf, String rewOptName, String rewOptVal, int rewOptLimit, int rewAmount, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment) {
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt) {
+        this.proCode = proCode;
+        this.proName = proName;
+        this.proIntro = proIntro;
+        this.goalAmount = goalAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.proStory = proStory;
+        this.polNoRefund = polNoRefund;
+        this.polAs = polAs;
+        this.memId = memId;
+        this.estDate = estDate;
+        this.achRate = achRate;
+        this.delStatus = delStatus;
+        this.cateMain = cateMain;
+        this.cateSub = cateSub;
+        this.dDay = dDay;
+        this.reward = reward;
+        this.rewardOpt = rewardOpt;
+        this.image = image;
+        this.file = file;
+        this.cate = cate;
+        this.orderPayment = orderPayment;
+        this.orderOpt = orderOpt;
+    }
+
+    //    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, String proCateName, String rewName, String rewExplain, int rewSf, String rewOptName, String rewOptVal, int rewOptLimit, int rewAmount, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment) {
 //        this.proCode = proCode;
 //        this.proName = proName;
 //        this.proIntro = proIntro;
@@ -125,6 +153,8 @@ public class ProjectDTO implements java.io.Serializable {
 //        this.cate = cate;
 //        this.orderPayment = orderPayment;
 //    }
+
+
 
     public int getProCode() {
         return proCode;
@@ -366,6 +396,14 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderPayment = orderPayment;
     }
 
+    public List<OrderOptDTO> getOrderOpt() {
+        return orderOpt;
+    }
+
+    public void setOrderOpt(List<OrderOptDTO> orderOpt) {
+        this.orderOpt = orderOpt;
+    }
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
@@ -391,6 +429,7 @@ public class ProjectDTO implements java.io.Serializable {
                 ", file=" + file +
                 ", cate=" + cate +
                 ", orderPayment=" + orderPayment +
+                ", orderOpt=" + orderOpt +
                 '}';
     }
 }

@@ -20,8 +20,9 @@ public interface ProjectService {
 
     List<ProjectDTO> selectEndProjectList();
 
-    ProjectDTO selectSupportList(int id);
+    List<ProjectDTO> selectSupportList(int id);
 
+    @Transactional
     int updateShipment(ProjectDTO estDateDto);
 
     void insertImage(MultipartFile file);

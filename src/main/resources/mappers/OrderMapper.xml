@@ -81,6 +81,19 @@
         <result property="memAuthority" column="MEM_AUTHORITY"/>
     </resultMap>
 
+    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
+        <id property="orderNo" column="order_no" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="finalPay" column="final_pay" />
+        <result property="proCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
+    </resultMap>
+
     <select id="findRewardInfo" resultMap="projectResultMap">
         SELECT ropt.REW_OPT_NUM,
                ropt.REW_OPT_NAME,
@@ -113,4 +126,10 @@
         FROM DEFAULT_MEMBER
             WHERE MEM_ID =#{ memId }
     </select>
+
+    <update id="updatePurchaseConfirm" parameterType="String">
+        UPDATE order_payment
+        SET purchase_status = now()
+        WHERE order_code = #{orderCode}
+    </update>
 </mapper>

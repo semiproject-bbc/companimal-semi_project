@@ -5,9 +5,13 @@ import com.companimal.semiProject.member.model.service.MailService;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.member.model.service.MemberService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -102,6 +106,20 @@ public class MemberController {
         System.out.println("알림 센터");
 
         return "contents/member/noticecenter";
+    }
+
+    @RequestMapping("/participateProject")
+    public String selectParticipate(Authentication authentication, Model model) {
+
+        String id = authentication.getName();
+        System.out.println("멤버DTO / 프로젝트DTO / 주문결제DTO -> 주문 코드가 존재하면 참여");
+
+        List<MemberDTO> participateList = memberService.selectParticipate(id);
+        System.out.println(participateList.toString());
+
+        model.addAttribute("participateList", participateList);
+
+        return "contents/member/supporterParticipate";
     }
 
 }
