@@ -1,0 +1,160 @@
+.modal {
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    display:none;
+}
+.modal-bg {
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-color: #000000;
+    opacity: 0.6;
+}
+.modal-body {
+    position:sticky;
+    width:450px;
+    background-color:#ffffff;
+    border:#fca652 3px solid;
+    border-radius:10px;
+    margin:auto;
+    padding:30px;
+    top:300px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* shipment / purchaseStatus */
+.contentModal input {
+    width:70%;
+    padding:10px;
+    border:#fca652 2px solid;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius:3px;
+}
+.modaldatapush {
+    width:30%;
+    height:39px;
+    display:inline-block;
+    background-color: #fca652;
+    border:#fca652;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius:3px;
+    color:#ffffff;
+    font-weight:bold;
+    font-size:18px;
+}
+.modaldatapush:hover {
+    border:#ff8000 2px solid;
+    background-color: #ff8000;
+    color:#ffffff;
+    font-weight:600;
+}
+
+/* profile 수정 */
+.nicknameBox {
+    margin-top:15px;
+    margin-bottom:30px;
+}
+.nicknameBox input {
+    width:80%;
+    padding:10px;
+}
+.nicknameBox button {
+    width:20%;
+    background-color: #dddddd;
+    border:#dddddd 1px solid;
+}
+.nicknameBox button:hover {
+    background-color: #aaaaaa;;
+}
+.emailBox1 {
+    margin-top:10px;
+    margin-bottom:40px;
+}
+.focusWord {
+    color:#fca652;
+    font-weight:bold;
+}
+.emailBar {
+    border-bottom:#aaaaaa 3px solid;
+    padding-top:20px;
+    padding-bottom:5px;
+}
+.emailBox1 div {
+    justify-content: space-between;
+    align-items: center;
+}
+.emailBox1 div img {
+    height:100%;
+}
+.emailBox1 div button {
+    background-color:#fca652;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#ffffff;
+    font-weight:bold;
+    font-size:18px;
+    padding:10px;
+}
+.emailBox2 {
+    flex-direction: column;
+}
+.emailBox2 input {
+    padding:10px;
+    margin-bottom:20px;
+}
+.pwdBox {
+    flex-direction: column;
+}
+.pwdBox input {
+    padding:10px;
+    margin-bottom:15px;
+}
+.buttonBox {
+    flex-direction: column;
+    justify-content: space-between;
+}
+.buttonBox button {
+    margin-bottom:10px;
+    padding:10px 0;
+}
+.confirmBtn {
+    background-color:#fca652;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#ffffff;
+    font-weight:bold;
+    font-size:18px;
+}
+.cancelBtn {
+    background-color:#ffffff;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#000000;
+    font-size:18px;
+}
+
+/* 탈퇴 */
+.withdrawalBtn {
+    background-color: #ffffff;
+    border:none;
+    font-size:18px;
+    color:#333333;
+    margin-bottom:200px;
+}
+.withdrawalBtn:hover {
+    color:#fca652;
+    font-weight:bold;
+}
+.withdrawalBox input {
+    padding:10px;
+    margin-top:10px;
+    margin-bottom:30px;
+}
+
+.showmodal {
+    display:block;
+}

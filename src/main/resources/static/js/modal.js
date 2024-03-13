@@ -1,8 +1,8 @@
 let value;
 
+// 배송 예정일
 function shipmentModalOpen(proCode) {
     value = proCode;
-    console.log(proCode);
     const shipmentModal = document.getElementById('shipmentModal');
 
     shipmentModal.classList.add('showmodal');
@@ -10,6 +10,7 @@ function shipmentModalOpen(proCode) {
 
 function shipmentModalClose() {
     const shipmentModal = document.getElementById('shipmentModal');
+
     shipmentModal.classList.remove('showmodal');
 }
 
@@ -23,14 +24,48 @@ function updateShipment() {
     $.ajax({
         type: 'post'
         , url: "/project/updateShipment"
-        // contentType: "application/json; charset=utf-8",
         , data: {
             'estDate' : estDate,
             'proCode' : proCode
         }
         , dataType: 'json'
-        , success: function(data) {
-            console.log(data);
+        , success: function() {
+            const shipmentModal = document.getElementById('shipmentModal');
+
+            shipmentModal.classList.remove('showmodal');
+        }
+    });
+}
+
+// 구매 확정
+var purchaseValue;
+function purchaseModalOpen(orderCode) {
+    purchaseValue = orderCode;
+    console.log(orderCode);
+    const purchaseModal = document.getElementById('purchaseModal');
+
+    purchaseModal.classList.add('showmodal');
+}
+
+function purchaseModalClose() {
+    const purchaseModal = document.getElementById('purchaseModal');
+
+    purchaseModal.classList.remove('showmodal');
+}
+
+function updatePurchase() {
+    var orderCode = purchaseValue;
+
+    $.ajax({
+        type: 'POST'
+        , url: "/order/updatePurchaseStatus"
+        , data : {
+            orderCode : orderCode
+        }
+        , success: function() {
+            const purchaseModal = document.getElementById('purchaseModal');
+
+            purchaseModal.classList.remove('showmodal');
         }
     });
 }

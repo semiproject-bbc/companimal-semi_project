@@ -15,4 +15,7 @@ public interface OrderMapper {
     List<CouponDTO> findCouponInfo();
 
     List<MemberDTO> findMemberInfo();
+
+    int updatePurchaseConfirm(String orderCode);
+
 }

@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/order")
 public class OrderController {
 
     private final OrderService orderService;
@@ -38,5 +37,21 @@ public class OrderController {
 //        model.addAttribute("orderCode", orderCode);     // 주문 코드
         orderService.showAllInfo(model);
         return "contents/order/orderpayment";
+    }
+
+    @ResponseBody
+    @PostMapping("/updatePurchaseStatus")
+    public String updatePurchaseConfirm(@RequestParam("orderCode") String orderCode) {
+
+        int result = orderService.updatePurchaseConfirm(orderCode);
+
+        if(result > 0) {
+            System.out.println("구매 확정 완료");
+        }else {
+            System.out.println("구매 확정 실패");
+        }
+
+        return "redirect:participateProject";
+
     }
 }

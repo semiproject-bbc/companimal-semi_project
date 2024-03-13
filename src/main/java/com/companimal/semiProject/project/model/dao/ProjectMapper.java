@@ -2,6 +2,7 @@ package com.companimal.semiProject.project.model.dao;
 
 import com.companimal.semiProject.project.model.dto.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,16 +29,14 @@ public interface ProjectMapper {
 
     List<ProjectDTO> selectEndProjectList();
 
-    ProjectDTO selectSupportList(int id);
-
     int updateShipment(ProjectDTO estDateDto);
+
+    List<ProjectDTO> selectSupportList(int id);
 
     int insertFile(ProjectFileDTO projectFile);
 
     int insertImage(ProjectImageDTO projectImage);
 
-
 //    List<ProjectDTO> selectCalculationList();
-
 
 }
