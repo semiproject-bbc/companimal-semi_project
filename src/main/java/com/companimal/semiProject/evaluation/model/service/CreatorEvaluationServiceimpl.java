@@ -57,10 +57,11 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         EvaluationDTO evaluationDTO = new EvaluationDTO();
         evaluationDTO.setEvaDateTime(new Timestamp(System.currentTimeMillis()));
         evaluationDTO.setEvaSituation("처리중");
-        evaluationMapper.insertEvaluation();
+        evaluationMapper.insertEvaluation(evaluationDTO);
 
         // 크리에이터 심사 테이블 등록
         CreatorEvaDTO creatorEvaDTO = new CreatorEvaDTO(creatorId, evaluationDTO.getEvaNum());
+        evaluationMapper.insertCreatorEva(creatorEvaDTO);
 
         int fileNo = 1;
         InsertCreatorFile(fileNo, creatorId ,producPlan);
