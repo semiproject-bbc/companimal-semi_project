@@ -23,10 +23,6 @@ $(document).ready(function() {
     $('#memberPhone').blur(function() {
         validateMemberPhone();
     });
-
-    $('#email, #email2').blur(function() {
-        validateMemberEmail();
-    });
 });
 
 function validateMemberId() {
@@ -50,7 +46,6 @@ function validateMemberPwd() {
         updateStatus('formValid', true);
     }
 }
-
 function validatePasswordCheck() {
     let memberPwd2 = $('#memberPwd').val();
     let passwordCheck = $('#passwordCheck').val();

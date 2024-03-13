@@ -86,23 +86,23 @@
         <collection property="cate" resultMap="projectCateResultMap"/>
     </resultMap>
 
-    <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">
-        <id property="order_no" column="orderNo" />
-        <id property="new_opt_code" column="newOptCode" />
-        <result property="order_amount" column="orderAmount" />
-    </resultMap>
+<!--    <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">-->
+<!--        <id property="order_no" column="orderNo" />-->
+<!--        <id property="new_opt_code" column="newOptCode" />-->
+<!--        <result property="order_amount" column="orderAmount" />-->
+<!--    </resultMap>-->
 
-    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
-        <id property="order_no" column="orderNo" />
-        <result property="order_date" column="orderDate" />
-        <result property="mem_id" column="memId" />
-        <result property="address" column="address" />
-        <result property="request" column="request" />
-        <result property="recipient" column="recipient" />
-        <result property="final_pay" column="finalPay" />
-        <result property="pro_code" column="proCode" />
-        <result property="cou_code" column="couCode" />
-    </resultMap>
+<!--    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">-->
+<!--        <id property="order_no" column="orderNo" />-->
+<!--        <result property="order_date" column="orderDate" />-->
+<!--        <result property="mem_id" column="memId" />-->
+<!--        <result property="address" column="address" />-->
+<!--        <result property="request" column="request" />-->
+<!--        <result property="recipient" column="recipient" />-->
+<!--        <result property="final_pay" column="finalPay" />-->
+<!--        <result property="pro_code" column="proCode" />-->
+<!--        <result property="cou_code" column="couCode" />-->
+<!--    </resultMap>-->
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
     <select id="selectProject" resultMap="projectResultMap">
@@ -198,16 +198,7 @@
                     ,#{ cateMain }
                     ,#{ cateSub }
                     )
-          INTO projectRewardOpt ( rewOptName
-                                ,rewOptVal
-                                ,rewOptLimit
-                                ,rewAmount
-                                )
-          VALUES ( #{ rew_opt_name }
-                ,#{ rew_opt_val }
-                ,#{ rew_opt_limit }
-                ,#{ rew_amount }
-                )
+
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
