@@ -15,11 +15,6 @@
 
     <script>
         document.onload = function (){
-            // document.getElementById("regist2").style.display = "none";
-            // document.getElementById("regist3").style.display = "none";
-            // document.getElementById("regist4").style.display = "none";
-            // document.getElementById("regist5").style.display = "none";
-
             $("#regist2").hide;
             $("#regist3").hide;
             $("#regist4").hide;
@@ -44,20 +39,20 @@
                     <p class="title">프로젝트 등록</p>
                     <p class="sub-title">기본 정보</p>
     <!--                <form action="#">-->
-                        <select name="cateMain" class="select-box" >
-                            <option value="fitness">피트니스</option>
-                            <option value="food">푸드</option>
-                            <option value="living">생활용품</option>
-                            <option value="etc">기타</option>
+                        <select name="cateMain" class="select-box">
+                            <option value="1">피트니스</option>
+                            <option value="2">푸드</option>
+                            <option value="3">생활용품</option>
+                            <option value="4">기타</option>
                         </select>
     <!--                </form><br>-->
     <!--                <form action="#">-->
                         <select name="cateSub" class="select-box">
-                            <option value="mammal">포유류</option>
-                            <option value="reptile">파충류</option>
-                            <option value="fish">어류</option>
-                            <option value="bird">조류</option>
-                            <option value="amphibian">양서류</option>
+                            <option value="5">포유류</option>
+                            <option value="6">파충류</option>
+                            <option value="7">어류</option>
+                            <option value="8">조류</option>
+                            <option value="9">양서류</option>
                         </select>
     <!--                </form><br>-->
                     <input name="proName" type="text" class="input-title" placeholder="프로젝트 제목 (최대 40자)"><br><br>
@@ -70,10 +65,12 @@
                         </p><br>
                     </div>
                     <br>
-                    <label>대표 이미지 등록(최대 5개)</label>
-                    <input type="file" placeholder="대표 이미지 등록"><br><br>
+                    <label>대표 이미지 등록(최대 3개)</label>
+                    <input name="doorImage1" type="file" placeholder="대표 이미지 등록"><br><br>
                     <label>파일 추가</label>
-                    <input type="file" placeholder="파일 추가"><br><br>
+                    <input name="doorImage2" type="file" placeholder="파일 추가"><br><br>
+                    <label>파일 추가</label>
+                    <input name="doorImage3" type="file" placeholder="파일 추가"><br><br>
 
                     <button onclick="regist2()" type="button"  class="next1">다음</button><br>
                 </div>
@@ -94,15 +91,13 @@
                         <p class="title">프로젝트 등록</p>
                         <p class="sub-title">프로젝트 정보</p>
                         <label>관련 인증 서류 등록</label>
-                        <input type="file" placeholder="관련 인증 서류 등록" value="File Upload"><br><br>
-<!--                        <label>파일 추가</label>-->
-                        <input type="file" placeholder="파일 추가" value="File Upload"><br><br>
+                        <input type="file1"><br><br>
+                        <label>파일 추가</label>
+                        <input type="file2" placeholder="파일 추가"><br><br>
                         <input name="goalAmount" type="text" class="input-title" placeholder="목표 금액 (최소 50만 ~ 최대 1억원)" ><br><br>
     <!--                    <form action="#">-->
-                            <input name="startDate" type="date" value="프로젝트 시작 일정 선택" class="select-box">
-                            </select>
-                            <input name="endDate" type="date" placeholder="프로젝트 종료 일정 선택" class="select-box">
-                            </select>
+                        <input name="startDate" type="date" value="프로젝트 시작 일정 선택" class="select-box">
+                        <input name="endDate" type="date" placeholder="프로젝트 종료 일정 선택" class="select-box">
     <!--                    </form>-->
                         <div class="before-next">
                             <button onclick="regist1()" type="button" class="before">이전</button>
@@ -138,68 +133,6 @@
                             </div>
                             <div name="proStory" style="width: 750px; height: 700px;">
                                 <textarea style="white-space: pre" id="summernote" name="proStory"></textarea>
-                                <script type="text/javascript">
-                                    var checkUnload = true;
-                                    $(window).on('beforeunload', function () {
-                                        if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
-                                    });
-                                    $("#write").on("click", function () {
-                                        checkUnload = false;
-                                        $("submit").submit();
-                                    });
-                                </script>
-<!--                                <script>-->
-<!--                                    $('#summernote').summernote({-->
-<!--                                        placeholder: '안녕하세요. 스토리 작성을 시작한 크리에이터님 환영해요!\n' +-->
-<!--                                            '쉽게 작성할 수 있도록 안내 문구를 제공하고 있어요!\n' +-->
-<!--                                            '\n' +-->
-<!--                                            '*스토리를 모두 작성하셨다면,\n' +-->
-<!--                                            ' 제출 전 안내 문구들을 반드시 지워주세요!\n' +-->
-<!--                                            '\n' +-->
-<!--                                            '*스토리는 최대 5000자 작성가능합니다.\n' +-->
-<!--                                            '\n' +-->
-<!--                                            '이 프로젝트를 준비하게 된 배경\n' +-->
-<!--                                            '• 후원금을 모금하는 목적, 제품을 준비하게 된 배경에 대해 설명해주세요.\n' +-->
-<!--                                            '\n' +-->
-<!--                                            '이번에 선보이는 프로젝트의 스토리\n' +-->
-<!--                                            '• 해당 프로젝트의 핵심 목표와 준비한 리워드에 대해 설명해주세요.\n' +-->
-<!--                                            '• 리워드의 사진을 보여주며 설명해주세요.\n' +-->
-<!--                                            '• 다른 제품과의 차별점을 설명해주세요.\n' +-->
-<!--                                            '\n' +-->
-<!--                                            '크리에이터 소개\n' +-->
-<!--                                            '• 크리에이터님에 대한 소개글을 작성해주세요.\n' +-->
-<!--                                            '\n' +-->
-<!--                                            '컴패니멀을 선택한 이유\n' +-->
-<!--                                            '• 많은 크라우드 펀딩 서비스 중 컴패니멀에서 프로젝트를 진행하는 이유를 알려주세요.\n' +-->
-<!--                                            '\n' +-->
-<!--                                            '스토리를 모두 작성했다면 [다음] 버튼을 눌러 추가 정보들을 작성해주세요.',-->
-<!--                                        tabsize: 2,-->
-<!--                                        height: 500,-->
-<!--                                        toolbar: [-->
-<!--                                            ['fontname', ['fontname']],-->
-<!--                                            ['fontsize', ['fontsize']],-->
-<!--                                            ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],-->
-<!--                                            ['color', ['forecolor', 'color']],-->
-<!--                                            ['para', ['ul', 'ol', 'paragraph']],-->
-<!--                                            ['table', ['table']],-->
-<!--                                            ['insert', ['link', 'picture']]-->
-<!--                                        ],-->
-<!--                                        fontNames: ['Arial',-->
-<!--                                            'Arial Black',-->
-<!--                                            'Comic Sans MS',-->
-<!--                                            'Courier New',-->
-<!--                                            '맑은 고딕',-->
-<!--                                            '궁서',-->
-<!--                                            '굴림체',-->
-<!--                                            '굴림',-->
-<!--                                            '돋움체',-->
-<!--                                            '바탕체'],-->
-<!--                                        fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18',-->
-<!--                                            '20', '22', '24', '26', '28',-->
-<!--                                            '30', '36', '46', '50', '72']-->
-
-<!--                                    });-->
-<!--                                </script>-->
                             </div>
                             <div class="before-next">
                                 <button onclick="regist2()" type="button" class="before">이전</button>
@@ -237,20 +170,25 @@
                         </div><br><br><br><br><br>
                         <button type="button" class="btn-reward">+ &nbsp;리워드 추가</button><br>
 
-                        <p class="sub-title">리워드 추가</p>
-                        <input name="rewName" type="text" class="input-name" placeholder="리워드명 (최대 30자)">
-                        <input name="rewSf" type="number" class="input-number" placeholder="배송비"><br>
-                        <br>
-                        <textarea name="rewExplain" type="text" class="input-text" placeholder="리워드 설명 (최대 300자)
-            리워드 구성과 혜택을 간결하게 설명해주세요."></textarea>
-                        <!-- 리워드 추가 버튼 클릭시 -->
-                        <input name="rewOptName" type="text" class="input-number" placeholder="옵션 (예시 : 색상)">
-                        <input name="rewOptLimit" type="text" class="input-number" placeholder="제한 수량">
-                        <input name="rewAmount" type="text" class="input-number" placeholder="리워드 금액">
-                        <input name="rewOptVal" type="text" class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
-                        <button type="button" class="plus">+</button>
+                        <div class="input-wrap" id="input-wrap">
+                            <p class="sub-title">리워드 추가</p>
+                            <input name="rewName" type="text" class="input-name" placeholder="리워드명 (최대 30자)">
+                            <input name="rewSf" type="number" class="input-number" placeholder="배송비"><br>
+                            <br>
+                            <textarea name="rewExplain" type="text" class="input-text" placeholder="리워드 설명 (최대 50자)
+                리워드 구성과 혜택을 간결하게 설명해주세요."></textarea>
+                            <!-- 리워드 추가 버튼 클릭시 -->
+                            <div class="option-add">
+                                <div class="input-list" id="input-list">
+                                    <input name="rewOptName" type="text" class="input-number" placeholder="옵션 (예시 : 색상)">
+                                    <input name="rewOptLimit" type="text" class="input-number" placeholder="제한 수량">
+                                    <input name="rewAmount" type="text" class="input-number" placeholder="리워드 금액">
+                                    <input name="rewOptVal" type="text" class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
+                                </div>
+                                <button type="button" class="plus" id="plus">+</button>
+                            </div>
+                        </div>
                         <button type="button" class="remove">x</button><br>
-
                         <div class="before-next">
                             <button type="button" class="save">저장</button><br>
                             <!-- 리워드 추가 버튼 클릭 -->
@@ -310,6 +248,18 @@
                             <button onclick="regist4()" type="button" class="before">이전</button>
                             <button type="submit" class="next" value="regist">등록</button>
                         </div>
+                        <script type="text/javascript">
+                            var checkUnload = true;
+                            $(window).on('beforeunload', function () {
+                                if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
+                            });
+                        </script>
+                        <script>
+                            $("#write").on("click", function () {
+                                checkUnload = false;
+                                $("submit").submit();
+                            });
+                        </script>
                     </div>
     <!--            </form>-->
 <!--            </div>-->

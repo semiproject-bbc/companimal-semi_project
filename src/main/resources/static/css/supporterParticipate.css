@@ -30,10 +30,10 @@ html {
         border-style: solid;
         border-color: #fca652;
         color: white;
-        font-size: 25px;
+        font-size: 20px;
         border-radius: 5px;
         width: 90%;
-        padding:15px 0;
+        padding:10px 0;
         font-weight: bold;
         text-align: center;
     }
@@ -53,22 +53,22 @@ html {
 
 
 .projectInfo {
-    display: flex;
-    justify-content: space-between;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
     width: 90%;
     margin: 3% 0% 3% 0%;
     font-size: 20px;
 
     .projectDate {
+        text-align:end;
         color: #d5d5d5;
         font-weight: bolder;
-
     }
-    .deliverStatus {
-        color: white;
-        background-color: #fca652;
-        padding: 1%;
-    }
+    /*.deliverStatus {*/
+    /*    color: white;*/
+    /*    background-color: #fca652;*/
+    /*    padding: 1%;*/
+    /*}*/
 }
 
 .pjpercentage {
@@ -106,14 +106,14 @@ html {
     color:black;
     font-size:18px;
 }
-.inquiryHistory {
-    margin-left: 2%;
-    margin-bottom: 5%;
-
+.orderDetails:hover {
+    background-color: #fdc754;
 }
-
+.inquiryHistory {
+    margin-bottom: 5%;
+}
 .purchaseConfirmed {
-    background: color #d5d5d5;;
+    background-color: #d5d5d5;
     border:#d5d5d5 2px solid;
     border-radius:5px;
     color:#000000;

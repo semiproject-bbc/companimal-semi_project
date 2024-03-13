@@ -8,18 +8,25 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ProjectService {
-    List<ProjectDTO> selectProject();
+
+    List<ProjectDTO> selectAllProject();
+
+    ProjectDTO selectProject();
 
     @Transactional
     void insertProject(MultipartFile file, ProjectDTO project) throws IOException;
 
-    List<ProjectDTO> selectProjectDetail();
+    ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project);
 
     List<ProjectDTO> selectEndProjectList();
 
-    ProjectDTO selectSupportList(int id);
+    List<ProjectDTO> selectSupportList(int id);
 
+    @Transactional
     int updateShipment(ProjectDTO estDateDto);
+
+    void insertImage(MultipartFile file);
+
 
 //    List<ProjectDTO> selectCalculationList();
 }

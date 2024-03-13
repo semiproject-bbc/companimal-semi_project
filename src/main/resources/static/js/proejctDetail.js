@@ -17,8 +17,8 @@
 //     }
 // });
 
-// function toggleImg() {
-//     document.getElementById("img").src = "./image/heart.png";
-// }
+$(document).ready(function toggleImg() {
+    document.getElementById("img").src = "./image/heart.png";
+})
 
 

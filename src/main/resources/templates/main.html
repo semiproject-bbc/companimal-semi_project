@@ -6,6 +6,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet">
 </head>
 
 <th:block layout:fragment="content">
@@ -13,14 +14,208 @@
     <div sec:authorize="hasAnyAuthority('SUPPORTER')">서포터</div>
     <button onclick="location.href='contents/project/projectDetail'">펀딩 상세페이지</button>
     <button onclick="location.href='/member/regist'">회원가입</button>
-    <form th:action="@{/auth/logout}" th:method="post">
-        <button>로그아웃</button>
-    </form>
-    <button onclick="location.href='/evaluation/creatorEvaluationRegist'">크리에이터 심사 등록</button>
     <button onclick="location.href='/project/projectPage'">펀딩 상세페이지(하드코딩)</button>
     <button onclick="location.href='/project/projectDetail'">펀딩 상세페이지(DB연결)</button>
+
+    <button th:onclick="|location.href='@{/project/projectDetail(proCode=${ proCode })}'|">펀딩 상세페이지(DB연결)</button>
+
     <button onclick="location.href='/project/projectRegist'">펀딩 등록</button>
-    <button onclick="location.href='/evaluation/manager/creatorEvaluation'">크리에이터 심사</button>
+    <button onclick="location.href='/project/projectRegist'">이미지 등록</button>
+
+    <form th:action="@{/auth/logout}" method="post">
+        <button>로그아웃</button>
+    </form>
+    <form method="get" action="/orderpayment">
+        <button>주문결제</button>
+    </form>
+<!--    <form method="get" action="/orderpayment">-->
+
+<!--    </form>-->
+    <button onclick="location.href='/evaluation/creatorEvaluationRegist'">크리에이터 심사</button>
+
+    <div class="mainPageContainer">
+        <section class="banner">
+
+            <img class="bannerImage" th:src="@{/image/banner1.png}">
+        </section>
+
+        <section>
+        <div class="gridContainer">
+
+            <div class="mainContentContainer">
+
+                <div class="mainContentWrapper" th:each="allProject : ${ selectAllProjectList }">
+
+                    <a th:href="@{|/project/projectDetail/${allProject.proCode}|}">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+                            <h3>
+                                <div class="achieve-rate">
+                                    <span class="infoStringWrapper" th:text="${ allProject.achRate }"></span>
+                                    <span class="ach">% 달성</span>
+                                </div>
+                            <strong class="title" th:text="${ allProject.proName }"></strong>
+                            </h3>
+<!--                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>-->
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="mainContentWrapper">
+
+                    <a href="https://www.google.com/">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+
+                            <p class="infoStringWrapper">5명 참여</p>
+
+                            <strong class="title">프로젝트 제목2</strong>
+
+                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="mainContentWrapper">
+
+                    <a href="https://www.google.com/">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+
+                            <p class="infoStringWrapper">5명 참여</p>
+
+                            <strong class="title">프로젝트 제목3</strong>
+
+                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="mainContentWrapper">
+
+                    <a href="https://www.google.com/">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+
+                            <p class="infoStringWrapper">5명 참여</p>
+
+                            <strong class="title">프로젝트 제목4</strong>
+
+                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="mainContentWrapper">
+
+                    <a href="https://www.google.com/">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+
+                            <p class="infoStringWrapper">5명 참여</p>
+
+                            <strong class="title">프로젝트 제목5</strong>
+
+                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="mainContentWrapper">
+
+                    <a href="https://www.google.com/">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+
+                            <p class="infoStringWrapper">5명 참여</p>
+
+                            <strong class="title">프로젝트 제목6</strong>
+
+                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="mainContentWrapper">
+
+                    <a href="https://www.google.com/">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+
+                            <p class="infoStringWrapper">5명 참여</p>
+
+                            <strong class="title">프로젝트 제목7</strong>
+
+                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="mainContentWrapper">
+
+                    <a href="https://www.google.com/">
+
+                        <div class="thumbnailImageContainer">
+
+                            <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                        </div>
+
+                        <div class="mainContentInfoBoxContainer">
+
+                            <p class="infoStringWrapper">5명 참여</p>
+
+                            <strong class="title">프로젝트 제목8</strong>
+
+                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        </section>
+    </div>
 </th:block>
 
 </html>

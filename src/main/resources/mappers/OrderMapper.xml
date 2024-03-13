@@ -3,7 +3,133 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.companimal.semiProject.order.model.dao.OrderMapper">
+    
+    <resultMap id="rewardOptResultMap" type="com.companimal.semiProject.order.model.dto.RewardOptDTO">
+        <id property="rewOptCode" column="REW_OPT_CODE"/>
+        <result property="rewCode" column="REW_CODE"/>
+        <result property="rewOptNum" column="REW_OPT_NUM"/>
+        <result property="rewOptName" column="REW_OPT_NAME"/>
+        <result property="rewOptVal" column="REW_OPT_VAL"/>
+        <result property="rewOptLimit" column="REW_OPT_LIMIT"/>
+        <result property="rewAmount" column="REW_AMOUNT"/>
+    </resultMap>
 
+    <resultMap id="rewardResultMap" type="com.companimal.semiProject.order.model.dto.RewardDTO">
+        <id property="rewCode" column="REW_CODE"/>
+        <result property="rewNum" column="REW_NUM"/>
+        <result property="proCode" column="PRO_CODE"/>
+        <result property="rewName" column="REW_NAME"/>
+        <result property="rewExplain" column="REW_EXPLAIN"/>
+        <result property="rewSf" column="RWE_SF"/>
+        <collection property="rewardOptDTOList" resultMap="rewardOptResultMap"/>
+    </resultMap>
+    
+<!--    <resultMap id="projectResultMap" type="com.companimal.semiProject.order.model.dto.ProjectDTO2">-->
+<!--        <id property="proCode" column="PRO_CODE"/>-->
+<!--        <result property="proName" column="PRO_NAME"/>-->
+<!--        <result property="proIntro" column="PRO_INTRO"/>-->
+<!--        <result property="goalAmount" column="GOAL_AMOUNT"/>-->
+<!--        <result property="startDate" column="START_DATE"/>-->
+<!--        <result property="endDate" column="END_DATE"/>-->
+<!--        <result property="proStory" column="PRO_STORY"/>-->
+<!--        <result property="polNoRefund" column="POL_NO_REFUND"/>-->
+<!--        <result property="polAs" column="POL_AS"/>-->
+<!--        <result property="memId" column="MEM_ID"/>-->
+<!--        <result property="estDate" column="EST_DATE"/>-->
+<!--        <result property="achRate" column="ACH_RATE"/>-->
+<!--        <result property="delStatus" column="DEL_STATUS"/>-->
+<!--        <result property="cateMain" column="CATE_MAIN"/>-->
+<!--        <result property="cateSub" column="CATE_SUB"/>-->
+<!--        <collection property="reward" resultMap="rewardResultMap"/>-->
+<!--    </resultMap>-->
 
+    <resultMap id="projectResultMap" type="com.companimal.semiProject.order.model.dto.OrderRewardInfoDTO">
+        <id property="proCode" column="PRO_CODE"/>
+        <result property="proName" column="PRO_NAME"/>
+        <result property="proIntro" column="PRO_INTRO"/>
+        <result property="goalAmount" column="GOAL_AMOUNT"/>
+        <result property="startDate" column="START_DATE"/>
+        <result property="endDate" column="END_DATE"/>
+        <result property="proStory" column="PRO_STORY"/>
+        <result property="polNoRefund" column="POL_NO_REFUND"/>
+        <result property="polAs" column="POL_AS"/>
+        <result property="memId" column="MEM_ID"/>
+        <result property="estDate" column="EST_DATE"/>
+        <result property="achRate" column="ACH_RATE"/>
+        <result property="delStatus" column="DEL_STATUS"/>
+        <result property="cateMain" column="CATE_MAIN"/>
+        <result property="cateSub" column="CATE_SUB"/>
+        <collection property="rewardDTOList" resultMap="rewardResultMap"/>
+    </resultMap>
 
+    <resultMap id="couponResultMap" type="com.companimal.semiProject.order.model.dto.CouponDTO">
+        <id property="couCode" column="COU_CODe"/>
+        <result property="couName" column="COU_NAME"/>
+        <result property="couAmount" column="COU_AMOUNT"/>
+        <result property="couDateTime" column="COU_DATETIME"/>
+        <result property="couYn" column="COU_YN"/>
+        <result property="memId" column="MEM_ID"/>
+    </resultMap>
+
+    <resultMap id="memberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
+        <id property="memberId" column="MEM_ID"/>
+        <result property="memberPwd" column="MEM_PWD"/>
+        <result property="memNickname" column="MEM_NICKNAME"/>
+        <result property="memName" column="MEM_NAME"/>
+        <result property="memPhone" column="MEM_PHONE"/>
+        <result property="memEmail" column="MEM_EMAIL"/>
+        <result property="memAuthority" column="MEM_AUTHORITY"/>
+    </resultMap>
+
+    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
+        <id property="orderNo" column="order_no" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="finalPay" column="final_pay" />
+        <result property="proCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
+    </resultMap>
+
+    <select id="findRewardInfo" resultMap="projectResultMap">
+        SELECT ropt.REW_OPT_NUM,
+               ropt.REW_OPT_NAME,
+               ropt.REW_OPT_VAL,
+               rew.REW_NUM,
+               rew.REW_NAME,
+               rew.REW_SF,
+               p.PRO_CODE,
+               p.PRO_NAME
+        FROM PROJECT p
+        INNER JOIN REWARD rew ON p.PRO_CODE= rew.PRO_CODE
+        INNER JOIN REWARD_OPT ropt ON rew.REW_CODE = ropt.REW_CODE
+            WHERE MEM_ID = #{ memId }
+    </select>
+
+    <select id="findCouponInfo" resultMap="couponResultMap">
+        SELECT COU_CODE,
+               COU_NAME,
+               COU_AMOUNT
+        FROM COUPON
+            WHERE MEM_ID = #{ memId }
+        AND COU_YN = 'Y'
+    </select>
+
+    <select id="findMemberInfo" resultMap="memberResultMap">
+        SELECT MEM_ID,
+               MEM_NAME,
+               MEM_PHONE,
+               MEM_EMAIL
+        FROM DEFAULT_MEMBER
+            WHERE MEM_ID =#{ memId }
+    </select>
+
+    <update id="updatePurchaseConfirm" parameterType="String">
+        UPDATE order_payment
+        SET purchase_status = now()
+        WHERE order_code = #{orderCode}
+    </update>
 </mapper>

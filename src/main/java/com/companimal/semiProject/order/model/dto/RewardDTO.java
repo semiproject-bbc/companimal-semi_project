@@ -1,37 +1,28 @@
-package com.companimal.semiProject.project.model.dto;
+package com.companimal.semiProject.order.model.dto;
 
 import java.util.List;
 
-public class ProjectRewardDTO implements java.io.Serializable {
+public class RewardDTO implements java.io.Serializable {
 
-    private String rewCode;                      // 리워드 코드
-    private int rewNum;                          // 리워드 번호
-    private int proCode;                         // 프로젝트 코드
-    private String rewName;                      // 리워드명
-    private String rewExplain;                   // 리워드 설명
-    private int rewSf;                           // 배송비
-    private List<ProjectRewardOptDTO> rewardOpt; // 프로젝트 리워드 옵션 DTO
+    private String rewCode;         // 리워드 코드
+    private int rewNum;             // 리워드 번호
+    private int proCode;            // 프로젝트 코드
+    private String rewName;         // 리워드명
+    private String rewExplain;      // 리워드 설명
+    private int rewSf;              // 배송비
+    List<RewardOptDTO> rewardOptDTOList;
 
-    public ProjectRewardDTO() {
+    public RewardDTO() {
     }
 
-    public ProjectRewardDTO(String rewCode, int rewNum, int proCode, String rewName, String rewExplain, int rewSf) {
+    public RewardDTO(String rewCode, int rewNum, int proCode, String rewName, String rewExplain, int rewSf, List<RewardOptDTO> rewardOptDTOList) {
         this.rewCode = rewCode;
         this.rewNum = rewNum;
         this.proCode = proCode;
         this.rewName = rewName;
         this.rewExplain = rewExplain;
         this.rewSf = rewSf;
-    }
-
-    public ProjectRewardDTO(String rewCode, int rewNum, int proCode, String rewName, String rewExplain, int rewSf, List<ProjectRewardOptDTO> rewardOpt) {
-        this.rewCode = rewCode;
-        this.rewNum = rewNum;
-        this.proCode = proCode;
-        this.rewName = rewName;
-        this.rewExplain = rewExplain;
-        this.rewSf = rewSf;
-        this.rewardOpt = rewardOpt;
+        this.rewardOptDTOList = rewardOptDTOList;
     }
 
     public String getRewCode() {
@@ -82,24 +73,24 @@ public class ProjectRewardDTO implements java.io.Serializable {
         this.rewSf = rewSf;
     }
 
-    public List<ProjectRewardOptDTO> getRewardOpt() {
-        return rewardOpt;
+    public List<RewardOptDTO> getRewardOptDTOList() {
+        return rewardOptDTOList;
     }
 
-    public void setRewardOpt(List<ProjectRewardOptDTO> rewardOpt) {
-        this.rewardOpt = rewardOpt;
+    public void setRewardOptDTOList(List<RewardOptDTO> rewardOptDTOList) {
+        this.rewardOptDTOList = rewardOptDTOList;
     }
 
     @Override
     public String toString() {
-        return "ProjectRewardDTO{" +
+        return "RewardDTO{" +
                 "rewCode='" + rewCode + '\'' +
                 ", rewNum=" + rewNum +
                 ", proCode=" + proCode +
                 ", rewName='" + rewName + '\'' +
                 ", rewExplain='" + rewExplain + '\'' +
                 ", rewSf=" + rewSf +
-                ", rewardOpt=" + rewardOpt +
+                ", rewardOptDTOList=" + rewardOptDTOList +
                 '}';
     }
 }
