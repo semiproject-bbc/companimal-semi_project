@@ -4,6 +4,69 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.companimal.semiProject.evaluation.model.dao.EvaluationMapper">
 
+    <resultMap id="CreatorEvaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDTO">
+        <id property="evaNum" column="EVA_NUM" />
+        <result property="evaDatetime" column="EVA_DATETIME" />
+        <result property="evaSituation" column="EVA_SITUATION" />
+        <result property="reaRejection" column="REA_REJECTION" />
+        <result property="memId" column="MEM_ID" />
+        <result property="creInqPhone" column="CRE_INQ_PHONE" />
+        <result property="creInqEmail" column="CRE_INQ_EMAIL" />
+        <result property="creImgName" column="CRE_IMG_NAME" />
+        <result property="creImgPath" column="CRE_IMG_PATH" />
+        <result property="creImgOriName" column="CRE_IMG_ORI_NAME" />
+        <result property="bankName" column="BANK_NAME" />
+        <result property="accountNo" column="ACCOUNT_NO" />
+        <result property="depositorName" column="DEPOSITOR_NAME" />
+        <result property="busiNum" column="BUSI_NUM" />
+        <result property="busiName" column="BUSI_NAME" />
+        <result property="busiDate" column="BUSI_DATE" />
+        <result property="busiType" column="BUSI_TYPE" />
+        <result property="busiIndu" column="BUSI_INDUSTRY" />
+        <result property="busiLoca" column="BUSI_LOCA" />
+        <result property="busiSize" column="BUSI_SIZE" />
+        <result property="busiUrl" column="BUSI_URL" />
+        <result property="authName" column="AUTH_NAME" />
+        <result property="authNum" column="AUTH_NUM" />
+        <result property="creatorType" column="CREATOR_TYPE"/>
+    </resultMap>
+
+    <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap">
+        SELECT
+            C.MEM_ID ,
+            C.EVA_NUM ,
+            E.EVA_DATETIME ,
+            E.EVA_SITUATION ,
+            E.REA_REJECTION ,
+            I.CRE_INQ_PHONE ,
+            I.CRE_INQ_EMAIL ,
+            I.CRE_IMG_NAME ,
+            I.CRE_IMG_PATH ,
+            I.CRE_IMG_ORI_NAME ,
+            I.BANK_NAME ,
+            I.ACCOUNT_NO ,
+            I.DEPOSITOR_NAME ,
+            B.BUSI_NUM ,
+            B.BUSI_NAME ,
+            B.BUSI_DATE ,
+            B.BUSI_TYPE ,
+            B.BUSI_INDUSTRY ,
+            B.BUSI_LOCA ,
+            B.BUSI_SIZE ,
+            B.BUSI_URL ,
+            B.AUTH_NAME ,
+            B.AUTH_NUM,
+            CASE
+                WHEN B.BUSI_NUM IS NULL THEN '개인'
+                ELSE '사업자'
+            END AS CREATOR_TYPE
+        FROM CREATOR_EVA C
+        JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
+        JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
+        LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID
+        ORDER BY C.EVA_NUM ASC;
+    </select>
+
     <insert id="insertCreatorInfo" parameterType="com.companimal.semiProject.project.model.dto.CreatorInfoDTO">
         INSERT
         INTO CREATOR_iNFO (
@@ -74,4 +137,5 @@
                 ,#{ evaNum }
                )
     </insert>
+
 </mapper>

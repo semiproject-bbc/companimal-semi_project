@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/evaluation")
 public class EvaluationController {
 
-//    private final EvaluationService evaluationService;
+    //    private final EvaluationService evaluationService;
     private final CreatorEvaluationService creatorEvaluationService;
 
     public EvaluationController(CreatorEvaluationService creatorEvaluationService) {
@@ -56,9 +57,20 @@ public class EvaluationController {
         return "/main";
     }
 
-    @GetMapping("/manager/creatorEvaluation")
+    @GetMapping("/manager/creatorEvaluationDetail")
     public String creatorEvaluation() {
-        return "/contents/evaluation/manager/creatorEvaluation";
+        return "/contents/evaluation/manager/creatorEvaluationDetail";
+    }
+
+    @GetMapping("/manager/creatorEvaluationList")
+    public ModelAndView creatorEvaluationList(ModelAndView modelAndView) {
+
+        modelAndView.addObject("CreatorEvaluationList",creatorEvaluationService.selectCreatorEvaluationList());
+
+        modelAndView.setViewName("/contents/evaluation/manager/creatorEvaluationList");
+
+
+        return modelAndView;
     }
 
 }

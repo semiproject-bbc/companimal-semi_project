@@ -2,6 +2,7 @@ package com.companimal.semiProject.evaluation.model.service;
 
 import com.companimal.semiProject.evaluation.model.dao.EvaluationMapper;
 import com.companimal.semiProject.evaluation.model.dto.CreatorEvaDTO;
+import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDTO;
 import com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO;
 import com.companimal.semiProject.evaluation.model.dto.EvaluationDTO;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -55,7 +57,7 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
 
         // 심사 테이블 등록
         EvaluationDTO evaluationDTO = new EvaluationDTO();
-        evaluationDTO.setEvaDateTime(new Timestamp(System.currentTimeMillis()));
+        evaluationDTO.setEvaDatetime(new Timestamp(System.currentTimeMillis()));
         evaluationDTO.setEvaSituation("처리중");
         evaluationMapper.insertEvaluation(evaluationDTO);
 
@@ -70,6 +72,11 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         fileNo++;
         InsertCreatorFile(fileNo, creatorId ,img);
 
+    }
+
+    @Override
+    public List<CreatorEvaluationDTO> selectCreatorEvaluationList() {
+        return evaluationMapper.selectCreatorEvaluationList();
     }
 
     public Map<String, String> saveFile(MultipartFile creatorFile) throws IOException {
