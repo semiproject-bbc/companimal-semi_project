@@ -27,16 +27,18 @@ public class OrderController {
     @PostMapping("/orderPayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
     public String orderPaymentPage(Model model, ProjectDTO project, Authentication authentication) {
 
-        List <OrderRewardInfoDTO> orderRewardInfoDTOS = orderService.findRewardInfo(authentication.getName());
-        List <CouponDTO> couponDTO = orderService.couponInfo(authentication.getName());
-        List <MemberDTO> memberDTO = orderService.memberInfo(authentication.getName());
+        System.out.println(project);
 
-        model.addAttribute("rewardInfo", orderRewardInfoDTOS);
-        model.addAttribute("couponInfo", couponDTO);
-        model.addAttribute("memberInfo", memberDTO);
-//        model.addAttribute("orderAmount", orderAmount); // 옵션 수량
-//        model.addAttribute("orderCode", orderCode);     // 주문 코드
-        orderService.showAllInfo(model);
+//        List <OrderRewardInfoDTO> orderRewardInfoDTOS = orderService.findRewardInfo(authentication.getName());
+//        List <CouponDTO> couponDTO = orderService.couponInfo(authentication.getName());
+//        List <MemberDTO> memberDTO = orderService.memberInfo(authentication.getName());
+//
+//        model.addAttribute("rewardInfo", orderRewardInfoDTOS);
+//        model.addAttribute("couponInfo", couponDTO);
+//        model.addAttribute("memberInfo", memberDTO);
+////        model.addAttribute("orderAmount", orderAmount); // 옵션 수량
+////        model.addAttribute("orderCode", orderCode);     // 주문 코드
+//        orderService.showAllInfo(model);
         return "contents/order/orderpayment";
     }
 

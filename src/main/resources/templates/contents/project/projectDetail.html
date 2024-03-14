@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/noNavLayout}">
+      layout:decorate="~{layouts/noNavLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="UTF-8"/>
@@ -53,7 +53,38 @@
                         <button onclick="toggleImg()" type="button" class="heart-button">
                             <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
                         </button>
-                        <button type="submit" class="funding" onclick="send()">펀딩 후원하기</button>
+                        <button type="submit" class="funding" onclick="send()" th:href="@{/order/orderPayment}">펀딩 후원하기</button>
+                        <form th:action="@{/order/orderPayment}" method="post">
+                            <input type="hidden" name="proName" id="proName" class="title">
+                            <input type="hidden" name="rewName" id="rewName" class="reward-title">
+                            <input type="hidden" name="rewOptName" id="rewOptName" class="reward-option">
+                            <input type="hidden" name="rewOptVal" id="rewOptVal" class="reward-value">
+                            <input type="hidden" name="rewAmount" id="rewAmount" class="reward-price">
+                            <input type="hidden" name="rewSf" id="rewSf" class="reward-sf">
+                        </form>
+
+                        <script>
+                            function send() {
+                                // 각 요소의 값을 설정하기 전에 폼 요소를 가져옴
+                                var proName = document.getElementById("proName");
+                                var rewName = document.getElementById("rewName");
+                                var rewOptName = document.getElementById("rewOptName");
+                                var rewOptVal = document.getElementById("rewOptVal");
+                                var rewAmount = document.getElementById("rewAmount");
+                                var rewSf = document.getElementById("rewSf");
+
+                                // 값을 설정
+                                proName.value = document.querySelector(".title").textContent;
+                                rewName.value = document.querySelector(".reward-title").textContent;
+                                rewOptName.value = document.querySelector(".reward-option").textContent;
+                                rewOptVal.value = document.querySelector(".reward-value").textContent;
+                                rewAmount.value = document.querySelector(".reward-price").textContent;
+                                rewSf.value = document.querySelector(".reward-sf").textContent;
+
+                                // 폼을 제출
+                                document.querySelector("form").submit();
+                            }
+                        </script>
                     </div>
                 </div>
                 <!--            </th:block>-->
@@ -126,7 +157,7 @@
                                 </div>
                                 <div class="reward-content">
                                     <span class="reward-price" th:text="${ rewardOpt.rewAmount }"></span> 원<br>
-                                    배송비 <span class="reward-etc" th:text="${ reward.rewSf }"></span><br>
+                                    배송비 <span class="reward-etc reward-sf" th:text="${ reward.rewSf }"></span><br>
                                     <span class="reward-etc reward-explain" th:text="${ reward.rewExplain }"></span>
                                 </div>
                             </div>
@@ -217,22 +248,6 @@
                     </div>
                     <script th:inline="javascript">
 
-                        // $(document).on("click", ".minus", function() {
-                        //     let quantityElement = $(this).siblings('.number');
-                        //     let currentQuantity = parseInt(quantityElement.text());
-                        //
-                        //     if (currentQuantity > 0) {
-                        //         quantityElement.text(currentQuantity - 1);
-                        //
-                        //         if (currentQuantity - 1 === 0) {
-                        //             $(this).closest(".reward-choose1").remove();
-                        //             $(".reward-1").on('click'); // Enable clicking on reward-1 again
-                        //         }
-                        //
-                        //         updateTotalAmount();
-                        //     }
-                        // });
-
                             function updateTotalAmount() {
                                 let totalAmount = 0;
 
@@ -249,20 +264,10 @@
 
                     </script>
                 </div>
-                <form action="/order/orderPayment" method="post">
-                    <input type="hidden" name="proName" id="proName" class="title">
-<!--                    <input type="hidden" name="rewName" id="rewName">-->
-<!--                    <input type="hidden" name="rewOptName" id="rewOptName">-->
-<!--                    <input type="hidden" name="rewOptVal" id="rewOptVal">-->
-<!--                    <input type="hidden" name="rewAmount" id="rewAmount">-->
-<!--                    <input type="hidden" name="rewSf" id="rewSf">-->
-                </form>
-                <script>
-                    function send() {
-                        $("#proName").val($(".title").text());
 
-                    }
-                </script>
+
+
+
             </div>
         </div>
     </section>
