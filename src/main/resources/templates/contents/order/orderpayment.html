@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/logout_layout}">
+      layout:decorate="~{layouts/noNavLayout}">
+<!--      layout:decorate="~{layouts/logout_supporter_layout}"-->
+
 <head>
     <meta charset="UTF-8">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -9,7 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/orderpayment.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,400;0,600;0,700;1,400&display=swap"/>
-    <script th:src="@{/static/js/orderpayment.js}"></script>
+    <script src="/js/orderpayment.js"></script>
 </head>
 <!-- header
 <header th:class="header">
@@ -17,8 +19,7 @@
 </header>
  section -->
 <th:block layout:fragment="content">
-
-
+<section>
     <div class="orderPayment-headers">
         <div class="orderPayment-header">주문 / 결제</div>
         <div class="processBytheSide">
@@ -29,28 +30,28 @@
     <div class="productInfo">주문제품 정보</div>
 
     <div class="ProductInformation">
-        <img th:class="productImage" loading="lazy" alt="강아지 제품에 대한 정보 소개" th:src="@{/image/dogItem.png}">
+        <img class="productImage" loading="lazy" alt="강아지 제품에 대한 정보 소개" src="/image/dogItem.png">
         <div class="productInfo-container">
             <div class="productName-container">
                 <div class="projectName">프로젝트명</div>
-                <div class="projectNameInfo">${ projectName }</div>
+                <div class="projectNameInfo" th:text="${ proName }">프로젝트명</div>
             </div>
             <div class="rewardName-container">
                 <div class="rewardName">리워드명</div>
-                <div class="rewardNameInfo">${ rewName }</div>
+                <div class="rewardNameInfo" th:text="${ rewName }">리워드명</div>
             </div>
 
             <div class="NoOfProject-container">
                 <div class="NoOfProject">갯수</div>
-                <div class="deliverFeeAmount">${ orderAmount }</div>
+                <div class="deliverFeeAmount" th:text="${ rewSf }">주문한 수량</div>
             </div>
             <div class="coupon-container">
                 <div class="coupon">쿠폰 할인</div>
-                <div class="couponDiscount">${ couAmount }</div>
+                <div class="couponDiscount" th:text="${ couCode }">쿠폰 할인</div>
             </div>
             <div class="orderFee-container">
                 <div class="orderFee">주문 금액</div>
-                <div class="orderAmount">${ finalPay }</div>
+                <div class="orderAmount" th:text="${ finalPay }">주문 금액</div>
             </div>
         </div>
     </div>
@@ -64,15 +65,15 @@
             <div class="fundingSupporter-container2">
                 <div class="supporterName-container">
                     <div class="supporterName">이름</div>
-                    <div class="supporterNameInputtedValue">이름</div>
+                    <div class="supporterNameInputtedValue" th:text="${ memberId }">이름</div>
                 </div>
                 <div class="supporterEmail-container">
                     <div class="supporterEmail">이메일</div>
-                    <div class="supporterEmailInputtedValue">이메일</div>
+                    <div class="supporterEmailInputtedValue" th:text="${ memberEmail }">이메일</div>
                 </div>
                 <div class="supporterPhoneNumber-container">
                     <div class="supporterPhoneNumber">휴대폰 번호</div>
-                    <div class="supporterPhoneNumberInputtedValue">010-XXXX-XXXX</div>
+                    <div class="supporterPhoneNumberInputtedValue" th:text="${ memberPhone}">010-XXXX-XXXX</div>
                 </div>
 
                 <div class="tNcPayment-container">
@@ -132,31 +133,32 @@
             <div class="tNcPaymentMethods-container">
                 <input type="checkbox" class="subCheckbox1">
                 <div class="tNcPaymentMethods">구매 조건, 결제 진행 . 및결제 대행 서비스 동의 (필수)</div>
-                <div class="see"><a href="./TermsAndConditions/first.html" class="seeClass">보기</a></div>
+                <div class="see"><a href="TermsAndConditions/first.html" class="seeClass">보기</a></div>
             </div>
             <div class="tNc3rdParty-container">
                 <input type="checkbox" class="subCheckbox2">
                 <div class="tNc3rdParty">개인정보 제3자 제공 동의 (필수)</div>
-                <div class="see"><a href="./TermsAndConditions/second.html" class="seeClass">보기</a></div>
+                <div class="see"><a href="TermsAndConditions/second.html" class="seeClass">보기</a></div>
             </div>
             <div class="tNcResponsible-container">
                 <input type="checkbox" class="subCheckbox3">
                 <div class="tNcResponsible">책임 규정에 대한 동의 (필수)</div>
-                <div class="see"><a href="./TermsAndConditions/third.html" class="seeClass">보기</a></div>
+                <div class="see"><a href="TermsAndConditions/third.html" class="seeClass">보기</a></div>
             </div>
             <div class="tNchoowon-container">
                 <input type="checkbox" class="subCheckbox4">
                 <div class="tNchoowon">후원 유의 사항 확인 (필수)</div>
-                <div class="see"><a th:href="@{/TermsAndConditions/fourth.html}" class="seeClass">보기</a></div>
+                <div class="see"><a th:href="@{/templates/contents/order/TermsAndConditions/fourth.html}" class="seeClass">보기</a></div>
             </div>
         </div>
     </div>
 
     <div class="paymentButton-container">
-        <a href="./successPage/successPage.html" class="ontoPaymentPage">
+        <form href="successPage/successPage.html" class="ontoPaymentPage" method="post" action="/kakaoPay">
             <button type="submit" class="ontoPayment">결제하기</button>
-        </a>
+        </form>
     </div>
+</section>
 <!-- footer -->
 <!--<footer th:class="footer">-->
 <!--    <iframe src="/static/css/common.css" th:height="100%" th:width="100%" th:frameborder="0"></iframe>-->
