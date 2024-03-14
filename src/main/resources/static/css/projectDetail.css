@@ -335,6 +335,12 @@ ul.imgs li{
                 }
             }
 
+            .reward-1:hover {
+                background-color: rgba(255,213,126,0.2);
+                /*opacity: 0.2;*/
+
+            }
+
             .reward-choose {
                 width: 390px;
                 height: auto;
@@ -343,8 +349,6 @@ ul.imgs li{
 
                 .reward-choose-list {
                     .op-choose {
-                        /*color: #6F6F6F;*/
-                        /*text-decoration: underline;*/
                         background-color: #ffefa0;
                         margin-top: 50px;
                     }

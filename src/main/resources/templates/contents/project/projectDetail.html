@@ -7,11 +7,13 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/projectDetail.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
-    <script type="text/javascript" th:src="@{/js/projectDetail.js}"></script>
+<!--    <script type="text/javascript" th:src="@{/js/projectDetail.js}"></script>-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <th:block layout:fragment="content">
     <section>
+        <form th:action="@{/orderPayment}" method="get">
         <div class="door">
             <div class="door-image">
                 <div class="slider">
@@ -40,6 +42,7 @@
                         </button>
                         <p class="living">카테고리</p>
                     </div>
+                    <input type="hidden" th:text="${ project.proName }">
                     <p class="title" th:text="${ project.proName }"></p>
                 </div>
                 <p class="introduce" th:text="${ project.proIntro }"></p>
@@ -52,7 +55,7 @@
                     <button onclick="toggleImg()" type="button" class="heart-button">
                         <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
                     </button>
-                    <button type="button" class="funding">펀딩 후원하기</button>
+                    <button type="submit" class="funding">펀딩 후원하기</button>
                 </div>
             </div>
 <!--            </th:block>-->
@@ -91,9 +94,9 @@
                     <p class="sub-info">배송 안내</p>
                     <p class="sub-content">• 발송 예정일 : 추후 공지 예정<br>
                     <p class="sub-info">환불 불가 정책</p>
-                    <p name="polNoRefund" class="sub-content"></p>
+                    <p class="sub-content" th:text="${ project.polNoRefund }"></p>
                     <p class="sub-info">A/S 규정</p>
-                    <P name="polAs" class="sub-content"></P>
+                    <P class="sub-content" th:text="${ project.polAs }"></P>
                 </div>
             </div>
             <div class="creater-reward">
@@ -106,6 +109,7 @@
                             Creater@email.com</div>
                     </div>
                 </div>
+
                 <div class="reward">
                     <p class="sub-info">리워드 선택</p>
                     <div class="reward-scroll">
@@ -125,21 +129,62 @@
                             </div>
                         </div>
                     </div>
+                    <script th:inline="javascript">
+
+                        $(document).ready(function() {
+
+                            $(".reward-1").click(function(event) {
+
+                                // const rewName = event.target.childList.className('reward-title').text();
+                                // const rewOptName = event.target.childNodes[1]
+                                //
+                                // const rewOpt = document.write(event.target.childNodes[0])
+                                //
+                                // $(".reward-choose-list").append(rewName, rewOptName, rewOpt);
+
+
+
+
+                                $(".reward-choose-list").append("<div class=\"reward-choose1\">\n" +
+                                    "                                <span rewName></span><br>\n" +
+                                    "                                <span class=\"op-choose\" th:text=\"${ rewardOpt.rewOptName }\"></span>\n" +
+                                    "                                <span class=\"op-choose\" th:text=\"${ rewardOpt.rewOptVal }\"></span><br>\n" +
+                                    "                                <div class=\"count-price\">\n" +
+                                    "                                    <div class=\"counts\">\n" +
+                                    "                                        <div class=\"minus\">-</div>\n" +
+                                    "                                        <div name=\"\" class=\"number\">1</div>\n" +
+                                    "                                        <div class=\"plus\">+</div>\n" +
+                                    "                                    </div>\n" +
+                                    "                                    <div class=\"price\" th:text=\"${ rewardOpt.rewAmount }\"></div> 원\n" +
+                                    "                                </div>\n" +
+                                    "                            </div>");
+
+
+                                // $(".reward-choose-list").append(rewOptName);
+                                //
+                                // console.log(rewOptName)
+
+                            });
+                        });
+
+
+                    </script>
                     <div class="reward-choose">
                         <div class="reward-choose-list">
                             <!-- 선택한 것 입력 -->
-                            <div class="reward-choose1">
-                                <span >펫슨 홈 본체 + 패브릭 매트(65 * 50 cm)</span><br>
-                                <span class="op-choose">기본</span><br>
-                                <div class="count-price">
-                                    <div class="counts">
-                                        <div class="minus">-</div>
-                                        <div name="" class="number">1</div>
-                                        <div class="plus">+</div>
-                                    </div>
-                                    <div class="price">120,000원</div>
-                                </div>
-                            </div>
+<!--                            <div class="reward-choose1">-->
+<!--                                <span></span><br>-->
+<!--                                <span class="op-choose"></span>-->
+<!--                                <span class="op-choose"></span><br>-->
+<!--                                <div class="count-price">-->
+<!--                                    <div class="counts">-->
+<!--                                        <div class="minus">-</div>-->
+<!--                                        <div name="" class="number">1</div>-->
+<!--                                        <div class="plus">+</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="price"></div> 원-->
+<!--                                </div>-->
+<!--                            </div>-->
 <!--                            <div class="reward-choose2">-->
 <!--                                <span>펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</span><br>-->
 <!--                                <span class="op-choose">블랙 코팅</span><br>-->
@@ -162,8 +207,10 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+        </form>
     </section>
 </th:block>
 
