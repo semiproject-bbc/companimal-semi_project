@@ -40,9 +40,9 @@ public class ProjectController {
     }
 
     @GetMapping("/projectDetail/{proCode}")
-    public String selectProjectDetail(Model model, Integer proCode, ProjectDTO project) {
+    public String selectProjectDetail(Model model, @PathVariable Integer proCode) {
 
-        ProjectDTO selectProject = projectService.selectProjectDetail(proCode, project);
+        ProjectDTO selectProject = projectService.selectProjectDetail(proCode);
 
         System.out.println(selectProject);
 

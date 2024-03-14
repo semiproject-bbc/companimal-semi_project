@@ -4,62 +4,61 @@
       layout:decorate="~{layouts/noNavLayout}">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet" th:href="@{/css/projectDetail.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
-<!--    <script type="text/javascript" th:src="@{/js/projectDetail.js}"></script>-->
+    <!--    <script type="text/javascript" th:src="@{/js/projectDetail.js}"></script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <th:block layout:fragment="content">
     <section>
-        <form th:action="@{/orderPayment}" method="get">
-        <div class="door">
-            <div class="door-image">
-                <div class="slider">
-                    <input type="radio" name="slide" id="slide1" checked>
-                    <input type="radio" name="slide" id="slide2">
-                    <input type="radio" name="slide" id="slide3">
-                    <ul id="imgholder" class="imgs">
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
-                    </ul>
-                    <div class="bullets">
-                        <label for="slide1">&nbsp;</label>
-                        <label for="slide2">&nbsp;</label>
-                        <label for="slide3">&nbsp;</label>
+            <div class="door">
+                <div class="door-image">
+                    <div class="slider">
+                        <input type="radio" name="slide" id="slide1" checked>
+                        <input type="radio" name="slide" id="slide2">
+                        <input type="radio" name="slide" id="slide3">
+                        <ul id="imgholder" class="imgs">
+                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
+                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
+                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
+                        </ul>
+                        <div class="bullets">
+                            <label for="slide1">&nbsp;</label>
+                            <label for="slide2">&nbsp;</label>
+                            <label for="slide3">&nbsp;</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-<!--            <th:block th:each="project : ${ selectProjectList }">-->
-            <div class="door-content" th:each="project : ${ selectProject }">
-                <p th:text="${ project.endDate }" class="d-day"></p>
-                <div class="category-title">
-                    <div class="category">
-                        <button type="button" class="category_button">
-                            <img class="category-image" th:src="@{/image/living.png}">
+                <!--            <th:block th:each="project : ${ selectProjectList }">-->
+                <div class="door-content" th:each="project : ${ selectProject }">
+                    <p th:text="${ project.endDate }" class="d-day"></p>
+                    <div class="category-title">
+                        <div class="category">
+                            <button type="button" class="category_button">
+                                <img class="category-image" th:src="@{/image/living.png}">
+                            </button>
+                            <p class="living">카테고리</p>
+                        </div>
+                        <p class="title" name="proName" th:text="${ project.proName }"></p>
+                    </div>
+                    <p class="introduce" th:text="${ project.proIntro }"></p>
+                    <div class="goal-container">
+                        <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
+                        <p class="goal-won"> % 달성</p>
+                    </div>
+                    <div class="heart-gray-icon-container">
+                        <!--                    <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">-->
+                        <button onclick="toggleImg()" type="button" class="heart-button">
+                            <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
                         </button>
-                        <p class="living">카테고리</p>
+                        <button type="submit" class="funding" onclick="send()">펀딩 후원하기</button>
                     </div>
-                    <input type="hidden" th:text="${ project.proName }">
-                    <p class="title" th:text="${ project.proName }"></p>
                 </div>
-                <p class="introduce" th:text="${ project.proIntro }"></p>
-                <div class="goal-container">
-                    <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
-                    <p class="goal-won"> % 달성</p>
-                </div>
-                <div class="heart-gray-icon-container">
-<!--                    <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">-->
-                    <button onclick="toggleImg()" type="button" class="heart-button">
-                        <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
-                    </button>
-                    <button type="submit" class="funding">펀딩 후원하기</button>
-                </div>
+                <!--            </th:block>-->
             </div>
-<!--            </th:block>-->
-        </div>
+
     </section>
     <section class="section2">
         <div class="content" th:each="project : ${ selectProject }">
@@ -82,10 +81,12 @@
                         집에 홀로 두고 나올 때면, 에어컨을 틀고 외출할 수밖에 없어 요즘같이 냉난방비 폭탄인 시즌에는 그 비용도 만만치 않다는 이야기였습니다.<br>
                         저희는
                         <mark class="intro-line">“어떻게 하면, 여름철에는 시원하고 겨울철에는 따뜻한 공간을 선물할 수 있으며,
-                            반려인의 현실적인 문제들을 동시에 해결할 수 있을까”</mark><br>
+                            반려인의 현실적인 문제들을 동시에 해결할 수 있을까”
+                        </mark>
+                        <br>
                         라는 질문에서 시작하여 펫슨홈 개발을 생각하게 되었습니다.<br>
                         처음에는 단순히 시원하고 따뜻한 공간을 만드는 것에만 집중하였지만,
-                        점차 반려인에게도 느낌 있는 공간, 더 나아가서는  반려동물과 반려인의 깊은 소통이 일어나는 공간,
+                        점차 반려인에게도 느낌 있는 공간, 더 나아가서는 반려동물과 반려인의 깊은 소통이 일어나는 공간,
                         즉 '반려동물과 반려인만의 특별한 라이프스타일'을 디자인하는 가치 공간으로 확장해나가게 되었습니다.
                     </p>
                 </div>
@@ -106,113 +107,164 @@
                         <div><img class="creater-image" th:src="@{/image/creater1.png}"></div>
                         <div>크리에이터 명<br>
                             070-XXXX-XXXX<br>
-                            Creater@email.com</div>
+                            Creater@email.com
+                        </div>
                     </div>
                 </div>
-
                 <div class="reward">
                     <p class="sub-info">리워드 선택</p>
                     <div class="reward-scroll">
                         <div class="reward-list" th:each=" reward : ${ project.reward }">
-                            <div class="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">
+                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">
                                 <div class="reward-title" th:text="${ reward.rewName }"></div>
                                 <div class="op-limit">
                                     <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>
-                                    <div class="reward-option" th:text="${ rewardOpt.rewOptVal }"></div>
-                                    <div class="reward-limitCount"><span th:text="${ rewardOpt.rewOptLimit }"></span> 개 남음!</div>
+                                    <div class="reward-option reward-value" th:text="${ rewardOpt.rewOptVal }"></div>
+                                    <div class="reward-limitCount"><span th:text="${ rewardOpt.rewOptLimit }"></span> 개
+                                        남음!
+                                    </div>
                                 </div>
                                 <div class="reward-content">
                                     <span class="reward-price" th:text="${ rewardOpt.rewAmount }"></span> 원<br>
                                     배송비 <span class="reward-etc" th:text="${ reward.rewSf }"></span><br>
-                                    <span class="reward-etc" th:text="${ reward.rewExplain }"></span>
+                                    <span class="reward-etc reward-explain" th:text="${ reward.rewExplain }"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <script th:inline="javascript">
 
-                        $(document).ready(function() {
+                        $(document).ready(function () {
 
-                            const parent = document.getElementsByClassName('reward-1');
+                            $(".reward-1").click(function func1 (event) {
+                                const eventDiv = event.currentTarget;
+                                const rewName = eventDiv.getElementsByClassName('reward-title')[0].innerHTML;
+                                const rewOpt = eventDiv.getElementsByClassName('reward-option')[0].innerHTML;
+                                const rewValue = eventDiv.getElementsByClassName('reward-value')[0].innerHTML;
+                                const rewOptAmount = eventDiv.getElementsByClassName('reward-price')[0].innerHTML;
 
-                            $(".reward-1").click(function(event) {
-
-                                // const rewName = event.target.childList.className('reward-title').text();
-                                // const rewOptName = event.target.childNodes[1]
-                                //
-                                // const rewOpt = document.write(event.target.childNodes[0])
-                                //
-                                // $(".reward-choose-list").append(rewName, rewOptName, rewOpt);
-
-                                // const rewName =
+                                let rewardExists = false;
 
 
-                                $(".reward-choose-list").append("<div class=\"reward-choose1\">\n" +
-                                    "                                <span rewName></span><br>\n" +
-                                    "                                <span class=\"op-choose\" th:text=\"${ rewardOpt.rewOptName }\"></span>\n" +
-                                    "                                <span class=\"op-choose\" th:text=\"${ rewardOpt.rewOptVal }\"></span><br>\n" +
-                                    "                                <div class=\"count-price\">\n" +
-                                    "                                    <div class=\"counts\">\n" +
-                                    "                                        <div class=\"minus\">-</div>\n" +
-                                    "                                        <div name=\"\" class=\"number\">1</div>\n" +
-                                    "                                        <div class=\"plus\">+</div>\n" +
-                                    "                                    </div>\n" +
-                                    "                                    <div class=\"price\" th:text=\"${ rewardOpt.rewAmount }\"></div> 원\n" +
-                                    "                                </div>\n" +
-                                    "                            </div>");
+                                $(".reward-choose-list .title-choose").each(function() {
+                                    if ($(this).text() === rewName && $(this).next().text() === rewOpt && $(this).next().next().text() === rewValue) {
+                                        rewardExists = true;
+                                        return false; // Exit the loop early
+                                    }
+                                });
+
+                                if (!rewardExists) {
+                                    $(".reward-choose-list").append(
+                                        "<div class=\"reward-choose1\">" +
+                                        "<span class=\"title-choose\">" + rewName + "</span><br>" +
+                                        "<span class=\"op-choose\">" + rewOpt + " : </span>" +
+                                        "<span class=\"op-choose\">" + rewValue + "</span>" +
+                                        "<div class=\"count-price\">" +
+                                        "<div class=\"counts\">" +
+                                        "<div class=\"minus\">-</div>" +
+                                        "<div class=\"number\" name='noOfOrder'>1</div>" +
+                                        "<div class=\"plus\">+</div>" +
+                                        "</div>" +
+                                        "<div class=\"price\" name='orderAmount'>" + rewOptAmount + " 원</div>" +
+                                        "</div>" +
+                                        "</div><br>"
+                                    );
+
+                                    updateTotalAmount();
+
+                                    $(this).off('click'); // Disable click on current reward-1
+                                }
+                            });
 
 
-                                // $(".reward-choose-list").append(rewOptName);
-                                //
-                                // console.log(rewOptName)
+                            $(document).on("click", ".minus", function() {
+                                let quantityElement = $(this).siblings('.number');
+                                let currentQuantity = parseInt(quantityElement.text());
 
+                                if (currentQuantity > 0) {
+                                    quantityElement.text(currentQuantity - 1);
+
+                                    if (currentQuantity - 1 === 0) {
+                                        $(this).closest(".reward-choose1").remove();
+                                        $(".reward-1").on('click', func1 (this)); // Enable clicking on reward-1 again
+                                    }
+
+                                    updateTotalAmount();
+                                }
+                            });
+
+                            $(document).on("click", ".plus", function() {
+                                let quantityElement = $(this).siblings('.number');
+                                let currentQuantity = parseInt(quantityElement.text());
+                                quantityElement.text(currentQuantity + 1);
+
+                                updateTotalAmount();
                             });
                         });
 
-
                     </script>
                     <div class="reward-choose">
-                        <div class="reward-choose-list">
-                            <!-- 선택한 것 입력 -->
-<!--                            <div class="reward-choose1">-->
-<!--                                <span></span><br>-->
-<!--                                <span class="op-choose"></span>-->
-<!--                                <span class="op-choose"></span><br>-->
-<!--                                <div class="count-price">-->
-<!--                                    <div class="counts">-->
-<!--                                        <div class="minus">-</div>-->
-<!--                                        <div name="" class="number">1</div>-->
-<!--                                        <div class="plus">+</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="price"></div> 원-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="reward-choose2">-->
-<!--                                <span>펫슨 홈 본체 + 패브릭 매트(65 * 50 cm) + 각인 서비스</span><br>-->
-<!--                                <span class="op-choose">블랙 코팅</span><br>-->
-<!--                                <div class="count-price">-->
-<!--                                    <div class="counts">-->
-<!--                                        <div class="minus">-</div>-->
-<!--                                        <div class="number">1</div>-->
-<!--                                        <div class="plus">+</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="price">130,000원</div>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                        <div class="reward-choose-list" id="reward-choose-list">
                         </div>
                         <div>
-                            <hr><br>
+                            <hr>
+                            <br>
                             <div class="reward-all-price">
                                 <div class="all-price">총 펀딩 금액</div>
-                                <div class="all-price">250,000원</div>
+                                <div class="all-price" name="orderAmount">0 원</div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <script th:inline="javascript">
 
+                        // $(document).on("click", ".minus", function() {
+                        //     let quantityElement = $(this).siblings('.number');
+                        //     let currentQuantity = parseInt(quantityElement.text());
+                        //
+                        //     if (currentQuantity > 0) {
+                        //         quantityElement.text(currentQuantity - 1);
+                        //
+                        //         if (currentQuantity - 1 === 0) {
+                        //             $(this).closest(".reward-choose1").remove();
+                        //             $(".reward-1").on('click'); // Enable clicking on reward-1 again
+                        //         }
+                        //
+                        //         updateTotalAmount();
+                        //     }
+                        // });
+
+                            function updateTotalAmount() {
+                                let totalAmount = 0;
+
+                                $(".reward-choose1").each(function() {
+                                    let priceText = $(this).find(".price").text();
+                                    let price = parseInt(priceText.replace(/[^0-9]/g, ''));
+                                    let quantity = parseInt($(this).find(".number").text());
+                                    totalAmount += price * quantity;
+                                });
+
+                                $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount) + "원");
+                            };
+
+
+                    </script>
+                </div>
+                <form action="/order/orderPayment" method="post">
+                    <input type="hidden" name="proName" id="proName" class="title">
+<!--                    <input type="hidden" name="rewName" id="rewName">-->
+<!--                    <input type="hidden" name="rewOptName" id="rewOptName">-->
+<!--                    <input type="hidden" name="rewOptVal" id="rewOptVal">-->
+<!--                    <input type="hidden" name="rewAmount" id="rewAmount">-->
+<!--                    <input type="hidden" name="rewSf" id="rewSf">-->
+                </form>
+                <script>
+                    function send() {
+                        $("#proName").val($(".title").text());
+
+                    }
+                </script>
             </div>
         </div>
-        </form>
     </section>
 </th:block>
 

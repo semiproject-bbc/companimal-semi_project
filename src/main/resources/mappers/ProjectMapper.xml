@@ -156,7 +156,7 @@
                 ,cate_sub
           FROM project
          WHERE del_status = 'N'
-           AND pro_code = #{ proCode }
+<!--           AND pro_code = #{ proCode }-->
 <!--           AND TO_DAYS(now())-TO_DAYS('end_date');-->
     </select>
 
@@ -227,8 +227,8 @@
 <!--          JOIN project_file f ON (p.pro_code = f.pro_code)-->
           JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
 <!--          JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)-->
-         WHERE del_status = 'N'
-<!--           AND p.pro_code = #{ proCode }-->
+         WHERE p.del_status = 'N'
+           AND p.pro_code = #{ proCode }
     </select>
 
     <!-- 프로젝트 등록 시 db에 저장할 쿼리 -->

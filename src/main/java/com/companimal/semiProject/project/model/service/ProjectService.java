@@ -16,7 +16,7 @@ public interface ProjectService {
     @Transactional
     void insertProject(MultipartFile file, ProjectDTO project) throws IOException;
 
-    ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project);
+    ProjectDTO selectProjectDetail(int proCode);
 
     List<ProjectDTO> selectEndProjectList();
 

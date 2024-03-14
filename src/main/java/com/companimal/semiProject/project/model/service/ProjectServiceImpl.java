@@ -263,8 +263,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project) {
-        return projectMapper.selectProjectDetail(proCode, project);
+    public ProjectDTO selectProjectDetail(int proCode) {
+        return projectMapper.selectProjectDetail(proCode);
     }
 
     @Override

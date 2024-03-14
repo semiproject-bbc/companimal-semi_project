@@ -347,57 +347,9 @@ ul.imgs li{
                 border:#ffd57e 2px solid;
                 padding: 30px;
 
-                .reward-choose-list {
-                    .op-choose {
-                        background-color: #ffefa0;
-                        margin-top: 50px;
-                    }
+                /*.reward-choose-list {*/
 
-                    .reward-choose1, .reward-choose2 {
-                        width:auto;
-                        height: auto;
-                        font-size: 21px;
-                        font-weight: 500;
-
-                        .count-price {
-                            display: flex;
-                            font-size: 27px;
-                            justify-content: space-between;
-                            margin-top: 20px;
-                            margin-bottom: 20px;
-                            text-align: center;
-
-                            .counts {
-                                display: flex;
-                                border: #ffd57e 2px solid;
-                                font-weight: bold;
-
-                                .minus {
-                                    border-right: #ffd57e 2px solid;
-                                    width: 50px;
-                                    height: 45px;
-                                    padding-top: 5px;
-                                    background-color: #D5D5D5;
-                                    color: white;
-                                }
-                                .number {
-                                    width: 50px;
-                                    height: 45px;
-                                    padding-top: 5px;
-                                }
-                                .plus {
-                                    border-left: #ffd57e 2px solid;
-                                    width: 50px;
-                                    height: 45px;
-                                    padding-top: 5px;
-                                    background-color: #fca652;
-                                    color: white;
-                                }
-                            }
-                        }
-                    }
-
-                }
+                /*}*/
 
                 .reward-all-price {
                     display: flex;
@@ -406,6 +358,80 @@ ul.imgs li{
                     justify-content: space-between;
                 }
             }
+            .reward-choose1 {
+                width:auto;
+                height: auto;
+                font-size: 21px;
+                font-weight: 500;
+            }
+
+            .title-choose {
+                margin-top: 50px;
+                font-size: 21px;
+                font-weight: 500;
+            }
+
+            .op-choose {
+                background-color: #ffefa0;
+                margin-top: 50px;
+                font-size: 21px;
+                font-weight: 500;
+            }
+
+            .count-price {
+                display: flex;
+                font-size: 27px;
+                justify-content: space-between;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .counts {
+                display: flex;
+                border: #ffd57e 2px solid;
+                font-weight: bold;
+
+            }
+            .minus {
+                border-right: #ffd57e 2px solid;
+                width: 50px;
+                height: 45px;
+                padding-top: 5px;
+                background-color: #D5D5D5;
+                color: white;
+                /*border: #ffd57e 2px solid;*/
+                font-weight: bold;
+                font-size: 27px;
+                text-align: center;
+            }
+            .number {
+                width: 50px;
+                height: 45px;
+                padding-top: 5px;
+                border: #ffd57e 2px solid;
+                font-weight: bold;
+                font-size: 27px;
+                text-align: center;
+            }
+            .plus {
+                border-left: #ffd57e 2px solid;
+                width: 50px;
+                height: 45px;
+                padding-top: 5px;
+                background-color: #fca652;
+                color: white;
+                /*border: #ffd57e 2px solid;*/
+                font-weight: bold;
+                font-size: 27px;
+                text-align: center;
+            }
+
+            .price {
+                font-size: 30px;
+                font-weight: 500;
+            }
+
 
         }
     }

@@ -24,7 +24,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/orderPayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
+    @PostMapping("/orderPayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
     public String orderPaymentPage(Model model, ProjectDTO project, Authentication authentication) {
 
         List <OrderRewardInfoDTO> orderRewardInfoDTOS = orderService.findRewardInfo(authentication.getName());
