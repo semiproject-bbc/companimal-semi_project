@@ -12,10 +12,11 @@ public interface OrderMapper {
 
     List<OrderRewardInfoDTO> findRewardInfo();
 
-    List<CouponDTO> findCouponInfo();
+    CouponDTO findCouponInfo(String memId);
 
-    List<MemberDTO> findMemberInfo();
+    MemberDTO findMemberInfo(String memId);
+
+    CouponDTO getCouponInfo(String memId);
 
     int updatePurchaseConfirm(String orderCode);
-
 }

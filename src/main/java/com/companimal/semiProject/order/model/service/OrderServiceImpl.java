@@ -3,6 +3,8 @@ package com.companimal.semiProject.order.model.service;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dao.OrderMapper;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
+import com.companimal.semiProject.order.model.dto.OrderDetailsDTO;
+import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import com.companimal.semiProject.order.model.dto.OrderRewardInfoDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,37 +21,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-//    @Override
-//    public List<OrderRewardInfoDTO> findRewardInfo() {
-//        return orderMapper.findRewardInfo();
-//    }
-//
-//    @Override
-//    public List<CouponDTO> couponInfo() {
-//        return orderMapper.findCouponInfo();
-//    }
-//
-//    @Override
-//    public List<MemberDTO> memberInfo() {
-//        return orderMapper.findMemberInfo();
-//    }
-
     @Override
     public void showAllInfo(Model model) {}
 
     @Override
-    public List<OrderRewardInfoDTO> findRewardInfo(String name) {
-        return orderMapper.findRewardInfo();
+    public CouponDTO couponInfo(String memId) {
+        return orderMapper.findCouponInfo(memId);
     }
 
     @Override
-    public List<CouponDTO> couponInfo(String name) {
-        return orderMapper.findCouponInfo();
-    }
-
-    @Override
-    public List<MemberDTO> memberInfo(String name) {
-        return orderMapper.findMemberInfo();
+    public MemberDTO memberInfo(String memId) {
+        return orderMapper.findMemberInfo(memId);
     }
 
     @Override
@@ -57,6 +39,11 @@ public class OrderServiceImpl implements OrderService {
         int result = orderMapper.updatePurchaseConfirm(orderCode);
 
         return result;
+    }
+
+    @Override
+    public void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
+//        return orderMapper.insertOrderPaymentInfo(orderPaymentDTO);
     }
 }
 

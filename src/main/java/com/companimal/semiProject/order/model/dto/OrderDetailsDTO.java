@@ -2,7 +2,6 @@ package com.companimal.semiProject.order.model.dto;
 
 public class OrderDetailsDTO {
 
-    private int rewOptNum;      // 제한수량
     private String rewOptName;  // 리워드 옵션명
     private String rewOptVal;   // 옵션값
     private int rewNum;         // 리워드 번호
@@ -10,7 +9,6 @@ public class OrderDetailsDTO {
     private int rewSf;          // 배송비
     private int proCode;        // 프로젝트 코드
     private String proName;     // 프로젝트명
-
     private int couAmount;      // 쿠폰 금액
     private String couCode;     // 쿠폰 코드
     private String couName;     // 쿠폰명
@@ -18,12 +16,13 @@ public class OrderDetailsDTO {
     private String memName;     // 이름
     private String memPhone;    // 전화번호
     private String memEmail;    // 이메일
+    private int noOfOrder;      // 수량
+    private int orderAmount;    // 총 금액
 
     public OrderDetailsDTO() {
     }
 
-    public OrderDetailsDTO(int rewOptNum, String rewOptName, String rewOptVal, int rewNum, String rewName, int rewSf, int proCode, String proName, int couAmount, String couCode, String couName, String memId, String memName, String memPhone, String memEmail) {
-        this.rewOptNum = rewOptNum;
+    public OrderDetailsDTO(String rewOptName, String rewOptVal, int rewNum, String rewName, int rewSf, int proCode, String proName, int couAmount, String couCode, String couName, String memId, String memName, String memPhone, String memEmail, int noOfOrder, int orderAmount) {
         this.rewOptName = rewOptName;
         this.rewOptVal = rewOptVal;
         this.rewNum = rewNum;
@@ -38,14 +37,8 @@ public class OrderDetailsDTO {
         this.memName = memName;
         this.memPhone = memPhone;
         this.memEmail = memEmail;
-    }
-
-    public int getRewOptNum() {
-        return rewOptNum;
-    }
-
-    public void setRewOptNum(int rewOptNum) {
-        this.rewOptNum = rewOptNum;
+        this.noOfOrder = noOfOrder;
+        this.orderAmount = orderAmount;
     }
 
     public String getRewOptName() {
@@ -160,11 +153,26 @@ public class OrderDetailsDTO {
         this.memEmail = memEmail;
     }
 
+    public int getNoOfOrder() {
+        return noOfOrder;
+    }
+
+    public void setNoOfOrder(int noOfOrder) {
+        this.noOfOrder = noOfOrder;
+    }
+
+    public int getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(int orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
     @Override
     public String toString() {
         return "OrderDetailsDTO{" +
-                "rewOptNum=" + rewOptNum +
-                ", rewOptName='" + rewOptName + '\'' +
+                "rewOptName='" + rewOptName + '\'' +
                 ", rewOptVal='" + rewOptVal + '\'' +
                 ", rewNum=" + rewNum +
                 ", rewName='" + rewName + '\'' +
@@ -176,8 +184,10 @@ public class OrderDetailsDTO {
                 ", couName='" + couName + '\'' +
                 ", memId='" + memId + '\'' +
                 ", memName='" + memName + '\'' +
-                ", memPhone=" + memPhone +
+                ", memPhone='" + memPhone + '\'' +
                 ", memEmail='" + memEmail + '\'' +
+                ", noOfOrder=" + noOfOrder +
+                ", orderAmount=" + orderAmount +
                 '}';
     }
 }
