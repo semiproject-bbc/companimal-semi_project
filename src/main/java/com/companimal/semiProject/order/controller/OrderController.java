@@ -4,6 +4,7 @@ import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
 import com.companimal.semiProject.order.model.dto.OrderRewardInfoDTO;
 import com.companimal.semiProject.order.model.service.OrderService;
+import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,8 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/orderpayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
-    public String orderPaymentPage(Model model, Authentication authentication) {
+    @GetMapping("/orderPayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
+    public String orderPaymentPage(Model model, ProjectDTO project, Authentication authentication) {
 
         List <OrderRewardInfoDTO> orderRewardInfoDTOS = orderService.findRewardInfo(authentication.getName());
         List <CouponDTO> couponDTO = orderService.couponInfo(authentication.getName());
