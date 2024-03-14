@@ -14,6 +14,49 @@
         <result property="memberRole" column="MEM_AUTHORITY"/>
     </resultMap>
 
+    <resultMap id="projectResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="delStatus" column="del_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+    </resultMap>
+
+    <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
+        <id property="orderCode" column="order_code" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="finalPay" column="final_pay" />
+        <result property="proCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
+    </resultMap>
+
+    <resultMap id="selectParticipateResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
+        <id property="memberId" column="MEM_ID"/>
+        <result property="memberPwd" column="MEM_PWD"/>
+        <result property="memberNickname" column="MEM_NICKNAME"/>
+        <result property="memberName" column="MEM_NAME"/>
+        <result property="memberPhone" column="MEM_PHONE"/>
+        <result property="memberEmail" column="MEM_EMAIL"/>
+        <result property="memberRole" column="MEM_AUTHORITY"/>
+        <collection property="project" resultMap="projectResultMap" />
+        <collection property="orderPayment" resultMap="orderPaymentResultMap" />
+    </resultMap>
+
     <insert id="registMember" parameterType="com.companimal.semiProject.member.model.dto.MemberDTO">
         INSERT
         INTO DEFAULT_MEMBER (MEM_ID
@@ -51,6 +94,20 @@
         SELECT COUNT(*)
         FROM DEFAULT_MEMBER
         WHERE MEM_ID = #{ id }
+    </select>
+
+    <select id="selectParticipate" parameterType="String" resultMap="selectParticipateResultMap">
+        SELECT
+            p.pro_code,
+            p.pro_name,
+            o.purchase_status,
+            o.order_code,
+            o.order_date
+        FROM default_member m
+                 JOIN order_payment o ON (m.mem_id = o.mem_id)
+                 JOIN project p ON (o.pro_code = p.pro_code)
+        WHERE m.mem_id = #{id}
+        ORDER BY o.order_date desc
     </select>
 
 </mapper>

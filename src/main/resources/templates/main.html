@@ -17,9 +17,15 @@
 
     <button onclick="location.href='/project/projectRegist'">이미지 등록</button>
 
-    <form th:action="@{/auth/logout}" th:method="post">
+    <form th:action="@{/auth/logout}" method="post">
         <button>로그아웃</button>
     </form>
+    <form method="get" action="/orderpayment">
+        <button>주문결제</button>
+    </form>
+<!--    <form method="get" action="/orderpayment">-->
+
+<!--    </form>-->
     <button onclick="location.href='/evaluation/creatorEvaluationRegist'">크리에이터 심사</button>
 
     <div class="mainPageContainer">

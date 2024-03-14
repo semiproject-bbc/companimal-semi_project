@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/logout_supporter_layout}">
+      layout:decorate="~{layouts/navLayout}">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profileModal}"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -43,6 +46,83 @@
         </table>
 
         <button class="modalbtn withdrawalBtn" th:onclick="|location.href='@{/member/withdrawal}'|">회원 탈퇴</button>
+    </div>
+
+    <!-- 모달 - 작동 안됨(수정 필요) -->
+    <div class="modal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <h2>닉네임 변경</h2>
+            <p>⦁ 닉네임은 한글과 숫자로만 구성되며, 특수문자를 사용할 수 없습니다.</p>
+            <p>⦁ 최소 2글자 최대 10글자 입력 가능합니다.</p>
+            <div class="d-flex nicknameBox">
+                <input type="text" name="inputNickname" placeholder="닉네임 입력">
+                <button>중복 체크</button>
+            </div>
+            <div class="d-flex buttonBox">
+                <button class="confirmBtn">확인</button>
+                <button class="cancelBtn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <h2>이메일 변경</h2>
+            <div class="emailBox1">
+                <span><b>닉네임님</b>의</span>
+                <span class="focusWord">이메일 주소</span>
+                <span>를 변경하기 위해 인증절차가 필요합니다.</span>
+                <p class="emailBar"></p>
+                <div class="d-flex">
+                    <img src="../../image/email.png" alt="이메일인증">
+                    <span>co*****@naver.com</span>
+                    <button>인증번호 발송</button>
+                </div>
+            </div>
+            <div class="d-flex emailBox2">
+                <input type="text" name="emailCode" placeholder="인증번호 입력">
+                <input type="text" name="newEmail" placeholder="변경할 이메일 주소 입력">
+            </div>
+            <div class="d-flex buttonBox">
+                <button class="confirmBtn">확인</button>
+                <button class="cancelBtn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <h2>비밀번호 변경</h2>
+            <p>안정한 비밀번호로 내정보를 보호하세요.</p>
+            <p>⦁ 다른 아이디/사이트에서 사용한 적 없는 비밀번호</p>
+            <p>⦁ 이전에 사용한 적 없는 비밀번호가 안전합니다.</p>
+            <div class="d-flex pwdBox">
+                <input type="text" name="nowpwd" placeholder="현재 비밀번호">
+                <input type="text" name="newpwd" placeholder="새 비밀번호">
+                <input type="text" name="newpwdcheck" placeholder="새 비밀번호 확인">
+            </div>
+            <div class="d-flex buttonBox">
+                <button class="confirmBtn">확인</button>
+                <button class="cancelBtn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal">
+        <div class="modal-bg"></div>
+        <div class="modal-body withdrawalBox d-flex">
+            <h2>비밀번호 확인</h2>
+            <p>⦁ 회원 탈퇴를 진행하기 전 보인 확인이 필요합니다.</p>
+            <p>⦁ 비밀번호를 입력해주세요.</p>
+            <input type="text" name="withdrawalConfirm" placeholder="비밀번호">
+            <div class="d-flex buttonBox">
+                <button class="confirmBtn">확인</button>
+                <button class="cancelBtn">취소</button>
+            </div>
+        </div>
     </div>
 </th:block>
 
