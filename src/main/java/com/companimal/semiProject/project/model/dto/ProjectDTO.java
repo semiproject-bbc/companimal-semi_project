@@ -135,7 +135,7 @@ public class ProjectDTO implements java.io.Serializable {
         this.defaultMember = defaultMember;
     }
 
-    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, String proCateName, String rewName, String rewExplain, int rewSf, String rewOptName, String rewOptVal, int rewOptLimit, int rewAmount, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment) {
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember) {
         this.proCode = proCode;
         this.proName = proName;
         this.proIntro = proIntro;
@@ -152,21 +152,6 @@ public class ProjectDTO implements java.io.Serializable {
         this.cateMain = cateMain;
         this.cateSub = cateSub;
         this.dDay = dDay;
-        this.proCateName = proCateName;
-        this.rewName = rewName;
-        this.rewExplain = rewExplain;
-        this.rewSf = rewSf;
-        this.rewOptName = rewOptName;
-        this.rewOptVal = rewOptVal;
-        this.rewOptLimit = rewOptLimit;
-        this.rewAmount = rewAmount;
-        this.reward = reward;
-        this.rewardOpt = rewardOpt;
-        this.image = image;
-        this.file = file;
-        this.cate = cate;
-        this.orderPayment = orderPayment;
-        this.dDay = dDay;
         this.reward = reward;
         this.rewardOpt = rewardOpt;
         this.image = image;
@@ -176,6 +161,7 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderAmount = orderAmount;
         this.orderPayment = orderPayment;
         this.orderOpt = orderOpt;
+        this.defaultMember = defaultMember;
     }
 
     public int getProCode() {
