@@ -1,9 +1,6 @@
 package com.companimal.semiProject.project.controller;
 
-import com.companimal.semiProject.order.model.dto.RewardDTO;
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
-import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
-import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
 import com.companimal.semiProject.project.model.service.ProjectService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
