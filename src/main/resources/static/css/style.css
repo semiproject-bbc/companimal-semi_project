@@ -20,19 +20,25 @@ a {
 .gray-back {
     background-color: #d5d5d5;
     border:#d5d5d5;
+    font-size:18px;
 }
 .orange-back {
     background-color: #fca652;
     border:#fca652;
     color:#ffffff;
+    font-size:18px;
     font-weight:bold;
 }
 .yellow-back {
+    font-size:18px;
     background-color: #ffd57e;
     border:#ffd57e;
 }
 input:focus {
     outline:none;
+}
+.titleWrap {
+    width:200px;
 }
 
 /* creatorendpj */
@@ -50,6 +56,7 @@ input:focus {
     font-weight:bold;
     margin-top:0px;
     margin-bottom:15px;
+    font-size:18px;
 }
 .endpjbtn {
     width:90%;
@@ -451,10 +458,13 @@ input:focus {
     width:90%;
     justify-content: space-between;
     align-items: center;
+    justify-items: center;
+}
+.calBox span {
+    margin:0px;
 }
 .calBox p {
-    margin-top:0;
-    margin-bottom:30px;
+    margin:0;
 }
 .calBox p:last-child {
     padding:10px;
@@ -481,7 +491,11 @@ input:focus {
     border-right:#dddddd 2px solid;
 }
 .evaTable th, .evaTable td {
+    display:block;
     padding:20px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .evaBtnBox {
     text-align: end;
@@ -549,7 +563,7 @@ input:focus {
     border-radius:5px;
     color:#ffffff;
     font-weight:bold;
-    font-size:18px;
+    font-size:20px;
     padding:3px 10px;
 }
 .evadetail:hover {

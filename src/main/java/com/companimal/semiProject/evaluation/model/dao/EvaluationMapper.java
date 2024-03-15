@@ -13,6 +13,12 @@ public interface EvaluationMapper {
 
     boolean InsertCreatorFile(CreatorFileDTO creatorFileDTO);
 
+    void insertEvaluation();
+
+    List<CalculationListDTO> selectEvaCalculationList();
+
+    int updateCalAppDate(int proCode);
+  
     boolean insertEvaluation(EvaluationDTO evaluationDTO);
 
     boolean insertCreatorEva(CreatorEvaDTO creatorEvaDTO);
@@ -24,5 +30,5 @@ public interface EvaluationMapper {
     String selectCreatorId(int evaNum);
 
     boolean creatorAccept(String memberRole);
-    //    List<CalculationListDTO> selectEvaCalculationList();
+  
 }

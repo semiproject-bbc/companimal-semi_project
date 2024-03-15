@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/logout_manager_layout}">
+      layout:decorate="~{layouts/navLayout}">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -26,77 +29,32 @@
                 <th>승인</th>
                 <th>심사 상황</th>
             </tr>
-            <tr>
+            <tr th:each="calculationlist : ${calculationList}">
                 <td>1</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td>-</td>
-                <td>승인 완료</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td><button class="evadetail">승인</button></td>
-                <td>승인 대기</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td><button class="evadetail">승인</button></td>
-                <td>승인 대기</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td><button class="evadetail">승인</button></td>
-                <td>승인 대기</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td><button class="evadetail">승인</button></td>
-                <td>승인 대기</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td>-</td>
-                <td>승인 완료</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td>-</td>
-                <td>승인 완료</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td>-</td>
-                <td>승인 완료</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td>-</td>
-                <td>승인 완료</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>2024.03.04</td>
-                <td>프로젝트 제목입니다.</td>
-                <td>-</td>
-                <td>승인 완료</td>
+                <td th:text="${calculationlist.calReqDatetime}"></td>
+                <td th:text="${calculationlist.project.get(0).proName}" class="titleWrap">프로젝트 제목입니다.</td>
+                <th>
+                    <button class="modalBtn evadetail" th:onclick="evaCalModalOpen([[${calculationlist.proCode}]])" th:if="${calculationlist.calAppDatetime == null}">승인</button>
+                    <p th:if="${calculationlist.calAppDatetime != null}">-</p>
+                </th>
+                <th>
+                    <p th:if="${calculationlist.calAppDatetime != null}">승인 완료</p>
+                    <p th:if="${calculationlist.calAppDatetime == null}">승인 대기</p>
+                </th>
             </tr>
         </table>
+    </div>
+
+    <div class="modal" id="evaCalModal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <p>* 승인 시 수정할 수 없습니다.</p>
+            <h3>후원금 최종 정산을 승인하시겠습니까?</h3>
+            <div class="d-flex buttonBox">
+                <button type="submit" id="evacalpush" class="evacalpush confirmBtn" th:onclick="updateCalAppDate()">승인</button>
+                <button class="cancelBtn" onclick="evaCalModalClose()">취소</button>
+            </div>
+        </div>
     </div>
 </th:block>
 

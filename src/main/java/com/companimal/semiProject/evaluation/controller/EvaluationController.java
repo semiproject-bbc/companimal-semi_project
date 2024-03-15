@@ -16,14 +16,14 @@ import java.io.IOException;
 @RequestMapping("/evaluation")
 public class EvaluationController {
 
-    //    private final EvaluationService evaluationService;
+    private final EvaluationService evaluationService;
     private final CreatorEvaluationService creatorEvaluationService;
 
-    public EvaluationController(CreatorEvaluationService creatorEvaluationService) {
+    public EvaluationController(CreatorEvaluationService creatorEvaluationService, EvaluationService evaluationService) {
         this.creatorEvaluationService = creatorEvaluationService;
+        this.evaluationService = evaluationService;
     }
 
-    /*
     @GetMapping("/evacalculationlist")
     public String selectEvaCalculationList(Model model) {
         System.out.println("후원금 최종 정산 심사");
@@ -33,7 +33,7 @@ public class EvaluationController {
         model.addAttribute("calculationList", calculationList);
 
         return "contents/evaluation/evacalculationlist";
-    }*/
+    }
 
 
     @GetMapping("/creatorEvaluationRegist")
@@ -66,6 +66,20 @@ public class EvaluationController {
         return modelAndView;
     }
 
+    @ResponseBody
+    @PostMapping("/updateCalAppDate")
+    public String updateCalAppDate(@RequestParam("proCode") int proCode) {
+
+        int result = evaluationService.updateCalAppDate(proCode);
+
+        if(result > 0) {
+            System.out.println("후원금 최종 정산 승인 완료");
+        }else {
+            System.out.println("후원금 최종 정산 승인 실패");
+        }
+
+        return "/contents/evaluation/evacalculationlist";
+    }
 
 //    @GetMapping("/manager/creatorEvaluationDetail")
 //    public ModelAndView creatorEvaluationDetail(ModelAndView modelAndView) {
@@ -86,6 +100,7 @@ public class EvaluationController {
 //
 //        return modelAndView;
 //    }
+  
     @GetMapping("/manager/creatorEvaluationDetail/{evaNum}")
     public ModelAndView creatorEvaluationDetail(@PathVariable int evaNum, ModelAndView modelAndView) {
 
@@ -112,5 +127,6 @@ public class EvaluationController {
         creatorEvaluationService.creatorAccept(memberRole);
         return "/contents/evaluation/manager/creatorEvaluationList";
     }
+  
 }
 

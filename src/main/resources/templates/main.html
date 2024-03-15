@@ -15,6 +15,11 @@
     <button onclick="location.href='contents/project/projectDetail'">펀딩 상세페이지</button>
     <button onclick="location.href='/member/regist'">회원가입</button>
 
+    <button th:onclick="|location.href='@{/project/projectDetail(proCode=${ proCode })}'|">펀딩 상세페이지(DB연결)</button>
+
+    <button th:onclick="|location.href='@{/evaluation/evacalculationlist}'|">- 후원금 최종 정산 심사</button>
+
+    <button onclick="location.href='/project/projectRegist'">펀딩 등록</button>
     <button onclick="location.href='/project/projectRegist'">이미지 등록</button>
     <button onclick="location.href='/evaluation/creatorEvaluationRegist'">크리에이터 등록</button>
     <button onclick="location.href='/evaluation/manager/creatorEvaluationList'">크리에이터 심사 목록</button>
