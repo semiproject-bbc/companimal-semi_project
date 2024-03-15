@@ -1,5 +1,6 @@
 package com.companimal.semiProject.project.model.dto;
 
+import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.OrderOptDTO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,6 +45,7 @@ public class ProjectDTO implements java.io.Serializable {
 //    private MultipartFile projectImage;
     private List<OrderPaymentDTO> orderPayment;
     private List<OrderOptDTO> orderOpt;
+    private List<MemberDTO> defaultMember;
 
     public ProjectDTO() {
     }
@@ -95,7 +97,7 @@ public class ProjectDTO implements java.io.Serializable {
         this.cate = cate;
     }
 
-    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt) {
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember) {
         this.proCode = proCode;
         this.proName = proName;
         this.proIntro = proIntro;
@@ -119,6 +121,27 @@ public class ProjectDTO implements java.io.Serializable {
         this.cate = cate;
         this.orderPayment = orderPayment;
         this.orderOpt = orderOpt;
+    }
+
+    /* 후원금 정산 진행 현황 DTO */
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, List<OrderPaymentDTO> orderPayment) {
+        this.proCode = proCode;
+        this.proName = proName;
+        this.proIntro = proIntro;
+        this.goalAmount = goalAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.proStory = proStory;
+        this.polNoRefund = polNoRefund;
+        this.polAs = polAs;
+        this.memId = memId;
+        this.estDate = estDate;
+        this.achRate = achRate;
+        this.delStatus = delStatus;
+        this.cateMain = cateMain;
+        this.cateSub = cateSub;
+        this.orderPayment = orderPayment;
+        this.defaultMember = defaultMember;
     }
 
     //    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, String proCateName, String rewName, String rewExplain, int rewSf, String rewOptName, String rewOptVal, int rewOptLimit, int rewAmount, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment) {
@@ -404,32 +427,41 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderOpt = orderOpt;
     }
 
+    public List<MemberDTO> getDefaultMember() {
+        return defaultMember;
+    }
+
+    public void setDefaultMember(List<MemberDTO> defaultMember) {
+        this.defaultMember = defaultMember;
+    }
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
                 "proCode=" + proCode +
-                ", proName='" + proName + '\'' +
-                ", proIntro='" + proIntro + '\'' +
-                ", goalAmount=" + goalAmount +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", proStory='" + proStory + '\'' +
-                ", polNoRefund='" + polNoRefund + '\'' +
-                ", polAs='" + polAs + '\'' +
-                ", memId='" + memId + '\'' +
-                ", estDate=" + estDate +
-                ", achRate=" + achRate +
-                ", delStatus='" + delStatus + '\'' +
-                ", cateMain=" + cateMain +
-                ", cateSub=" + cateSub +
-                ", dDay=" + dDay +
-                ", reward=" + reward +
-                ", rewardOpt=" + rewardOpt +
-                ", image=" + image +
-                ", file=" + file +
-                ", cate=" + cate +
+//                ", proName='" + proName + '\'' +
+//                ", proIntro='" + proIntro + '\'' +
+//                ", goalAmount=" + goalAmount +
+//                ", startDate=" + startDate +
+//                ", endDate=" + endDate +
+//                ", proStory='" + proStory + '\'' +
+//                ", polNoRefund='" + polNoRefund + '\'' +
+//                ", polAs='" + polAs + '\'' +
+//                ", memId='" + memId + '\'' +
+//                ", estDate=" + estDate +
+//                ", achRate=" + achRate +
+//                ", delStatus='" + delStatus + '\'' +
+//                ", cateMain=" + cateMain +
+//                ", cateSub=" + cateSub +
+//                ", dDay=" + dDay +
+//                ", image=" + image +
+//                ", file=" + file +
+//                ", cate=" + cate +
                 ", orderPayment=" + orderPayment +
                 ", orderOpt=" + orderOpt +
+                ", defaultMember=" + defaultMember +
+                ", reward=" + reward +
+                ", rewardOpt=" + rewardOpt +
                 '}';
     }
 }

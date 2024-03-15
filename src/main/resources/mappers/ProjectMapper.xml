@@ -28,6 +28,16 @@
         <result property="proCateType" column="pro_cate_type"/>
     </resultMap>
 
+    <resultMap id="projectRewardOptResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
+        <id property="rewOptCode" column="rew_opt_code"/>
+        <result property="rewCode" column="rew_code"/>
+        <result property="rewOptNum" column="rew_opt_num"/>
+        <result property="rewOptName" column="rew_opt_name"/>
+        <result property="rewOptVal" column="rew_opt_val"/>
+        <result property="rewOptLimit" column="rew_opt_limit"/>
+        <result property="rewAmount" column="rew_amount"/>
+    </resultMap>
+
     <resultMap id="projectRewardResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
         <id property="rewCode" column="rew_code"/>
         <result property="rewNum" column="rew_num"/>
@@ -38,14 +48,13 @@
         <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>
     </resultMap>
 
-    <resultMap id="projectRewardOptResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
-        <id property="rewOptCode" column="rew_opt_code"/>
-        <result property="rewCode" column="rew_code"/>
-        <result property="rewOptNum" column="rew_opt_num"/>
-        <result property="rewOptName" column="rew_opt_name"/>
-        <result property="rewOptVal" column="rew_opt_val"/>
-        <result property="rewOptLimit" column="rew_opt_limit"/>
-        <result property="rewAmount" column="rew_amount"/>
+    <resultMap id="rewardResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
+        <id property="rewCode" column="rew_code"/>
+        <result property="rewNum" column="rew_num"/>
+        <result property="proCode" column="pro_code"/>
+        <result property="rewName" column="rew_name"/>
+        <result property="rewExplain" column="rew_explain"/>
+        <result property="rewSf" column="rew_sf"/>
     </resultMap>
 
     <resultMap id="projectImageResultMap" type="com.companimal.semiProject.project.model.dto.ProjectImageDTO">
@@ -95,6 +104,16 @@
         <collection property="cate" resultMap="projectCateResultMap"/>
     </resultMap>
 
+    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
+        <id property="memberId" column="mem_id" />
+        <result property="memberPwd" column="mem_pwd" />
+        <result property="memberNickname" column="mem_nickname" />
+        <result property="memberName" column="mem_name" />
+        <result property="memberPhone" column="mem_phone" />
+        <result property="memberEmail" column="mem_email" />
+        <result property="memberAuthority" column="mem_authority" />
+    </resultMap>
+
     <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">
         <id property="orderNo" column="order_no" />
         <id property="newOptCode" column="new_opt_code" />
@@ -102,7 +121,7 @@
     </resultMap>
 
     <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
-        <id property="orderNo" column="order_no" />
+        <id property="orderCode" column="order_code" />
         <result property="orderDate" column="order_date" />
         <result property="memId" column="mem_id" />
         <result property="address" column="address" />
@@ -130,11 +149,31 @@
         <result property="delStatus" column="del_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
-        <collection property="orderPayment" column="orderPaymentResultMap" />
-        <collection property="orderOpt" column="orderOptResultMap" />
-        <collection property="reward" resultMap="projectRewardResultMap"/>
-        <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>
+        <collection property="defaultMember" resultMap="defaultMemberResultMap" />
+        <collection property="orderPayment" resultMap="orderPaymentResultMap" />
+        <collection property="orderOpt" resultMap="orderOptResultMap" />
+        <collection property="reward" resultMap="rewardResultMap"/>
+        <collection property="rewardOpt" resultMap="projectRewardOptResultMap" />
+    </resultMap>
 
+    <resultMap id="selectCalculationResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="delStatus" column="del_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+        <association property="defaultMember" resultMap="defaultMemberResultMap" />
+        <collection property="orderPayment" resultMap="orderPaymentResultMap" />
     </resultMap>
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
@@ -389,7 +428,7 @@
     </insert>
 
     <!-- 종료된 프로젝트 가져오는 쿼리 -->
-    <select id="selectEndProjectList" resultMap="projectResultMap">
+    <select id="selectEndProjectList" parameterType="String" resultMap="projectResultMap">
         SELECT pro_code
         ,pro_name
         ,pro_intro
@@ -406,7 +445,8 @@
         ,cate_main
         ,cate_sub
         FROM project
-        WHERE del_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '')
+        WHERE del_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
+        ORDER BY end_date
     </select>
 
     <!-- 배송 예정일 업데이트 쿼리 -->
@@ -417,46 +457,36 @@
     </update>
 
     <!-- 서포터 후원 리스트 가져오는 쿼리 -->
-    <select id="selectSupportList" parameterType="_int" resultMap="selectSupportListResultMap">
+    <select id="selectSupportList" parameterType="int" resultMap="selectSupportListResultMap">
         SELECT
-        p.pro_code,
-        p.est_date,
-        o.order_date,
-        o.mem_id,
-        o.final_pay,
-        t1.rew_amount,
-        d.order_amount
-        FROM project p
-        JOIN order_payment o ON (p.pro_code = o.pro_code)
-        JOIN order_opt d ON (o.order_code = d.order_no)
-        JOIN reward r ON (p.pro_code = r.pro_code)
-        JOIN reward_opt t1 ON (r.rew_code = t1.rew_code)
-        JOIN reward_opt t2 ON (t2.rew_opt_code = d.rew_opt_code)
-        WHERE p.pro_code = #{id}
-        ORDER BY o.purchase_status
+            m.mem_id,
+            o.order_date,
+            o.final_pay,
+            t.order_amount,
+            w2.rew_amount
+            FROM project p
+            JOIN order_payment o ON (p.pro_code = o.pro_code)
+            JOIN default_member m ON (m.mem_id = o.mem_id)
+            JOIN order_opt t ON (o.order_code = t.order_no)
+            JOIN reward r ON (p.pro_code = r.pro_code)
+            JOIN reward_opt w1 ON (r.rew_code = w1.rew_code)
+            JOIN reward_opt w2 ON (t.rew_opt_code = w2.rew_opt_code)
+            WHERE p.pro_code = #{proCode}
+            ORDER BY o.order_date desc
     </select>
 
     <!-- 후원 정산 내역 -->
-<!--    <select id="selectCalculationList" resultMap="projectResultMap">-->
-<!--        SELECT pro_code-->
-<!--        ,pro_name-->
-<!--        ,pro_intro-->
-<!--        ,goal_amount-->
-<!--        ,start_date-->
-<!--        ,end_date-->
-<!--        ,pro_story-->
-<!--        ,pol_no_refund-->
-<!--        ,pol_as-->
-<!--        ,mem_id-->
-<!--        ,est_date-->
-<!--        ,ach_rate-->
-<!--        ,del_status-->
-<!--        ,cate_main-->
-<!--        ,cate_sub-->
-<!--        FROM project-->
-<!--        WHERE del_status = 'N'-->
-<!--            and ach_rate > 100-->
-<!--            and mem_id = "user01"-->
-<!--            and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '')-->
-<!--    </select>-->
+    <select id="selectCalculationList" parameterType="String" resultMap="selectCalculationResultMap">
+        SELECT
+            p.pro_code,
+            p.pro_name,
+            p.ach_rate,
+            p.est_date,
+            o.purchase_status
+            FROM project p
+            JOIN default_member m ON (m.mem_id = p.mem_id)
+            JOIN order_payment o ON (p.pro_code = o.pro_code)
+            WHERE m.mem_id = #{id} and p.end_date <![CDATA[ < ]]> now() and p.ach_rate >= 100
+            ORDER BY p.end_date;
+    </select>
 </mapper>

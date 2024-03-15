@@ -268,8 +268,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> selectEndProjectList() {
-        return projectMapper.selectEndProjectList();
+    public List<ProjectDTO> selectEndProjectList(String id) {
+        return projectMapper.selectEndProjectList(id);
     }
 
     @Override
@@ -280,14 +280,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> selectSupportList(int id) {
-        return projectMapper.selectSupportList(id);
+    public List<ProjectDTO> selectSupportList(int proCode) {
+        return projectMapper.selectSupportList(proCode);
     }
 
-    //    @Override
-//    public List<ProjectDTO> selectCalculationList() {
-//        return projectMapper.selectCalculationList();
-//    }
-
-
+    @Override
+    public List<ProjectDTO> selectCalculationList(String id) {
+        return projectMapper.selectCalculationList(id);
+    }
 }

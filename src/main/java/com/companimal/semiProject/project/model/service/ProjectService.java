@@ -18,15 +18,14 @@ public interface ProjectService {
 
     ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project);
 
-    List<ProjectDTO> selectEndProjectList();
+    List<ProjectDTO> selectEndProjectList(String id);
 
-    List<ProjectDTO> selectSupportList(int id);
+    List<ProjectDTO> selectSupportList(int proCode);
 
     @Transactional
     int updateShipment(ProjectDTO estDateDto);
 
     void insertImage(MultipartFile file);
 
-
-//    List<ProjectDTO> selectCalculationList();
+    List<ProjectDTO> selectCalculationList(String id);
 }

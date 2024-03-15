@@ -100,14 +100,15 @@
         SELECT
             p.pro_code,
             p.pro_name,
+            p.end_date,
             o.purchase_status,
             o.order_code,
             o.order_date
-        FROM default_member m
-                 JOIN order_payment o ON (m.mem_id = o.mem_id)
-                 JOIN project p ON (o.pro_code = p.pro_code)
-        WHERE m.mem_id = #{id}
-        ORDER BY o.order_date desc
+            FROM default_member m
+            JOIN order_payment o ON (m.mem_id = o.mem_id)
+            JOIN project p ON (o.pro_code = p.pro_code)
+            WHERE m.mem_id = #{id}
+            ORDER BY o.order_date desc
     </select>
 
 </mapper>

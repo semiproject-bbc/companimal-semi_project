@@ -27,16 +27,15 @@ public interface ProjectMapper {
 
     void selectProjectCate(List<ProjectCateDTO> cate);
 
-    List<ProjectDTO> selectEndProjectList();
+    List<ProjectDTO> selectEndProjectList(String id);
 
     int updateShipment(ProjectDTO estDateDto);
 
-    List<ProjectDTO> selectSupportList(int id);
+    List<ProjectDTO> selectSupportList(int proCode);
 
     int insertFile(ProjectFileDTO projectFile);
 
     int insertImage(ProjectImageDTO projectImage);
 
-//    List<ProjectDTO> selectCalculationList();
-
+    List<ProjectDTO> selectCalculationList(String id);
 }

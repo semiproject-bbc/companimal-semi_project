@@ -1,6 +1,6 @@
+// 배송 예정일
 let value;
 
-// 배송 예정일
 function shipmentModalOpen(proCode) {
     value = proCode;
     const shipmentModal = document.getElementById('shipmentModal');
@@ -28,11 +28,11 @@ function updateShipment() {
             'estDate' : estDate,
             'proCode' : proCode
         }
-        , dataType: 'json'
         , success: function() {
-            const shipmentModal = document.getElementById('shipmentModal');
-
-            shipmentModal.classList.remove('showmodal');
+            // const shipmentModal = document.getElementById('shipmentModal');
+            //
+            // shipmentModal.classList.remove('showmodal');
+            location.reload();
         }
     });
 }
@@ -66,6 +66,39 @@ function updatePurchase() {
             const purchaseModal = document.getElementById('purchaseModal');
 
             purchaseModal.classList.remove('showmodal');
+        }
+    });
+}
+
+// 후원금 최종 정산 심사
+var evaCalProCode;
+function evaCalModalOpen(proCode) {
+    evaCalProCode = proCode;
+    console.log(proCode);
+    const evaCalModal = document.getElementById('evaCalModal');
+
+    evaCalModal.classList.add('showmodal');
+}
+
+function evaCalModalClose() {
+    const evaCalModal = document.getElementById('evaCalModal');
+
+    evaCalModal.classList.remove('showmodal');
+}
+
+function updateCalAppDate() {
+    var proCode = evaCalProCode;
+
+    $.ajax({
+        type: 'POST'
+        , url: "/evaluation/updateCalAppDate"
+        , data : {
+            proCode : proCode
+        }
+        , success: function() {
+            const evaCalModal = document.getElementById('evaCalModal');
+
+            evaCalModal.classList.remove('showmodal');
         }
     });
 }

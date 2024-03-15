@@ -51,7 +51,8 @@ public class OrderController {
             System.out.println("구매 확정 실패");
         }
 
-        return "redirect:participateProject";
+        return "redirect:selectPurchaseStatus";
 
     }
+
 }

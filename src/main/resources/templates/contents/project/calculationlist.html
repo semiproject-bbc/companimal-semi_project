@@ -11,21 +11,34 @@
 <th:block layout:fragment="content">
     <div class="main">
         <h2>후원금 정산 진행 현황</h2>
+        <div>
+            <ul>
+                <li>발송 예정일 미입력 : 크리에이터의 발송 예정일 미입력 상태</li>
+                <li>중간 정산 전 : 크리에이터의 발송 예정일 입력 완료 & 종료 후 7일이 안 지난 상태</li>
+                <li>중간 정산 완료 : 크리에이터의 발송 예정일 입력 완료 & 종료 후 7일이 지난 상태</li>
+                <li>최종 정산 심 사 신청(버튼) : 해당 프로젝트 참여 서포터 모두 구매확정</li>
+                <li>최종 정산 신청 완료 : 신청 완료</li>
+                <li>최종 정산 완료 : 매니저의 후원금 최종 정산 승인 완료</li>
+            </ul>
+        </div>
         <div class="d-flex d-wrap projectlistbox">
             <div class="projectbox" th:each="callist : ${calculationList}">
-                <a th:href="@{/project/projectDetail(id=${callist.proCode})}">
+                <a th:href="@{|/project/projectDetail/${callist.proCode}|}">
                     <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
                 </a>
                 <h3 th:text="${callist.proName}"></h3>
                 <div class="d-flex calBox">
                     <div>
                         <span class="pjpercentage" th:text="${callist.achRate}"></span>
-                        <span class="pjpercentage">% 달성</span>
+                        <span class="pjpercentage ">% 달성</span>
                     </div>
-                    <p th:if="${#strings.isEmpty(callist.estDate)}" class="gray-back">발송 예정일 미입력</p>
-                    <p th:if="${callist.estDate}" class="gray-back">중간 정산 전</p> <!-- 발송 예정일 입력 완료 & 최종 결제 금액 존재 X -->
-<!--                    <p th:if="${callist.estDate}" class="yellow-back">중간 정산 완료</p> -->
-<!--                    <p th:if="${callist.estDate}" class="orange-back">최종 정산 완료</p>-->
+<!--                    <p th:if="${callist.estDate} == null" class="gray-back">발송 예정일 미입력</p>-->
+<!--                    <th:block th:if="${callist.estDate} != null">-->
+<!--                        <p class="gray-back">중간 정산 전</p>-->
+                            <!--<th:block th:if="서포터 모두 구매 확정 시">-->
+                            <button type="submit" class="orange-back">최종 정산 신청</button>
+                            <!--</th:block>-->
+<!--                    </th:block>-->
                 </div>
             </div>
         </div>

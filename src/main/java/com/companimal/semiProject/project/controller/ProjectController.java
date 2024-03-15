@@ -2,6 +2,7 @@ package com.companimal.semiProject.project.controller;
 
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import com.companimal.semiProject.project.model.service.ProjectService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class ProjectController {
     }
 
     @GetMapping("/projectDetail/{proCode}")
-    public String selectProjectDetail(Model model, Integer proCode, ProjectDTO project) {
+    public String selectProjectDetail(Model model, @PathVariable("proCode") Integer proCode, ProjectDTO project) {
 
         ProjectDTO selectProject = projectService.selectProjectDetail(proCode, project);
 
@@ -88,8 +89,10 @@ public class ProjectController {
     }
 
     @GetMapping("/endprolist")
-    public String selectEndProList(Model model) {
-        List<ProjectDTO> selectEndProjectList = projectService.selectEndProjectList();
+    public String selectEndProList(Authentication authentication,  Model model) {
+        String id = authentication.getName();
+
+        List<ProjectDTO> selectEndProjectList = projectService.selectEndProjectList(id);
 
         model.addAttribute("endProjectList", selectEndProjectList);
 
@@ -111,29 +114,41 @@ public class ProjectController {
             System.out.println(":(");
         }
 
-        return "redirect:creatorendpj";
+        return "redirect:/creatorendpj";
     }
 
-    @RequestMapping("/supportlist")
-    public String selectSupportList(int id, Model model) {
+    @GetMapping("/supportlist/{proCode}")
+    public String selectSupportList(@PathVariable("proCode") int proCode, Model model) {
         System.out.println("진행 종료 프로젝트 후원 내역 조회");
-        System.out.println("프로젝트 번호 확인 " + id);
+        System.out.println("프로젝트 번호 확인 " + proCode);
 
-        List<ProjectDTO> supportList = projectService.selectSupportList(id);
+        List<ProjectDTO> supportList = projectService.selectSupportList(proCode);
+
+        System.out.println("으아아아아아 ::::: " + supportList.toString());
 
         model.addAttribute("supportList", supportList);
 
         return "contents/project/creatorsupportlist";
     }
 
-//    @RequestMapping("/calculationlist")
-//    public String selectCalculationList(Model model) {
-//        System.out.println("후원금 정산 진행 현황");
-//
-//        List<ProjectDTO> calculationList = projectService.selectCalculationList();
-//
-//        model.addAttribute("calculationList", calculationList);
-//
-//        return "contents/project/calculationlist";
-//    }
+    @RequestMapping("/calculationlist")
+    public String selectCalculationList(Authentication authentication, Model model) {
+        String id = authentication.getName();
+
+        List<ProjectDTO> calculationList = projectService.selectCalculationList(id);
+
+        for(int i = 0; i < calculationList.size(); i++) {
+            System.out.println("each ::::: " + calculationList.get(i));
+            for(int j = 0; j < calculationList.get(i).getOrderPayment().size(); j++) {
+                System.out.println("each2 ::::: " + calculationList.get(i).getOrderPayment().get(j).getPurchaseStatus());
+            }
+        }
+
+        model.addAttribute("calculationList", calculationList);
+
+
+
+        return "contents/project/calculationlist";
+    }
+
 }
