@@ -1,18 +1,19 @@
-.creatorEvaluationForm {
+.evaluationForm {
     position: relative;
 }
 
-.creatorEvaluationCompany {
+.creatorBusinessEvaluation {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 50px;
 }
 
-.evaluationCompanyRegistrationNumberField {
+.creatorBusinessEvaluationItem {
     display: flex;
 
 }
-.companyRegistrationNumberTextbox {
+
+.creatorBusinessEvaluationItemName {
     width: 200px;
     height: 50px;
     background-color: #d5d5d5;
@@ -26,19 +27,45 @@
     
 }
 
-.companyRegistrationNumberField {
+.creatorBusinessEvaluationFile {
+    width: 200px;
+    height: 150px;
+    background-color: #d5d5d5;
+    border: 1px solid #d5d5d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 1px;
+
+}
+
+.creatorBusinessEvaluationItemContent {
     width: 600px;
     height: 50px;
     border: 1px solid #d5d5d5;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-bottom: 1px;
+}
+
+.creatorBusinessEvaluationFileContent {
+    width: 600px;
+    height: 150px;
+    border: 1px solid #d5d5d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1px;
 }
 
 .buttons {
-    position: absolute; 
-    right: 176px; 
-    bottom: -170px; 
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 598px;
+
 }
 
 .return {

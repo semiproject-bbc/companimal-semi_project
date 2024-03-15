@@ -4,17 +4,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <meta charset="UTF-8" />
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <meta charset="UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/projectRegist.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <script type="text/javascript" th:src="@{/js/projectRegist.js}"></script>
-<!--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+    <!--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
 
     <script>
-        document.onload = function (){
+        document.onload = function () {
             $("#regist2").hide;
             $("#regist3").hide;
             $("#regist4").hide;
@@ -24,39 +26,46 @@
 </head>
 
 <th:block layout:fragment="content">
-    <form th:action="@{project/projectRegist}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/project/projectRegist}" method="post" enctype="multipart/form-data">
         <section id="regist1">
             <div class="nav-bar-height side" id="side1">
-                <button class="nav-tab">프로젝트 관리</button><br>
-                <button class="nav-choose">1.기본 정보</button><br>
-                <button class="nav-list">2.프로젝트 정보</button><br>
-                <button class="nav-list">3.스토리 작성</button><br>
-                <button class="nav-list">4.리워드 설계</button><br>
-                <button class="nav-list">5.정책</button><br>
+                <button class="nav-tab">프로젝트 관리</button>
+                <br>
+                <button class="nav-choose">1.기본 정보</button>
+                <br>
+                <button class="nav-list">2.프로젝트 정보</button>
+                <br>
+                <button class="nav-list">3.스토리 작성</button>
+                <br>
+                <button class="nav-list">4.리워드 설계</button>
+                <br>
+                <button class="nav-list">5.정책</button>
+                <br>
             </div>
-    <!--        <form action="contents/project/projectRegist" method="post" enctype="multipart/form-data">-->
-                <div class="main">
-                    <p class="title">프로젝트 등록</p>
-                    <p class="sub-title">기본 정보</p>
-    <!--                <form action="#">-->
-                        <select name="cateMain" class="select-box">
-                            <option value="1">피트니스</option>
-                            <option value="2">푸드</option>
-                            <option value="3">생활용품</option>
-                            <option value="4">기타</option>
-                        </select>
-    <!--                </form><br>-->
-    <!--                <form action="#">-->
-                        <select name="cateSub" class="select-box">
-                            <option value="5">포유류</option>
-                            <option value="6">파충류</option>
-                            <option value="7">어류</option>
-                            <option value="8">조류</option>
-                            <option value="9">양서류</option>
-                        </select>
-    <!--                </form><br>-->
-                    <input name="proName" type="text" class="input-title" placeholder="프로젝트 제목 (최대 40자)"><br><br>
-                    <textarea name="proIntro" type="text" class="input-text" placeholder="프로젝트 소개 (최대 300자)"></textarea><br><br>
+            <!--        <form action="contents/project/projectRegist" method="post" enctype="multipart/form-data">-->
+            <div class="main">
+                <p class="title">프로젝트 등록</p>
+                <p class="sub-title">기본 정보</p>
+                <!--                <form action="#">-->
+                <select name="cateMain" class="select-box">
+                    <option value="1">피트니스</option>
+                    <option value="2">푸드</option>
+                    <option value="3">생활용품</option>
+                    <option value="4">기타</option>
+                </select>
+                <!--                </form><br>-->
+                <!--                <form action="#">-->
+                <select name="cateSub" class="select-box">
+                    <option value="5">포유류</option>
+                    <option value="6">파충류</option>
+                    <option value="7">어류</option>
+                    <option value="8">조류</option>
+                    <option value="9">양서류</option>
+                </select>
+                <!--                </form><br>-->
+                <input name="proName" type="text" class="input-title" placeholder="프로젝트 제목 (최대 40자)"><br><br>
+                <textarea name="proIntro" type="text" class="input-text" placeholder="프로젝트 소개 (최대 300자)"></textarea><br><br>
+                <div class="tip-file-adding">
                     <div class="tip">
                         <p class="tip-title">TIP. 대표 이미지 등록 가이드</p>
                         <p class="tip-content">
@@ -64,205 +73,275 @@
                             • 해상도 1200x675 픽셀 이상
                         </p><br>
                     </div>
-                    <br>
-                    <label>대표 이미지 등록(최대 3개)</label>
-                    <input name="doorImage1" type="file" placeholder="대표 이미지 등록"><br><br>
-                    <label>파일 추가</label>
-                    <input name="doorImage2" type="file" placeholder="파일 추가"><br><br>
-                    <label>파일 추가</label>
-                    <input name="doorImage3" type="file" placeholder="파일 추가"><br><br>
-
-                    <button onclick="regist2()" type="button"  class="next1">다음</button><br>
+                    <div class="file-adding">
+                        <label>대표 이미지 등록(최대 3개)</label>
+                        <input name="proImgNum" type="hidden" value="1">
+                        <input name="proImgName1" type="file">
+                        <input name="proImgPath" type="hidden" value="/image/path">
+                        <input name="proImgOriName" type="hidden" value="original_image_name.jpg"><br><br>
+                        <label>파일 추가</label>
+                        <!--                   <input name="proImgNum" type="hidden" value="2">-->
+                        <input name="proImgName2" type="file"><br><br>
+                        <label>파일 추가</label>
+                        <!--                   <input name="proImgNum" type="hidden" value="3">-->
+                        <input name="proImgName3" type="file"><br><br>
+                    </div>
                 </div>
-    <!--        </form>-->
+
+                <button onclick="regist2()" type="button" class="next1">다음</button>
+                <br>
+            </div>
+            <!--        </form>-->
         </section>
         <section id="regist2" style="display: none">
             <div class="nav-bar-height side" id="side2">
-                <button class="nav-tab">프로젝트 관리</button><br>
-                <button class="nav-list">1.기본 정보</button><br>
-                <button class="nav-choose">2.프로젝트 정보</button><br>
-                <button class="nav-list">3.스토리 작성</button><br>
-                <button class="nav-list">4.리워드 설계</button><br>
-                <button class="nav-list">5.정책</button><br>
+                <button class="nav-tab">프로젝트 관리</button>
+                <br>
+                <button class="nav-list">1.기본 정보</button>
+                <br>
+                <button class="nav-choose">2.프로젝트 정보</button>
+                <br>
+                <button class="nav-list">3.스토리 작성</button>
+                <br>
+                <button class="nav-list">4.리워드 설계</button>
+                <br>
+                <button class="nav-list">5.정책</button>
+                <br>
             </div>
-<!--            <div class="container">-->
-    <!--            <form action="contents/project/projectRegist2" method="post">-->
-                    <div class="main">
-                        <p class="title">프로젝트 등록</p>
-                        <p class="sub-title">프로젝트 정보</p>
-                        <label>관련 인증 서류 등록</label>
-                        <input type="file1"><br><br>
-                        <label>파일 추가</label>
-                        <input type="file2" placeholder="파일 추가"><br><br>
-                        <input name="goalAmount" type="text" class="input-title" placeholder="목표 금액 (최소 50만 ~ 최대 1억원)" ><br><br>
-    <!--                    <form action="#">-->
-                        <input name="startDate" type="date" value="프로젝트 시작 일정 선택" class="select-box">
-                        <input name="endDate" type="date" placeholder="프로젝트 종료 일정 선택" class="select-box">
-    <!--                    </form>-->
-                        <div class="before-next">
-                            <button onclick="regist1()" type="button" class="before">이전</button>
-                            <button onclick="regist3()" type="button"  class="next">다음</button><br>
-                        </div>
-                    </div>
-    <!--            </form>-->
-<!--            </div>-->
+            <!--            <div class="container">-->
+            <!--            <form action="contents/project/projectRegist2" method="post">-->
+            <div class="main">
+                <p class="title">프로젝트 등록</p>
+                <p class="sub-title">프로젝트 정보</p>
+                <label>관련 인증 서류 등록</label>
+                <input name=proFileName type="file"><br><br>
+                <!--                        <label>파일 추가</label>-->
+                <!--                        <input name=file type="file"><br><br>-->
+                <input name="goalAmount" type="text" class="input-title" placeholder="목표 금액 (최소 50만 ~ 최대 1억원)"><br><br>
+                <!--                    <form action="#">-->
+                <input name="startDate" type="date" class="select-box" id="startDateInput">
+                <input name="endDate" type="date" class="select-box" id="endDateInput">
+                <!--                    </form>-->
+                <div class="before-next">
+                    <button onclick="regist1()" type="button" class="before">이전</button>
+                    <button onclick="regist3()" type="button" class="next">다음</button>
+                    <br>
+                </div>
+            </div>
+            <!--            </form>-->
+            <!--            </div>-->
         </section>
         <section id="regist3" style="display: none">
             <div class="nav-bar-height side" id="side3">
-                <button class="nav-tab">프로젝트 관리</button><br>
-                <button class="nav-list">1.기본 정보</button><br>
-                <button class="nav-list">2.프로젝트 정보</button><br>
-                <button class="nav-choose">3.스토리 작성</button><br>
-                <button class="nav-list">4.리워드 설계</button><br>
-                <button class="nav-list">5.정책</button><br>
+                <button class="nav-tab">프로젝트 관리</button>
+                <br>
+                <button class="nav-list">1.기본 정보</button>
+                <br>
+                <button class="nav-list">2.프로젝트 정보</button>
+                <br>
+                <button class="nav-choose">3.스토리 작성</button>
+                <br>
+                <button class="nav-list">4.리워드 설계</button>
+                <br>
+                <button class="nav-list">5.정책</button>
+                <br>
             </div>
-<!--            <div class="container">-->
-    <!--            <form action="contents/project/projectRegist3" method="post">-->
-                    <div class="main">
-                        <p class="title">프로젝트 등록</p>
-                        <p class="sub-title">스토리 작성</p>
-                        <div class="tip-story">
-                            <div class="tip-long">
-                                <p class="tip-title">TIP. 스토리 작성 가이드</p>
-                                <p class="tip-content">
-                                    • 이미지와 설명글 구성으로 작성하면 통합 검색 결과 상위에 노출될 확률이 높아져요.<br>
-                                    • 이미지로만 구성된 스토리는 이미지 로딩 속도가 느려 서포터가 상세 페이지를<br>
-                                    &nbsp;&nbsp;벗어날 확률이 높아져요.<br>
-                                    • 추가 배송비가 있다면 정확한 추가 금액과 지불 방법을 스토리에 작성해주세요.
-                                </p><br>
-                            </div>
-                            <div name="proStory" style="width: 750px; height: 700px;">
-                                <textarea style="white-space: pre" id="summernote" name="proStory"></textarea>
-                            </div>
-                            <div class="before-next">
-                                <button onclick="regist2()" type="button" class="before">이전</button>
-                                <button onclick="regist4()" type="button" class="next">다음</button><br>
-                            </div>
-                        </div>
+            <!--            <div class="container">-->
+            <!--            <form action="contents/project/projectRegist3" method="post">-->
+            <div class="main">
+                <p class="title">프로젝트 등록</p>
+                <p class="sub-title">스토리 작성</p>
+                <div class="tip-story">
+                    <div class="tip-long">
+                        <p class="tip-title">TIP. 스토리 작성 가이드</p>
+                        <p class="tip-content">
+                            • 이미지와 설명글 구성으로 작성하면 통합 검색 결과 상위에 노출될 확률이 높아져요.<br>
+                            • 이미지로만 구성된 스토리는 이미지 로딩 속도가 느려 서포터가 상세 페이지를<br>
+                            &nbsp;&nbsp;벗어날 확률이 높아져요.<br>
+                            • 추가 배송비가 있다면 정확한 추가 금액과 지불 방법을 스토리에 작성해주세요.
+                        </p><br>
                     </div>
-    <!--            </form>-->
-<!--            </div>-->
+                    <div style="width: 750px; height: 700px;">
+                        <textarea style="white-space: pre" id="summernote" name="proStory"></textarea>
+                    </div>
+                    <div class="before-next">
+                        <button onclick="regist2()" type="button" class="before">이전</button>
+                        <button onclick="regist4()" type="button" class="next">다음</button>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <!--            </form>-->
+            <!--            </div>-->
         </section>
         <section id="regist4" style="display: none">
             <div class="nav-bar-height side" id="side4">
-                <button class="nav-tab">프로젝트 관리</button><br>
-                <button class="nav-list">1.기본 정보</button><br>
-                <button class="nav-list">2.프로젝트 정보</button><br>
-                <button class="nav-list">3.스토리 작성</button><br>
-                <button class="nav-choose">4.리워드 설계</button><br>
-                <button class="nav-list">5.정책</button><br>
+                <button class="nav-tab">프로젝트 관리</button>
+                <br>
+                <button class="nav-list">1.기본 정보</button>
+                <br>
+                <button class="nav-list">2.프로젝트 정보</button>
+                <br>
+                <button class="nav-list">3.스토리 작성</button>
+                <br>
+                <button class="nav-choose">4.리워드 설계</button>
+                <br>
+                <button class="nav-list">5.정책</button>
+                <br>
             </div>
-<!--            <div class="container">-->
-    <!--            <form action="contents/project/projectRegist4" method="post">-->
-                    <div class="main">
-                        <p class="title">프로젝트 등록</p>
-                        <p class="sub-title">리워드 설계</p>
-                        <div class="tip-long">
-                            <p class="tip-title">TIP. 리워드 설계 가이드</p>
-                            <p class="tip-content">
-                                • 정렬 순서 : 혜택이 좋은 순서대로 등록해주세요.<br>
-                                • 제한 수량 : 각 리워드별 제공할 수 있는 수량을 입력해주세요.<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                제한된 수량이 모두 소진되면 이 리워드를 선택할 수 없어요.<br>
-                                • 옵션 조건 : 사이즈, 색상 등의 옵션 설정이 필요하면 추가해주세요.<br>
-                                • 이용 안내 : '리워드 발송 예정일'을 반드시 입력해주세요.<br>
-                            </p><br>
-                        </div><br><br><br><br><br>
-                        <button type="button" class="btn-reward">+ &nbsp;리워드 추가</button><br>
+            <!--            <div class="container">-->
+            <!--            <form action="contents/project/projectRegist4" method="post">-->
+            <div class="main">
+                <p class="title">프로젝트 등록</p>
+                <p class="sub-title">리워드 설계</p>
+                <div class="tip-long">
+                    <p class="tip-title">TIP. 리워드 설계 가이드</p>
+                    <p class="tip-content">
+                        • 정렬 순서 : 혜택이 좋은 순서대로 등록해주세요.<br>
+                        • 제한 수량 : 각 리워드별 제공할 수 있는 수량을 입력해주세요.<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        제한된 수량이 모두 소진되면 이 리워드를 선택할 수 없어요.<br>
+                        • 옵션 조건 : 사이즈, 색상 등의 옵션 설정이 필요하면 추가해주세요.<br>
+                        • 이용 안내 : '리워드 발송 예정일'을 입력할 수도 있어요.<br>
+                    </p><br>
+                </div>
+                <br><br><br><br><br>
 
-                        <div class="input-wrap" id="input-wrap">
-                            <p class="sub-title">리워드 추가</p>
-                            <input name="rewName" type="text" class="input-name" placeholder="리워드명 (최대 30자)">
-                            <input name="rewSf" type="number" class="input-number" placeholder="배송비"><br>
-                            <br>
-                            <textarea name="rewExplain" type="text" class="input-text" placeholder="리워드 설명 (최대 50자)
-                리워드 구성과 혜택을 간결하게 설명해주세요."></textarea>
-                            <!-- 리워드 추가 버튼 클릭시 -->
-                            <div class="option-add">
-                                <div class="input-list" id="input-list">
-                                    <input name="rewOptName" type="text" class="input-number" placeholder="옵션 (예시 : 색상)">
-                                    <input name="rewOptLimit" type="text" class="input-number" placeholder="제한 수량">
-                                    <input name="rewAmount" type="text" class="input-number" placeholder="리워드 금액">
-                                    <input name="rewOptVal" type="text" class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
+                <div id="reward-container">
+                    <div class="input-wrap" id="input-wrap">
+                        <p class="sub-title" id="sub-title">리워드 추가</p>
+                        <div class="child-reward" id="child-reward">
+                            <div>
+                                <input name="rewardList[0].rewName" type="text" class="input-name"
+                                       placeholder="리워드명 (최대 30자)">
+                                <input name="rewardList[0].rewSf" type="number" class="input-number"
+                                       placeholder="배송비"><br>
+                                <br>
+                                <textarea name="rewardList[0].rewExplain" class="input-text" placeholder="리워드 설명 (최대 30자)
+                    리워드 구성과 혜택을 간결하게 설명해주세요."></textarea>
+                                <div class="option-add">
+                                    <div class="input-list" id="input-list">
+                                        <input name="rewardList[0].rewardOpt[0].rewOptName" type="text"
+                                               class="input-value" placeholder="옵션 (예시 : 색상)">
+                                        <input name="rewardList[0].rewardOpt[0].rewOptVal" type="text"
+                                               class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
+                                        <input name="rewardList[0].rewardOpt[0].rewOptLimit" type="text"
+                                               class="input-number" placeholder="제한 수량">
+                                        <input name="rewardList[0].rewardOpt[0].rewAmount" type="text"
+                                               class="input-number" placeholder="리워드 금액">
+                                    </div>
                                 </div>
-                                <button type="button" class="plus" id="plus">+</button>
                             </div>
-                        </div>
-                        <button type="button" class="remove">x</button><br>
-                        <div class="before-next">
-                            <button type="button" class="save">저장</button><br>
-                            <!-- 리워드 추가 버튼 클릭 -->
-                            <button onclick="regist3()" type="button" class="before">이전</button>
-                            <button onclick="regist5()" type="button" class="next">다음</button><br>
+                            <button type="button" class="option-plus">옵션 추가</button>
+                            <button type="button" class="option-remove">옵션 삭제</button>
                         </div>
                     </div>
-    <!--            </form>-->
-<!--            </div>-->
+                </div>
+                <div class="berfore-next">
+                    <button onclick="regist3()" type="button" class="before">이전</button>
+                    <button onclick="regist5()" type="button" class="next">다음</button>
+                </div>
+            </div>
+            <script>
+                //                         // 리워드 추가 버튼 클릭 시 새 리워드 필드 추가
+                // document.querySelector('.btn-reward').addEventListener('click', function() {
+                //     const rewardContainer = document.getElementById('reward-container');
+                //     const newRewardField = document.querySelector('.child-reward').cloneNode(true);
+                //     rewardContainer.appendChild(newRewardField);
+                // });
+
+                // 옵션 추가 버튼 클릭 시 새 input-list 추가
+                document.querySelector('.option-plus').addEventListener('click', function () {
+                    const inputList = document.querySelector('.option-add');
+                    const newInputList = inputList.cloneNode(true);
+                    inputList.parentNode.appendChild(newInputList);
+                });
+
+                // 옵션 삭제 버튼 클릭 시 마지막으로 추가된 input-list 삭제 (단, 하나만 있을 경우 삭제 불가)
+                document.querySelector('.option-remove').addEventListener('click', function () {
+                    const inputLists = document.querySelectorAll('.option-add');
+                    if (inputLists.length > 1) {
+                        const lastInputList = inputLists[inputLists.length - 1];
+                        lastInputList.parentNode.removeChild(lastInputList);
+                    }
+                });
+
+            </script>
+            <!--            </form>-->
+            <!--            </div>-->
         </section>
         <section id="regist5" style="display: none">
             <div class="nav-bar-height side" id="side5">
-                <button class="nav-tab">프로젝트 관리</button><br>
-                <button class="nav-list">1.기본 정보</button><br>
-                <button class="nav-list">2.프로젝트 정보</button><br>
-                <button class="nav-list">3.스토리 작성</button><br>
-                <button class="nav-list">4.리워드 설계</button><br>
-                <button class="nav-choose">5.정책</button><br>
+                <button class="nav-tab">프로젝트 관리</button>
+                <br>
+                <button class="nav-list">1.기본 정보</button>
+                <br>
+                <button class="nav-list">2.프로젝트 정보</button>
+                <br>
+                <button class="nav-list">3.스토리 작성</button>
+                <br>
+                <button class="nav-list">4.리워드 설계</button>
+                <br>
+                <button class="nav-choose">5.정책</button>
+                <br>
             </div>
-<!--            <div class="container">-->
-    <!--            <form action="contents/project/projectRegist" method="post">-->
-                    <div class="main">
-                        <p class="title">프로젝트 등록</p>
-                        <p class="sub-title">정책</p>
-                        <div class="tip-long-long">
-                            <p class="tip-title">TIP. 기본 환불 정책</p>
-                            <p class="tip-content">
-                                • 아래의 경우 서포터가 환불 신청을 할 수 있어요.<br>
-                                • 프로젝트 종료 후 리워드가 발송되기 전까지 '참여 취소' 환불<br>
-                                • 약속한 리워드 발송 예정일까지 리워드가 발송되지 않은 경우 '리워드 지연' 환불<br>
-                                • 리워드 배송 전 '참여 취소'로 환불된 건과 리워드 배송 완료 이후 '단순 변심'으로
-                                &nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;환불된 건은 최종 정산 내역 중개수수료에서 제외됩니다.<br>
-                                • '참여 취소' 환불을 제외한 나머지 환불은 서포터가 크리에이터에게 직접 문의하여
-                                &nbsp;&nbsp;&nbsp;진행합니다.<br>
-                            </p>
-                        </div><br><br><br><br><br><br>
-                        <p class="sub-title">기타 환불 불가 규정 <i class="choose">(선택)</i></p>
-                        <textarea name="polNoRefund" type="text" class="input-text"
-                                  placeholder="기본 환불 정책 외 리워드 특성상 환불이 불가한 사유를 적어주세요. (최대 800자)
+            <!--            <div class="container">-->
+            <!--            <form action="contents/project/projectRegist" method="post">-->
+            <div class="main">
+                <p class="title">프로젝트 등록</p>
+                <p class="sub-title">정책</p>
+                <div class="tip-long-long">
+                    <p class="tip-title">TIP. 기본 환불 정책</p>
+                    <p class="tip-content">
+                        • 아래의 경우 서포터가 환불 신청을 할 수 있어요.<br>
+                        • 프로젝트 종료 후 리워드가 발송되기 전까지 '참여 취소' 환불<br>
+                        • 약속한 리워드 발송 예정일까지 리워드가 발송되지 않은 경우 '리워드 지연' 환불<br>
+                        • 리워드 배송 전 '참여 취소'로 환불된 건과 리워드 배송 완료 이후 '단순 변심'으로
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;환불된 건은 최종 정산 내역 중개수수료에서 제외됩니다.<br>
+                        • '참여 취소' 환불을 제외한 나머지 환불은 서포터가 크리에이터에게 직접 문의하여
+                        &nbsp;&nbsp;&nbsp;진행합니다.<br>
+                    </p>
+                </div>
+                <br><br><br><br><br><br>
+                <p class="sub-title">기타 환불 불가 규정 <i class="choose">(선택)</i></p>
+                <textarea name="polNoRefund" type="text" class="input-text-pol"
+                          placeholder="기본 환불 정책 외 리워드 특성상 환불이 불가한 사유를 적어주세요. (최대 800자)
                         [예시]
                         • 포장 및 배송 중 발생될 수 있는 미세한 스크레치 및 찍힘은 환불이 어렵습니다.
                         • 색상, 사이즈 측정 방식, 가공 환경에 따라 1-3mm 정도 차이가 날 수 있습니다.
                         • 겉면에 하얀 가루는 당분이 농축된 것이니 섭취해도 괜찮습니다."
-                        ></textarea><br><br>
-                        <p class="sub-title">A/S 정책 <i class="choose">(선택)</i></p>
-                        <textarea name="polAs" type="text" class="input-text"
-                                  placeholder="리워드 사용 중 문제가 발생할 수 있어요. 해결 방법을 미리 알려주시면 서포터님들의 신뢰를 얻을 수 있어요.
+                ></textarea><br><br>
+                <p class="sub-title">A/S 정책 <i class="choose">(선택)</i></p>
+                <textarea name="polAs" type="text" class="input-text-pol"
+                          placeholder="리워드 사용 중 문제가 발생할 수 있어요. 해결 방법을 미리 알려주시면 서포터님들의 신뢰를 얻을 수 있어요.
                         (최대 800자)
                         [예시]
                         • 보증 기간 : 리워드 수령일로부터 1년
                         • 규정 : 정상 신체품에서 발생한 하자의 경우 1:1 문의를 통해 해결합니다.
                         • A/S 불가 규정 : 보증 기간 이내일지라도 사용자의 고의 또는 과실로 인하여 발생한 제품 하자인 경우"
-                        ></textarea><br><br>
+                ></textarea><br><br>
 
-                        <div class="before-next">
-                            <button onclick="regist4()" type="button" class="before">이전</button>
-                            <button type="submit" class="next" value="regist">등록</button>
-                        </div>
-                        <script type="text/javascript">
-                            var checkUnload = true;
-                            $(window).on('beforeunload', function () {
-                                if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
-                            });
-                        </script>
-                        <script>
-                            $("#write").on("click", function () {
-                                checkUnload = false;
-                                $("submit").submit();
-                            });
-                        </script>
-                    </div>
-    <!--            </form>-->
-<!--            </div>-->
+                <div class="before-next">
+                    <button onclick="regist4()" type="button" class="before">이전</button>
+                    <button type="submit" class="next" id="regist" value="regist">등록</button>
+                </div>
+                <script type="text/javascript">
+                    var checkUnload = true;
+                    $(window).on('beforeunload', function () {
+                        if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
+                    });
+
+                    $("#regist").on("click", function () {
+                        checkUnload = false;
+                        $("submit").submit();
+                    });
+
+
+                </script>
+            </div>
+            <!--            </form>-->
+            <!--            </div>-->
         </section>
     </form>
 </th:block>

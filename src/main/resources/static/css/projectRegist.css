@@ -1,10 +1,23 @@
-.btn:hover, .btn-reward:hover, .plus:hover {
+.btn:hover, .btn-reward:hover, .plus:hover, .option-plus:hover {
     background-color: #ff8000;
     border:#ff8000;
 }
 .remove:hover {
     background-color: #9d9d9d;
     border: #9d9d9d;
+}
+.option-remove:hover {
+    background-color: #ffee83;
+    border:#ff8000;
+    color:white;
+}
+
+.next1:hover {
+    background-color: #ff8000;
+}
+
+.next:hover {
+    background-color: #ff8000;
 }
 
 section {
@@ -143,32 +156,54 @@ section {
 
 .select-box {
     width: 752px;
+    height: 35px;
+    text-align: center;
+    font-size: 16px;
 }
 
 .input-title {
     width: 745px;
+    height: 35px;
     border-color: #D5D5D5;
     border-style: ridge;
     border-radius: 3px;
+    text-align: center;
 }
 
 .input-text {
     width: 745px;
-    height: 170px;
+    height: 100px;
     border-color: #D5D5D5;
     border-style: ridge;
     border-radius: 3px;
+    text-align: center;
+    padding-top: 80px;
+}
+
+.input-text-pol {
+    width: 705px;
+    height: 150px;
+    border-color: #D5D5D5;
+    border-style: ridge;
+    border-radius: 3px;
+    padding: 20px;
 }
 
 .input-name {
     width: 580px;
+    height: 35px;
+    text-align: center;
+    font-size: 16px;
     border-color: #D5D5D5;
     border-style: ridge;
     border-radius: 3px;
 }
 
 .input-number {
-    width: 148px;
+    width: 152px;
+    height: 35px;
+    text-align: center;
+    font-size: 16px;
     border-color: #D5D5D5;
     border-style: ridge;
     border-radius: 3px;
@@ -176,6 +211,9 @@ section {
 
 .input-value {
     width: 200px;
+    height: 35px;
+    text-align: center;
+    font-size: 16px;
     border-color: #D5D5D5;
     border-style: ridge;
     border-radius: 3px;
@@ -199,6 +237,14 @@ section {
     border-style: ridge;
     border-radius: 3px;
     background-color: white
+}
+
+.file-adding {
+    width: 700px;
+}
+.tip-file-adding {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .tip {
@@ -228,6 +274,7 @@ section {
     letter-spacing : 0.7px;
     line-height : 25px;
     margin-bottom: 30px;
+    margin-right: 150px;
 }
 
 .tip-long-long {
@@ -244,6 +291,7 @@ section {
     letter-spacing : 0.7px;
     line-height : 28px;
     margin-bottom: 50px;
+    margin-right: 150px;
 }
 
 .tip-long-long-long {
@@ -275,13 +323,27 @@ section {
     font-size: 17px;
 }
 
-.btn-reward {
+.btn-reward, .option-plus {
     width:150px;
     height:50px;
     background-color:#fca652;
     border:#fca652 2px solid;
     border-radius:5px;
     color:#ffffff;
+    font-weight:bold;
+    font-size:18px;
+    border-radius: 3px;
+    margin: 30px;
+    margin-left: 600px;
+}
+
+.option-remove {
+    width:150px;
+    height:50px;
+    background-color:#ffffff;
+    border:#fca652 2px solid;
+    border-radius:5px;
+    color:#fca652;
     font-weight:bold;
     font-size:18px;
     border-radius: 3px;
@@ -309,7 +371,6 @@ section {
 }
 
 .next1 {
-    margin-left:  700px;
     width: 70px;
     height: 35px;
     font-size: 16px;
@@ -320,6 +381,7 @@ section {
     border-radius: 3px;
     border-style: ridge;
     margin: 10px;
+    margin-left: 680px;
 }
 
 .before {
@@ -336,25 +398,8 @@ section {
     /* float:right; */
     /* margin-right: 85px; */
     /* margin-top: 20px; */
-    margin-top: 10%;
-}
-
-.save {
-    margin-left: 86px;
-    margin-top: 30px;
-    width: 70px;
-    height: 35px;
-    font-size: 16px;
-    font-weight: bold;
-    border: 0px;
-    background-color: #D5D5D5;
-    color: white;
-    border-radius: 3px;
-    border-style: ridge;
-}
-
-.before-next {
-    margin-left:  600px;
+    margin-top: 40px;
+    margin-left:  594px;
 }
 
 .side {

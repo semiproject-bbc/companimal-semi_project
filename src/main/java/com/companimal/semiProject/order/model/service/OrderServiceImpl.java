@@ -36,11 +36,5 @@ public class OrderServiceImpl implements OrderService {
 
         return result;
     }
-
-    @Override
-    public void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
-//        return orderMapper.insertOrderPaymentInfo(orderPaymentDTO);
-        orderMapper.insertOrderPaymentInfo(orderPaymentDTO);
-    }
 }
 
