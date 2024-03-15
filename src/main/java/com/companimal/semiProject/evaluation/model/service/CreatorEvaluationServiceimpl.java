@@ -1,10 +1,7 @@
 package com.companimal.semiProject.evaluation.model.service;
 
 import com.companimal.semiProject.evaluation.model.dao.EvaluationMapper;
-import com.companimal.semiProject.evaluation.model.dto.CreatorEvaDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO;
-import com.companimal.semiProject.evaluation.model.dto.EvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.*;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -57,7 +54,7 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
 
         // 심사 테이블 등록
         EvaluationDTO evaluationDTO = new EvaluationDTO();
-        evaluationDTO.setEvaDatetime(new Timestamp(System.currentTimeMillis()));
+        evaluationDTO.setEvaDateTime(new Timestamp(System.currentTimeMillis()));
         evaluationDTO.setEvaSituation("처리중");
         evaluationMapper.insertEvaluation(evaluationDTO);
 
@@ -77,6 +74,22 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
     @Override
     public List<CreatorEvaluationDTO> selectCreatorEvaluationList() {
         return evaluationMapper.selectCreatorEvaluationList();
+    }
+
+    @Override
+    public CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum) {
+        return evaluationMapper.selectCreatorEvaluationDetail(evaNum);
+    }
+
+    @Override
+    @Transactional
+    public void creatorAccept(String memberRole) {
+
+        if (evaluationMapper.creatorAccept(memberRole)) {
+            System.out.println("크리에이터 권한 업데이트 성공");
+        } else {
+            System.out.println("크리에이터 권한 업데이트 실패");
+        }
     }
 
     public Map<String, String> saveFile(MultipartFile creatorFile) throws IOException {
@@ -119,8 +132,8 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
 
         creatorFileDTO.setCreEvaNum(fileNo);
         creatorFileDTO.setMemId(creatorId);
-        creatorFileDTO.setCreFilePath(creatorFile.get("savedFileName"));
-        creatorFileDTO.setCreFileName(creatorFile.get("filePath"));
+        creatorFileDTO.setCreFilePath(creatorFile.get("filePath"));
+        creatorFileDTO.setCreFileName(creatorFile.get("savedFileName"));
         creatorFileDTO.setCreFileOriName(creatorFile.get("originFileName"));
 
         if (evaluationMapper.InsertCreatorFile(creatorFileDTO)) {

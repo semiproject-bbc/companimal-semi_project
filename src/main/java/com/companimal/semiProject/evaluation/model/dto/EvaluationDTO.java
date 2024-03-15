@@ -5,16 +5,16 @@ import java.sql.Timestamp;
 public class EvaluationDTO implements java.io.Serializable {
 
     private int evaNum;                 // 심사 번호
-    private Timestamp evaDatetime;      // 심사 요청 일시
+    private Timestamp evaDateTime;      // 심사 요청 일시
     private String evaSituation;        // 심사 상황
     private String reaRejection;        // 반려 사유
 
     public EvaluationDTO() {
     }
 
-    public EvaluationDTO(int evaNum, Timestamp evaDatetime, String evaSituation, String reaRejection) {
+    public EvaluationDTO(int evaNum, Timestamp evaDateTime, String evaSituation, String reaRejection) {
         this.evaNum = evaNum;
-        this.evaDatetime = evaDatetime;
+        this.evaDateTime = evaDateTime;
         this.evaSituation = evaSituation;
         this.reaRejection = reaRejection;
     }
@@ -27,12 +27,12 @@ public class EvaluationDTO implements java.io.Serializable {
         this.evaNum = evaNum;
     }
 
-    public Timestamp getEvaDatetime() {
-        return evaDatetime;
+    public Timestamp getEvaDateTime() {
+        return evaDateTime;
     }
 
-    public void setEvaDatetime(Timestamp evaDatetime) {
-        this.evaDatetime = evaDatetime;
+    public void setEvaDateTime(Timestamp evaDateTime) {
+        this.evaDateTime = evaDateTime;
     }
 
     public String getEvaSituation() {
@@ -55,7 +55,7 @@ public class EvaluationDTO implements java.io.Serializable {
     public String toString() {
         return "EvaluationDTO{" +
                 "evaNum=" + evaNum +
-                ", evaDateTime=" + evaDatetime +
+                ", evaDateTime=" + evaDateTime +
                 ", evaSituation='" + evaSituation + '\'' +
                 ", reaRejection='" + reaRejection + '\'' +
                 '}';

@@ -2,8 +2,10 @@ package com.companimal.semiProject.evaluation.model.dto;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
-public class CreatorEvaluationDTO {
+public class CreatorEvaluationDetailDTO {
+
     private int evaNum;                 // 심사 번호
     private Timestamp evaDatetime;      // 심사 요청 일시
     private String evaSituation;        // 심사 상황
@@ -28,11 +30,13 @@ public class CreatorEvaluationDTO {
     private String authName;            // '담당자 이름'
     private String authNum;             // '담당자 전화번호'
     private String creatorType;         // '크리에이터 유형'
+    private int creEvaNum;         // '파일 번호'
+    private List<CreatorFileDTO> files; // 파일 정보 리스트
 
-    public CreatorEvaluationDTO() {
+    public CreatorEvaluationDetailDTO() {
     }
 
-    public CreatorEvaluationDTO(int evaNum, Timestamp evaDatetime, String evaSituation, String reaRejection, String memId, String creInqPhone, String creInqEmail, String creImgName, String creImgPath, String creImgOriName, String bankName, String accountNo, String depositorName, String busiNum, String busiName, Date busiDate, String busiType, String busiIndu, String busiLoca, String busiSize, String busiUrl, String authName, String authNum, String creatorType) {
+    public CreatorEvaluationDetailDTO(int evaNum, Timestamp evaDatetime, String evaSituation, String reaRejection, String memId, String creInqPhone, String creInqEmail, String creImgName, String creImgPath, String creImgOriName, String bankName, String accountNo, String depositorName, String busiNum, String busiName, Date busiDate, String busiType, String busiIndu, String busiLoca, String busiSize, String busiUrl, String authName, String authNum, String creatorType, int creEvaNum, List<CreatorFileDTO> files) {
         this.evaNum = evaNum;
         this.evaDatetime = evaDatetime;
         this.evaSituation = evaSituation;
@@ -57,6 +61,8 @@ public class CreatorEvaluationDTO {
         this.authName = authName;
         this.authNum = authNum;
         this.creatorType = creatorType;
+        this.creEvaNum = creEvaNum;
+        this.files = files;
     }
 
     public int getEvaNum() {
@@ -251,9 +257,25 @@ public class CreatorEvaluationDTO {
         this.creatorType = creatorType;
     }
 
+    public int getCreEvaNum() {
+        return creEvaNum;
+    }
+
+    public void setCreEvaNum(int creEvaNum) {
+        this.creEvaNum = creEvaNum;
+    }
+
+    public List<CreatorFileDTO> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<CreatorFileDTO> files) {
+        this.files = files;
+    }
+
     @Override
     public String toString() {
-        return "CreatorEvaluationDTO{" +
+        return "CreatorEvaluationDetailDTO{" +
                 "evaNum=" + evaNum +
                 ", evaDatetime=" + evaDatetime +
                 ", evaSituation='" + evaSituation + '\'' +
@@ -278,6 +300,8 @@ public class CreatorEvaluationDTO {
                 ", authName='" + authName + '\'' +
                 ", authNum='" + authNum + '\'' +
                 ", creatorType='" + creatorType + '\'' +
+                ", creEvaNum=" + creEvaNum +
+                ", files=" + files +
                 '}';
     }
 }

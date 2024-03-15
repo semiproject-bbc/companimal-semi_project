@@ -18,5 +18,9 @@ public interface EvaluationMapper {
     boolean insertCreatorEva(CreatorEvaDTO creatorEvaDTO);
 
     List<CreatorEvaluationDTO> selectCreatorEvaluationList();
+
+    CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum);
+
+    boolean creatorAccept(String memberRole);
     //    List<CalculationListDTO> selectEvaCalculationList();
 }

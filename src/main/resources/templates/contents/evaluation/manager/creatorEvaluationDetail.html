@@ -13,53 +13,57 @@
     <section>
 
         <div class="main">
-            <p class="creatorEvaluationCompany">크리에이터 심사(사업자)</p>
+            <p class="creatorBusinessEvaluation">크리에이터 심사</p>
 
-            <form class="creatorEvaluationForm">
+            <div class="evaluationForm">
 
-                <div class="evaluationForm">
+                <div class="creatorBusinessEvaluationItem">
 
-                    <div class="evaluationCompanyRegistrationNumberField">
+                    <div class="creatorBusinessEvaluationItemName">크리에이터명</div>
 
-                        <div class="companyRegistrationNumberTextbox">크리에이터명</div>
+                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.memId }"></div>
+                </div>
 
-                        <div class="companyRegistrationNumberField"></div>
-                    </div>
+                <div class="creatorBusinessEvaluationItem">
 
-                    <div class="evaluationCompanyRegistrationNumberField">
+                    <div class="creatorBusinessEvaluationFile">제출 파일</div>
 
-                        <div class="companyRegistrationNumberTextbox">제출 파일</div>
-
-                        <div class="companyRegistrationNumberField"></div>
-                    </div>
-
-                    <div class="evaluationCompanyRegistrationNumberField">
-
-                        <div class="companyRegistrationNumberTextbox">은행명</div>
-
-                        <div class="companyRegistrationNumberField"></div>
-                    </div>
-
-                    <div class="evaluationCompanyRegistrationNumberField">
-
-                        <div class="companyRegistrationNumberTextbox">계좌번호</div>
-
-                        <div class="companyRegistrationNumberField"></div>
-                    </div>
-
-                    <div class="evaluationCompanyRegistrationNumberField">
-
-                        <div class="companyRegistrationNumberTextbox">예금주 명</div>
-
-                        <div class="companyRegistrationNumberField"></div>
+                    <div class="creatorBusinessEvaluationFileContent">
+                        <a th:each="file : ${CreatorEvaluationDetailDTO.files}"
+                           th:href="@{|${file.creFilePath}/${file.creFileName}|}"
+                           th:text="${file.creFileOriName}"
+                           download="${file.creFileOriName}">
+                        </a>
                     </div>
                 </div>
-                <div class="buttons">
-                    <button class="return">반려</button>
 
-                    <button class="accept">승인</button>
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">은행명</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.bankName }"></div>
                 </div>
-            </form>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">계좌번호</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.accountNo }"></div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">예금주 명</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.depositorName }"></div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="return">반려</button>
+
+                <button class="accept">승인</button>
+            </div>
         </div>
 
     </section>

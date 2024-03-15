@@ -39,9 +39,8 @@
 
             <div class="creatorType" th:text="${ CreatorEvaluation.creatorType }">-</div>
 
-            <button type="button" class="creatorEvaluationDetail">상세</button>
+            <button type="button" class="creatorEvaluationDetail" th:onclick="'go(' + ${CreatorEvaluation.evaNum} + ')'" >상세</button>
 
-            <div class="creatorEvaluationSituation" th:text="${ CreatorEvaluation.evaSituation }">-</div>
         </div>
 
         <div class="pagination">
@@ -59,5 +58,8 @@
             <a href="#">&raquo;</a>
         </div>
     </div>
+
+    <script th:src="@{/js/evaluation/evaluationDetail.js}"></script>
+
 </th:block>>
 </html>
