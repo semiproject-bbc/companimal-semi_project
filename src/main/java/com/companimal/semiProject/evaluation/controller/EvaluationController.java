@@ -104,9 +104,10 @@ public class EvaluationController {
         return modelAndView;
     }
 
-    @GetMapping("/manager/accept")
-    public String creatorAccept() {
+    @GetMapping("/manager/accept/{evaNum}")
+    public String creatorAccept(@PathVariable int evaNum) {
 
+        String memId = creatorEvaluationService.selectCreatorId(evaNum);
         String memberRole = "CREATOR";
         creatorEvaluationService.creatorAccept(memberRole);
         return "/contents/evaluation/manager/creatorEvaluationList";

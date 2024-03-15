@@ -18,5 +18,7 @@ public interface CreatorEvaluationService {
 
     CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum);
 
+    String selectCreatorId(int evaNum);
+
     void creatorAccept(String memberRole);
 }

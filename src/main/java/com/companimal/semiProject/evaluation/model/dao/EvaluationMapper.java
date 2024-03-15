@@ -21,6 +21,8 @@ public interface EvaluationMapper {
 
     CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum);
 
+    String selectCreatorId(int evaNum);
+
     boolean creatorAccept(String memberRole);
     //    List<CalculationListDTO> selectEvaCalculationList();
 }

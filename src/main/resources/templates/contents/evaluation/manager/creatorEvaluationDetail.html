@@ -60,9 +60,9 @@
             </div>
 
             <div class="buttons">
-                <button class="return">반려</button>
+                <button class="return" th:onclick="'go(' + ${CreatorEvaluationDetailDTO.evaNum} + ')'">반려</button>
 
-                <button class="accept">승인</button>
+                <button class="accept" th:onclick="'go(' + ${CreatorEvaluationDetailDTO.evaNum} + ')'">승인</button>
             </div>
         </div>
 

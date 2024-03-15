@@ -210,4 +210,8 @@
                )
     </insert>
 
+    <select id="selectCreatorId" resultType="String">
+
+    </select>
+
 </mapper>

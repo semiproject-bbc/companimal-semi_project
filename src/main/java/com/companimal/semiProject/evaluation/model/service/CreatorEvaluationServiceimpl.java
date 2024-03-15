@@ -77,6 +77,11 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
     }
 
     @Override
+    public String selectCreatorId(int evaNum) {
+        return evaluationMapper.selectCreatorId(evaNum);
+    }
+
+    @Override
     public CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum) {
         return evaluationMapper.selectCreatorEvaluationDetail(evaNum);
     }
