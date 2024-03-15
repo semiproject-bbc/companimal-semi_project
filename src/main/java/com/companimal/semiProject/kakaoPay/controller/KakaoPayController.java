@@ -4,9 +4,11 @@ package com.companimal.semiProject.kakaoPay.controller;
 import com.companimal.semiProject.kakaoPay.service.KakaoPay;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
+import com.companimal.semiProject.order.model.dto.GetOrderDetailsInfoDTO;
 import com.companimal.semiProject.order.model.dto.OrderDetailsDTO;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import com.companimal.semiProject.order.model.service.OrderService;
+import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Log
 @Controller
@@ -35,11 +38,6 @@ public class KakaoPayController {
         this.orderService = orderService;
     }
 
-//    @GetMapping //localhost:8080
-//    public String helloworld() {
-//        return "main";
-//    }
-
     @GetMapping("/kakaoPay")
     public String kakaoPayGet() {
         return "kakaoPay"; // kakaopay Page으로 이동
@@ -54,15 +52,16 @@ public class KakaoPayController {
     public String kakaoPay(@RequestParam("recipient") String recipient,
                            @RequestParam("address") String address,
                            @RequestParam("request") String request) {
-        log.info("kakaoPay 결제화면으로 이동함");
-        OrderDetailsDTO orderDetailsDTO = (OrderDetailsDTO) httpSession.getAttribute("rewardInfo");
+        log.info("kakaoPay 결제화면으로 이동함"); // 확인용
+
         MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberInfo");
+        GetOrderDetailsInfoDTO getOrderDetailsInfoDTO = (GetOrderDetailsInfoDTO) httpSession.getAttribute("rewardInfo");
         // 입력한 값들을 session에다가 담는다
         httpSession.setAttribute("recipient", recipient);
         httpSession.setAttribute("address", address);
         httpSession.setAttribute("request", request);
 
-        return "redirect:" + kakaopay.kakaoPayReady(orderDetailsDTO,memberDTO); // kakaopay 결제 화면으로 이동
+        return "redirect:" + kakaopay.kakaoPayReady(getOrderDetailsInfoDTO,memberDTO); // kakaopay 결제 화면으로 이동
         // http://localhost:8080/kakaoPaySuccess?pg_token=ee334b6d479d0c10260a
     }
 
@@ -74,10 +73,10 @@ public class KakaoPayController {
         OrderPaymentDTO orderPaymentDTO = new OrderPaymentDTO(); // 정보를 담기 위해서
 
         MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberInfo");
-        OrderDetailsDTO orderDetailsDTO = (OrderDetailsDTO) httpSession.getAttribute("rewardInfo");
+        GetOrderDetailsInfoDTO getOrderDetailsInfoDTO = (GetOrderDetailsInfoDTO) httpSession.getAttribute("rewardInfo");
         CouponDTO couponDTO = (CouponDTO) httpSession.getAttribute("couponInfo");
 
-        orderPaymentDTO.setOrderCode(orderPaymentDTO.getOrderCode());                       // 주문 코드
+        orderPaymentDTO.setOrderCode((String) httpSession.getAttribute("franchiseNo"));  // 주문 코드
         orderPaymentDTO.setOrderDate(new Timestamp(System.currentTimeMillis()));            // 주문 일시
         orderPaymentDTO.setMemId(memberDTO.getMemberId());                                  // memberId
         orderPaymentDTO.setAddress((String) httpSession.getAttribute("address"));        // 주소

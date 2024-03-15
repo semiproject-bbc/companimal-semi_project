@@ -3,13 +3,9 @@ package com.companimal.semiProject.order.model.service;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dao.OrderMapper;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
-import com.companimal.semiProject.order.model.dto.OrderDetailsDTO;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
-import com.companimal.semiProject.order.model.dto.OrderRewardInfoDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -44,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
 //        return orderMapper.insertOrderPaymentInfo(orderPaymentDTO);
+        orderMapper.insertOrderPaymentInfo(orderPaymentDTO);
     }
 }
 

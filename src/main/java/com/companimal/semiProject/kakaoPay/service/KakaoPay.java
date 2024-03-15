@@ -4,11 +4,15 @@ import com.companimal.semiProject.kakaoPay.model.dto.ApproveDTO;
 import com.companimal.semiProject.kakaoPay.model.dto.ReadyDTO;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
+import com.companimal.semiProject.order.model.dto.GetOrderDetailsInfoDTO;
 import com.companimal.semiProject.order.model.dto.OrderDetailsDTO;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
+import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.java.Log;
+import org.apache.catalina.session.StandardSession;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -42,27 +47,31 @@ public class KakaoPay {
     String formattedDate = LocalDate.now().format(formatter);
     Random random = new Random();
     int randomNumber = random.nextInt(90000000) + 10000000;
-    String franchiseNo = (formattedDate + randomNumber);
+    String franchiseNo = (formattedDate + "-" + randomNumber);
 
-    public KakaoPay() {
+
+    private final HttpSession httpSession;
+    public KakaoPay(HttpSession httpSession) {
+        this.httpSession = httpSession;
         this.readyDTO = new ReadyDTO();
-        System.out.println(System.currentTimeMillis());
     }
 
-    public String kakaoPayReady(OrderDetailsDTO orderDetailsDTO, MemberDTO memberDTO) {
+    public String kakaoPayReady(GetOrderDetailsInfoDTO getOrderDetailsInfoDTO, MemberDTO memberDTO) {
 
         /* 서버로 요청할 Body */
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("cid", "TC0ONETIME");                                     // 가맹점 코드
-        params.put("partner_order_id", franchiseNo);      // 가맹점 주문번호
+        params.put("partner_order_id", franchiseNo);                         // 가맹점 주문번호
         params.put("partner_user_id", memberDTO.getMemberId());              // 가맹점 회원 id
-        params.put("item_name", orderDetailsDTO.getRewName());               // 상품명을 넣으면 된다
-        params.put("quantity", orderDetailsDTO.getNoOfOrder());              // 상품 수량 (int)
-        params.put("total_amount", orderDetailsDTO.getOrderAmount());        // 총 금액   (int)
+        params.put("item_name", getOrderDetailsInfoDTO.getProName());        // 상품명을 넣으면 된다
+        params.put("quantity", getOrderDetailsInfoDTO.getNoOfOrder());       // 상품 수량 (int)
+        params.put("total_amount", getOrderDetailsInfoDTO.getOrderAmount()); // 총 금액   (int)
         params.put("tax_free_amount", 0);                                    // 상품 비과세 금액 (int)
         params.put("approval_url", "http://localhost:8080/kakaoPaySuccess"); // 결제 성공 시 redirect url
         params.put("cancel_url", "http://localhost:8080/kakaoPayCancel");    // 결제 취소 시 redirect url
         params.put("fail_url", "http://localhost:8080/kakaoPayFail");        // 결제 취소 시 redirect url
+
+        httpSession.setAttribute("franchiseNo", franchiseNo); // 주문번호
 
         String parameter = null;
         try {
@@ -70,7 +79,6 @@ public class KakaoPay {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-
         /* header와 body를 붙이는 방법이다 */
         HttpEntity<String> body = new HttpEntity<>(parameter, header()); // 나중에 같이 보내기 위해서 headers + params 합친다
 

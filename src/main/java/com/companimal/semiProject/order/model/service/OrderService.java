@@ -2,14 +2,10 @@ package com.companimal.semiProject.order.model.service;
 
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
-import com.companimal.semiProject.order.model.dto.OrderDetailsDTO;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
-import com.companimal.semiProject.order.model.dto.OrderRewardInfoDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public interface OrderService {
