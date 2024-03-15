@@ -19,7 +19,7 @@
 </header>
  section -->
 <th:block layout:fragment="content">
-<section>
+<section form method="post" action="/pay/kakaoPay">
 
     <div class="orderPayment-headers">
         <div class="orderPayment-header">주문 / 결제</div>
@@ -30,166 +30,142 @@
     </div>
     <div class="productInfo">주문제품 정보</div>
 
-    <div class="ProductInformation" th:each="project : ${ selectProject }">
+    <div class="ProductInformation" th:object="${ getOrderDetailsInfoDTO } ", th:each="reward : ${ getOrderDetailsInfoDTO.projectRewardDTOList}">
         <img class="productImage" loading="lazy" alt="강아지 제품에 대한 정보 소개" src="/image/dogItem.png">
         <div class="productInfo-container">
             <div class="productName-container">
-                <div class="projectName">>프로젝트명</div>
-                <div class="projectNameInfo" th:text="${ project.proName }">프로젝트명</div>
+                <div class="projectName">프로젝트명</div>
+                <div class="projectNameInfo" th:text="${ getOrderDetailsInfoDTO.getProName() }">프로젝트명</div>
             </div>
             <div class="rewardName-container">
                 <div class="rewardName">리워드명</div>
-                <div class="rewardNameInfo" th:text="${ project.rewName }">리워드명</div>
+                <div class="rewardNameInfo" th:text="${ reward.rewName }">리워드명</div>
             </div>
 
             <div class="NoOfProject-container">
-                <div class="NoOfProject">갯수</div>
-                <div class="deliverFeeAmount" th:text="${ project.rewSf }">주문한 수량</div>
+                <div class="NoOfProject">쿠폰</div>
+                <select class="deliverFeeAmount" th:text="${ reward.rewSf }">
+                    <option value="0"><span th:text="${ couponInfo.couName}"></span></option>
+                </select>
+
             </div>
-            <div class="coupon-container">
-                <div class="coupon">쿠폰 할인</div>
-                <div class="couponDiscount" >쿠폰 할인</div>
-            </div>
+<!--            <div class="coupon-container">-->
+<!--                <div class="coupon">쿠폰 할인</div>-->
+<!--                <div class="couponDiscount" >쿠폰 할인</div>-->
+<!--            </div>-->
             <div class="orderFee-container">
                 <div class="orderFee">주문 금액</div>
                 <div class="orderAmount">주문 금액</div>
             </div>
         </div>
-        <div class="productInfo">주문제품 정보</div>
+    </div>
 
-        <div class="ProductInformation">
-            <img class="productImage" loading="lazy" alt="강아지 제품에 대한 정보 소개" src="/image/dogItem.png">
-            <div class="productInfo-container">
-                <div class="productName-container">
-                    <div class="projectName">프로젝트명</div>
-                    <div class="projectNameInfo" th:text="${ rewardInfo.proName}">프로젝트명</div>
-                </div>
-                <div class="rewardName-container">
-                    <div class="rewardName">리워드명</div>
-                    <div class="rewardNameInfo" th:text="${ rewardInfo.rewName }">리워드명</div>
-                </div>
-                <div class="NoOfProject-container">
-                    <div class="NoOfProject">갯수</div>
-                    <div class="deliverFeeAmount" th:text="${ rewardInfo.noOfOrder }">주문한 수량</div>
-                </div>
-                <div class="coupon-container">
-                    <div class="coupon">쿠폰 할인</div>
-                    <div class="couponDiscount" th:text="${ couponInfo.couName }">쿠폰 할인</div>
-                </div>
-                <div class="orderFee-container">
-                    <div class="orderFee">주문 금액</div>
-                    <div class="orderAmount" th:text="${ rewardInfo.orderAmount + rewardInfo.rewSf}">주문 금액</div>
-                </div>
-            </div>
-        </div>
-
-        <hr> <!-- 선 이미지 추가할것...!! -->
+    <hr> <!-- 선 이미지 추가할것...!! -->
 
         <!-- 펀딩 서포터, 리워드 배송기 section -->
-        <div class="fundingSupporterAndRewardDestination">
-            <div class="fundingSupporter-container">
-                <div class="fundingSupporter-title">펀딩 서포터</div>
-                <div class="fundingSupporter-container2">
-                    <div class="supporterName-container">
-                        <div class="supporterName">이름</div>
-                        <div class="supporterNameInputtedValue" th:text="${ memberInfo.memberName }">이름</div>
-                    </div>
-                    <div class="supporterEmail-container">
-                        <div class="supporterEmail">이메일</div>
-                        <div class="supporterEmailInputtedValue" th:text="${ memberInfo.memberEmail }">이메일</div>
-                    </div>
-                    <div class="supporterPhoneNumber-container">
-                        <div class="supporterPhoneNumber">휴대폰 번호</div>
-                        <div class="supporterPhoneNumberInputtedValue" th:text="${ memberInfo.memberPhone }">010-XXXX-XXXX</div>
-                    </div>
-
-                    <div class="tNcPayment-container">
-                        <input type="checkbox" class="checkbox">
-                        <div class="conditions">(필수) 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.</div>
-                    </div>
+    <div class="fundingSupporterAndRewardDestination">
+        <div class="fundingSupporter-container">
+            <div class="fundingSupporter-title">펀딩 서포터</div>
+            <div class="fundingSupporter-container2">
+                <div class="supporterName-container">
+                    <div class="supporterName">이름</div>
+                    <div class="supporterNameInputtedValue" th:text="${ memberInfo.memberName}"></div>
                 </div>
-            </div>
+                <div class="supporterEmail-container">
+                    <div class="supporterEmail">이메일</div>
+                    <div class="supporterEmailInputtedValue" th:text="${ memberInfo.memberEmail}"></div>
+                </div>
+                <div class="supporterPhoneNumber-container">
+                    <div class="supporterPhoneNumber">휴대폰 번호</div>
+                    <div class="supporterPhoneNumberInputtedValue" th:text="${ memberInfo.memberPhone}"></div>
+                </div>
 
-
-            <div class="rewardDestination-container" action="" method="post"> <!-- action="경로를 입력하면 된다."-->
-                <div class="rewardDestination-title">리워드 배송지</div>
-                <div class="rewardDestination-container2">
-                    <div class="rewardGetPersonName-container">
-                        <div class="rewardGetPersonName">수취인명</div>
-                        <input class="rewardGetPersonNameInfo" placeholder="이름" th:type="text" th:name="recipient">
-                    </div>
-                    <div class="rewardGetPersonAddress-container">
-                        <div class="rewardGetPersonAddress">주소</div>
-                        <input class="rewardGetPersonAddressInfo" placeholder="주소" type="text" th:name="address">
-                    </div>
-                    <div class="rewardToNotify-container">
-                        <div class="rewardToNotify">배송 시 요청 사항</div>
-                        <input class="rewardToNotifyText" placeholder="ex) 부재시 경비실에 보관해주세요." type="text" th:name="request">
-                    </div>
+                <div class="tNcPayment-container">
+                    <input type="checkbox" class="checkbox">
+                    <div class="conditions">(필수) 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.</div>
                 </div>
             </div>
         </div>
 
-        <hr>
+        <div class="rewardDestination-container" action="" method="post"> <!-- action="경로를 입력하면 된다."-->
+            <div class="rewardDestination-title">리워드 배송지</div>
+            <div class="rewardDestination-container2">
+                <div class="rewardGetPersonName-container">
+                    <div class="rewardGetPersonName">수취인명</div>
+                    <input class="rewardGetPersonNameInfo" placeholder="이름" th:type="text" th:name="recipient">
+                </div>
+                <div class="rewardGetPersonAddress-container">
+                    <div class="rewardGetPersonAddress">주소</div>
+                    <input class="rewardGetPersonAddressInfo" placeholder="주소" type="text" th:name="address">
+                </div>
+                <div class="rewardToNotify-container">
+                    <div class="rewardToNotify">배송 시 요청 사항</div>
+                    <input class="rewardToNotifyText" placeholder="ex) 부재시 경비실에 보관해주세요." type="text" th:name="request">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
 
         <!-- 결제 수단 + 최종 결제 금액 section -->
 
-        <div class="payment">
-            <div class="paymentMethod-container">
-                <div class="paymentMethod">결제 수단</div>
-                <img class="kakaopay" loading="lazy" alt="kakaopay" src="/image/kakaopayIcon.png">
+    <div class="payment" th:object="${ getOrderDetailsInfoDTO } ", th:each="reward : ${ getOrderDetailsInfoDTO.projectRewardDTOList}">
+        <div class="paymentMethod-container">
+            <div class="paymentMethod">결제 수단</div>
+            <img class="kakaopay" loading="lazy" alt="kakaopay" src="/image/kakaopayIcon.png">
+        </div>
+        <div class="finalPayment-container">
+            <div class="finalPayment">최종 결제 금액</div>
+            <div class="finalPaymentAmount" th:text="${ getOrderDetailsInfoDTO.orderAmount} + 원"><span th:text="배송비 포함(${ reward.getRewSf()} )"/></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 약관 동의 section -->
+
+    <div class="agreeTotNc-allcontainer">
+        <div class="agreeToTermsAndConditions">약관 동의</div>
+        <div class="agreeToTermsAndConditions-container">
+            <div class="agreeToAll-container">
+                <input type="checkbox" class="agreeToAllCheckbox">
+                <div class=agreeToAll>전체 동의</div>
             </div>
-            <div class="finalPayment-container">
-                <div class="finalPayment">최종 결제 금액</div>
-                <div class="finalPaymentAmount">1xx,xxx원 <span>(배송비 : ${ rewSf } 포함)</span></div>
+            <hr>
+            <div class="tNcPaymentMethods-container">
+                <input type="checkbox" class="subCheckbox1">
+                <div class="tNcPaymentMethods">구매 조건, 결제 진행 . 및결제 대행 서비스 동의 (필수)</div>
+                <div class="see"><a href="first.html" class="seeClass">보기</a></div>
+            </div>
+            <div class="tNc3rdParty-container">
+                <input type="checkbox" class="subCheckbox2">
+                <div class="tNc3rdParty">개인정보 제3자 제공 동의 (필수)</div>
+                <div class="see"><a href="second.html" class="seeClass">보기</a></div>
+            </div>
+            <div class="tNcResponsible-container">
+                <input type="checkbox" class="subCheckbox3">
+                <div class="tNcResponsible">책임 규정에 대한 동의 (필수)</div>
+                <div class="see"><a href="third.html" class="seeClass">보기</a></div>
+            </div>
+            <div class="tNchoowon-container">
+                <input type="checkbox" class="subCheckbox4">
+                <div class="tNchoowon">후원 유의 사항 확인 (필수)</div>
+                <div class="see"><a href="/templates/contents/order/fourth.html" class="seeClass">보기</a></div>
             </div>
         </div>
-
-        <hr>
-
-        <!-- 약관 동의 section -->
-
-        <div class="agreeTotNc-allcontainer">
-            <div class="agreeToTermsAndConditions">약관 동의</div>
-            <div class="agreeToTermsAndConditions-container">
-                <div class="agreeToAll-container">
-                    <input type="checkbox" class="agreeToAllCheckbox">
-                    <div class=agreeToAll>전체 동의</div>
-                </div>
-                <hr>
-                <div class="tNcPaymentMethods-container">
-                    <input type="checkbox" class="subCheckbox1">
-                    <div class="tNcPaymentMethods">구매 조건, 결제 진행 . 및결제 대행 서비스 동의 (필수)</div>
-                    <div class="see"><a href="first.html" class="seeClass">보기</a></div>
-                </div>
-                <div class="tNc3rdParty-container">
-                    <input type="checkbox" class="subCheckbox2">
-                    <div class="tNc3rdParty">개인정보 제3자 제공 동의 (필수)</div>
-                    <div class="see"><a href="second.html" class="seeClass">보기</a></div>
-                </div>
-                <div class="tNcResponsible-container">
-                    <input type="checkbox" class="subCheckbox3">
-                    <div class="tNcResponsible">책임 규정에 대한 동의 (필수)</div>
-                    <div class="see"><a href="third.html" class="seeClass">보기</a></div>
-                </div>
-                <div class="tNchoowon-container">
-                    <input type="checkbox" class="subCheckbox4">
-                    <div class="tNchoowon">후원 유의 사항 확인 (필수)</div>
-                    <div class="see"><a th:href="@{/templates/contents/order/fourth.html}" class="seeClass">보기</a></div>
-                </div>
-            </div>
-        </div>
+    </div>
 
     <!--    <div class="paymentButton-container">-->
     <!--        <form href="successPage/successPage.html" class="ontoPaymentPage" method="get" action="/kakaoPay">-->
     <!--            <button type="submit" class="ontoPayment">결제하기</button>-->
     <!--        </form>-->
     <!--    </div>-->
-        <div class="paymentButton-container">-->
-            <div class="ontoPaymentPage">
-                <button type="submit" class="ontoPayment">결제하기</button>
-            </div>
+    <div class="paymentButton-container">
+        <div class="ontoPaymentPage">
+            <button type="submit" class="ontoPayment">결제하기</button>
         </div>
+    </div>
     </form>
 </section>
 <!-- footer -->

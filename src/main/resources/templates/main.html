@@ -20,7 +20,7 @@
     <button th:onclick="|location.href='@{/evaluation/evacalculationlist}'|">- 후원금 최종 정산 심사</button>
 
     <button onclick="location.href='/project/projectRegist'">펀딩 등록</button>
-    <button onclick="location.href='/project/projectRegist'">이미지 등록</button>
+    <button onclick="location.href='/project/projectImage'">이미지 등록</button>
     <button onclick="location.href='/evaluation/creatorEvaluationRegist'">크리에이터 등록</button>
     <button onclick="location.href='/evaluation/manager/creatorEvaluationList'">크리에이터 심사 목록</button>
     <button onclick="location.href='/evaluation/manager/creatorEvaluationDetail'">크리에이터 심사 상세</button>
@@ -29,7 +29,7 @@
     <form th:action="@{/auth/logout}" method="post">
         <button>로그아웃</button>
     </form>
-    <form method="get" action="/orderpayment">
+    <form method="get" action="/order/orderpayment">
         <button>주문결제</button>
     </form>
     <form method="get" action="/coupon">
@@ -44,6 +44,10 @@
 
     <form method="get" action="/interest">
         <button>participate</button>
+    </form>
+
+    <form method="post" action="/order/orderPayment">
+        <button>주문결제</button>
     </form>
 <!--    <form method="get" action="/orderpayment">-->
 

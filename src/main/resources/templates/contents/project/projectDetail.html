@@ -13,49 +13,53 @@
 
 <th:block layout:fragment="content">
     <section>
-            <div class="door">
-                <div class="door-image">
-                    <div class="slider">
-                        <input type="radio" name="slide" id="slide1" checked>
-                        <input type="radio" name="slide" id="slide2">
-                        <input type="radio" name="slide" id="slide3">
-                        <ul id="imgholder" class="imgs">
-                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
-                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
-                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
-                        </ul>
-                        <div class="bullets">
-                            <label for="slide1">&nbsp;</label>
-                            <label for="slide2">&nbsp;</label>
-                            <label for="slide3">&nbsp;</label>
-                        </div>
+        <div class="door">
+            <div class="door-image">
+                <div class="slider">
+                    <input type="radio" name="slide" id="slide1" checked>
+                    <input type="radio" name="slide" id="slide2">
+                    <input type="radio" name="slide" id="slide3">
+                    <ul id="imgholder" class="imgs">
+                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
+                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
+                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
+                    </ul>
+                    <div class="bullets">
+                        <label for="slide1">&nbsp;</label>
+                        <label for="slide2">&nbsp;</label>
+                        <label for="slide3">&nbsp;</label>
                     </div>
                 </div>
-                <!--            <th:block th:each="project : ${ selectProjectList }">-->
-                <div class="door-content" th:each="project : ${ selectProject }">
-                    <p th:text="${ project.endDate }" class="d-day"></p>
-                    <div class="category-title">
-                        <div class="category">
-                            <button type="button" class="category_button">
-                                <img class="category-image" th:src="@{/image/living.png}">
-                            </button>
-                            <p class="living">카테고리</p>
-                        </div>
-                        <p class="title" name="proName" th:text="${ project.proName }"></p>
-                    </div>
-                    <p class="introduce" th:text="${ project.proIntro }"></p>
-                    <div class="goal-container">
-                        <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
-                        <p class="goal-won"> % 달성</p>
-                    </div>
-                    <div class="heart-gray-icon-container">
-                        <!--                    <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">-->
-                        <button onclick="toggleImg()" type="button" class="heart-button">
-                            <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
+            </div>
+            <!--            <th:block th:each="project : ${ selectProjectList }">-->
+            <div class="door-content" th:each="project : ${ selectProject }">
+                <p th:text="${ project.endDate }" class="d-day"></p>
+                <div class="category-title">
+                    <div class="category">
+                        <button type="button" class="category_button">
+                            <img class="category-image" th:src="@{/image/living.png}">
                         </button>
-                        <button type="submit" class="funding" onclick="send()">펀딩 후원하기</button>
-
+                        <p class="living">카테고리</p>
                     </div>
+                    <p class="title" name="proName" th:text="${ project.proName }"></p>
+                </div>
+                <p class="introduce" th:text="${ project.proIntro }"></p>
+                <div class="goal-container">
+                    <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
+                    <p class="goal-won"> % 달성</p>
+                </div>
+                <div class="heart-gray-icon-container">
+                    <!--                    <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">-->
+                    <button onclick="toggleImg()" type="button" class="heart-button">
+                        <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
+                    </button>
+                    <button type="submit" class="funding" onclick="send()">펀딩 후원하기</button>
+
+                </div>
+            </div>
+            <!--            </th:block>-->
+        </div>
+
     </section>
     <section class="section2">
         <div class="content" th:each="project : ${ selectProject }">
@@ -113,7 +117,7 @@
                     <div class="reward-scroll">
                         <div class="reward-list" th:each=" reward : ${ project.reward }">
                             <div class="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }" onclick="toggleEvent(this)" data-fg-set="true" th:data-opt-code="${ rewardOpt.rewOptCode }">
-<!--                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">-->
+                                <!--                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">-->
                                 <div class="reward-title" th:text="${ reward.rewName }"></div>
                                 <div class="op-limit">
                                     <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>
@@ -168,6 +172,19 @@
 
                                 updateTotalAmount();
                             });
+                        });
+
+                        function test1 (event) {
+                            // console.log(event);
+
+                            // const eventDiv = event.currentTarget;
+                            const rewName = event.getElementsByClassName('reward-title')[0].innerHTML;
+                            const rewOpt = event.getElementsByClassName('reward-option')[0].innerHTML;
+                            const rewValue = event.getElementsByClassName('reward-value')[0].innerHTML;
+                            const rewOptAmount = event.getElementsByClassName('reward-price')[0].innerHTML;
+                            const rewardOptCode = event.dataset.optCode;
+
+                            let rewardExists = false;
 
                             $(".reward-choose-list .title-choose").each(function() {
                                 if ($(this).text() === rewName && $(this).next().text() === rewOpt && $(this).next().next().text() === rewValue) {
@@ -219,18 +236,21 @@
                         </div>
                     </div>
                     <script th:inline="javascript">
-                            function updateTotalAmount() {
-                                let totalAmount = 0;
 
-                                $(".reward-choose1").each(function() {
-                                    let priceText = $(this).find(".price").text();
-                                    let price = parseInt(priceText.replace(/[^0-9]/g, ''));
-                                    let quantity = parseInt($(this).find(".number").text());
-                                    totalAmount += price * quantity;
-                                });
+                        function updateTotalAmount() {
+                            let totalAmount = 0;
 
-                                $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount) + "원");
-                            };
+                            $(".reward-choose1").each(function() {
+                                let priceText = $(this).find(".price").text();
+                                let price = parseInt(priceText.replace(/[^0-9]/g, ''));
+                                let quantity = parseInt($(this).find(".number").text());
+                                totalAmount += price * quantity;
+                            });
+
+                            $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount) + "원");
+                        };
+
+
                     </script>
                 </div>
                 <form th:action="@{/order/orderPayment}" method="post">
@@ -268,7 +288,5 @@
         </div>
     </section>
 </th:block>
-
-</html>
 
 </html>

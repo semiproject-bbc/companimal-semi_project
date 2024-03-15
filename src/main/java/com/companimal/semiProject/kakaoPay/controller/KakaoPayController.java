@@ -25,6 +25,7 @@ import java.util.List;
 
 @Log
 @Controller
+@RequestMapping("/pay")
 public class KakaoPayController {
 
     private final KakaoPay kakaopay;
