@@ -104,7 +104,7 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         String filePath = null;
 
         if (!resource.exists()) {
-            String root = "src/main/resources/static/img/creatorFile";
+            String root = "src/main/static/img/creatorFile";
             File file = new File(root);
             file.mkdirs();
 

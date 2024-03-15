@@ -85,32 +85,16 @@ public class EvaluationController {
         return "/contents/evaluation/evacalculationlist";
     }
 
-//    @GetMapping("/manager/creatorEvaluationDetail")
-//    public ModelAndView creatorEvaluationDetail(ModelAndView modelAndView) {
-//
-//        CreatorEvaluationDTO creatorEvaluationDTO = creatorEvaluationService.selectCreatorEvaluationDetail(1);
-//
-//        String creatorType = creatorEvaluationDTO.getCreatorType();
-//
-//        modelAndView.addObject("CreatorEvaluationDTO", creatorEvaluationDTO);
-//
-//        System.out.println("1");
-//        System.out.println(creatorType);
-//        if (creatorType.equals("개인")) {
-//            modelAndView.setViewName("/contents/evaluation/manager/creatorEvaluationDetail");
-//        } else {
-//            modelAndView.setViewName("/contents/evaluation/manager/creatorBusinessEvaluationDetail");
-//        }
-//
-//        return modelAndView;
-//    }
-  
     @GetMapping("/manager/creatorEvaluationDetail/{evaNum}")
     public ModelAndView creatorEvaluationDetail(@PathVariable int evaNum, ModelAndView modelAndView) {
 
         CreatorEvaluationDetailDTO creatorEvaluationDetailDTO = creatorEvaluationService.selectCreatorEvaluationDetail(evaNum);
 
         String creatorType = creatorEvaluationDetailDTO.getCreatorType();
+
+        System.out.println(creatorEvaluationDetailDTO.getFiles().get(1).getCreFilePath());
+        System.out.println(creatorEvaluationDetailDTO.getFiles().get(1).getCreFileOriName());
+        System.out.println(creatorEvaluationDetailDTO.getFiles().get(1).getCreFileName());
 
         modelAndView.addObject("CreatorEvaluationDetailDTO", creatorEvaluationDetailDTO);
 

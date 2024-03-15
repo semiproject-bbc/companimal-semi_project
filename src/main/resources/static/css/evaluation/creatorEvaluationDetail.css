@@ -46,8 +46,6 @@
     height: 50px;
     border: 1px solid #d5d5d5;
     display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 1px;
 }
 
@@ -55,10 +53,17 @@
     width: 600px;
     height: 150px;
     border: 1px solid #d5d5d5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 1px;
+}
+
+.cotent {
+    margin-left: 10px;
+}
+
+.test111 {
+    display: block;
+    margin-top: 20px;
+    margin-left: 10px;
 }
 
 .buttons {
