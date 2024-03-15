@@ -1,9 +1,7 @@
 package com.companimal.semiProject.evaluation.model.service;
 
 import com.companimal.semiProject.evaluation.model.dao.EvaluationMapper;
-import com.companimal.semiProject.evaluation.model.dto.CreatorEvaDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO;
-import com.companimal.semiProject.evaluation.model.dto.EvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.*;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -15,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -57,10 +56,11 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         EvaluationDTO evaluationDTO = new EvaluationDTO();
         evaluationDTO.setEvaDateTime(new Timestamp(System.currentTimeMillis()));
         evaluationDTO.setEvaSituation("처리중");
-        evaluationMapper.insertEvaluation();
+        evaluationMapper.insertEvaluation(evaluationDTO);
 
         // 크리에이터 심사 테이블 등록
         CreatorEvaDTO creatorEvaDTO = new CreatorEvaDTO(creatorId, evaluationDTO.getEvaNum());
+        evaluationMapper.insertCreatorEva(creatorEvaDTO);
 
         int fileNo = 1;
         InsertCreatorFile(fileNo, creatorId ,producPlan);
@@ -69,6 +69,32 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         fileNo++;
         InsertCreatorFile(fileNo, creatorId ,img);
 
+    }
+
+    @Override
+    public List<CreatorEvaluationDTO> selectCreatorEvaluationList() {
+        return evaluationMapper.selectCreatorEvaluationList();
+    }
+
+    @Override
+    public String selectCreatorId(int evaNum) {
+        return evaluationMapper.selectCreatorId(evaNum);
+    }
+
+    @Override
+    public CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum) {
+        return evaluationMapper.selectCreatorEvaluationDetail(evaNum);
+    }
+
+    @Override
+    @Transactional
+    public void creatorAccept(String memberRole) {
+
+        if (evaluationMapper.creatorAccept(memberRole)) {
+            System.out.println("크리에이터 권한 업데이트 성공");
+        } else {
+            System.out.println("크리에이터 권한 업데이트 실패");
+        }
     }
 
     public Map<String, String> saveFile(MultipartFile creatorFile) throws IOException {
@@ -111,8 +137,8 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
 
         creatorFileDTO.setCreEvaNum(fileNo);
         creatorFileDTO.setMemId(creatorId);
-        creatorFileDTO.setCreFilePath(creatorFile.get("savedFileName"));
-        creatorFileDTO.setCreFileName(creatorFile.get("filePath"));
+        creatorFileDTO.setCreFilePath(creatorFile.get("filePath"));
+        creatorFileDTO.setCreFileName(creatorFile.get("savedFileName"));
         creatorFileDTO.setCreFileOriName(creatorFile.get("originFileName"));
 
         if (evaluationMapper.InsertCreatorFile(creatorFileDTO)) {

@@ -4,10 +4,10 @@ import java.sql.Timestamp;
 
 public class EvaluationDTO implements java.io.Serializable {
 
-    private int evaNum;             // 심사 번호
-    private Timestamp evaDateTime;  // 심사 요청 일시
-    private String evaSituation;    // 심사 상황
-    private String reaRejection;    // 반려 사유
+    private int evaNum;                 // 심사 번호
+    private Timestamp evaDateTime;      // 심사 요청 일시
+    private String evaSituation;        // 심사 상황
+    private String reaRejection;        // 반려 사유
 
     public EvaluationDTO() {
     }
