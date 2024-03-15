@@ -80,16 +80,7 @@
         <result property="delStatus" column="del_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
-<!--        <association property="rewName" resultMap="projectRewardResultMap"/>-->
-<!--        <association property="rewExplain" resultMap="projectRewardResultMap"/>-->
-<!--        <association property="rewSf" resultMap="projectRewardResultMap"/>-->
-<!--        <association property="rewOptName" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="rewOptVal" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="rewOptLimit" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="rewAmount" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="proCateName" resultMap="projectCateResultMap"/>-->
         <collection property="reward" resultMap="projectRewardResultMap"/>
-<!--        <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>-->
         <collection property="image" resultMap="projectImageResultMap"/>
 <!--        <collection property="file" resultMap="projectFileResultMap"/>-->
         <collection property="cate" resultMap="projectCateResultMap"/>
@@ -156,7 +147,7 @@
                 ,cate_sub
           FROM project
          WHERE del_status = 'N'
-           AND pro_code = #{ proCode }
+<!--           AND pro_code = #{ proCode }-->
 <!--           AND TO_DAYS(now())-TO_DAYS('end_date');-->
     </select>
 
@@ -227,8 +218,8 @@
 <!--          JOIN project_file f ON (p.pro_code = f.pro_code)-->
           JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
 <!--          JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)-->
-         WHERE del_status = 'N'
-<!--           AND p.pro_code = #{ proCode }-->
+         WHERE p.del_status = 'N'
+           AND p.pro_code = #{ proCode }
     </select>
 
     <!-- 프로젝트 등록 시 db에 저장할 쿼리 -->
