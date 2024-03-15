@@ -10,7 +10,7 @@ public class GetOrderDetailsInfoDTO {
     private int proCode;                            // 프로젝트 코드
     private int noOfOrder;                          // 수량
     private int orderAmount;                        // 총 금액
-    private String proName;
+    private String proName;                         // 프로젝트 이름
     List<ProjectRewardDTO> projectRewardDTOList;
 
     public GetOrderDetailsInfoDTO() {
