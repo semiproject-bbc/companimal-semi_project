@@ -13,49 +13,53 @@
 
 <th:block layout:fragment="content">
     <section>
-            <div class="door">
-                <div class="door-image">
-                    <div class="slider">
-                        <input type="radio" name="slide" id="slide1" checked>
-                        <input type="radio" name="slide" id="slide2">
-                        <input type="radio" name="slide" id="slide3">
-                        <ul id="imgholder" class="imgs">
-                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
-                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
-                            <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
-                        </ul>
-                        <div class="bullets">
-                            <label for="slide1">&nbsp;</label>
-                            <label for="slide2">&nbsp;</label>
-                            <label for="slide3">&nbsp;</label>
-                        </div>
+        <div class="door">
+            <div class="door-image">
+                <div class="slider">
+                    <input type="radio" name="slide" id="slide1" checked>
+                    <input type="radio" name="slide" id="slide2">
+                    <input type="radio" name="slide" id="slide3">
+                    <ul id="imgholder" class="imgs">
+                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
+                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
+                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
+                    </ul>
+                    <div class="bullets">
+                        <label for="slide1">&nbsp;</label>
+                        <label for="slide2">&nbsp;</label>
+                        <label for="slide3">&nbsp;</label>
                     </div>
                 </div>
-                <!--            <th:block th:each="project : ${ selectProjectList }">-->
-                <div class="door-content" th:each="project : ${ selectProject }">
-                    <p th:text="${ project.endDate }" class="d-day"></p>
-                    <div class="category-title">
-                        <div class="category">
-                            <button type="button" class="category_button">
-                                <img class="category-image" th:src="@{/image/living.png}">
-                            </button>
-                            <p class="living">카테고리</p>
-                        </div>
-                        <p class="title" name="proName" th:text="${ project.proName }"></p>
-                    </div>
-                    <p class="introduce" th:text="${ project.proIntro }"></p>
-                    <div class="goal-container">
-                        <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
-                        <p class="goal-won"> % 달성</p>
-                    </div>
-                    <div class="heart-gray-icon-container">
-                        <!--                    <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">-->
-                        <button onclick="toggleImg()" type="button" class="heart-button">
-                            <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
+            </div>
+            <!--            <th:block th:each="project : ${ selectProjectList }">-->
+            <div class="door-content" th:each="project : ${ selectProject }">
+                <p th:text="${ project.endDate }" class="d-day"></p>
+                <div class="category-title">
+                    <div class="category">
+                        <button type="button" class="category_button">
+                            <img class="category-image" th:src="@{/image/living.png}">
                         </button>
-                        <button type="submit" class="funding" onclick="send()">펀딩 후원하기</button>
-
+                        <p class="living">카테고리</p>
                     </div>
+                    <p class="title" name="proName" th:text="${ project.proName }"></p>
+                </div>
+                <p class="introduce" th:text="${ project.proIntro }"></p>
+                <div class="goal-container">
+                    <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
+                    <p class="goal-won"> % 달성</p>
+                </div>
+                <div class="heart-gray-icon-container">
+                    <!--                    <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">-->
+                    <button onclick="toggleImg()" type="button" class="heart-button">
+                        <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
+                    </button>
+                    <button type="submit" class="funding">펀딩 후원하기</button>
+
+                </div>
+            </div>
+            <!--            </th:block>-->
+        </div>
+
     </section>
     <section class="section2">
         <div class="content" th:each="project : ${ selectProject }">
@@ -113,7 +117,7 @@
                     <div class="reward-scroll">
                         <div class="reward-list" th:each=" reward : ${ project.reward }">
                             <div class="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }" onclick="toggleEvent(this)" data-fg-set="true" th:data-opt-code="${ rewardOpt.rewOptCode }">
-<!--                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">-->
+                                <!--                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">-->
                                 <div class="reward-title" th:text="${ reward.rewName }"></div>
                                 <div class="op-limit">
                                     <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>
@@ -168,6 +172,19 @@
 
                                 updateTotalAmount();
                             });
+                        });
+
+                        function test1 (event) {
+                            // console.log(event);
+
+                            // const eventDiv = event.currentTarget;
+                            const rewName = event.getElementsByClassName('reward-title')[0].innerHTML;
+                            const rewOpt = event.getElementsByClassName('reward-option')[0].innerHTML;
+                            const rewValue = event.getElementsByClassName('reward-value')[0].innerHTML;
+                            const rewOptAmount = event.getElementsByClassName('reward-price')[0].innerHTML;
+                            const rewardOptCode = event.dataset.optCode;
+
+                            let rewardExists = false;
 
                             $(".reward-choose-list .title-choose").each(function() {
                                 if ($(this).text() === rewName && $(this).next().text() === rewOpt && $(this).next().next().text() === rewValue) {
@@ -219,56 +236,76 @@
                         </div>
                     </div>
                     <script th:inline="javascript">
-                            function updateTotalAmount() {
-                                let totalAmount = 0;
 
-                                $(".reward-choose1").each(function() {
-                                    let priceText = $(this).find(".price").text();
-                                    let price = parseInt(priceText.replace(/[^0-9]/g, ''));
-                                    let quantity = parseInt($(this).find(".number").text());
-                                    totalAmount += price * quantity;
-                                });
+                        function updateTotalAmount() {
+                            let totalAmount = 0;
 
-                                $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount) + "원");
-                            };
+                            $(".reward-choose1").each(function() {
+                                let priceText = $(this).find(".price").text();
+                                let price = parseInt(priceText.replace(/[^0-9]/g, ''));
+                                let quantity = parseInt($(this).find(".number").text());
+                                totalAmount += price * quantity;
+                            });
+
+                            $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount) + "원");
+                        };
+
+
                     </script>
                 </div>
-                <form th:action="@{/order/orderPayment}" method="post">
-                    <input type="hidden" name="proName" id="proName" class="title">
-                    <input type="hidden" name="rewName" id="rewName" class="reward-title">
-                    <input type="hidden" name="rewOptName" id="rewOptName" class="reward-option">
-                    <input type="hidden" name="rewOptVal" id="rewOptVal" class="reward-value">
-                    <input type="hidden" name="rewAmount" id="rewAmount" class="reward-price">
-                    <input type="hidden" name="rewSf" id="rewSf" class="reward-sf">
+                <form th:action="@{/order/orderPayment/${member.memberId}" method="post" class="order_form">
+                    <input type="hidden" name="proCode" value="${project.proCode}">
+                    <input type="hidden" name="proName" value="${project.proName}">
+                    <input type="hidden" name="projectRewardDTOList.rewName" value="${reward.rewCode}">
+                    <input type="hidden" name="projectRewardDTOList.rewNum" value="${reward.rewNum}">
+                    <input type="hidden" name="projectRewardDTOList.rewName" value="${reward.rewName}">
+                    <input type="hidden" name="projectRewardDTOList.rewExplain" value="${reward.rewExplain}">
+                    <input type="hidden" name="projectRewardDTOList.rewSf" value="${reward.rewSf}">
+                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptCode" value="${reward.rewardOpt.rewOptCode}">
+                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptName" value="${reward.rewardOpt.rewOptName}">
+                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptVal" value="${reward.rewardOpt.rewOptVal}">
+                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptLimit" value="${reward.rewardOpt.rewOptLimit}">
+                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewAmount" value="${reward.rewardOpt.rewAmount}">
+                    <input type="hidden" name="noOfOrder" value="">
+                    <input type="hidden" name="orderAmount" value="">
                 </form>
 
                 <script>
-                    function send() {
-                        // 각 요소의 값을 설정하기 전에 폼 요소를 가져옴
-                        var proName = document.getElementById("proName");
-                        var rewName = document.getElementById("rewName");
-                        var rewOptName = document.getElementById("rewOptName");
-                        var rewOptVal = document.getElementById("rewOptVal");
-                        var rewAmount = document.getElementById("rewAmount");
-                        var rewSf = document.getElementById("rewSf");
+                    // function send() {
+                    //     // 각 요소의 값을 설정하기 전에 폼 요소를 가져옴
+                    //     var proName = document.getElementById("proName");
+                    //     var rewName = document.getElementById("rewName");
+                    //     var rewOptName = document.getElementById("rewOptName");
+                    //     var rewOptVal = document.getElementById("rewOptVal");
+                    //     var rewAmount = document.getElementById("rewAmount");
+                    //     var rewSf = document.getElementById("rewSf");
+                    //
+                    //     // 값을 설정
+                    //     proName.value = document.querySelector(".title").textContent;
+                    //     rewName.value = document.querySelector(".reward-title").textContent;
+                    //     rewOptName.value = document.querySelector(".reward-option").textContent;
+                    //     rewOptVal.value = document.querySelector(".reward-value").textContent;
+                    //     rewAmount.value = document.querySelector(".reward-price").textContent;
+                    //     rewSf.value = document.querySelector(".reward-sf").textContent;
+                    //
+                    //     // 폼을 제출
+                    //     document.querySelector("form").submit();
+                    // }
 
-                        // 값을 설정
-                        proName.value = document.querySelector(".title").textContent;
-                        rewName.value = document.querySelector(".reward-title").textContent;
-                        rewOptName.value = document.querySelector(".reward-option").textContent;
-                        rewOptVal.value = document.querySelector(".reward-value").textContent;
-                        rewAmount.value = document.querySelector(".reward-price").textContent;
-                        rewSf.value = document.querySelector(".reward-sf").textContent;
+                    $(".funding").on("click", function () {
+                       let noOfOrder = $(".reward-choose-list").children(".number").count();
+                       $(".order_form").find("input[name=noOfOrder]").val(noOfOrder);
+                       $(".order_form").submit();
 
-                        // 폼을 제출
-                        document.querySelector("form").submit();
-                    }
+                       let orderAmount = $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount));
+                        $(".order_form").find("input[name=orderAmount]").val(orderAmount);
+                        $(".order_form").submit();
+                    });
+
                 </script>
             </div>
         </div>
     </section>
 </th:block>
-
-</html>
 
 </html>
