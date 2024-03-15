@@ -15,7 +15,7 @@ public interface ProjectMapper {
 
     int insertProject(ProjectDTO project);
 
-    ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project);
+    ProjectDTO selectProjectDetail(int proCode);
 
     int insertProjectReward(List<ProjectRewardDTO> reward);
 

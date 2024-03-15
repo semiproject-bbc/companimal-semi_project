@@ -27,22 +27,13 @@ public class ProjectDTO implements java.io.Serializable {
     private int cateMain;                           // 메인 카테고리
     private int cateSub;                            // 서브 카테고리
     private int dDay;                               // 종료일 d-day
-//    private String proCateName;                     // 프로젝트 카테고리명
-//    private String rewName;                         // 리워드명
-//    private String rewExplain;                      // 리워드 설명
-//    private int rewSf;                              // 배송비
-//    private String rewOptName;                      // 옵션명
-//    private String rewOptVal;                       // 옵션값
-//    private int rewOptLimit;                        // 제한 수량
-//    private int rewAmount;                          // 리워드 금액
     private List<ProjectRewardDTO> reward;          // 프로젝트 리워드 DTO
     private List<ProjectRewardOptDTO> rewardOpt;    // 프로젝트 리워드 옵션 DTO
     private List<ProjectImageDTO> image;            // 프로젝트 이미지 DTO
     private List<ProjectFileDTO> file;              // 프로젝트 파일 DTO
     private List<ProjectCateDTO> cate;              // 프로젝트 카테고리 DTO
-
-//    private int imageAttached;
-//    private MultipartFile projectImage;
+    private int noOfOrder;                          // 주문 갯수
+    private int orderAmount;                        // 주문 금액 (배송비 제외)
     private List<OrderPaymentDTO> orderPayment;
     private List<OrderOptDTO> orderOpt;
     private List<MemberDTO> defaultMember;
@@ -144,40 +135,48 @@ public class ProjectDTO implements java.io.Serializable {
         this.defaultMember = defaultMember;
     }
 
-    //    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, String proCateName, String rewName, String rewExplain, int rewSf, String rewOptName, String rewOptVal, int rewOptLimit, int rewAmount, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment) {
-//        this.proCode = proCode;
-//        this.proName = proName;
-//        this.proIntro = proIntro;
-//        this.goalAmount = goalAmount;
-//        this.startDate = startDate;
-//        this.endDate = endDate;
-//        this.proStory = proStory;
-//        this.polNoRefund = polNoRefund;
-//        this.polAs = polAs;
-//        this.memId = memId;
-//        this.estDate = estDate;
-//        this.achRate = achRate;
-//        this.delStatus = delStatus;
-//        this.cateMain = cateMain;
-//        this.cateSub = cateSub;
-//        this.dDay = dDay;
-//        this.proCateName = proCateName;
-//        this.rewName = rewName;
-//        this.rewExplain = rewExplain;
-//        this.rewSf = rewSf;
-//        this.rewOptName = rewOptName;
-//        this.rewOptVal = rewOptVal;
-//        this.rewOptLimit = rewOptLimit;
-//        this.rewAmount = rewAmount;
-//        this.reward = reward;
-//        this.rewardOpt = rewardOpt;
-//        this.image = image;
-//        this.file = file;
-//        this.cate = cate;
-//        this.orderPayment = orderPayment;
-//    }
-
-
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, String proCateName, String rewName, String rewExplain, int rewSf, String rewOptName, String rewOptVal, int rewOptLimit, int rewAmount, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, List<OrderPaymentDTO> orderPayment) {
+        this.proCode = proCode;
+        this.proName = proName;
+        this.proIntro = proIntro;
+        this.goalAmount = goalAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.proStory = proStory;
+        this.polNoRefund = polNoRefund;
+        this.polAs = polAs;
+        this.memId = memId;
+        this.estDate = estDate;
+        this.achRate = achRate;
+        this.delStatus = delStatus;
+        this.cateMain = cateMain;
+        this.cateSub = cateSub;
+        this.dDay = dDay;
+        this.proCateName = proCateName;
+        this.rewName = rewName;
+        this.rewExplain = rewExplain;
+        this.rewSf = rewSf;
+        this.rewOptName = rewOptName;
+        this.rewOptVal = rewOptVal;
+        this.rewOptLimit = rewOptLimit;
+        this.rewAmount = rewAmount;
+        this.reward = reward;
+        this.rewardOpt = rewardOpt;
+        this.image = image;
+        this.file = file;
+        this.cate = cate;
+        this.orderPayment = orderPayment;
+        this.dDay = dDay;
+        this.reward = reward;
+        this.rewardOpt = rewardOpt;
+        this.image = image;
+        this.file = file;
+        this.cate = cate;
+        this.noOfOrder = noOfOrder;
+        this.orderAmount = orderAmount;
+        this.orderPayment = orderPayment;
+        this.orderOpt = orderOpt;
+    }
 
     public int getProCode() {
         return proCode;
@@ -347,70 +346,6 @@ public class ProjectDTO implements java.io.Serializable {
         this.cate = cate;
     }
 
-//    public String getProCateName() {
-//        return proCateName;
-//    }
-//
-//    public void setProCateName(String proCateName) {
-//        this.proCateName = proCateName;
-//    }
-//
-//    public String getRewName() {
-//        return rewName;
-//    }
-//
-//    public void setRewName(String rewName) {
-//        this.rewName = rewName;
-//    }
-//
-//    public String getRewExplain() {
-//        return rewExplain;
-//    }
-//
-//    public void setRewExplain(String rewExplain) {
-//        this.rewExplain = rewExplain;
-//    }
-//
-//    public int getRewSf() {
-//        return rewSf;
-//    }
-//
-//    public void setRewSf(int rewSf) {
-//        this.rewSf = rewSf;
-//    }
-//
-//    public String getRewOptName() {
-//        return rewOptName;
-//    }
-//
-//    public void setRewOptName(String rewOptName) {
-//        this.rewOptName = rewOptName;
-//    }
-//
-//    public String getRewOptVal() {
-//        return rewOptVal;
-//    }
-//
-//    public void setRewOptVal(String rewOptVal) {
-//        this.rewOptVal = rewOptVal;
-//    }
-//
-//    public int getRewOptLimit() {
-//        return rewOptLimit;
-//    }
-//
-//    public void setRewOptLimit(int rewOptLimit) {
-//        this.rewOptLimit = rewOptLimit;
-//    }
-//
-//    public int getRewAmount() {
-//        return rewAmount;
-//    }
-//
-//    public void setRewAmount(int rewAmount) {
-//        this.rewAmount = rewAmount;
-//    }
-
     public List<OrderPaymentDTO> getOrderPayment() {
         return orderPayment;
     }
@@ -426,7 +361,7 @@ public class ProjectDTO implements java.io.Serializable {
     public void setOrderOpt(List<OrderOptDTO> orderOpt) {
         this.orderOpt = orderOpt;
     }
-
+  
     public List<MemberDTO> getDefaultMember() {
         return defaultMember;
     }
@@ -434,29 +369,49 @@ public class ProjectDTO implements java.io.Serializable {
     public void setDefaultMember(List<MemberDTO> defaultMember) {
         this.defaultMember = defaultMember;
     }
+  
+    public int getNoOfOrder() {
+        return noOfOrder;
+    }
+
+    public void setNoOfOrder(int noOfOrder) {
+        this.noOfOrder = noOfOrder;
+    }
+
+    public int getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(int orderAmount) {
+        this.orderAmount = orderAmount;
+    }
 
     @Override
     public String toString() {
         return "ProjectDTO{" +
                 "proCode=" + proCode +
-//                ", proName='" + proName + '\'' +
-//                ", proIntro='" + proIntro + '\'' +
-//                ", goalAmount=" + goalAmount +
-//                ", startDate=" + startDate +
-//                ", endDate=" + endDate +
-//                ", proStory='" + proStory + '\'' +
-//                ", polNoRefund='" + polNoRefund + '\'' +
-//                ", polAs='" + polAs + '\'' +
-//                ", memId='" + memId + '\'' +
-//                ", estDate=" + estDate +
-//                ", achRate=" + achRate +
-//                ", delStatus='" + delStatus + '\'' +
-//                ", cateMain=" + cateMain +
-//                ", cateSub=" + cateSub +
-//                ", dDay=" + dDay +
-//                ", image=" + image +
-//                ", file=" + file +
-//                ", cate=" + cate +
+                ", proName='" + proName + '\'' +
+                ", proIntro='" + proIntro + '\'' +
+                ", goalAmount=" + goalAmount +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", proStory='" + proStory + '\'' +
+                ", polNoRefund='" + polNoRefund + '\'' +
+                ", polAs='" + polAs + '\'' +
+                ", memId='" + memId + '\'' +
+                ", estDate=" + estDate +
+                ", achRate=" + achRate +
+                ", delStatus='" + delStatus + '\'' +
+                ", cateMain=" + cateMain +
+                ", cateSub=" + cateSub +
+                ", dDay=" + dDay +
+                ", reward=" + reward +
+                ", rewardOpt=" + rewardOpt +
+                ", image=" + image +
+                ", file=" + file +
+                ", cate=" + cate +
+                ", noOfOrder=" + noOfOrder +
+                ", orderAmount=" + orderAmount +
                 ", orderPayment=" + orderPayment +
                 ", orderOpt=" + orderOpt +
                 ", defaultMember=" + defaultMember +

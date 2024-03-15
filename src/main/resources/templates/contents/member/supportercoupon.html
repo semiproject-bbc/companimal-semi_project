@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/logout_supporter_layout}">
+      layout:decorate="~{layouts/navLayout}">
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      layout:decorate="~{layouts/noNavLayout}">-->
 
 <head>
     <meta charset="UTF-8" />
@@ -13,9 +17,9 @@
         <h2>쿠폰</h2>
         <div class="d-flex couponWrap">
             <div class="d-flex couponText">
-                <p class="couponName">피트니스 전용 한정 할인 쿠폰</p>
-                <p class="couponPrice">5,000원 할인</p>
-                <p class="couponDate">2024년 2월 27일까지 사용 가능</p>
+                <p class="couponName" th:value="${ coupon.couName }"></p>
+                <p class="couponPrice" th:text="${ coupon.couAmount + '원 할인'}"></p>
+                <p class="couponDate" th:text="${ coupon.couDateTime + '일까지 사용 가능'}"></p>
             </div>
             <button class="availableCoupon">
                 <img src="/image/whitex.png" alt="다운">

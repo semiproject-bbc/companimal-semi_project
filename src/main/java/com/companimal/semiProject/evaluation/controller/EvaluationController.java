@@ -1,17 +1,16 @@
 package com.companimal.semiProject.evaluation.controller;
 
-import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
+import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDetailDTO;
 import com.companimal.semiProject.evaluation.model.service.CreatorEvaluationService;
-import com.companimal.semiProject.evaluation.model.service.EvaluationService;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/evaluation")
@@ -56,9 +55,15 @@ public class EvaluationController {
         return "/main";
     }
 
-    @GetMapping("/manager/creatorEvaluation")
-    public String creatorEvaluation() {
-        return "/contents/evaluation/manager/creatorEvaluation";
+    @GetMapping("/manager/creatorEvaluationList")
+    public ModelAndView creatorEvaluationList(ModelAndView modelAndView) {
+
+        modelAndView.addObject("CreatorEvaluationList",creatorEvaluationService.selectCreatorEvaluationList());
+
+        modelAndView.setViewName("/contents/evaluation/manager/creatorEvaluationList");
+
+
+        return modelAndView;
     }
 
     @ResponseBody
@@ -76,5 +81,52 @@ public class EvaluationController {
         return "/contents/evaluation/evacalculationlist";
     }
 
+//    @GetMapping("/manager/creatorEvaluationDetail")
+//    public ModelAndView creatorEvaluationDetail(ModelAndView modelAndView) {
+//
+//        CreatorEvaluationDTO creatorEvaluationDTO = creatorEvaluationService.selectCreatorEvaluationDetail(1);
+//
+//        String creatorType = creatorEvaluationDTO.getCreatorType();
+//
+//        modelAndView.addObject("CreatorEvaluationDTO", creatorEvaluationDTO);
+//
+//        System.out.println("1");
+//        System.out.println(creatorType);
+//        if (creatorType.equals("개인")) {
+//            modelAndView.setViewName("/contents/evaluation/manager/creatorEvaluationDetail");
+//        } else {
+//            modelAndView.setViewName("/contents/evaluation/manager/creatorBusinessEvaluationDetail");
+//        }
+//
+//        return modelAndView;
+//    }
+  
+    @GetMapping("/manager/creatorEvaluationDetail/{evaNum}")
+    public ModelAndView creatorEvaluationDetail(@PathVariable int evaNum, ModelAndView modelAndView) {
+
+        CreatorEvaluationDetailDTO creatorEvaluationDetailDTO = creatorEvaluationService.selectCreatorEvaluationDetail(evaNum);
+
+        String creatorType = creatorEvaluationDetailDTO.getCreatorType();
+
+        modelAndView.addObject("CreatorEvaluationDetailDTO", creatorEvaluationDetailDTO);
+
+        if (creatorType.equals("개인")) {
+            modelAndView.setViewName("/contents/evaluation/manager/creatorEvaluationDetail");
+        } else {
+            modelAndView.setViewName("/contents/evaluation/manager/creatorBusinessEvaluationDetail");
+        }
+
+        return modelAndView;
+    }
+
+    @GetMapping("/manager/accept/{evaNum}")
+    public String creatorAccept(@PathVariable int evaNum) {
+
+        String memId = creatorEvaluationService.selectCreatorId(evaNum);
+        String memberRole = "CREATOR";
+        creatorEvaluationService.creatorAccept(memberRole);
+        return "/contents/evaluation/manager/creatorEvaluationList";
+    }
+  
 }
 

@@ -29,7 +29,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("auth/login", "contents/member/regist", "/auth/fail", "/main", "/").permitAll();
-            auth.requestMatchers("manager/*").hasAnyAuthority(MemberRole.MANAGER.getRole());
+            auth.requestMatchers("/manager/*").hasAnyAuthority(MemberRole.MANAGER.getRole());
             auth.requestMatchers("creator/*").hasAnyAuthority(MemberRole.CREATOR.getRole());
             auth.anyRequest().permitAll();
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/navLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/evaluation/creatorEvaluationList.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<th:block layout:fragment="content">
+    
+    <div class="main">
+        <p class="creatorEvaluation">크리에이터 심사 목록</p>
+
+        <div class="labelCreatorEvaluationList">
+
+            <div class="creatorEvaluationNo">심사번호</div>
+            
+            <div class="creatorEvaluationReauestDate">심사 요청 날짜</div>
+
+            <div class="creatorId">크리에이터 아이디</div>
+
+            <div class="creatorType">크리에이터 유형</div>
+
+            <div class="labelCreatorEvaluationDetail">상세</div>
+
+            <div class="creatorEvaluationSituation">심사 상황</div>
+        </div>
+
+        <div class="creatorEvaluationList" th:each="CreatorEvaluation : ${ CreatorEvaluationList }">
+
+            <div class="creatorEvaluationNo" th:text="${ CreatorEvaluation.evaNum }">-</div>
+
+            <div class="creatorEvaluationReauestDate" th:text="${#dates.format( CreatorEvaluation.evaDatetime, 'yyyy-MM-dd')}">-</div>
+
+            <div class="creatorId" th:text="${ CreatorEvaluation.memId }">-</div>
+
+            <div class="creatorType" th:text="${ CreatorEvaluation.creatorType }">-</div>
+
+            <button type="button" class="creatorEvaluationDetail" th:onclick="'go(' + ${CreatorEvaluation.evaNum} + ')'" >상세</button>
+
+        </div>
+
+        <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">7</a>
+            <a href="#">8</a>
+            <a href="#">9</a>
+            <a href="#">10</a>
+            <a href="#">&raquo;</a>
+        </div>
+    </div>
+
+    <script th:src="@{/js/evaluation/evaluationDetail.js}"></script>
+
+</th:block>>
+</html>

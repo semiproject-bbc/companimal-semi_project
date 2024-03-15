@@ -26,6 +26,7 @@ public class ProjectServiceImpl implements ProjectService {
         this.resourceLoader = resourceLoader;
     }
 
+
     @Override
     public List<ProjectDTO> selectAllProject() {
         List<ProjectDTO> selectAllProjectList = projectMapper.selectAllProject();
@@ -41,14 +42,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public void insertProject(MultipartFile file, ProjectDTO project) {
+    public void insertProject(List<MultipartFile> files, ProjectDTO project) {
+        Map<String, List<ProjectFileDTO>> fileMap = null;
 
-        ProjectFileDTO projectFile = null;
-        ProjectFileDTO projectImage = null;
         try {
-            projectFile = FileUpload(file);
-            projectImage = FileUpload(file);
-
+            fileMap = FileUpload(files);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,24 +56,67 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
         ProjectFileDTO projectFileDTO = new ProjectFileDTO();
 
-//        projectDTO.getRewardOpt().get(1).getRewAmount(); => 펀딩 상세페이지 조회할 때 가져올 타임리프 정보
-
         projectRewardDTO.setProCode(project.getProCode());
         projectFileDTO.setProCode(project.getProCode());
 
         int result2 = projectMapper.insertProjectReward(project.getReward());
         int result3 = projectMapper.insertProjectRewardOpt(project.getRewardOpt());
-        int result4 = projectMapper.insertProjectFile(projectFile);
-        int result5 = projectMapper.insertProjectImage(projectImage);
 
-//        projectMapper.insertProjectFile(projectFile);
+        for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
+            List<ProjectFileDTO> fileList = entry.getValue();
+            for (ProjectFileDTO file : fileList) {
+                int result4 = projectMapper.insertProjectFile(file);
+                if (result4 <= 0) {
+                    // 파일 저장 실패 시 처리
+                }
+            }
+        }
 
-        if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0 && result5 > 0) {
+        if (result1 > 0 && result2 > 0 && result3 > 0) {
             System.out.println("프로젝트 등록 성공!");
         } else {
             System.out.println("프로젝트 등록 실패~!");
         }
     }
+
+
+//    @Override
+//    @Transactional
+//    public void insertProject(MultipartFile file, ProjectDTO project) {
+//
+//        ProjectFileDTO projectFile = null;
+//        ProjectFileDTO projectImage = null;
+//        try {
+//            projectFile = FileUpload(file);
+//            projectImage = FileUpload(file);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        int result1 = projectMapper.insertProject(project);
+//
+//        ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
+//        ProjectFileDTO projectFileDTO = new ProjectFileDTO();
+//
+////        projectDTO.getRewardOpt().get(1).getRewAmount(); => 펀딩 상세페이지 조회할 때 가져올 타임리프 정보
+//
+//        projectRewardDTO.setProCode(project.getProCode());
+//        projectFileDTO.setProCode(project.getProCode());
+//
+//        int result2 = projectMapper.insertProjectReward(project.getReward());
+//        int result3 = projectMapper.insertProjectRewardOpt(project.getRewardOpt());
+//        int result4 = projectMapper.insertProjectFile(projectFile);
+//        int result5 = projectMapper.insertProjectImage(projectImage);
+//
+////        projectMapper.insertProjectFile(projectFile);
+//
+//        if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0 && result5 > 0) {
+//            System.out.println("프로젝트 등록 성공!");
+//        } else {
+//            System.out.println("프로젝트 등록 실패~!");
+//        }
+//    }
 
     @Override
     public void insertImage(MultipartFile file) {
@@ -136,10 +177,12 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
-    public ProjectFileDTO FileUpload(MultipartFile file) throws IOException {
+    public ProjectFileDTO FileUpload1(MultipartFile file) throws IOException {
 
         Resource resource = resourceLoader.getResource("classpath:static/image/store");
         String proFilePath = null;
+
+        ProjectFileDTO projectFile = null;
 
         if (!resource.exists()) {
             String root = "src/main/resources/static/image/store";
@@ -163,14 +206,14 @@ public class ProjectServiceImpl implements ProjectService {
             /* 파일 저장 */
             file.transferTo(new File(proFilePath + "/" + proFileName));
 
-            ProjectFileDTO projectFile = new ProjectFileDTO(0, 1, proFilePath, proFileName, proFileOriName);
+            projectFile = new ProjectFileDTO(0, 1, proFilePath, proFileName, proFileOriName);
 
-            return projectFile;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+
+        return projectFile;
     }
 
 
@@ -263,8 +306,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public ProjectDTO selectProjectDetail(Integer proCode, ProjectDTO project) {
-        return projectMapper.selectProjectDetail(proCode, project);
+    public ProjectDTO selectProjectDetail(int proCode) {
+        return projectMapper.selectProjectDetail(proCode);
     }
 
     @Override

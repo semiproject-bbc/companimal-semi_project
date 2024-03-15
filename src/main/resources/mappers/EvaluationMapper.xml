@@ -51,6 +51,141 @@
         <association property="project" resultMap="projectResultMap" />
     </resultMap>
 
+    <resultMap id="CreatorEvaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDTO">
+        <id property="evaNum" column="EVA_NUM" />
+        <result property="evaDatetime" column="EVA_DATETIME" />
+        <result property="evaSituation" column="EVA_SITUATION" />
+        <result property="reaRejection" column="REA_REJECTION" />
+        <result property="memId" column="MEM_ID" />
+        <result property="creInqPhone" column="CRE_INQ_PHONE" />
+        <result property="creInqEmail" column="CRE_INQ_EMAIL" />
+        <result property="creImgName" column="CRE_IMG_NAME" />
+        <result property="creImgPath" column="CRE_IMG_PATH" />
+        <result property="creImgOriName" column="CRE_IMG_ORI_NAME" />
+        <result property="bankName" column="BANK_NAME" />
+        <result property="accountNo" column="ACCOUNT_NO" />
+        <result property="depositorName" column="DEPOSITOR_NAME" />
+        <result property="busiNum" column="BUSI_NUM" />
+        <result property="busiName" column="BUSI_NAME" />
+        <result property="busiDate" column="BUSI_DATE" />
+        <result property="busiType" column="BUSI_TYPE" />
+        <result property="busiIndu" column="BUSI_INDUSTRY" />
+        <result property="busiLoca" column="BUSI_LOCA" />
+        <result property="busiSize" column="BUSI_SIZE" />
+        <result property="busiUrl" column="BUSI_URL" />
+        <result property="authName" column="AUTH_NAME" />
+        <result property="authNum" column="AUTH_NUM" />
+        <result property="creatorType" column="CREATOR_TYPE"/>
+    </resultMap>
+
+    <resultMap id="CreatorEvaluationDetailResultMap" type="com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDetailDTO">
+        <id property="evaNum" column="EVA_NUM" />
+        <result property="evaDatetime" column="EVA_DATETIME" />
+        <result property="evaSituation" column="EVA_SITUATION" />
+        <result property="reaRejection" column="REA_REJECTION" />
+        <result property="memId" column="MEM_ID" />
+        <result property="creInqPhone" column="CRE_INQ_PHONE" />
+        <result property="creInqEmail" column="CRE_INQ_EMAIL" />
+        <result property="creImgName" column="CRE_IMG_NAME" />
+        <result property="creImgPath" column="CRE_IMG_PATH" />
+        <result property="creImgOriName" column="CRE_IMG_ORI_NAME" />
+        <result property="bankName" column="BANK_NAME" />
+        <result property="accountNo" column="ACCOUNT_NO" />
+        <result property="depositorName" column="DEPOSITOR_NAME" />
+        <result property="busiNum" column="BUSI_NUM" />
+        <result property="busiName" column="BUSI_NAME" />
+        <result property="busiDate" column="BUSI_DATE" />
+        <result property="busiType" column="BUSI_TYPE" />
+        <result property="busiIndu" column="BUSI_INDUSTRY" />
+        <result property="busiLoca" column="BUSI_LOCA" />
+        <result property="busiSize" column="BUSI_SIZE" />
+        <result property="busiUrl" column="BUSI_URL" />
+        <result property="authName" column="AUTH_NAME" />
+        <result property="authNum" column="AUTH_NUM" />
+        <result property="creatorType" column="CREATOR_TYPE"/>
+        <collection property="files" ofType="com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO">
+            <result property="creFilePath" column="CRE_FILE_PATH"/>
+            <result property="creFileName" column="CRE_FILE_NAME"/>
+            <result property="creFileOriName" column="CRE_FILE_ORI_NAME"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap">
+        SELECT
+            C.MEM_ID ,
+            E.EVA_NUM ,
+            E.EVA_DATETIME ,
+            E.EVA_SITUATION ,
+            E.REA_REJECTION ,
+            I.CRE_INQ_PHONE ,
+            I.CRE_INQ_EMAIL ,
+            I.CRE_IMG_NAME ,
+            I.CRE_IMG_PATH ,
+            I.CRE_IMG_ORI_NAME ,
+            I.BANK_NAME ,
+            I.ACCOUNT_NO ,
+            I.DEPOSITOR_NAME ,
+            B.BUSI_NUM ,
+            B.BUSI_NAME ,
+            B.BUSI_DATE ,
+            B.BUSI_TYPE ,
+            B.BUSI_INDUSTRY ,
+            B.BUSI_LOCA ,
+            B.BUSI_SIZE ,
+            B.BUSI_URL ,
+            B.AUTH_NAME ,
+            B.AUTH_NUM,
+            CASE
+                WHEN B.BUSI_NUM IS NULL THEN '개인'
+                ELSE '사업자'
+            END AS CREATOR_TYPE
+        FROM CREATOR_EVA C
+        JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
+        JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
+        LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID
+        ORDER BY C.EVA_NUM ASC;
+    </select>
+
+    <select id="selectCreatorEvaluationDetail" resultMap="CreatorEvaluationDetailResultMap">
+        SELECT
+            C.MEM_ID ,
+            E.EVA_NUM ,
+            E.EVA_DATETIME ,
+            E.EVA_SITUATION ,
+            E.REA_REJECTION ,
+            I.CRE_INQ_PHONE ,
+            I.CRE_INQ_EMAIL ,
+            I.CRE_IMG_NAME ,
+            I.CRE_IMG_PATH ,
+            I.CRE_IMG_ORI_NAME ,
+            I.BANK_NAME ,
+            I.ACCOUNT_NO ,
+            I.DEPOSITOR_NAME ,
+            B.BUSI_NUM ,
+            B.BUSI_NAME ,
+            B.BUSI_DATE ,
+            B.BUSI_TYPE ,
+            B.BUSI_INDUSTRY ,
+            B.BUSI_LOCA ,
+            B.BUSI_SIZE ,
+            B.BUSI_URL ,
+            B.AUTH_NAME ,
+            B.AUTH_NUM,
+            F.CRE_FILE_PATH ,
+            F.CRE_FILE_NAME ,
+            F.CRE_FILE_ORI_NAME,
+            CASE
+                WHEN B.BUSI_NUM IS NULL THEN '개인'
+                ELSE '사업자'
+                END AS CREATOR_TYPE
+        FROM CREATOR_EVA C
+                 JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
+                 JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
+                 LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID
+                 JOIN CREATOR_FILE F ON I.MEM_ID = F.MEM_ID
+        WHERE C.EVA_NUM = #{ evaNum }
+    </select>
+
     <insert id="insertCreatorInfo" parameterType="com.companimal.semiProject.project.model.dto.CreatorInfoDTO">
         INSERT
         INTO CREATOR_iNFO (
@@ -98,12 +233,12 @@
     <insert id="insertEvaluation" parameterType="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
         INSERT
         INTO EVALUATION (
-                         EVA_DATETIME
+                          EVA_DATETIME
                          ,EVA_SITUATION
                          )
         VALUES (
-                #{ evaDateTime }
-                #{ evaSituation }
+                 #{ evaDateTime }
+                ,#{ evaSituation }
                )
         <selectKey keyProperty="evaNum" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -128,4 +263,21 @@
             SET cal_app_datetime = now()
             WHERE pro_code = #{proCode}
     </update>
+
+    <insert id="insertCreatorEva" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorEvaDTO">
+        INSERT
+        INTO CREATOR_EVA (
+                          MEM_ID
+                          ,EVA_NUM
+                        )
+        VALUES (
+                #{ memId }
+                ,#{ evaNum }
+               )
+    </insert>
+
+    <select id="selectCreatorId" resultType="String">
+
+    </select>
+
 </mapper>
