@@ -2,6 +2,7 @@ package com.companimal.semiProject.order.model.dto;
 
 import java.sql.Timestamp;
 
+
 public class CouponDTO {
 
     private String couCode;

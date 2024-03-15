@@ -13,7 +13,7 @@ public class OrderPaymentDTO {
     private int finalPay;           // 최종 결제 금액
     private int proCode;            // 프로젝트 코드
     private String couCode;         // 쿠폰 코드
-    private Timestamp purchaseStatus;   // 구매 상태
+    private Timestamp purchaseStatus;   // 구매 확정 일시
 
     public OrderPaymentDTO() {
     }

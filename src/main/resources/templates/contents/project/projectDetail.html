@@ -56,10 +56,6 @@
                         <button type="submit" class="funding" onclick="send()">펀딩 후원하기</button>
 
                     </div>
-                </div>
-                <!--            </th:block>-->
-            </div>
-
     </section>
     <section class="section2">
         <div class="content" th:each="project : ${ selectProject }">
@@ -172,19 +168,6 @@
 
                                 updateTotalAmount();
                             });
-                        });
-
-                        function test1 (event) {
-                            // console.log(event);
-
-                            // const eventDiv = event.currentTarget;
-                            const rewName = event.getElementsByClassName('reward-title')[0].innerHTML;
-                            const rewOpt = event.getElementsByClassName('reward-option')[0].innerHTML;
-                            const rewValue = event.getElementsByClassName('reward-value')[0].innerHTML;
-                            const rewOptAmount = event.getElementsByClassName('reward-price')[0].innerHTML;
-                            const rewardOptCode = event.dataset.optCode;
-
-                            let rewardExists = false;
 
                             $(".reward-choose-list .title-choose").each(function() {
                                 if ($(this).text() === rewName && $(this).next().text() === rewOpt && $(this).next().next().text() === rewValue) {
@@ -236,7 +219,6 @@
                         </div>
                     </div>
                     <script th:inline="javascript">
-
                             function updateTotalAmount() {
                                 let totalAmount = 0;
 
@@ -249,8 +231,6 @@
 
                                 $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount) + "원");
                             };
-
-
                     </script>
                 </div>
                 <form th:action="@{/order/orderPayment}" method="post">
@@ -288,5 +268,7 @@
         </div>
     </section>
 </th:block>
+
+</html>
 
 </html>
