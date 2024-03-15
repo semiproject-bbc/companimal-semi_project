@@ -80,16 +80,7 @@
         <result property="delStatus" column="del_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
-<!--        <association property="rewName" resultMap="projectRewardResultMap"/>-->
-<!--        <association property="rewExplain" resultMap="projectRewardResultMap"/>-->
-<!--        <association property="rewSf" resultMap="projectRewardResultMap"/>-->
-<!--        <association property="rewOptName" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="rewOptVal" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="rewOptLimit" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="rewAmount" resultMap="projectRewardOptResultMap"/>-->
-<!--        <association property="proCateName" resultMap="projectCateResultMap"/>-->
         <collection property="reward" resultMap="projectRewardResultMap"/>
-<!--        <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>-->
         <collection property="image" resultMap="projectImageResultMap"/>
 <!--        <collection property="file" resultMap="projectFileResultMap"/>-->
         <collection property="cate" resultMap="projectCateResultMap"/>

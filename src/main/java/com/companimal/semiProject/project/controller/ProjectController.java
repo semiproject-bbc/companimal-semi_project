@@ -1,6 +1,9 @@
 package com.companimal.semiProject.project.controller;
 
+import com.companimal.semiProject.order.model.dto.RewardDTO;
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
+import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
+import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
 import com.companimal.semiProject.project.model.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,16 +65,15 @@ public class ProjectController {
     }
 
     @PostMapping("/projectRegist")
-    public String insertProject(@RequestParam MultipartFile file
-                                , @ModelAttribute ProjectDTO project) throws IOException {
-
+    public String insertProject(@RequestParam("files") List<MultipartFile> files,
+                                @ModelAttribute ProjectDTO project) throws IOException {
         System.out.println(project);
 
-        projectService.insertProject(file, project);
+        projectService.insertProject(files, project);
 
         return "contents/project/projectRegistAfter";
-
     }
+
 
     @GetMapping("/projectImage")
     public String imageInsert() {

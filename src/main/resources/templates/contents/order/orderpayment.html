@@ -29,29 +29,29 @@
     </div>
     <div class="productInfo">주문제품 정보</div>
 
-    <div class="ProductInformation">
+    <div class="ProductInformation" th:each="project : ${ selectProject }">
         <img class="productImage" loading="lazy" alt="강아지 제품에 대한 정보 소개" src="/image/dogItem.png">
         <div class="productInfo-container">
             <div class="productName-container">
-                <div class="projectName">프로젝트명</div>
-                <div class="projectNameInfo" th:text="${ proName }">프로젝트명</div>
+                <div class="projectName">>프로젝트명</div>
+                <div class="projectNameInfo" th:text="${ project.proName }">프로젝트명</div>
             </div>
             <div class="rewardName-container">
                 <div class="rewardName">리워드명</div>
-                <div class="rewardNameInfo" th:text="${ rewName }">리워드명</div>
+                <div class="rewardNameInfo" th:text="${ project.rewName }">리워드명</div>
             </div>
 
             <div class="NoOfProject-container">
                 <div class="NoOfProject">갯수</div>
-                <div class="deliverFeeAmount" th:text="${ rewSf }">주문한 수량</div>
+                <div class="deliverFeeAmount" th:text="${ project.rewSf }">주문한 수량</div>
             </div>
             <div class="coupon-container">
                 <div class="coupon">쿠폰 할인</div>
-                <div class="couponDiscount" th:text="${ couCode }">쿠폰 할인</div>
+                <div class="couponDiscount" >쿠폰 할인</div>
             </div>
             <div class="orderFee-container">
                 <div class="orderFee">주문 금액</div>
-                <div class="orderAmount" th:text="${ finalPay }">주문 금액</div>
+                <div class="orderAmount">주문 금액</div>
             </div>
         </div>
     </div>

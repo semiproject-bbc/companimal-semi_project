@@ -4,6 +4,7 @@ import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dao.OrderMapper;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
 import com.companimal.semiProject.order.model.dto.OrderRewardInfoDTO;
+import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -58,5 +59,6 @@ public class OrderServiceImpl implements OrderService {
 
         return result;
     }
+
 }
 

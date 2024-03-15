@@ -132,4 +132,5 @@
         SET purchase_status = now()
         WHERE order_code = #{orderCode}
     </update>
+
 </mapper>

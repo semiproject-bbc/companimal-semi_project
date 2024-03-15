@@ -53,38 +53,8 @@
                         <button onclick="toggleImg()" type="button" class="heart-button">
                             <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
                         </button>
-                        <button type="submit" class="funding" onclick="send()" th:href="@{/order/orderPayment}">펀딩 후원하기</button>
-                        <form th:action="@{/order/orderPayment}" method="post">
-                            <input type="hidden" name="proName" id="proName" class="title">
-                            <input type="hidden" name="rewName" id="rewName" class="reward-title">
-                            <input type="hidden" name="rewOptName" id="rewOptName" class="reward-option">
-                            <input type="hidden" name="rewOptVal" id="rewOptVal" class="reward-value">
-                            <input type="hidden" name="rewAmount" id="rewAmount" class="reward-price">
-                            <input type="hidden" name="rewSf" id="rewSf" class="reward-sf">
-                        </form>
+                        <button type="submit" class="funding" onclick="send()">펀딩 후원하기</button>
 
-                        <script>
-                            function send() {
-                                // 각 요소의 값을 설정하기 전에 폼 요소를 가져옴
-                                var proName = document.getElementById("proName");
-                                var rewName = document.getElementById("rewName");
-                                var rewOptName = document.getElementById("rewOptName");
-                                var rewOptVal = document.getElementById("rewOptVal");
-                                var rewAmount = document.getElementById("rewAmount");
-                                var rewSf = document.getElementById("rewSf");
-
-                                // 값을 설정
-                                proName.value = document.querySelector(".title").textContent;
-                                rewName.value = document.querySelector(".reward-title").textContent;
-                                rewOptName.value = document.querySelector(".reward-option").textContent;
-                                rewOptVal.value = document.querySelector(".reward-value").textContent;
-                                rewAmount.value = document.querySelector(".reward-price").textContent;
-                                rewSf.value = document.querySelector(".reward-sf").textContent;
-
-                                // 폼을 제출
-                                document.querySelector("form").submit();
-                            }
-                        </script>
                     </div>
                 </div>
                 <!--            </th:block>-->
@@ -146,7 +116,8 @@
                     <p class="sub-info">리워드 선택</p>
                     <div class="reward-scroll">
                         <div class="reward-list" th:each=" reward : ${ project.reward }">
-                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">
+                            <div class="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }" onclick="toggleEvent(this)" data-fg-set="true" th:data-opt-code="${ rewardOpt.rewOptCode }">
+<!--                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">-->
                                 <div class="reward-title" th:text="${ reward.rewName }"></div>
                                 <div class="op-limit">
                                     <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>
@@ -167,48 +138,8 @@
 
                         $(document).ready(function () {
 
-                            $(".reward-1").click(function func1 (event) {
-                                const eventDiv = event.currentTarget;
-                                const rewName = eventDiv.getElementsByClassName('reward-title')[0].innerHTML;
-                                const rewOpt = eventDiv.getElementsByClassName('reward-option')[0].innerHTML;
-                                const rewValue = eventDiv.getElementsByClassName('reward-value')[0].innerHTML;
-                                const rewOptAmount = eventDiv.getElementsByClassName('reward-price')[0].innerHTML;
-
-                                let rewardExists = false;
-
-
-                                $(".reward-choose-list .title-choose").each(function() {
-                                    if ($(this).text() === rewName && $(this).next().text() === rewOpt && $(this).next().next().text() === rewValue) {
-                                        rewardExists = true;
-                                        return false; // Exit the loop early
-                                    }
-                                });
-
-                                if (!rewardExists) {
-                                    $(".reward-choose-list").append(
-                                        "<div class=\"reward-choose1\">" +
-                                        "<span class=\"title-choose\">" + rewName + "</span><br>" +
-                                        "<span class=\"op-choose\">" + rewOpt + " : </span>" +
-                                        "<span class=\"op-choose\">" + rewValue + "</span>" +
-                                        "<div class=\"count-price\">" +
-                                        "<div class=\"counts\">" +
-                                        "<div class=\"minus\">-</div>" +
-                                        "<div class=\"number\" name='noOfOrder'>1</div>" +
-                                        "<div class=\"plus\">+</div>" +
-                                        "</div>" +
-                                        "<div class=\"price\" name='orderAmount'>" + rewOptAmount + " 원</div>" +
-                                        "</div>" +
-                                        "</div><br>"
-                                    );
-
-                                    updateTotalAmount();
-
-                                    $(this).off('click'); // Disable click on current reward-1
-                                }
-                            });
-
-
                             $(document).on("click", ".minus", function() {
+                                console.log($(this));
                                 let quantityElement = $(this).siblings('.number');
                                 let currentQuantity = parseInt(quantityElement.text());
 
@@ -217,7 +148,17 @@
 
                                     if (currentQuantity - 1 === 0) {
                                         $(this).closest(".reward-choose1").remove();
-                                        $(".reward-1").on('click', func1 (this)); // Enable clicking on reward-1 again
+                                        // $(".reward-1").on('click', func1 (this)); // Enable clicking on reward-1 again
+                                        // minus (this)가 가진 dataset의 optCode(A) 찾아
+                                        const minusOptCode = $(this).attr("data-opt-code");
+
+                                        console.log(minusOptCode);
+
+                                        // .reward-1 배열 받아서 find() A와 같은 optCode 가진 div 찾아
+                                        const optCodeDiv = Array.from(document.querySelectorAll('.reward-1')).find(opt => opt.dataset.optCode === minusOptCode);
+
+                                        // (찾은 div).dataset.fgSet = "true";
+                                        optCodeDiv.dataset.fgSet = "true";
                                     }
 
                                     updateTotalAmount();
@@ -233,6 +174,54 @@
                             });
                         });
 
+                        function test1 (event) {
+                            // console.log(event);
+
+                            // const eventDiv = event.currentTarget;
+                            const rewName = event.getElementsByClassName('reward-title')[0].innerHTML;
+                            const rewOpt = event.getElementsByClassName('reward-option')[0].innerHTML;
+                            const rewValue = event.getElementsByClassName('reward-value')[0].innerHTML;
+                            const rewOptAmount = event.getElementsByClassName('reward-price')[0].innerHTML;
+                            const rewardOptCode = event.dataset.optCode;
+
+                            let rewardExists = false;
+
+                            $(".reward-choose-list .title-choose").each(function() {
+                                if ($(this).text() === rewName && $(this).next().text() === rewOpt && $(this).next().next().text() === rewValue) {
+                                    rewardExists = true;
+                                    return false; // Exit the loop early
+                                }
+                            });
+
+                            if (!rewardExists) {
+                                $(".reward-choose-list").append(
+                                    "<div class=\"reward-choose1\">" +
+                                    "<span class=\"title-choose\">" + rewName + "</span><br>" +
+                                    "<span class=\"op-choose\">" + rewOpt + " : </span>" +
+                                    "<span class=\"op-choose\">" + rewValue + "</span>" +
+                                    "<div class=\"count-price\">" +
+                                    "<div class=\"counts\">" +
+                                    "<div class=\"minus\" data-opt-code=" + rewardOptCode + ">-</div>" +
+                                    "<div class=\"number\" name='noOfOrder'>1</div>" +
+                                    "<div class=\"plus\">+</div>" +
+                                    "</div>" +
+                                    "<div class=\"price\" name='orderAmount'>" + rewOptAmount + " 원</div>" +
+                                    "</div>" +
+                                    "</div><br>"
+                                );
+                            }
+
+                            updateTotalAmount();
+                        }
+
+                        function toggleEvent(event) {
+                            if(event.dataset.fgSet === "true") {
+                                event.dataset.fgSet = "false";
+                                test1(event);
+                            }
+
+                            console.log(event.dataset.optCode);
+                        }
                     </script>
                     <div class="reward-choose">
                         <div class="reward-choose-list" id="reward-choose-list">
@@ -264,10 +253,37 @@
 
                     </script>
                 </div>
+                <form th:action="@{/order/orderPayment}" method="post">
+                    <input type="hidden" name="proName" id="proName" class="title">
+                    <input type="hidden" name="rewName" id="rewName" class="reward-title">
+                    <input type="hidden" name="rewOptName" id="rewOptName" class="reward-option">
+                    <input type="hidden" name="rewOptVal" id="rewOptVal" class="reward-value">
+                    <input type="hidden" name="rewAmount" id="rewAmount" class="reward-price">
+                    <input type="hidden" name="rewSf" id="rewSf" class="reward-sf">
+                </form>
 
+                <script>
+                    function send() {
+                        // 각 요소의 값을 설정하기 전에 폼 요소를 가져옴
+                        var proName = document.getElementById("proName");
+                        var rewName = document.getElementById("rewName");
+                        var rewOptName = document.getElementById("rewOptName");
+                        var rewOptVal = document.getElementById("rewOptVal");
+                        var rewAmount = document.getElementById("rewAmount");
+                        var rewSf = document.getElementById("rewSf");
 
+                        // 값을 설정
+                        proName.value = document.querySelector(".title").textContent;
+                        rewName.value = document.querySelector(".reward-title").textContent;
+                        rewOptName.value = document.querySelector(".reward-option").textContent;
+                        rewOptVal.value = document.querySelector(".reward-value").textContent;
+                        rewAmount.value = document.querySelector(".reward-price").textContent;
+                        rewSf.value = document.querySelector(".reward-sf").textContent;
 
-
+                        // 폼을 제출
+                        document.querySelector("form").submit();
+                    }
+                </script>
             </div>
         </div>
     </section>
