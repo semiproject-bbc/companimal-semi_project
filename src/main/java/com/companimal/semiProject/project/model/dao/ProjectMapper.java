@@ -13,7 +13,7 @@ public interface ProjectMapper {
 
     ProjectDTO selectProject();
 
-    int insertProject(ProjectDTO project);
+    int insertProject(ProjectDTO project, String memId);
 
     ProjectDTO selectProjectDetail(int proCode);
 

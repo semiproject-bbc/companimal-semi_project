@@ -14,7 +14,7 @@ public interface ProjectService {
     ProjectDTO selectProject();
 
     @Transactional
-    void insertProject(List<MultipartFile> files, ProjectDTO project);
+    void insertProject(MultipartFile[] files, ProjectDTO project, String memId);
 
 //    @Transactional
 //    void insertProject(MultipartFile file, ProjectDTO project) throws IOException;

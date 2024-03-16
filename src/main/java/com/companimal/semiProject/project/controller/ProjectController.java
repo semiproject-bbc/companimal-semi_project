@@ -21,14 +21,14 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-//    @GetMapping("/")
-//    public String selectAllProject(Model model) {
-//        List<ProjectDTO> selectAllProjectList = projectService.selectAllProject();
-//
-//        model.addAttribute("selectAllProjectList", selectAllProjectList);
-//
-//        return "main";
-//    }
+    @GetMapping("/")
+    public String selectAllProject(Model model) {
+        List<ProjectDTO> selectAllProjectList = projectService.selectAllProject();
+
+        model.addAttribute("selectAllProjectList", selectAllProjectList);
+
+        return "main";
+    }
 
     @GetMapping("/projectPage")
     public String selectProject(Model model) {
@@ -63,11 +63,15 @@ public class ProjectController {
     }
 
     @PostMapping("/projectRegist")
-    public String insertProject(@RequestParam("files") List<MultipartFile> files,
-                                @ModelAttribute ProjectDTO project) throws IOException {
-        System.out.println(project);
+    public String insertProject(@RequestParam("files") MultipartFile[] files,
+                                @ModelAttribute ProjectDTO project,
+                                Authentication authentication) throws IOException {
 
-        projectService.insertProject(files, project);
+        String memId = authentication.getName();
+        projectService.insertProject(files, project, memId);
+
+        System.out.println(files);
+        System.out.println(project);
 
         return "contents/project/projectRegistAfter";
     }
