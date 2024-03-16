@@ -45,7 +45,7 @@
                 </div>
                 <p class="introduce" th:text="${ project.proIntro }"></p>
                 <div class="goal-container">
-                    <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
+                    <p class="goal-price" th:text="${ project.achRate }"></p>
                     <p class="goal-won"> % 달성</p>
                 </div>
                 <div class="heart-gray-icon-container">
@@ -106,9 +106,9 @@
                     <p class="sub-info">크리에이터 정보</p>
                     <div class="creater-info">
                         <div><img class="creater-image" th:src="@{/image/creater1.png}"></div>
-                        <div>크리에이터 명<br>
-                            070-XXXX-XXXX<br>
-                            Creater@email.com
+                        <div th:text="${ project.member.memberNickname }"><br>
+                        <div th:text="${ project.member.memberPhone }">
+<!--                        <div th:text="${ project.member.memberEmail }">-->
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="reward-content">
                                     <span class="reward-price" th:text="${ rewardOpt.rewAmount }"></span> 원<br>
-                                    배송비 <span class="reward-etc reward-sf" th:text="${ reward.rewSf }"></span><br>
+                                    배송비  <span class="reward-etc reward-sf" th:text="${ reward.rewSf }"></span><br>
                                     <span class="reward-etc reward-explain" th:text="${ reward.rewExplain }"></span>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
 
                     </script>
                 </div>
-                <form th:action="@{/order/orderPayment/${member.memberId}" method="post" class="order_form">
+                <form th:action="@{/order/orderPayment}" method="post" class="order_form">
                     <input type="hidden" name="proCode" value="${project.proCode}">
                     <input type="hidden" name="proName" value="${project.proName}">
                     <input type="hidden" name="projectRewardDTOList.rewName" value="${reward.rewCode}">
@@ -293,8 +293,9 @@
                     // }
 
                     $(".funding").on("click", function () {
-                       let noOfOrder = $(".reward-choose-list").children(".number").count();
-                       $(".order_form").find("input[name=noOfOrder]").val(noOfOrder);
+                       let noOfOrder = $(".reward-choose-list.number").toArray().reduce(
+                           (acc, el) => acc + parseInt($(el).text(), 0));
+                       $("input[name=noOfOrder]").val(noOfOrder);
                        $(".order_form").submit();
 
                        let orderAmount = $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount));
