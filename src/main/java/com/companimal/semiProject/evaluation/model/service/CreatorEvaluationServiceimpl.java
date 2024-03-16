@@ -90,35 +90,35 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
     @Transactional
     public void updateCreatorRole(String memId, String memberRole) {
 
-        if (evaluationMapper.updateCreatorRole(memId, memberRole)) {
-            System.out.println("크리에이터 권한 업데이트 성공");
-            evaluationMapper.deleteCreatorEvaluation(memId);
-        } else {
-            System.out.println("크리에이터 권한 업데이트 실패");
-        }
+        evaluationMapper.updateCreatorRole(memId, memberRole);
+        System.out.println("크리에이터 권한 업데이트 성공");
+
+        evaluationMapper.deleteCreatorEvaluation(memId);
+        System.out.println("크리에이터 심사 삭제");
+
     }
 
     @Override
     @Transactional
     public void deleteCreatorEvaluation(int evaNum, String reaRejection, String memId) {
 
-        System.out.println("서비스 진입");
+//        System.out.println("서비스 진입");
 
         evaluationMapper.deleteCreatorEvaluation(memId);
-        System.out.println("크리에이터 심사 삭제");
+//        System.out.println("크리에이터 심사 삭제");
 
         evaluationMapper.deleteCreatorFile(memId);
-        System.out.println("크리에이터 파일 삭제");
+//        System.out.println("크리에이터 파일 삭제");
 
         evaluationMapper.deleteCreatorInfo(memId);
-        System.out.println("크리에이터 정보 삭제");
+//        System.out.println("크리에이터 정보 삭제");
 
         Map<String, Object> map = new HashMap<>();
         map.put("evaNum", evaNum);
         map.put("reaRejection", reaRejection);
         map.put("evaSituation", "반려");
         evaluationMapper.updateEvaluation(map);
-        System.out.println("반려 사유 추가");
+//        System.out.println("심사 정보 업데이트");
     }
 
     public Map<String, String> saveFile(MultipartFile creatorFile) throws IOException {

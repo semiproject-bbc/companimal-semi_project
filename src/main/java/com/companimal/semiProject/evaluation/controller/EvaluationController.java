@@ -104,8 +104,8 @@ public class EvaluationController {
         return modelAndView;
     }
 
-    @PostMapping("/manager/accept/{evaNum}")
-    public String creatorAccept(@PathVariable int evaNum) {
+    @GetMapping("/manager/accept")
+    public String creatorAccept(@RequestParam("evaNum") int evaNum) {
         System.out.println("컨트롤러 진입");
         String memId = creatorEvaluationService.selectCreatorId(evaNum);
         System.out.println(memId);
@@ -125,7 +125,6 @@ public class EvaluationController {
         System.out.println(reaRejection);
         System.out.println(memId);
         creatorEvaluationService.deleteCreatorEvaluation(evaNum, reaRejection, memId);
-        System.out.println("컨트롤러 복귀");
 
         return  "/contents/evaluation/manager/creatorEvaluationList";
     }

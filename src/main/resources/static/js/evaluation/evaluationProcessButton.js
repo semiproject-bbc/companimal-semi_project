@@ -11,6 +11,24 @@ function closeModal() {
     modal.style.display = "none";
 }
 
+function creatorAccept() {
+    let evaNum = document.getElementById("hiddenDiv").textContent;
+
+    // AJAX 요청 보내기
+    $.ajax({
+        type: "GET",
+        url: "/evaluation/manager/accept",
+        data: {evaNum: evaNum},
+        success: function () {
+            window.location.href = "/evaluation/evaluationProcessAfter";
+        },
+        error: function () {
+            $('#modalText').text("요청을 보내는 동안 오류가 발생했습니다");
+            $('#myModal').show();
+        }
+    });
+}
+
 // 반려 사유를 컨트롤러로 전송하는 함수
 function sendRejectionReason() {
     let evaNum = document.getElementById("hiddenDiv").textContent;
@@ -42,3 +60,6 @@ closeButton.addEventListener("click", closeModal);
 // 모달 창의 반려 버튼에 이벤트 핸들러 설정
 var submitButton = document.getElementById("submitRejection");
 submitButton.addEventListener("click", sendRejectionReason);
+
+var submitButton = document.getElementById("accept");
+submitButton.addEventListener("click", creatorAccept);

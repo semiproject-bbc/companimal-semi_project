@@ -30,7 +30,7 @@ public interface EvaluationMapper {
 
     String selectCreatorId(int evaNum);
 
-    boolean updateCreatorRole(String memId, String memberRole);
+    void updateCreatorRole(String memId, String memberRole);
 
     void deleteCreatorEvaluation(String memId);
 
