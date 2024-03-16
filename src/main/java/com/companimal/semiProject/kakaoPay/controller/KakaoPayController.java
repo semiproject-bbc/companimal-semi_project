@@ -5,14 +5,11 @@ import com.companimal.semiProject.kakaoPay.service.KakaoPay;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
 import com.companimal.semiProject.order.model.dto.GetOrderDetailsInfoDTO;
-import com.companimal.semiProject.order.model.dto.OrderDetailsDTO;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import com.companimal.semiProject.order.model.service.OrderService;
-import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Log
 @Controller
+@RequestMapping("/pay")
 public class KakaoPayController {
 
     private final KakaoPay kakaopay;

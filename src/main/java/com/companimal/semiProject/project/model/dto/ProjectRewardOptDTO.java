@@ -5,10 +5,10 @@ public class ProjectRewardOptDTO implements java.io.Serializable {
     private String rewOptCode;      // 리워드 옵션 코드
     private String rewCode;         // 리워드 코드
     private int rewOptNum;          // 리워드 옵션 번호
-    private String rewOptName;      // 옵션명
-    private String rewOptVal;       // 옵션값
+    private String rewOptName;      // 옵션명 o
+    private String rewOptVal;       // 옵션값 o
     private int rewOptLimit;        // 제한 수량
-    private int rewAmount;          // 리워드 금액
+    private int rewAmount;          // 리워드 금액 o
 
     public ProjectRewardOptDTO() {
     }
