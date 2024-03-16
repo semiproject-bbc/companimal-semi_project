@@ -25,7 +25,7 @@
     <form th:action="@{/auth/logout}" method="post">
         <button>로그아웃</button>
     </form>
-    <form method="get" action="/orderpayment">
+    <form method="get" action="/order/orderpayment">
         <button>주문결제</button>
     </form>
     <form method="get" action="/coupon">
@@ -40,6 +40,10 @@
 
     <form method="get" action="/interest">
         <button>participate</button>
+    </form>
+
+    <form method="post" action="/order/orderPayment">
+        <button>주문결제</button>
     </form>
 <!--    <form method="get" action="/orderpayment">-->
 

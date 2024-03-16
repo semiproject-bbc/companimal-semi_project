@@ -21,6 +21,7 @@ import java.sql.Timestamp;
 
 @Log
 @Controller
+@RequestMapping("/pay")
 public class KakaoPayController {
 
     private final KakaoPay kakaopay;

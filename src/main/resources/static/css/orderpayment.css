@@ -96,13 +96,16 @@ html {
 
                 .projectNameInfo,
                 .rewardNameInfo,
-                .deliverFeeAmount,
                 .couponDiscount,
                 .orderAmount {
                     max-width: 450px;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
+                }
+
+                .deliverFeeAmount {
+                    width: 60%;
                 }
 
 
