@@ -88,13 +88,37 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
 
     @Override
     @Transactional
-    public void creatorAccept(String memberRole) {
+    public void updateCreatorRole(String memId, String memberRole) {
 
-        if (evaluationMapper.creatorAccept(memberRole)) {
+        if (evaluationMapper.updateCreatorRole(memId, memberRole)) {
             System.out.println("크리에이터 권한 업데이트 성공");
+            evaluationMapper.deleteCreatorEvaluation(memId);
         } else {
             System.out.println("크리에이터 권한 업데이트 실패");
         }
+    }
+
+    @Override
+    @Transactional
+    public void deleteCreatorEvaluation(int evaNum, String reaRejection, String memId) {
+
+        System.out.println("서비스 진입");
+
+        evaluationMapper.deleteCreatorEvaluation(memId);
+        System.out.println("크리에이터 심사 삭제");
+
+        evaluationMapper.deleteCreatorFile(memId);
+        System.out.println("크리에이터 파일 삭제");
+
+        evaluationMapper.deleteCreatorInfo(memId);
+        System.out.println("크리에이터 정보 삭제");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("evaNum", evaNum);
+        map.put("reaRejection", reaRejection);
+        map.put("evaSituation", "반려");
+        evaluationMapper.updateEvaluation(map);
+        System.out.println("반려 사유 추가");
     }
 
     public Map<String, String> saveFile(MultipartFile creatorFile) throws IOException {

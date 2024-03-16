@@ -5,6 +5,7 @@ import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EvaluationMapper {
@@ -29,6 +30,13 @@ public interface EvaluationMapper {
 
     String selectCreatorId(int evaNum);
 
-    boolean creatorAccept(String memberRole);
-  
+    boolean updateCreatorRole(String memId, String memberRole);
+
+    void deleteCreatorEvaluation(String memId);
+
+    void deleteCreatorFile(String memId);
+
+    void deleteCreatorInfo(String memId);
+
+    void updateEvaluation(Map<String, Object> map);
 }

@@ -62,7 +62,7 @@ public class EvaluationController {
     @GetMapping("/manager/creatorEvaluationList")
     public ModelAndView creatorEvaluationList(ModelAndView modelAndView) {
 
-        modelAndView.addObject("CreatorEvaluationList",creatorEvaluationService.selectCreatorEvaluationList());
+        modelAndView.addObject("CreatorEvaluationList", creatorEvaluationService.selectCreatorEvaluationList());
 
         modelAndView.setViewName("/contents/evaluation/manager/creatorEvaluationList");
 
@@ -76,14 +76,15 @@ public class EvaluationController {
 
         int result = evaluationService.updateCalAppDate(proCode);
 
-        if(result > 0) {
+        if (result > 0) {
             System.out.println("후원금 최종 정산 승인 완료");
-        }else {
+        } else {
             System.out.println("후원금 최종 정산 승인 실패");
         }
 
         return "/contents/evaluation/evacalculationlist";
     }
+
 
     @GetMapping("/manager/creatorEvaluationDetail/{evaNum}")
     public ModelAndView creatorEvaluationDetail(@PathVariable int evaNum, ModelAndView modelAndView) {
@@ -91,10 +92,6 @@ public class EvaluationController {
         CreatorEvaluationDetailDTO creatorEvaluationDetailDTO = creatorEvaluationService.selectCreatorEvaluationDetail(evaNum);
 
         String creatorType = creatorEvaluationDetailDTO.getCreatorType();
-
-        System.out.println(creatorEvaluationDetailDTO.getFiles().get(1).getCreFilePath());
-        System.out.println(creatorEvaluationDetailDTO.getFiles().get(1).getCreFileOriName());
-        System.out.println(creatorEvaluationDetailDTO.getFiles().get(1).getCreFileName());
 
         modelAndView.addObject("CreatorEvaluationDetailDTO", creatorEvaluationDetailDTO);
 
@@ -107,14 +104,36 @@ public class EvaluationController {
         return modelAndView;
     }
 
-    @GetMapping("/manager/accept/{evaNum}")
+    @PostMapping("/manager/accept/{evaNum}")
     public String creatorAccept(@PathVariable int evaNum) {
-
+        System.out.println("컨트롤러 진입");
         String memId = creatorEvaluationService.selectCreatorId(evaNum);
+        System.out.println(memId);
+
         String memberRole = "CREATOR";
-        creatorEvaluationService.creatorAccept(memberRole);
+        creatorEvaluationService.updateCreatorRole(memId, memberRole);
+
         return "/contents/evaluation/manager/creatorEvaluationList";
     }
-  
+
+    @GetMapping("/manager/return")
+    public String creatorReturn(@RequestParam("evaNum") int evaNum, @RequestParam("reaRejection") String reaRejection) {
+
+        String memId = creatorEvaluationService.selectCreatorId(evaNum);
+
+        System.out.println(evaNum);
+        System.out.println(reaRejection);
+        System.out.println(memId);
+        creatorEvaluationService.deleteCreatorEvaluation(evaNum, reaRejection, memId);
+        System.out.println("컨트롤러 복귀");
+
+        return  "/contents/evaluation/manager/creatorEvaluationList";
+    }
+
+    @GetMapping("/evaluationProcessAfter")
+    public String EvaluationProcessAfter() {
+        return "/contents/evaluation/manager/creatorEvaluationList";
+    }
+
 }
 

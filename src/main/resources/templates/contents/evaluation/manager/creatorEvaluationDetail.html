@@ -69,12 +69,36 @@
             </div>
 
             <div class="buttons">
-                <button class="return" th:onclick="'go(' + ${CreatorEvaluationDetailDTO.evaNum} + ')'">반려</button>
-
-                <button class="accept" th:onclick="'go(' + ${CreatorEvaluationDetailDTO.evaNum} + ')'">승인</button>
+                <button class="return" >반려</button>
+                <div id="hiddenDiv" th:style="'display:none;'" th:text="${CreatorEvaluationDetailDTO.evaNum}">1</div>
+                <button class="accept" >승인</button>
             </div>
         </div>
 
+
     </section>
+
+    <div id="rejectionModal" class="rejectionModal">
+        <p class="qksfutkdb">반려 사유 입력</p>
+        <div class="modalContent1">
+            <span class="close">&times;</span>
+            <textarea id="reaRejection" class="textarea" rows="9" cols="60" placeholder="반려 사유를 입력하세요..."></textarea>
+            <button id="submitRejection" class="submitRejection">반려</button>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+
+        <div class="modalContent">
+
+            <span class="close1">&times;</span>
+
+            <div class="modalText">
+                <p id="modalText">모달 내용</p>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/evaluation/evaluationProcessButton.js}"></script>
+    <script th:src="@{/js/regist/modalClose.js}"></script>
 </th:block>
 </html>

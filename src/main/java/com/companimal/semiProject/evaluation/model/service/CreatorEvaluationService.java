@@ -20,5 +20,7 @@ public interface CreatorEvaluationService {
 
     String selectCreatorId(int evaNum);
 
-    void creatorAccept(String memberRole);
+    void updateCreatorRole(String memId, String memberRole);
+
+    void deleteCreatorEvaluation(int evaNum, String reaRejection, String memId);
 }
