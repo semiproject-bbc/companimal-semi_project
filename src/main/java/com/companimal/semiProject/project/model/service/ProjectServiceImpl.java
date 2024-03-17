@@ -42,7 +42,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public void insertProject(List<MultipartFile> files, ProjectDTO project) {
+    public void insertProject(MultipartFile[] files, ProjectDTO project, String memId) {
         Map<String, List<ProjectFileDTO>> fileMap = null;
 
         try {
@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
             e.printStackTrace();
         }
 
-        int result1 = projectMapper.insertProject(project);
+        int result1 = projectMapper.insertProject(project, memId);
 
         ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
         ProjectFileDTO projectFileDTO = new ProjectFileDTO();
@@ -217,7 +217,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
-    public Map<String, List<ProjectFileDTO>> FileUpload(List<MultipartFile> files) throws IOException {
+    public Map<String, List<ProjectFileDTO>> FileUpload(MultipartFile[] files) throws IOException {
 
         Resource resource = resourceLoader.getResource("classpath:static/image/store");
         String proFilePath = null;
@@ -246,7 +246,16 @@ public class ProjectServiceImpl implements ProjectService {
             // proFileName : 파일 저장명
 
             String proFileOriName = mf.getOriginalFilename();
-            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
+//            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
+
+            String ext = "";
+
+            if (proFileOriName != null) {
+                int lastIndex = proFileOriName.lastIndexOf(".");
+                if (lastIndex != -1 && lastIndex < proFileOriName.length() - 1) {
+                    ext = proFileOriName.substring(lastIndex);
+                }
+            }
             String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
 
 

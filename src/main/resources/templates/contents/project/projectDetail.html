@@ -45,7 +45,7 @@
                 </div>
                 <p class="introduce" th:text="${ project.proIntro }"></p>
                 <div class="goal-container">
-                    <p class="goal-price" th:text="${ project.achRate }">3,100,000</p>
+                    <p class="goal-price" th:text="${ project.achRate }"></p>
                     <p class="goal-won"> % 달성</p>
                 </div>
                 <div class="heart-gray-icon-container">
@@ -107,9 +107,9 @@
                     <p class="sub-info">크리에이터 정보</p>
                     <div class="creater-info">
                         <div><img class="creater-image" th:src="@{/image/creater1.png}"></div>
-                        <div>크리에이터 명<br>
-                            070-XXXX-XXXX<br>
-                            Creater@email.com
+                        <div th:text="${ project.member.memberNickname }"><br>
+                        <div th:text="${ project.member.memberPhone }">
+<!--                        <div th:text="${ project.member.memberEmail }">-->
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="reward-content">
                                     <span class="reward-price" th:text="${ rewardOpt.rewAmount }"></span> 원<br>
-                                    배송비 <span class="reward-etc reward-sf" th:text="${ reward.rewSf }"></span><br>
+                                    배송비  <span class="reward-etc reward-sf" th:text="${ reward.rewSf }"></span><br>
                                     <span class="reward-etc reward-explain" th:text="${ reward.rewExplain }"></span>
                                 </div>
                             </div>
@@ -280,6 +280,7 @@
 
                     </script>
                 </div>
+
 <!--             PRO_NAME, PRO_CODE, REW_CODE, REW_NUM, REW_NAME, REW_SF, REW_OPT_CODE, REW_OPT_NUM, REW_OPT_NAME, REW_OPT_VAL, REW_AMOUNT, 합계, 선택갯수   -->
 <!--                <form th:action="@{/order/orderPayment}" method="post" id="order_form">-->
 <!--                    <input type="hidden" id="proCode" name="proCode" th:value="${project.proCode}">-->
@@ -296,6 +297,7 @@
 <!--                    <input type="hidden" id="noOfOrder" name="noOfOrder" value="">-->
 <!--                    <input type="hidden" id="orderAmount" name="orderAmount" value="">-->
 <!--                </form>-->
+
 
                 <script>
                     // function send() {
@@ -320,6 +322,7 @@
                     // }
 
                     $(".funding").on("click", function () {
+
 
                         let rewCode = "";
                         let rewNum = "";

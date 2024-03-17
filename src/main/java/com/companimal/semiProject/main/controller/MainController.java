@@ -28,4 +28,9 @@ public class MainController {
 
         return "main";
     }
+
+    @GetMapping("/main/storyPage")
+    public String story() {
+        return "contents/main/storyPage";
+    }
 }

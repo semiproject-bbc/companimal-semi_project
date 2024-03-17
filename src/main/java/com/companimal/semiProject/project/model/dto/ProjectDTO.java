@@ -34,6 +34,8 @@ public class ProjectDTO implements java.io.Serializable {
     private List<ProjectCateDTO> cate;              // 프로젝트 카테고리 DTO
     private int noOfOrder;                          // 주문 갯수
     private int orderAmount;                        // 주문 금액 (배송비 제외)
+    private CreatorInfoDTO creatorInfo;             // 크리에이터 정보 DTO
+    private MemberDTO member;                       // 회원 DTO
     private List<OrderPaymentDTO> orderPayment;
     private List<OrderOptDTO> orderOpt;
     private List<MemberDTO> defaultMember;
@@ -158,6 +160,37 @@ public class ProjectDTO implements java.io.Serializable {
         this.cate = cate;
         this.noOfOrder = noOfOrder;
         this.orderAmount = orderAmount;
+        this.orderPayment = orderPayment;
+        this.orderOpt = orderOpt;
+        this.defaultMember = defaultMember;
+    }
+
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, CreatorInfoDTO creatorInfo, MemberDTO member, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember) {
+        this.proCode = proCode;
+        this.proName = proName;
+        this.proIntro = proIntro;
+        this.goalAmount = goalAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.proStory = proStory;
+        this.polNoRefund = polNoRefund;
+        this.polAs = polAs;
+        this.memId = memId;
+        this.estDate = estDate;
+        this.achRate = achRate;
+        this.delStatus = delStatus;
+        this.cateMain = cateMain;
+        this.cateSub = cateSub;
+        this.dDay = dDay;
+        this.reward = reward;
+        this.rewardOpt = rewardOpt;
+        this.image = image;
+        this.file = file;
+        this.cate = cate;
+        this.noOfOrder = noOfOrder;
+        this.orderAmount = orderAmount;
+        this.creatorInfo = creatorInfo;
+        this.member = member;
         this.orderPayment = orderPayment;
         this.orderOpt = orderOpt;
         this.defaultMember = defaultMember;
@@ -371,6 +404,22 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderAmount = orderAmount;
     }
 
+    public CreatorInfoDTO getCreatorInfo() {
+        return creatorInfo;
+    }
+
+    public void setCreatorInfo(CreatorInfoDTO creatorInfo) {
+        this.creatorInfo = creatorInfo;
+    }
+
+    public MemberDTO getMember() {
+        return member;
+    }
+
+    public void setMember(MemberDTO member) {
+        this.member = member;
+    }
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
@@ -397,11 +446,11 @@ public class ProjectDTO implements java.io.Serializable {
                 ", cate=" + cate +
                 ", noOfOrder=" + noOfOrder +
                 ", orderAmount=" + orderAmount +
+                ", creatorInfo=" + creatorInfo +
+                ", Member=" + member +
                 ", orderPayment=" + orderPayment +
                 ", orderOpt=" + orderOpt +
                 ", defaultMember=" + defaultMember +
-                ", reward=" + reward +
-                ", rewardOpt=" + rewardOpt +
                 '}';
     }
 }

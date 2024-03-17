@@ -72,6 +72,39 @@
         <result property="proFileName" column="pro_file_name"/>
         <result property="proFileOriName" column="pro_file_ori_name"/>
     </resultMap>
+
+    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
+        <id property="memberId" column="mem_id"/>
+        <result property="memberPwd" column="mem_pwd"/>
+        <result property="memberNickname" column="mem_nickname"/>
+        <result property="memberName" column="mem_name"/>
+        <result property="memberPhone" column="mem_phone"/>
+        <result property="memberEmail" column="mem_email"/>
+        <result property="memberRole" column="mem_authority"/>
+<!--        <association property="creatorInfo" resultMap="creatorInfoResultMap"/>-->
+    </resultMap>
+
+<!--    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">-->
+<!--        <id property="memberId" column="mem_id" />-->
+<!--        <result property="memberPwd" column="mem_pwd" />-->
+<!--        <result property="memberNickname" column="mem_nickname" />-->
+<!--        <result property="memberName" column="mem_name" />-->
+<!--        <result property="memberPhone" column="mem_phone" />-->
+<!--        <result property="memberEmail" column="mem_email" />-->
+<!--        <result property="memberAuthority" column="mem_authority" />-->
+<!--    </resultMap>-->
+
+    <resultMap id="creatorInfoResultMap" type="com.companimal.semiProject.member.model.dto.CreatorInfoDTO">
+        <id property="memId" column="mem_id"/>
+        <result property="creInqPhone" column="cre_inq_phone"/>
+        <result property="creInqEmail" column="cre_inq_email"/>
+        <result property="creImgName" column="cre_img_name"/>
+        <result property="creImgPath" column="cre_img_path"/>
+        <result property="creImgOriName" column="cre_img_ori_name"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="accountNo" column="account_no"/>
+        <result property="depositorName" column="depositor_name"/>
+    </resultMap>
     
     <resultMap id="projectDetailResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
         <id property="proCode" column="pro_code"/>
@@ -89,20 +122,12 @@
         <result property="delStatus" column="del_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
+        <association property="member" resultMap="defaultMemberResultMap"/>
+<!--        <association property="creatorInfo" resultMap="creatorInfoResultMap"/>-->
         <collection property="reward" resultMap="projectRewardResultMap"/>
         <collection property="image" resultMap="projectImageResultMap"/>
 <!--        <collection property="file" resultMap="projectFileResultMap"/>-->
         <collection property="cate" resultMap="projectCateResultMap"/>
-    </resultMap>
-
-    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
-        <id property="memberId" column="mem_id" />
-        <result property="memberPwd" column="mem_pwd" />
-        <result property="memberNickname" column="mem_nickname" />
-        <result property="memberName" column="mem_name" />
-        <result property="memberPhone" column="mem_phone" />
-        <result property="memberEmail" column="mem_email" />
-        <result property="memberAuthority" column="mem_authority" />
     </resultMap>
 
     <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">
@@ -211,6 +236,7 @@
     </select>
 
     <!-- 프로젝트 상세페이지 조회에서 DB에 저장한 정보 가져오는 쿼리 -->
+    <!-- 이미지 불러와야함!! -->
     <select id="selectProjectDetail" resultMap="projectDetailResultMap">
         SELECT p.pro_code
                 ,p.pro_name
@@ -245,6 +271,9 @@
                 ,i.pro_img_path
                 ,i.pro_img_name
                 ,i.pro_img_ori_name
+<!--                ,c.cre_inq_phone-->
+<!--                ,c.cre_inq_email-->
+                ,m.mem_nickname
 <!--                ,f.pro_file_name-->
                 ,c1.pro_cate_code
                 ,c1.pro_cate_name
@@ -254,6 +283,8 @@
           JOIN reward r ON (p.pro_code = r.pro_code)
           JOIN reward_opt o ON (r.rew_code = o.rew_code)
           JOIN project_image i ON (p.pro_code = i.pro_code)
+          JOIN default_member m ON (p.mem_id = m.mem_id)
+<!--          JOIN creator_info c ON (p.mem_id = c.mem_id)-->
 <!--          JOIN project_file f ON (p.pro_code = f.pro_code)-->
           JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
 <!--          JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)-->
@@ -274,7 +305,6 @@
                                 ,pol_as
                                 ,mem_id
                                 ,est_date
-                                ,ach_rate
                                 ,del_status
                                 ,cate_main
                                 ,cate_sub
@@ -290,12 +320,10 @@
                     ,#{ polAs }
                     ,#{ memId }
                     ,#{ estDate }
-                    ,#{ achRate }
                     ,#{ delStatus }
                     ,#{ cateMain }
                     ,#{ cateSub }
                     )
-
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
