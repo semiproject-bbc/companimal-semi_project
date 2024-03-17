@@ -14,7 +14,8 @@
         <div class="main">
             <p class="creatorEvaluationRegist">개인 크리에이터 심사 등록</p>
 
-            <form class="creatorEvaluationRegistForm" th:action="@{/evaluation/creatorEvaluationRegist}" th:method="post" enctype="multipart/form-data">
+            <form class="creatorEvaluationRegistForm" th:action="@{/evaluation/creatorEvaluationRegist}"
+                  th:method="post" enctype="multipart/form-data">
 
                 <div class="evaluationRegistForm">
 
@@ -24,7 +25,8 @@
                         <input type="text" class="productPlanInput" placeholder="   상품 기획서" disabled
                         >
 
-                        <input type="file" name="creatorProductPlan" id="fileInput" style="display: none;" onchange="uploadFile()">
+                        <input type="file" name="creatorProductPlan" id="fileInput" style="display: none;"
+                               onchange="uploadFile()">
                         <button class="creatorEvaluationSubmitButton" type="button"
                                 onclick="document.getElementById('fileInput').click();">
                             <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">
@@ -37,7 +39,8 @@
                         <input type="text" class="productPortfolioInput" placeholder="   포트폴리오" disabled
                         >
 
-                        <input type="file" name="creatorProductPortfolio" id="fileInput2" style="display: none;" onchange="uploadFile2()">
+                        <input type="file" name="creatorProductPortfolio" id="fileInput2" style="display: none;"
+                               onchange="uploadFile2()">
                         <button class="creatorEvaluationSubmitButton" type="button"
                                 onclick="document.getElementById('fileInput2').click();">
                             <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">
@@ -50,7 +53,8 @@
                         <input type="text" class="creatorImgInput" placeholder="   크리에이터 이미지" disabled
                         >
 
-                        <input type="file" name="creatorImg" id="fileInput3" style="display: none;" onchange="uploadFile3()">
+                        <input type="file" name="creatorImg" id="fileInput3" style="display: none;"
+                               onchange="uploadFile3()">
                         <button class="creatorEvaluationSubmitButton" type="button"
                                 onclick="document.getElementById('fileInput3').click();">
                             <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">

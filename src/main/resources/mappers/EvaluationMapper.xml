@@ -212,6 +212,36 @@
                )
     </insert>
 
+    <insert id="InsertCreatorBusiness" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO">
+        INSERT
+        INTO CREATOR_BUSINESS (
+                                MEM_ID
+                                , BUSI_NUM
+                                , BUSI_NAME
+                                , BUSI_DATE
+                                , BUSI_TYPE
+                                , BUSI_INDUSTRY
+                                , BUSI_LOCA
+                                , BUSI_SIZE
+                                , BUSI_URL
+                                , AUTH_NAME
+                                , AUTH_NUM
+                                )
+        VALUES (
+                  #{ memId }
+                , #{ busiNum }
+                , #{ busiName }
+                , #{ busiDate }
+                , #{ busiType }
+                , #{ busiIndu }
+                , #{ busiLoca }
+                , #{ busiSize }
+                , #{ busiUrl }
+                , #{ authName }
+                , #{ authNum }
+               )
+    </insert>
+
     <insert id="InsertCreatorFile" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO">
         INSERT
         INTO CREATOR_FILE (
@@ -313,4 +343,16 @@
             EVA_SITUATION = #{ evaSituation }
         WHERE EVA_NUM = #{ evaNum }
     </update>
+
+    <select id="selectCreatorFile" parameterType="String">
+        SELECT COUNT(CRE_EVA_NUM) AS FILE_NUM
+        FROM CREATOR_FILE
+        WHERE MEM_ID = #{ memId }
+    </select>
+
+    <delete id="deleteCreatorBusinessEvaluation" parameterType="String">
+        DELETE
+        FROM CREATOR_BUSINESS
+        WHERE MEM_ID = #{ memid }
+    </delete>
 </mapper>

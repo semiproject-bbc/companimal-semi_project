@@ -19,8 +19,10 @@ public interface EvaluationMapper {
     List<CalculationListDTO> selectEvaCalculationList();
 
     int updateCalAppDate(int proCode);
-  
+
     boolean insertEvaluation(EvaluationDTO evaluationDTO);
+
+    boolean InsertCreatorBusiness(CreatorBusinessDTO creatorBusinessDTO);
 
     boolean insertCreatorEva(CreatorEvaDTO creatorEvaDTO);
 
@@ -39,4 +41,8 @@ public interface EvaluationMapper {
     void deleteCreatorInfo(String memId);
 
     void updateEvaluation(Map<String, Object> map);
+
+    int selectCreatorFile(String memId);
+
+    void deleteCreatorBusinessEvaluation(String memId);
 }

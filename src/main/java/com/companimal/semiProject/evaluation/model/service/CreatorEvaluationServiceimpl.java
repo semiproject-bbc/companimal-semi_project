@@ -37,20 +37,19 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
             , String creatorId
     ) throws IOException {
 
+        // 받아온 파일마다 저장경로, 저장명, 원본명을 받아오기 위해 따로 메소드에서 Map 타입으로 반환
         Map<String, String> producPlan = saveFile(creatorProductPlan);
         Map<String, String> producPortfolio = saveFile(creatorProductPortfolio);
         Map<String, String> img = saveFile(creatorImg);
 
+        // html에서 넘어올 때 dto에 못담은 값 따로 삽입
         creatorInfoDTO.setMemId(creatorId);
         creatorInfoDTO.setCreImgName(img.get("savedFileName"));
         creatorInfoDTO.setCreImgPath(img.get("filePath"));
         creatorInfoDTO.setCreImgOriName(img.get("originFileName"));
 
-        if (evaluationMapper.insertCreatorInfo(creatorInfoDTO)) {
-            System.out.println("크리에이터 정보 등록 성공");
-        } else {
-            System.out.println("크리에이터 정보 등록 실패");
-        }
+        // CREATOR_INFO 테이블에 creatorInfoDTO INSERT
+        evaluationMapper.insertCreatorInfo(creatorInfoDTO);
 
         // 심사 테이블 등록
         EvaluationDTO evaluationDTO = new EvaluationDTO();
@@ -58,17 +57,43 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         evaluationDTO.setEvaSituation("처리중");
         evaluationMapper.insertEvaluation(evaluationDTO);
 
-        // 크리에이터 심사 테이블 등록
+        // 크리에이터 심사 테이블 등록 ( 심사 테이블 등록하면서 select key로 반환된 심사번호로 등록)
         CreatorEvaDTO creatorEvaDTO = new CreatorEvaDTO(creatorId, evaluationDTO.getEvaNum());
         evaluationMapper.insertCreatorEva(creatorEvaDTO);
 
+        // CREATRO_FILE 테이블에 받아온 파일들 INSERT
         int fileNo = 1;
-        InsertCreatorFile(fileNo, creatorId ,producPlan);
+        InsertCreatorFile(fileNo, creatorId, producPlan);
         fileNo++;
-        InsertCreatorFile(fileNo, creatorId ,producPortfolio);
+        InsertCreatorFile(fileNo, creatorId, producPortfolio);
         fileNo++;
-        InsertCreatorFile(fileNo, creatorId ,img);
+        InsertCreatorFile(fileNo, creatorId, img);
 
+    }
+
+    @Override
+    @Transactional
+    public void insertCreatorBusiness(MultipartFile businessRegistration
+            , CreatorBusinessDTO creatorBusinessDTO
+            , String creatorId) throws IOException {
+
+        System.out.println("서비스 진입");
+
+        // 저장 후 저장경로, 저장명, 원본명을 받아오기 위해 따로 메소드에서 Map 타입으로 반환
+        Map<String, String> registration = saveFile(businessRegistration);
+
+        // dto에 없는 값 추가로 삽입
+        creatorBusinessDTO.setMemId(creatorId);
+
+        // CREATOR_BUSINESS 테이블에 INSERT
+        if (evaluationMapper.InsertCreatorBusiness(creatorBusinessDTO)) {
+            System.out.println("사업자 정보 등록 완료");
+        } else {
+            System.out.println("사업자 정보 등록 실패");
+        }
+
+        // 크리에이터 정보를 등록할 때 3개의 파일이 들어갔으니 파일번호는 4번으로 추가
+        InsertCreatorFile(4, creatorId, registration);
     }
 
     @Override
@@ -91,10 +116,10 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
     public void updateCreatorRole(String memId, String memberRole) {
 
         evaluationMapper.updateCreatorRole(memId, memberRole);
-        System.out.println("크리에이터 권한 업데이트 성공");
+//        System.out.println("크리에이터 권한 업데이트 성공");
 
         evaluationMapper.deleteCreatorEvaluation(memId);
-        System.out.println("크리에이터 심사 삭제");
+//        System.out.println("크리에이터 심사 삭제");
 
     }
 
@@ -107,12 +132,22 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
         evaluationMapper.deleteCreatorEvaluation(memId);
 //        System.out.println("크리에이터 심사 삭제");
 
+        // 사업자 구분을 위해 해당 아이디로 등록된 심사 파일의 개수를 찾음
+        int creatorFileCount = evaluationMapper.selectCreatorFile(memId);
+
         evaluationMapper.deleteCreatorFile(memId);
 //        System.out.println("크리에이터 파일 삭제");
+
+        // 크리에이터 정보를 지우기 위해서는 사업자 정보 테이블의 삭제가 선행돼야함
+        // 사업자는 심사파일을 4개 등록하기 때문에 심사파일이 4개면 사업자 정보 삭제
+        if (creatorFileCount == 4) {
+            evaluationMapper.deleteCreatorBusinessEvaluation(memId);
+        }
 
         evaluationMapper.deleteCreatorInfo(memId);
 //        System.out.println("크리에이터 정보 삭제");
 
+        // 여러가지 타입을 매개변수로 전달하기 때문에 parameterType을 Map으로 작성하기 위해 Map으로 보냄
         Map<String, Object> map = new HashMap<>();
         map.put("evaNum", evaNum);
         map.put("reaRejection", reaRejection);
@@ -159,6 +194,7 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
     public void InsertCreatorFile(int fileNo, String creatorId, Map<String, String> creatorFile) {
         CreatorFileDTO creatorFileDTO = new CreatorFileDTO();
 
+        // 매개변수로 전달받은 값들을 creatorFileDTO에 삽입 후 DB에 저장
         creatorFileDTO.setCreEvaNum(fileNo);
         creatorFileDTO.setMemId(creatorId);
         creatorFileDTO.setCreFilePath(creatorFile.get("filePath"));

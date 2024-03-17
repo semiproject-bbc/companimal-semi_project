@@ -1,7 +1,7 @@
 package com.companimal.semiProject.evaluation.controller;
 
 import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO;
 import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDetailDTO;
 import com.companimal.semiProject.evaluation.model.service.CreatorEvaluationService;
 import com.companimal.semiProject.evaluation.model.service.EvaluationService;
@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -55,6 +58,42 @@ public class EvaluationController {
         String creatorId = authentication.getName();
 
         creatorEvaluationService.insertCreatorInfo(creatorProductPlan, creatorProductPortfolio, creatorImg, creatorInfoDTO, creatorId);
+
+        return "/main";
+    }
+
+    @GetMapping("/creatorBusinessEvaluationRegist")
+    public String creatorBusinessEvaluationRegist() {
+        return "/contents/evaluation/creatorBusinessEvaluationRegist";
+    }
+
+    @PostMapping("/creatorBusinessEvaluationRegist")
+    public String creatorBusinessEvaluationRegist(@RequestParam("creatorProductPlan") MultipartFile creatorProductPlan
+            , @RequestParam("creatorProductPortfolio") MultipartFile creatorProductPortfolio
+            , @RequestParam("creatorImg") MultipartFile creatorImg
+            , @RequestParam("businessRegistration") MultipartFile businessRegistration
+            , @RequestParam("busiDateStr") String busiDateStr
+            , @ModelAttribute CreatorInfoDTO creatorInfoDTO
+            , @ModelAttribute CreatorBusinessDTO creatorBusinessDTO
+            , Authentication authentication) throws IOException {
+
+        String creatorId = authentication.getName();
+
+        // 사업자 크리에이터는 개인으로 등록할 때 받는 정보에 추가 정보만 받아서 따로 DB에 저장하기 때문에
+        // 개인 등록 절차와 동일하게 진행하고 별도로 사업자 등록 시 추가로 받은 정보만 DB에 저장하는 과정을 추가
+        creatorEvaluationService.insertCreatorInfo(creatorProductPlan, creatorProductPortfolio, creatorImg, creatorInfoDTO, creatorId);
+
+        // String으로 넘어온 설립일 값을 Date 타입으로 변환해서 dto에 삽입 후 DB에 사업자 정보 저장
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date busiDate = simpleDateFormat.parse(busiDateStr);
+            creatorBusinessDTO.setBusiDate(busiDate);
+            System.out.println(creatorBusinessDTO);
+            creatorEvaluationService.insertCreatorBusiness(businessRegistration, creatorBusinessDTO, creatorId);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
 
         return "/main";
     }

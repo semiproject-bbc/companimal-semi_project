@@ -29,7 +29,7 @@
 
 .creatorBusinessEvaluationFile {
     width: 200px;
-    height: 150px;
+    height: 200px;
     background-color: #d5d5d5;
     border: 1px solid #d5d5d5;
     display: flex;
@@ -51,7 +51,7 @@
 
 .creatorBusinessEvaluationFileContent {
     width: 600px;
-    height: 150px;
+    height: 200px;
     border: 1px solid #d5d5d5;
     margin-bottom: 1px;
 }

@@ -40,7 +40,8 @@ public class KakaoPayController {
 
     @GetMapping("/kakaoPay")
     public String kakaoPayGet() {
-        return "kakaoPay"; // kakaopay Page으로 이동
+        System.out.println("실행");
+        return "/contents/evaluation/manager/creatorEvaluationList";
     }
 
     @GetMapping("/kakaoPayFail")
@@ -64,6 +65,8 @@ public class KakaoPayController {
         return "redirect:" + kakaopay.kakaoPayReady(getOrderDetailsInfoDTO,memberDTO); // kakaopay 결제 화면으로 이동
         // http://localhost:8080/kakaoPaySuccess?pg_token=ee334b6d479d0c10260a
     }
+
+
 
     @RequestMapping("/kakaoPaySuccess") // 결제 완료 되기 때문에 여기서 DB 저장할 것
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {

@@ -1,5 +1,6 @@
 package com.companimal.semiProject.evaluation.model.service;
 
+import com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO;
 import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDTO;
 import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDetailDTO;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
@@ -13,6 +14,8 @@ import java.util.List;
 public interface CreatorEvaluationService {
 
     void insertCreatorInfo(MultipartFile creatorProductPlan, MultipartFile creatorProductPortfolio, MultipartFile creatorImg, CreatorInfoDTO creatorInfoDTO, String creatorId) throws IOException;
+
+    void insertCreatorBusiness(MultipartFile businessRegistration, CreatorBusinessDTO creatorBusinessDTO, String creatorId) throws IOException;
 
     List<CreatorEvaluationDTO> selectCreatorEvaluationList();
 
