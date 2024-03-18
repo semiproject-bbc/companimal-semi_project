@@ -75,9 +75,8 @@ public class MemberService {
     @Transactional
     public void UpdatePassword(MemberDTO memberDTO) {
 
-        System.out.println(memberDTO.getMemberId());
+        memberDTO.setMemberPwd(passwordEncoder.encode(memberDTO.getMemberPwd()));
         System.out.println(memberDTO.getMemberPwd());
-
         if (memberMapper.UpdatePassword(memberDTO)) {
             System.out.println("성공");
         } else {
