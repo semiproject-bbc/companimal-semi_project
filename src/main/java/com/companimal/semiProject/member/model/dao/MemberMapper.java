@@ -25,5 +25,5 @@ public interface MemberMapper {
 
     String registeredEmailCheckById(String memId);
 
-    void UpdatePassword(String memberPwd, String memId);
+    boolean UpdatePassword(MemberDTO memberDTO);
 }

@@ -1,0 +1,33 @@
+.buttons {
+    display: flex;
+    width: 400px;
+}
+
+.button {
+    width: 200px;
+    height: 200px;
+    background-color: #fca652;
+    color: #fca652;
+
+
+}
+
+.buttonImg1 {
+    width: 100px;
+    height: 100px;
+    margin-top: 40px;
+    background-color: #fca652;
+    color: #fca652;
+}
+
+.buttonImg1 {
+    width: 100px;
+    height: 100px;
+    margin-top: 40px;
+
+}
+
+.buttonText {
+    font-size: 50px;
+    font-weight: bold;
+}

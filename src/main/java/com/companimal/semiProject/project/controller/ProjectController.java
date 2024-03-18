@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,6 +80,7 @@ public class ProjectController {
 
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
         String memId = authDetails.getUsername();
+
 
         /* 콘솔 찍어보기 */
         System.out.println("Logged-in User ID: " + memId);
