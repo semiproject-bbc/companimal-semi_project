@@ -1,0 +1,55 @@
+.account-intro-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.AccountContainer_title{
+    display: flex;
+    justify-content: center;
+}
+
+.findIdInfo {
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.findIdInfo2 {
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.findIdButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+
+.findIdSubmitButton {
+    height: 58px;
+    width: 354px;
+    background-color: #fca652;
+    border: 1px solid #fca652;
+    box-sizing: border-box;
+    border-radius: 5px;
+    
+}
+
+.findIdSubmitButton:hover {
+    background-color: #ff8000;
+    border: 1px solid #ff8000;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+
+.findIdSubmitButtonText {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    font-size: large;
+    
+}
+

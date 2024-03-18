@@ -1,7 +1,6 @@
 let status = {
-    idChecked: false,
+    formValid: false,
     emailVerified: false,
-    formValid: false
 };
 
 function updateStatus(key, value) {
@@ -15,10 +14,10 @@ function checkAllCompleted() {
 
     const allCompleted = Object.values(status).every(val => val === true);
     if (allCompleted) {
-        $('#registSubmitButton').removeClass('disabled');
-        $('#registSubmitButton').prop('disabled', false);
+        $('#resetPasswordSubmitButton').removeClass('disabled');
+        $('#resetPasswordSubmitButton').prop('disabled', false);
     } else {
-        $('#registSubmitButton').addClass('disabled');
-        $('#registSubmitButton').prop('disabled', true);
+        $('#resetPasswordSubmitButton').addClass('disabled');
+        $('#resetPasswordSubmitButton').prop('disabled', true);
     }
 }

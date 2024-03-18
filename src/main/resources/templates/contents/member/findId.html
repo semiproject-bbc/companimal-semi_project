@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <title>COMPANIMAL</title>
+    <link rel="stylesheet" th:href="@{/css/findId.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="companimalLogo" onclick="location.href='/main'">Companimal</div>
+
+    <div class="MainWeapper_contest">
+        
+        <div class="account-intro-login">
+
+            <div class="AccountContainer_container">
+
+                <h1 class="AccountContainer_title">아이디 찾기</h1>
+
+                <p class="findIdInfo">가입시 입력하신 이름과 이메일을 입력하세요</p>
+                
+                <form class="SignInForm_form" th:action="@{/member/findId}" th:method="post">
+
+                    <div class="SignInForm_loginField">
+
+                        <div class="SignInForm_idField" >
+
+                            <input name="memName" class="idField" maxlength="20" placeholder="   이름 입력" type="text" >
+
+                        </div>
+                        <div class="registEmailField">
+
+                            <input id="email" name="memberEmail" class="emailField" placeholder="   이메일" type="text" >
+
+                            <button type="button" id="sendEmail" class="emailSendButton">전송</button>
+                        </div>
+
+                        <div class="registEmailCheckField">
+
+                            <input class="emailCertificationNumberField" maxlength="6" placeholder="   이메일 인증 번호" type="text" >
+
+                            <button type="button" class="certificationNumberCheckButton">확인</button>
+                        </div>
+
+                    </div>
+                    <button class="findIdSubmitButton disabled" id="findIdSubmitButton" type="submit" disabled>
+                        <span class="findIdSubmitButtonText">아이디 찾기</span>
+                    </button>
+                    
+                </form>
+
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div id="myModal" class="modal">
+
+        <div class="modalContent">
+
+            <span class="close">&times;</span>
+
+            <div class="modalText">
+                <p id="modalText">모달 내용</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script th:src="@{/js/member/emailAuthFindId.js}"></script>
+    <script th:src="@{/js/regist/verifyEmail.js}"></script>
+    <script th:src="@{/js/regist/modalClose.js}"></script>
+    <script th:src="@{/js/member/findIdEnabled.js}"></script>
+    <script th:src="@{/js/member/validateFormFindId.js}"></script>
+</body>
+</html>

@@ -59,4 +59,21 @@ public class MemberService {
 
         return result;
     }
+
+    public String selectMemId(String memName) {
+        return memberMapper.selectMemId(memName);
+    }
+
+    public String registeredEmailCheckByName(String name) {
+        return memberMapper.registeredEmailCheckByName(name);
+    }
+
+    public String registeredEmailCheckById(String memId) {
+        return memberMapper.registeredEmailCheckById(memId);
+    }
+
+    @Transactional
+    public void UpdatePassword(String memberPwd, String memId) {
+        memberMapper.UpdatePassword(memId, passwordEncoder.encode(memberPwd));
+    }
 }
