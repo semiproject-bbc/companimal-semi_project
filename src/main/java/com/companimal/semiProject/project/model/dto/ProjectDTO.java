@@ -1,5 +1,6 @@
 package com.companimal.semiProject.project.model.dto;
 
+import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.OrderOptDTO;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +38,7 @@ public class ProjectDTO implements java.io.Serializable {
     private List<OrderPaymentDTO> orderPayment;
     private List<OrderOptDTO> orderOpt;
     private List<MemberDTO> defaultMember;
+    private List<CalculationListDTO> calculationList;
 
     public ProjectDTO() {
     }
@@ -132,10 +134,9 @@ public class ProjectDTO implements java.io.Serializable {
         this.cateMain = cateMain;
         this.cateSub = cateSub;
         this.orderPayment = orderPayment;
-        this.defaultMember = defaultMember;
     }
 
-    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember) {
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String delStatus, int cateMain, int cateSub, int dDay, List<ProjectRewardDTO> reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember, List<CalculationListDTO> calculationList) {
         this.proCode = proCode;
         this.proName = proName;
         this.proIntro = proIntro;
@@ -162,6 +163,7 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderPayment = orderPayment;
         this.orderOpt = orderOpt;
         this.defaultMember = defaultMember;
+        this.calculationList = calculationList;
     }
 
     public int getProCode() {
@@ -370,6 +372,14 @@ public class ProjectDTO implements java.io.Serializable {
 
     public void setOrderAmount(int orderAmount) {
         this.orderAmount = orderAmount;
+    }
+
+    public List<CalculationListDTO> getCalculationList() {
+        return calculationList;
+    }
+
+    public void setCalculationList(List<CalculationListDTO> calculationList) {
+        this.calculationList = calculationList;
     }
 
     @Override

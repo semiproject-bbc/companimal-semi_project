@@ -41,7 +41,7 @@ public class ProjectController {
     }
 
     @GetMapping("/projectDetail/{proCode}")
-    public String selectProjectDetail(Model model, @PathVariable Integer proCode) {
+    public String selectProjectDetail(Model model, @PathVariable("proCode") Integer proCode) {
 
         ProjectDTO selectProject = projectService.selectProjectDetail(proCode);
 
@@ -87,6 +87,7 @@ public class ProjectController {
         return "contents/project/projectRegistAfter";
     }
 
+    /* 진행 종료 프로젝트 조회 */
     @GetMapping("/endprolist")
     public String selectEndProList(Authentication authentication,  Model model) {
         String id = authentication.getName();
@@ -98,6 +99,7 @@ public class ProjectController {
         return "contents/project/creatorendpj";
     }
 
+    /* 발송 예정일 입력 */
     @ResponseBody
     @PostMapping("/updateShipment")
     public String updateShipment(@RequestParam("proCode") int proCode, @RequestParam("estDate") String estDate) {
@@ -116,6 +118,7 @@ public class ProjectController {
         return "redirect:/creatorendpj";
     }
 
+    /* 프로젝트에 대한 서포터 후원 참여 내역 목록*/
     @GetMapping("/supportlist/{proCode}")
     public String selectSupportList(@PathVariable("proCode") int proCode, Model model) {
         System.out.println("진행 종료 프로젝트 후원 내역 조회");
@@ -130,24 +133,36 @@ public class ProjectController {
         return "contents/project/creatorsupportlist";
     }
 
+    /* 후원 정산 내역 조회 */
     @RequestMapping("/calculationlist")
     public String selectCalculationList(Authentication authentication, Model model) {
         String id = authentication.getName();
 
         List<ProjectDTO> calculationList = projectService.selectCalculationList(id);
 
-        for(int i = 0; i < calculationList.size(); i++) {
-            System.out.println("each ::::: " + calculationList.get(i));
-            for(int j = 0; j < calculationList.get(i).getOrderPayment().size(); j++) {
-                System.out.println("each2 ::::: " + calculationList.get(i).getOrderPayment().get(j).getPurchaseStatus());
-            }
-        }
+        System.out.println("🤮🤮🤮🤮🤮" + calculationList.get(0));
 
         model.addAttribute("calculationList", calculationList);
 
-
-
         return "contents/project/calculationlist";
+    }
+
+//    @ResponseBody
+    @PostMapping("/insertCalculationList")
+    public String insertCalculationList(@RequestParam("proCode") String proCode) {
+
+        System.out.println("😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤");
+
+        int result = projectService.insertCalculationList(proCode);
+
+        if(result > 0) {
+            System.out.println("승인 신청 완료");
+        }else {
+            System.out.println("승인 신청 실패");
+        }
+
+        return "redirect:/calculationlist";
+
     }
 
 }

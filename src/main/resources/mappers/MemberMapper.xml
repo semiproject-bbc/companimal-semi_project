@@ -111,4 +111,10 @@
             ORDER BY o.order_date desc
     </select>
 
+    <update id="updatePurchaseConfirm" parameterType="String">
+        UPDATE order_payment
+        SET purchase_status = now()
+        WHERE order_code = #{orderCode}
+    </update>
+
 </mapper>

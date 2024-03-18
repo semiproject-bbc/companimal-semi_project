@@ -18,7 +18,5 @@ public interface OrderMapper {
 
     CouponDTO getCouponInfo(String memId);
 
-    int updatePurchaseConfirm(String orderCode);
-
     void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO);
 }

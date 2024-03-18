@@ -37,8 +37,15 @@ a {
 input:focus {
     outline:none;
 }
-.titleWrap {
-    width:200px;
+.ellipsisWrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.inblock {
+    display:inline-block;
+    padding:10px;
+    border-radius:5px;
 }
 
 /* creatorendpj */
@@ -97,12 +104,18 @@ input:focus {
     padding:10px 0;
 }
 .supportdetail {
+    display:block;
     background-color:#ffffff;
     border:#fca652 2px solid;
     border-radius:5px;
     color:#000000;
     font-size:18px;
     padding:10px 0;
+    width:50%;
+    text-align:center;
+}
+.endpjbtn2 .supportdetail {
+    width:100%;
 }
 .shipmentbtn {
     background-color:#fca652;

@@ -247,15 +247,13 @@
 
     <select id="selectEvaCalculationList" resultMap="evaCalListResultMap">
         SELECT
+            c.cal_req_datetime,
             c.cal_app_datetime,
             c.cal_status,
-            p.pro_code,
             p.pro_name,
-            o.purchase_status
+            p.pro_code
             FROM calculation_list c
-            RIGHT JOIN project p ON (c.pro_code = p.pro_code)
-            JOIN order_payment o ON (p.pro_code = o.pro_code)
-            WHERE p.end_date <![CDATA[ < ]]> now()
+            JOIN project p ON (c.pro_code = p.pro_code)
     </select>
 
     <update id="updateCalAppDate" parameterType="int">

@@ -13,30 +13,35 @@
 
 <th:block layout:fragment="content">
     <div class="main">
+        <h2>참여 프로젝트</h2>
         <div class="participateProject-container">
             <div class="projectbox" th:each="participatelist : ${participateList}">
-                <a href="#">
+                <a th:href="@{|/project/projectDetail/${participatelist.project.get(0).proCode}|}">
                     <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
                 </a>
                 <div class="projectInfo">
-                    <div class="projectTitle" th:text="${participatelist.project.get(0).proName}"></div>
-                    <div class="projectDate" th:text="${participatelist.orderPayment.get(0).orderDate}"></div>
+                    <div class="projectTitle ellipsisWrap" th:text="${participatelist.project.get(0).proName}"></div>
+                    <div class="projectDate" th:text="${#strings.substring(participatelist.orderPayment.get(0).orderDate, 0, 10)}"></div>
 <!--                    <div class="deliverStatus">배송 완료</div>-->
                 </div>
                 <div class="d-flex endpjbtn">
                     <!-- 프로젝트가 진행 중인 경우 프로젝트 진행 중 버튼(비활성화) -->
-                    <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.project.get(0).endDate}  ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}">프로젝트 진행중</button>
-                    <th:block th:if="${participatelist.project.get(0).endDate} lt ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}">
-                        <!-- 프로젝트 종료 후 중간 정산 완료 전까지 중간 정산 전 버튼(비활성화)-->
-                        <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하지 않으면 구매 미확정 버튼(활성화) -->
-                        <button class="orderDetails"
-                                th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}"
-                                th:onclick="purchaseModalOpen([[${participatelist.orderPayment.get(0).orderCode}]])">구매 미확정
-                        </button>
-                        <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하면 구매 확정 완료 버튼(비활성화) -->
-                        <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.orderPayment.get(0).purchaseStatus != null}">구매 확정 완료</button>
+                    <th:block th:if="${#numbers.#strings.replace(participatelist.project.get(0).endDate, '-', '') >= #calendars.format(#calendars.createNow(), 'yyyyMMdd')}">
+                        <button class="purchaseConfirmed noPointer" disabled>프로젝트 진행 중</button>
                     </th:block>
-
+                    <!-- 프로젝트가 종료된 경우 -->
+                    <th:block th:if="${#numbers.#strings.replace(participatelist.project.get(0).endDate, '-', '') < #calendars.format(#calendars.createNow(), 'yyyyMMdd')}">
+                        <th:block>
+                            <!-- 프로젝트 종료 후 중간 정산 완료 전까지 중간 정산 전 버튼(비활성화)-->
+                            <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하지 않으면 구매 미확정 버튼(활성화) -->
+                            <button class="orderDetails"
+                                    th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}"
+                                    th:onclick="purchaseModalOpen([[${participatelist.orderPayment.get(0).orderCode}]])">구매 미확정
+                            </button>
+                            <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하면 구매 확정 완료 버튼(비활성화) -->
+                            <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.orderPayment.get(0).purchaseStatus != null}">구매 확정 완료</button>
+                        </th:block>
+                    </th:block>
                     <button class="orderDetails">내역 조회</button>
                 </div>
                 <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</button></div>

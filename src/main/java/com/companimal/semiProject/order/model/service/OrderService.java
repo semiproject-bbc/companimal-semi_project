@@ -15,8 +15,5 @@ public interface OrderService {
 
     MemberDTO memberInfo(String memId);              // 멤버 정보
 
-    @Transactional
-    int updatePurchaseConfirm(String orderCode);
-
     void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO);
 }

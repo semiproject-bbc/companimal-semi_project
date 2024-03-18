@@ -38,4 +38,6 @@ public interface ProjectMapper {
     int insertImage(ProjectImageDTO projectImage);
 
     List<ProjectDTO> selectCalculationList(String id);
+
+    int insertCalculationList(String proCode);
 }

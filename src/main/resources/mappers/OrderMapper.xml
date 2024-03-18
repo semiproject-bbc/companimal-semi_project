@@ -97,11 +97,11 @@
             WHERE MEM_ID =#{ memId }
     </select>
 
-    <update id="updatePurchaseConfirm" parameterType="String">
-        UPDATE order_payment
-        SET purchase_status = now()
-        WHERE order_code = #{orderCode}
-    </update>
+<!--    <update id="updatePurchaseConfirm" parameterType="String">-->
+<!--        UPDATE order_payment-->
+<!--        SET purchase_status = now()-->
+<!--        WHERE order_code = #{orderCode}-->
+<!--    </update>-->
 
     <select id="getCouponInfo" resultMap="couponResultMap">
         SELECT COU_CODE,

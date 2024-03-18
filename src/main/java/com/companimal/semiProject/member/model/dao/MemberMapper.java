@@ -17,4 +17,5 @@ public interface MemberMapper {
 
     List<MemberDTO> selectParticipate(String id);
 
+    int updatePurchaseConfirm(String orderCode);
 }
