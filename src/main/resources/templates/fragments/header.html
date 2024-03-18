@@ -7,7 +7,8 @@
         <div class="miniNav">
             <div sec:authorize="!isAuthenticated()">
                 <button class="signup miniNav-item" onclick="location.href='/member/regist'">회원가입</button>
-                <button id="login" class="login miniNav-item" type="button" onclick="location.href='/auth/login'">로그인</button>
+                <button id="login" class="login miniNav-item" type="button" onclick="location.href='/auth/login'">로그인
+                </button>
             </div>
 
             <div sec:authorize="isAuthenticated()">
@@ -24,7 +25,9 @@
                     </form>
                 </div>
             </div>
-            <button id="projectRegist" class="projectRegist miniNav-item" th:onclick="|location.href='@{/project/projectRegistBefore}'|">프로젝트 등록</button>
+            <button id="projectRegist" class="projectRegist miniNav-item"
+                    th:onclick="|location.href='@{/project/projectRegistBefore}'|">프로젝트 등록
+            </button>
         </div>
         <div class="companimal" onclick="location.href='/'">Companimal</div>
         <div class="mainNav">

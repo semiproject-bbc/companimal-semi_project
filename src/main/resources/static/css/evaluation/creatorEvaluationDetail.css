@@ -29,7 +29,7 @@
 
 .creatorBusinessEvaluationFile {
     width: 200px;
-    height: 150px;
+    height: 200px;
     background-color: #d5d5d5;
     border: 1px solid #d5d5d5;
     display: flex;
@@ -46,19 +46,24 @@
     height: 50px;
     border: 1px solid #d5d5d5;
     display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 1px;
 }
 
 .creatorBusinessEvaluationFileContent {
     width: 600px;
-    height: 150px;
+    height: 200px;
     border: 1px solid #d5d5d5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 1px;
+}
+
+.cotent {
+    margin-left: 10px;
+}
+
+.test111 {
+    display: block;
+    margin-top: 20px;
+    margin-left: 10px;
 }
 
 .buttons {
@@ -90,4 +95,126 @@
     background-color: #fca652;    
     color: white;    
     border-radius: 3px;    
+}
+
+/* 반려사유 모달창 */
+.qksfutkdb {
+    position: absolute;
+    font-size: 18px;
+    z-index: 1;
+    margin-left: 505px;
+    margin-top: 270px;
+}
+
+.rejectionModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modalContent1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 3px solid #fca652;
+    border-radius: 30px;
+    height: 300px;
+    width: 500px;
+
+
+}
+.submitRejection {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    margin: 10px;
+    width: 130px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #fca652;
+    border: #fca652;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.close1 {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    color: #aaa;
+    font-size: 50px;
+    font-weight: 100;
+}
+
+.close1:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.textarea {
+    margin-top: 75px;
+    border: 3px solid #fca652;
+    border-radius: 5px;
+}
+
+/* 알림 모달창 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modalContent {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 3px solid #fca652;
+    border-radius: 30px;
+    height: 100px;
+    width: 300px;
+
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modalText {
+    align-items: center;
+    margin: 10px 20px;
 }

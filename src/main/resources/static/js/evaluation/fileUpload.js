@@ -15,3 +15,16 @@ function uploadFile3() {
     let fileName = fullPath.split('\\').pop();
     $('.creatorImgInput').val(fileName);
 }
+
+function uploadFile4() {
+    let fullPath = $('#fileInput4').val();
+    let fileName = fullPath.split('\\').pop();
+    $('.businessRegistrationInput').val(fileName);
+}
+
+
+function updateInputValue(selectElement, inputId) {
+    var selectedValue = selectElement.value;
+    document.getElementById(inputId).value = selectedValue;
+}
+

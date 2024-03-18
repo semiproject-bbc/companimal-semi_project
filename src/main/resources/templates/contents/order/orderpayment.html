@@ -6,7 +6,7 @@
 
     <head>
     <meta charset="UTF-8">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <title>orderPayment</title>
     <link rel="stylesheet" th:href="@{/css/orderpayment.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
@@ -15,6 +15,7 @@
 </head>
 
 <th:block layout:fragment="content">
+
 <section>
 <form id="myForm" method="post" th:action="@{/ontoKakaoPayPage}">
         <div class="orderPayment-headers">
@@ -112,14 +113,22 @@
                     <div class="supporterPhoneNumber-container">
                         <div class="supporterPhoneNumber">휴대폰 번호</div>
                         <div class="supporterPhoneNumberInputtedValue" th:text="${ memberInfo.memberPhone}"></div>
+
                     </div>
 
-                    <div class="tNcPayment-container">
-                        <input type="checkbox" class="checkbox">
-                        <div class="conditions">(필수) 펀딩 진행에 대한 새소식 및 결제 관련 안내를 받습니다.</div>
+                    <!-- 사용 여부가 있는 쿠폰들만 listbox안에서 출력을 할 수 있겠금 보여준다 -->
+                    <div class="NoOfProject-container">
+                        <div class="NoOfProject">쿠폰</div>
+                        <select class="couponAmount">
+                            <option value="0" class="couponDiscount">쿠폰을 선택해주세요</option>
+                            <div th:each="coupon : ${ couponInfo }">
+                                <th:if test="${coupon.couYn == 'y'}">
+                                    <option th:value="${ coupon.couCode}" th:text="${ coupon.couName}"></option>
+                                </th:if>
+                            </div>
+                        </select>
                     </div>
-                </div>
-            </div>
+
 
             <div class="rewardDestination-container"> <!-- action="경로를 입력하면 된다."-->
                 <div class="rewardDestination-title">리워드 배송지</div>
@@ -193,7 +202,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+
 
          <div class="paymentButton-container">
             <div class="ontoPaymentPage">
@@ -204,5 +213,6 @@
 
 </form>
 </section>
+
 </th:block>
 </html>

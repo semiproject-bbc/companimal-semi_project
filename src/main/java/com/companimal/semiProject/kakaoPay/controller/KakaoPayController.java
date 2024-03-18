@@ -35,6 +35,7 @@ public class KakaoPayController {
         this.orderService = orderService;
     }
 
+
 //    @GetMapping //localhost:8080
 //    public String helloworld() {
 //        return "main";
@@ -81,6 +82,7 @@ public class KakaoPayController {
         return "redirect:" + kakaopay.kakaoPayReady(); // kakaopay 결제 화면으로 이동
         // http://localhost:8080/kakaoPaySuccess?pg_token=ee334b6d479d0c10260a
     }
+
 
     @GetMapping("/kakaoPaySuccess")
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, Authentication authentication) {

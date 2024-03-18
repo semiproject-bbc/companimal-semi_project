@@ -7,10 +7,11 @@
     <link rel="stylesheet" th:href="@{/css/login.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <script src="login.js"></script>
-</head> 
+</head>
 <body>
-    <div class="MainWeapper_contest">
-        
+<div class="companimalLogo" onclick="location.href='/main'">Companimal</div>
+<div class="MainWeapper_contest">
+
         <div class="account-intro-login">
 
             <div class="AccountContainer_container">
@@ -40,20 +41,20 @@
                     <div class="SignInForm_loginAction">
 
                         <p class="SignInForm_forgotId">
-                            <a href="/아이디찾기 주소" data-test-id="findIdLink">아이디찾기</a>
+                            <a th:href="@{/member/findId}">아이디찾기</a>
                         </p>
 
                         <P class="SignInForm_separator">|</P>
 
                         <p class="SignInForm_forgotPassword">
                             
-                            <a href="/비밀번호찾기 주소" data-test-id="findIdLink">비밀번호찾기</a>
+                            <a th:href="@{/member/findPwd}">비밀번호찾기</a>
                         </p >
 
                         <p class="SignInForm_separator">|</p>
 
                         <p class="SignInForm_regist">
-                            <a href="/회원가입 주소" data-test-id="findIdLink">회원가입</a>
+                            <a th:href="@{/member/regist}">회원가입</a>
                         </p>
 
                     </div>

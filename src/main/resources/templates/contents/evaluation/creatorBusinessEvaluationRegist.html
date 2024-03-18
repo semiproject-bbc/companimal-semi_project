@@ -6,88 +6,123 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/common.css}">
-    <link rel="stylesheet" th:href="@{/css/evaluation/creatorBusinessEvaluationRegist.css}">
+    <link rel="stylesheet" th:href="@{/css/evaluation/creatorEvaluationRegist.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-<body>
+<th:block layout:fragment="content">
     <section>
-        <div class="sidetab">
-            <div class="sidewrap">
-                <div class="rolechangebtn">
-                    <button class="supporterbtn">서포터</button>
-                    <button class="creatorbtn focusbtn">크리에이터</button>
-                </div>
-                <div class="roleimage">
-                    <img src="../common/image/member.png" alt="이미지">
-                </div>
-                <div class="sidemenu">
-                    <p>진행 중인 프로젝트</p>
-                    <button>- 진행 중인 프로젝트 조회</button>
-                    <p>진행 종료 프로젝트</p>
-                    <button>- 진행 종료 프로젝트 조회</button>
-                    <button>- 후원금 정산 진행 현황</button>
-                    <p>프로젝트 문의</p>
-                    <button>- 문의 내역</button>
-                </div>
-            </div>
-        </div>
         <div class="main">
             <p class="creatorEvaluationRegist">개인 크리에이터 심사 등록</p>
 
-            <form class="creatorEvaluationRegistForm">
+            <form class="creatorEvaluationRegistForm" th:action="@{/evaluation/creatorBusinessEvaluationRegist}"
+                  th:method="post" enctype="multipart/form-data">
 
                 <div class="evaluationRegistForm">
 
-                    <div class="creatorBusinessEvaluationItemContent">
+                    <div class="creatorEvaluationField">
 
-                        <input class="companyRegistrationNumberInput" type="text" placeholder="   사업자등록번호">
+
+                        <input type="text" class="creatorImgInput" placeholder="   크리에이터 이미지" disabled
+                        >
+
+                        <input type="file" name="creatorImg" id="fileInput3" style="display: none;"
+                               onchange="uploadFile3()">
+                        <button class="creatorEvaluationSubmitButton" type="button"
+                                onclick="document.getElementById('fileInput3').click();">
+                            <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">
+                            <p class="SubmitButtonText">파일 업로드</p>
+                        </button>
                     </div>
 
-                    <div class="businessRegistrationField">
-                        
-                        <input type="text" class="businessRegistrationInput preInserted" value="   사업자등록증 사본" readonly onfocus="this.className='businessRegistrationInput';">
 
-                        <button class="productPlanSubmitButton">
-                            <img class="SubmitButtonImage" src="../common/image/file_upload.png" alt="">
-                            <p class="SubmitButtonText">파일 업로드</p>    
-                        </button>    
+                    <div class="creatorEvaluationField">
+
+                        <input name="creInqPhone" class="creatorEvaluationInput" type="text" placeholder="   문의 전화번호">
                     </div>
 
-                    <div class="businessOrCorporationNameField">
+                    <div class="creatorEvaluationField">
 
-                        <input class="businessOrCorporationNameInput" type="text" placeholder="   상호/법인명">
-                    </div>
-                    
-                    <div class="productPlanField">
-                        
-                        <input type="text" class="productPlanInput preInserted" value="   상품 기획서" readonly onfocus="this.className='productPlanInput';">
-
-                        <button class="productPlanSubmitButton">
-                            <img class="SubmitButtonImage" src="../common/image/file_upload.png" alt="">
-                            <p class="SubmitButtonText">파일 업로드</p>    
-                        </button>    
+                        <input name="creInqEmail" class="creatorEvaluationInput" type="text" placeholder="   문의 이메일">
                     </div>
 
-                    <div class="productPortfolioField">
-                        
-                        <input type="text" class="productPortfolioInput preInserted" value="   포트폴리오" readonly onfocus="this.className='productPortfolioInput';">
+                    <div class="creatorEvaluationField">
 
-                        <button class="productPortfolioSubmitButton">
-                            <img class="SubmitButtonImage" src="../common/image/file_upload.png" alt="">
-                            <p class="SubmitButtonText">파일 업로드</p>    
-                        </button>    
+                        <input name="bankName" class="creatorEvaluationInput" type="text" placeholder="   은행명">
                     </div>
 
-                    <div class="establishmentDateField">
+                    <div class="creatorEvaluationField">
 
-                        <input class="establishmentDateInput" type="text" placeholder="   설립일">
+                        <input name="accountNo" class="creatorEvaluationInput" type="text" placeholder="   계좌 번호">
                     </div>
 
-                    <div class="corporateFormField">
+                    <div class="creatorEvaluationField">
 
-                        <input type="text" class="corporateFormInput preInserted" value="   기업 형태" readonly onfocus="this.className='corporateFormInput';">
-                
-                        <select class="corporateFormSelect"> 
+                        <input name="depositorName" class="creatorEvaluationInput" type="text" placeholder="   예금주명">
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input name="busiNum" class="creatorEvaluationInput" type="text" placeholder="   사업자등록번호">
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input type="text" class="businessRegistrationInput" placeholder="   사업자등록증 사본" disabled
+                        >
+
+                        <input type="file" name="businessRegistration" id="fileInput4" style="display: none;"
+                               onchange="uploadFile4()">
+                        <button class="creatorEvaluationSubmitButton" type="button"
+                                onclick="document.getElementById('fileInput4').click();">
+                            <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">
+                            <p class="SubmitButtonText">파일 업로드</p>
+                        </button>
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input name="busiName" class="creatorEvaluationInput" type="text" placeholder="   상호/법인명">
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input type="text" class="productPortfolioInput" placeholder="   펀딩 제품에 대한  포트폴리오" disabled
+                        >
+
+                        <input type="file" name="creatorProductPortfolio" id="fileInput2" style="display: none;"
+                               onchange="uploadFile2()">
+                        <button class="creatorEvaluationSubmitButton" type="button"
+                                onclick="document.getElementById('fileInput2').click();">
+                            <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">
+                            <p class="SubmitButtonText">파일 업로드</p>
+                        </button>
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input type="text" class="productPlanInput" placeholder="   상품 기획서" disabled
+                        >
+
+                        <input type="file" name="creatorProductPlan" id="fileInput" style="display: none;"
+                               onchange="uploadFile()">
+                        <button class="creatorEvaluationSubmitButton" type="button"
+                                onclick="document.getElementById('fileInput').click();">
+                            <img class="SubmitButtonImage" th:src="@{/image/file_upload.png}">
+                            <p class="SubmitButtonText">파일 업로드</p>
+                        </button>
+                    </div>
+
+
+                    <div class="creatorEvaluationField">
+
+                        <input name="busiDateStr" class="creatorEvaluationInput" type="date" placeholder="   설립일">
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input id="busiTypeInput" class="creatorEvaluationInput" type="text" placeholder="   기업 형태 " disabled>
+
+                        <select name="busiType" class="corporateFormSelect" onchange="updateInputValue(this, 'busiTypeInput')">>
                             <option selected disabled>선택</option>
                             <option value="주식회사">주식회사</option>
                             <option value="비영리 재단법인">비영리 재단법인</option>
@@ -95,28 +130,64 @@
                             <option value="개인기업">개인기업</option>
                             <option value="기타">기타</option>
                         </select>
-                    </div>      
-                    
-                    <div class="corporateFormField">
+                    </div>
 
-                        <input type="text" class="corporateFormInput preInserted" value="   업종" readonly onfocus="this.className='corporateFormInput';">
-                
-                        <select class="corporateFormSelect"> 
+                    <div class="creatorEvaluationField">
+
+                        <input id="busiInduInput" class="creatorEvaluationInput" type="text" placeholder="   업종" disabled>
+
+                        <select name="busiIndu" class="corporateFormSelect" onchange="updateInputValue(this, 'busiInduInput')">
                             <option selected disabled>선택</option>
-                            <option value="주식회사">주식회사</option>
-                            <option value="비영리 재단법인">비영리 재단법인</option>
-                            <option value="조합">조합</option>
-                            <option value="개인기업">개인기업</option>
-                            <option value="기타">기타</option>
+                            <option value="농.축.수산">농.축.수산</option>
+                            <option value="제조">제조</option>
+                            <option value="음식">음식</option>
+                            <option value="헬스케어">헬스케어</option>
+                            <option value="교육">교육</option>
+                            <option value="기타서비스">기타서비스</option>
                         </select>
-                    </div>    
+                    </div>
 
-                    <button class="evlauationRegistSubmitButton" type="submit"> 
+                    <div class="creatorEvaluationField">
+
+                        <input name="busiLoca" class="creatorEvaluationInput" type="text" placeholder="   소재지">
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input id="busiSizeInput" class="creatorEvaluationInput" type="text" placeholder="   기업 규모" disabled>
+
+                        <select name="busiSize" class="corporateFormSelect" onchange="updateInputValue(this, 'busiSizeInput')">
+                            <option selected disabled>선택</option>
+                            <option value="대기업">대기업</option>
+                            <option value="중소기업">중소기업</option>
+                            <option value="중견기업">중견기업</option>
+                            <option value="소상공인">소상공인</option>
+                        </select>
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input name="busiUrl" class="creatorEvaluationInput" type="text" placeholder="   홈페이지(선택)">
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input name="authName" class="creatorEvaluationInput" type="text" placeholder="   담당자 이름">
+                    </div>
+
+                    <div class="creatorEvaluationField">
+
+                        <input name="authNum" class="creatorEvaluationInput" type="text" placeholder="   담당자 전화번호">
+                    </div>
+
+                    <button class="evlauationRegistSubmitButton" type="submit">
                         <p class="evaluationRegistText">심사 등록</p>
                     </button>
+
                 </div>
             </form>
         </div>
     </section>
-</body>
+    <script th:src="@{/js/evaluation/fileUpload.js}"></script>
+</th:block>
 </html>
