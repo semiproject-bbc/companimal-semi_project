@@ -484,7 +484,7 @@
         ,cate_sub
         FROM project
         WHERE eva_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
-        ORDER BY end_date
+        ORDER BY end_date desc
     </select>
 
     <!-- 배송 예정일 업데이트 쿼리 -->
