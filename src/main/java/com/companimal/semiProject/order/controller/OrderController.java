@@ -131,20 +131,4 @@ public class OrderController {
         return "contents/order/orderpayment";
     }*/
 
-    @ResponseBody
-    @PostMapping("/updatePurchaseStatus")
-    public String updatePurchaseConfirm(@RequestParam("orderCode") String orderCode) {
-
-        int result = orderService.updatePurchaseConfirm(orderCode);
-
-        if(result > 0) {
-            System.out.println("구매 확정 완료");
-        }else {
-            System.out.println("구매 확정 실패");
-        }
-
-        return "redirect:selectPurchaseStatus";
-      
-    }
-
 }

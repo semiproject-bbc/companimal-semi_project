@@ -36,6 +36,7 @@ public class EvaluationController {
         System.out.println("후원금 최종 정산 심사");
 
         List<CalculationListDTO> calculationList = evaluationService.selectEvaCalculationList();
+        System.out.println("🎈🎈🎈🎈🎈🎈🎈🎈🎈" + calculationList.toString());
 
         model.addAttribute("calculationList", calculationList);
 

@@ -122,4 +122,22 @@ public class MemberController {
         return "contents/member/supporterParticipate";
     }
 
+    @ResponseBody
+    @PostMapping("/updatePurchaseStatus")
+    public String updatePurchaseConfirm(@RequestParam("orderCode") String orderCode) {
+
+        System.out.println("😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤");
+
+        int result = memberService.updatePurchaseConfirm(orderCode);
+
+        if(result > 0) {
+            System.out.println("구매 확정 완료");
+        }else {
+            System.out.println("구매 확정 실패");
+        }
+
+        return "redirect:/participateProject";
+
+    }
+
 }

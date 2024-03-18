@@ -372,4 +372,11 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectDTO> selectCalculationList(String id) {
         return projectMapper.selectCalculationList(id);
     }
+
+    @Override
+    public int insertCalculationList(String proCode) {
+        int result = projectMapper.insertCalculationList(proCode);
+
+        return result;
+    }
 }

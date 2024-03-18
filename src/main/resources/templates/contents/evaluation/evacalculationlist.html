@@ -31,7 +31,7 @@
             </tr>
             <tr th:each="calculationlist : ${calculationList}">
                 <td>1</td>
-                <td th:text="${calculationlist.calReqDatetime}"></td>
+                <td th:text="${#strings.substring(calculationlist.calReqDatetime, 0, 16)}"></td>
                 <td th:text="${calculationlist.project.get(0).proName}" class="titleWrap">프로젝트 제목입니다.</td>
                 <th>
                     <button class="modalBtn evadetail" th:onclick="evaCalModalOpen([[${calculationlist.proCode}]])" th:if="${calculationlist.calAppDatetime == null}">승인</button>

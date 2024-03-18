@@ -6,6 +6,7 @@ import com.companimal.semiProject.member.model.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -51,4 +52,11 @@ public class MemberService {
         return memberMapper.selectParticipate(id);
     }
 
+
+    @Transactional
+    public int updatePurchaseConfirm(String orderCode) {
+        int result = memberMapper.updatePurchaseConfirm(orderCode);
+
+        return result;
+    }
 }
