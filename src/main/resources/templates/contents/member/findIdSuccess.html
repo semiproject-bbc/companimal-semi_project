@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <title>COMPANIMAL</title>
+    <link rel="stylesheet" th:href="@{/css/findIdSuccess.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="companimalLogo" onclick="location.href='/main'">Companimal</div>
+    <div class="MainWeapper_contest">
+        
+        <div class="account-intro-login">
+
+            <div class="AccountContainer_container">
+
+                <h1 class="AccountContainer_title">아이디 찾기</h1>
+
+                <h1 class="findMemberId" th:text="${memId}">companimal1234567</h1>
+                <p class="findIdInfo">회원으로 등록된 아이디입니다.</p>
+                <p class="findIdInfo2">해당 아이디로 로그인하고 Companimal을 이용하세요!</p>
+                
+                <form class="SignInForm_form" th:action="@{/auth/login}" th:method="get">
+
+                    <div class="findIdButton">
+                        
+                        <button class="findIdSubmitButton" type="submit">
+                            <span class="findIdSubmitButtonText">로그인</span>
+                        </button>
+                     </div>
+                </form>
+
+            </div>
+
+        </div>
+        
+    </div>
+    
+</body>
+</html>

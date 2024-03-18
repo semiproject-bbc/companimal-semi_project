@@ -18,4 +18,12 @@ public interface MemberMapper {
     List<MemberDTO> selectParticipate(String id);
 
     int updatePurchaseConfirm(String orderCode);
+
+    String selectMemId(String memName);
+
+    String registeredEmailCheckByName(String name);
+
+    String registeredEmailCheckById(String memId);
+
+    void UpdatePassword(String memberPwd, String memId);
 }
