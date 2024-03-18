@@ -5,6 +5,7 @@ import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EvaluationMapper {
@@ -18,8 +19,10 @@ public interface EvaluationMapper {
     List<CalculationListDTO> selectEvaCalculationList();
 
     int updateCalAppDate(int proCode);
-  
+
     boolean insertEvaluation(EvaluationDTO evaluationDTO);
+
+    boolean InsertCreatorBusiness(CreatorBusinessDTO creatorBusinessDTO);
 
     boolean insertCreatorEva(CreatorEvaDTO creatorEvaDTO);
 
@@ -29,6 +32,17 @@ public interface EvaluationMapper {
 
     String selectCreatorId(int evaNum);
 
-    boolean creatorAccept(String memberRole);
-  
+    void updateCreatorRole(String memId, String memberRole);
+
+    void deleteCreatorEvaluation(String memId);
+
+    void deleteCreatorFile(String memId);
+
+    void deleteCreatorInfo(String memId);
+
+    void updateEvaluation(Map<String, Object> map);
+
+    int selectCreatorFile(String memId);
+
+    void deleteCreatorBusinessEvaluation(String memId);
 }

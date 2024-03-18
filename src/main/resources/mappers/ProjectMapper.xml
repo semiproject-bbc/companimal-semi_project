@@ -149,6 +149,14 @@
         <result property="purchaseStatus" column="purchase_status" />
     </resultMap>
 
+    <resultMap id="calculationResultMap" type="com.companimal.semiProject.evaluation.model.dto.CalculationListDTO">
+        <id property="proCode" column="pro_code" />
+        <result property="calReqDatetime" column="cal_req_datetime" />
+        <result property="calAppDatetime" column="cal_app_datetime" />
+        <result property="calStatus" column="cal_status" />
+    </resultMap>
+
+    <!-- 프로젝트에 대한 서포터의 후원 내역 조회 -->
     <resultMap id="selectSupportListResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
         <id property="proCode" column="pro_code"/>
         <result property="proName" column="pro_name"/>
@@ -172,6 +180,7 @@
         <collection property="rewardOpt" resultMap="projectRewardOptResultMap" />
     </resultMap>
 
+    <!-- 후원 정산 내역 조회 -->
     <resultMap id="selectCalculationResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
         <id property="proCode" column="pro_code"/>
         <result property="proName" column="pro_name"/>
@@ -188,7 +197,7 @@
         <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
-        <association property="defaultMember" resultMap="defaultMemberResultMap" />
+        <association property="calculationList" resultMap="calculationResultMap" />
         <collection property="orderPayment" resultMap="orderPaymentResultMap" />
     </resultMap>
 
@@ -482,19 +491,15 @@
     <!-- 서포터 후원 리스트 가져오는 쿼리 -->
     <select id="selectSupportList" parameterType="int" resultMap="selectSupportListResultMap">
         SELECT
-            m.mem_id,
+            o.mem_id,
             o.order_date,
             o.final_pay,
             t.order_amount,
-            w2.rew_amount
-            FROM project p
-            JOIN order_payment o ON (p.pro_code = o.pro_code)
-            JOIN default_member m ON (m.mem_id = o.mem_id)
+            w.rew_amount
+            FROM order_payment o
             JOIN order_opt t ON (o.order_code = t.order_no)
-            JOIN reward r ON (p.pro_code = r.pro_code)
-            JOIN reward_opt w1 ON (r.rew_code = w1.rew_code)
-            JOIN reward_opt w2 ON (t.rew_opt_code = w2.rew_opt_code)
-            WHERE p.pro_code = #{proCode}
+            JOIN reward_opt w ON (t.rew_opt_code = w.rew_opt_code)
+            WHERE o.pro_code = #{proCode}
             ORDER BY o.order_date desc
     </select>
 
@@ -502,14 +507,41 @@
     <select id="selectCalculationList" parameterType="String" resultMap="selectCalculationResultMap">
         SELECT
             p.pro_code,
+            o.pro_code,
             p.pro_name,
-            p.ach_rate,
             p.est_date,
-            o.purchase_status
+            p.ach_rate,
+            c.cal_req_datetime,
+            c.cal_app_datetime
             FROM project p
-            JOIN default_member m ON (m.mem_id = p.mem_id)
-            JOIN order_payment o ON (p.pro_code = o.pro_code)
-            WHERE m.mem_id = #{id} and p.end_date <![CDATA[ < ]]> now() and p.ach_rate >= 100
-            ORDER BY p.end_date;
+            LEFT JOIN (SELECT DISTINCT
+                pro_code,
+                purchase_status
+                FROM order_payment
+                WHERE pro_code in (SELECT
+                    pro_code
+                    FROM project
+                    WHERE mem_id = #{id}
+                        AND DATEDIFF(end_date, now()) <![CDATA[ <= ]]> 0)
+                        AND purchase_status IS NULL) o ON (p.pro_code = o.pro_code)
+            LEFT JOIN calculation_list c ON (p.pro_code = c.pro_code)
+            WHERE mem_id = #{id} AND DATEDIFF(end_date, now()) <![CDATA[ <= ]]> 0 AND ach_rate >= 100;
     </select>
+
+    <insert id="insertCalculationList" parameterType="String">
+        INSERT INTO calculation_list
+            (
+                pro_code
+                , cal_req_datetime
+                , cal_app_datetime
+                , cal_status
+            )
+            VALUES
+            (
+                #{proCode}
+                , now()
+                , NULL
+                , 'N'
+            )
+    </insert>
 </mapper>

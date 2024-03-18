@@ -53,6 +53,7 @@
                     <button onclick="toggleImg()" type="button" class="heart-button">
                         <img id="img" class="heart-gray-icon" src="/image/heart-gray.png">
                     </button>
+
                     <button type="submit" class="funding">펀딩 후원하기</button>
 
                 </div>
@@ -118,6 +119,7 @@
                         <div class="reward-list" th:each=" reward : ${ project.reward }">
                             <div class="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }" onclick="toggleEvent(this)" data-fg-set="true" th:data-opt-code="${ rewardOpt.rewOptCode }">
                                 <!--                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">-->
+                                <input type="hidden" class="divRewOptCode" th:value="${ rewardOpt.rewOptCode }">
                                 <div class="reward-title" th:text="${ reward.rewName }"></div>
                                 <div class="op-limit">
                                     <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>
@@ -142,6 +144,9 @@
                                 console.log($(this));
                                 let quantityElement = $(this).siblings('.number');
                                 let currentQuantity = parseInt(quantityElement.text());
+
+                                let noOfOrderVal = $(this).siblings('.noOfOrder');
+                                noOfOrderVal.val(currentQuantity);
 
                                 if (currentQuantity > 0) {
                                     quantityElement.text(currentQuantity - 1);
@@ -170,6 +175,9 @@
                                 let currentQuantity = parseInt(quantityElement.text());
                                 quantityElement.text(currentQuantity + 1);
 
+                                let noOfOrderVal = $(this).siblings('.noOfOrder');
+                                noOfOrderVal.val(currentQuantity + 1);
+
                                 updateTotalAmount();
                             });
                         });
@@ -182,6 +190,9 @@
                             const rewOpt = event.getElementsByClassName('reward-option')[0].innerHTML;
                             const rewValue = event.getElementsByClassName('reward-value')[0].innerHTML;
                             const rewOptAmount = event.getElementsByClassName('reward-price')[0].innerHTML;
+                            const rewOptCode = event.getElementsByClassName('divRewOptCode')[0].value;
+                            console.log(rewOptCode);
+                            const rewardSf = event.getElementsByClassName('reward-sf')[0].innerHTML;
                             const rewardOptCode = event.dataset.optCode;
 
                             let rewardExists = false;
@@ -193,6 +204,7 @@
                                 }
                             });
 
+
                             if (!rewardExists) {
                                 $(".reward-choose-list").append(
                                     "<div class=\"reward-choose1\">" +
@@ -202,11 +214,18 @@
                                     "<div class=\"count-price\">" +
                                     "<div class=\"counts\">" +
                                     "<div class=\"minus\" data-opt-code=" + rewardOptCode + ">-</div>" +
-                                    "<div class=\"number\" name='noOfOrder'>1</div>" +
+                                    "<div class=\"number\">1</div>" +
                                     "<div class=\"plus\">+</div>" +
                                     "</div>" +
                                     "<div class=\"price\" name='orderAmount'>" + rewOptAmount + " 원</div>" +
                                     "</div>" +
+                                    "<input type='hidden' name='rewName' value=\""+ rewName +"\">"+
+                                    "<input type='hidden' name='rewSf' value=\"" + rewardSf + "\">" +
+                                    "<input type='hidden' name='rewOptCode' value=\"" + rewOptCode + "\">" +
+                                    "<input type='hidden' name='rewOptName' value=\"" + rewOpt + "\">" +
+                                    "<input type='hidden' name='rewOptVal' value=\"" + rewValue + "\">" +
+                                    "<input type='hidden' name='rewAmount' value=\"" + rewOptAmount + "\">" +
+                                    "<input type='hidden' name='noOfOrder' class='noOfOrder' value=\"1\">" +
                                     "</div><br>"
                                 );
                             }
@@ -223,6 +242,11 @@
                             console.log(event.dataset.optCode);
                         }
                     </script>
+                    <form th:action="@{/order/orderPayment}" method="post" id="order_form">
+                        <input type="hidden" id="rowCount" value="0">
+                        <input type="hidden" id="proCode" name="proCode" th:value="${project.proCode}">
+                        <input type="hidden" id="proName" name="proName" th:value="${project.proName}">
+                        <input type="hidden" id="orderAmount" name="orderAmount" value="">
                     <div class="reward-choose">
                         <div class="reward-choose-list" id="reward-choose-list">
                         </div>
@@ -235,6 +259,7 @@
                             </div>
                         </div>
                     </div>
+                    </form>
                     <script th:inline="javascript">
 
                         function updateTotalAmount() {
@@ -247,28 +272,32 @@
                                 totalAmount += price * quantity;
                             });
 
+                            $("#orderAmount").val(totalAmount);
+
                             $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount) + "원");
                         };
 
 
                     </script>
                 </div>
-                <form th:action="@{/order/orderPayment}" method="post" class="order_form">
-                    <input type="hidden" name="proCode" value="${project.proCode}">
-                    <input type="hidden" name="proName" value="${project.proName}">
-                    <input type="hidden" name="projectRewardDTOList.rewName" value="${reward.rewCode}">
-                    <input type="hidden" name="projectRewardDTOList.rewNum" value="${reward.rewNum}">
-                    <input type="hidden" name="projectRewardDTOList.rewName" value="${reward.rewName}">
-                    <input type="hidden" name="projectRewardDTOList.rewExplain" value="${reward.rewExplain}">
-                    <input type="hidden" name="projectRewardDTOList.rewSf" value="${reward.rewSf}">
-                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptCode" value="${reward.rewardOpt.rewOptCode}">
-                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptName" value="${reward.rewardOpt.rewOptName}">
-                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptVal" value="${reward.rewardOpt.rewOptVal}">
-                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewOptLimit" value="${reward.rewardOpt.rewOptLimit}">
-                    <input type="hidden" name="projectRewardDTOList.rewardOpt.rewAmount" value="${reward.rewardOpt.rewAmount}">
-                    <input type="hidden" name="noOfOrder" value="">
-                    <input type="hidden" name="orderAmount" value="">
-                </form>
+
+<!--             PRO_NAME, PRO_CODE, REW_CODE, REW_NUM, REW_NAME, REW_SF, REW_OPT_CODE, REW_OPT_NUM, REW_OPT_NAME, REW_OPT_VAL, REW_AMOUNT, 합계, 선택갯수   -->
+<!--                <form th:action="@{/order/orderPayment}" method="post" id="order_form">-->
+<!--                    <input type="hidden" id="proCode" name="proCode" th:value="${project.proCode}">-->
+<!--                    <input type="hidden" id="proName" name="proName" th:value="${project.proName}">-->
+<!--                    <input type="hidden" id="rewCode" name="rewCode" value="">-->
+<!--                    <input type="hidden" id="rewNum" name="rewNum" value="">-->
+<!--                    <input type="hidden" id="rewName" name="rewName" value="">-->
+<!--                    <input type="hidden" id="rewSf" name="rewSf" value="">-->
+<!--                    <input type="hidden" id="rewOptCode" name="rewOptCode" value="">-->
+<!--                    <input type="hidden" id="rewOptNum" name="rewOptNum" value="">-->
+<!--                    <input type="hidden" id="rewOptName" name="rewOptName" value="">-->
+<!--                    <input type="hidden" id="rewOptVal" name="rewOptVal" value="">-->
+<!--                    <input type="hidden" id="rewAmount" name="rewAmount" value="">-->
+<!--                    <input type="hidden" id="noOfOrder" name="noOfOrder" value="">-->
+<!--                    <input type="hidden" id="orderAmount" name="orderAmount" value="">-->
+<!--                </form>-->
+
 
                 <script>
                     // function send() {
@@ -293,14 +322,37 @@
                     // }
 
                     $(".funding").on("click", function () {
-                       let noOfOrder = $(".reward-choose-list.number").toArray().reduce(
-                           (acc, el) => acc + parseInt($(el).text(), 0));
-                       $("input[name=noOfOrder]").val(noOfOrder);
-                       $(".order_form").submit();
 
-                       let orderAmount = $(".all-price:last").text(new Intl.NumberFormat('ko-KR').format(totalAmount));
-                        $(".order_form").find("input[name=orderAmount]").val(orderAmount);
-                        $(".order_form").submit();
+
+                        let rewCode = "";
+                        let rewNum = "";
+                        let rewName = "";
+                        let rewSf = "";
+                        let rewOptCode = "";
+                        let rewOptNum = "";
+                        let rewOptName = "";
+                        let rewOptVal = "";
+                        let rewAmount = "";
+                        let noOfOrder = "";
+
+                        // "<div class=\"reward-choose1\">" +
+                        // "<span class=\"title-choose\">" + rewName + "</span><br>" +
+                        // "<span class=\"op-choose\">" + rewOpt + " : </span>" +
+                        // "<span class=\"op-choose\">" + rewValue + "</span>" +
+                        // "<div class=\"count-price\">" +
+                        // "<div class=\"counts\">" +
+                        // "<div class=\"minus\" data-opt-code=" + rewardOptCode + ">-</div>" +
+                        // "<div class=\"number\" name='noOfOrder'>1</div>" +
+                        // "<div class=\"plus\">+</div>" +
+                        // "</div>" +
+                        // "<div class=\"price\" name='orderAmount'>" + rewOptAmount + " 원</div>" +
+                        // "</div>" +
+
+                        // $(".reward-choose1").each(function() {
+                        //
+                        // });
+
+                        $("#order_form").submit();
                     });
 
                 </script>

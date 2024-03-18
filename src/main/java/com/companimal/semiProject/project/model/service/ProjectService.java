@@ -31,4 +31,7 @@ public interface ProjectService {
     void insertImage(MultipartFile file);
 
     List<ProjectDTO> selectCalculationList(String id);
+
+    @Transactional
+    int insertCalculationList(String proCode);
 }

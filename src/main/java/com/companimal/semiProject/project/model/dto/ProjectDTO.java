@@ -1,5 +1,6 @@
 package com.companimal.semiProject.project.model.dto;
 
+import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.OrderOptDTO;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,6 +40,7 @@ public class ProjectDTO implements java.io.Serializable {
     private List<OrderPaymentDTO> orderPayment;
     private List<OrderOptDTO> orderOpt;
     private List<MemberDTO> defaultMember;
+    private List<CalculationListDTO> calculationList;
 
     public ProjectDTO() {
     }
@@ -152,6 +154,7 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderPayment = orderPayment;
         this.orderOpt = orderOpt;
         this.defaultMember = defaultMember;
+        this.calculationList = calculationList;
     }
 
     public int getProCode() {
@@ -362,6 +365,14 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderAmount = orderAmount;
     }
 
+    public List<CalculationListDTO> getCalculationList() {
+        return calculationList;
+    }
+
+    public void setCalculationList(List<CalculationListDTO> calculationList) {
+        this.calculationList = calculationList;
+    }
+  
     public CreatorInfoDTO getCreatorInfo() {
         return creatorInfo;
     }

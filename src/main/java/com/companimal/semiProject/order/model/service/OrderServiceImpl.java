@@ -31,15 +31,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int updatePurchaseConfirm(String orderCode) {
-        int result = orderMapper.updatePurchaseConfirm(orderCode);
-
-        return result;
+    public void setOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
+        orderMapper.setOrderPaymentInfo(orderPaymentDTO);
     }
 
     @Override
-    public void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
-
+    public void updateUsedCoupon(String couCode) {
+        orderMapper.updateUsedCoupon(couCode);
     }
+
 }
 

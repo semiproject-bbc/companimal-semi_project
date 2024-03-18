@@ -212,6 +212,36 @@
                )
     </insert>
 
+    <insert id="InsertCreatorBusiness" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO">
+        INSERT
+        INTO CREATOR_BUSINESS (
+                                MEM_ID
+                                , BUSI_NUM
+                                , BUSI_NAME
+                                , BUSI_DATE
+                                , BUSI_TYPE
+                                , BUSI_INDUSTRY
+                                , BUSI_LOCA
+                                , BUSI_SIZE
+                                , BUSI_URL
+                                , AUTH_NAME
+                                , AUTH_NUM
+                                )
+        VALUES (
+                  #{ memId }
+                , #{ busiNum }
+                , #{ busiName }
+                , #{ busiDate }
+                , #{ busiType }
+                , #{ busiIndu }
+                , #{ busiLoca }
+                , #{ busiSize }
+                , #{ busiUrl }
+                , #{ authName }
+                , #{ authNum }
+               )
+    </insert>
+
     <insert id="InsertCreatorFile" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorFileDTO">
         INSERT
         INTO CREATOR_FILE (
@@ -247,15 +277,13 @@
 
     <select id="selectEvaCalculationList" resultMap="evaCalListResultMap">
         SELECT
+            c.cal_req_datetime,
             c.cal_app_datetime,
             c.cal_status,
-            p.pro_code,
             p.pro_name,
-            o.purchase_status
+            p.pro_code
             FROM calculation_list c
-            RIGHT JOIN project p ON (c.pro_code = p.pro_code)
-            JOIN order_payment o ON (p.pro_code = o.pro_code)
-            WHERE p.end_date <![CDATA[ < ]]> now()
+            JOIN project p ON (c.pro_code = p.pro_code)
     </select>
 
     <update id="updateCalAppDate" parameterType="int">
@@ -276,8 +304,53 @@
                )
     </insert>
 
-    <select id="selectCreatorId" resultType="String">
-
+    <select id="selectCreatorId" parameterType="int" resultType="String">
+        SELECT E.MEM_ID
+        FROM CREATOR_EVA E
+        JOIN CREATOR_INFO I ON E.MEM_ID = I.MEM_ID
+        WHERE EVA_NUM = #{ evaNum }
     </select>
 
+    <update id="updateCreatorRole" parameterType="string">
+        UPDATE DEFAULT_MEMBER
+        SET MEM_AUTHORITY = #{ memberRole }
+        WHERE MEM_ID = #{ memId }
+    </update>
+
+    <delete id="deleteCreatorEvaluation" parameterType="string">
+        DELETE
+        FROM CREATOR_EVA
+        WHERE MEM_ID = #{ memId }
+    </delete>
+
+    <delete id="deleteCreatorFile" parameterType="string">
+        DELETE
+        FROM CREATOR_FILE
+        WHERE MEM_ID = #{ memId }
+    </delete>
+
+    <delete id="deleteCreatorInfo" parameterType="string">
+        DELETE
+        FROM CREATOR_INFO
+        WHERE MEM_ID = #{ memId }
+    </delete>
+
+    <update id="updateEvaluation" parameterType="java.util.Map">
+        UPDATE EVALUATION
+        SET REA_REJECTION = #{ reaRejection },
+            EVA_SITUATION = #{ evaSituation }
+        WHERE EVA_NUM = #{ evaNum }
+    </update>
+
+    <select id="selectCreatorFile" parameterType="String">
+        SELECT COUNT(CRE_EVA_NUM) AS FILE_NUM
+        FROM CREATOR_FILE
+        WHERE MEM_ID = #{ memId }
+    </select>
+
+    <delete id="deleteCreatorBusinessEvaluation" parameterType="String">
+        DELETE
+        FROM CREATOR_BUSINESS
+        WHERE MEM_ID = #{ memid }
+    </delete>
 </mapper>

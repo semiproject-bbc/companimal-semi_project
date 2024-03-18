@@ -29,9 +29,6 @@ function updateShipment() {
             'proCode' : proCode
         }
         , success: function() {
-            // const shipmentModal = document.getElementById('shipmentModal');
-            //
-            // shipmentModal.classList.remove('showmodal');
             location.reload();
         }
     });
@@ -58,14 +55,43 @@ function updatePurchase() {
 
     $.ajax({
         type: 'POST'
-        , url: "/order/updatePurchaseStatus"
+        , url: "/member/updatePurchaseStatus"
         , data : {
             orderCode : orderCode
         }
         , success: function() {
-            const purchaseModal = document.getElementById('purchaseModal');
+            location.reload();
+        }
+    });
+}
 
-            purchaseModal.classList.remove('showmodal');
+// 최종 정산 승인 신청
+var finalCalProCode;
+function calModalOpen(proCode) {
+    finalCalProCode = proCode;
+    console.log("최종 정산 승인 신청 프로젝트 번호 : " + proCode);
+    const finalCalModal = document.getElementById('finalCalModal');
+
+    finalCalModal.classList.add('showmodal');
+}
+
+function finalCalModalClose() {
+    const finalCalModal = document.getElementById('finalCalModal');
+
+    finalCalModal.classList.remove('showmodal');
+}
+
+function insertCalculationList() {
+    var proCode = finalCalProCode;
+
+    $.ajax({
+        type: 'POST'
+        , url: "/project/insertCalculationList"
+        , data: {
+            proCode : proCode,
+        }
+        , success: function() {
+            location.reload();
         }
     });
 }
@@ -96,9 +122,7 @@ function updateCalAppDate() {
             proCode : proCode
         }
         , success: function() {
-            const evaCalModal = document.getElementById('evaCalModal');
-
-            evaCalModal.classList.remove('showmodal');
+            location.reload();
         }
     });
 }

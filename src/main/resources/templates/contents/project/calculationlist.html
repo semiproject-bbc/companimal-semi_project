@@ -6,6 +6,10 @@
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
+
 </head>
 
 <th:block layout:fragment="content">
@@ -16,13 +20,13 @@
                 <li>발송 예정일 미입력 : 크리에이터의 발송 예정일 미입력 상태</li>
                 <li>중간 정산 전 : 크리에이터의 발송 예정일 입력 완료 & 종료 후 7일이 안 지난 상태</li>
                 <li>중간 정산 완료 : 크리에이터의 발송 예정일 입력 완료 & 종료 후 7일이 지난 상태</li>
-                <li>최종 정산 심 사 신청(버튼) : 해당 프로젝트 참여 서포터 모두 구매확정</li>
+                <li>최종 정산 심사 신청(버튼) : 해당 프로젝트 참여 서포터 모두 구매확정</li>
                 <li>최종 정산 신청 완료 : 신청 완료</li>
                 <li>최종 정산 완료 : 매니저의 후원금 최종 정산 승인 완료</li>
             </ul>
         </div>
         <div class="d-flex d-wrap projectlistbox">
-            <div class="projectbox" th:each="callist : ${calculationList}">
+            <div class="projectbox" id="proCode" th:each="callist : ${calculationList}">
                 <a th:href="@{|/project/projectDetail/${callist.proCode}|}">
                     <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
                 </a>
@@ -32,14 +36,44 @@
                         <span class="pjpercentage" th:text="${callist.achRate}"></span>
                         <span class="pjpercentage ">% 달성</span>
                     </div>
-<!--                    <p th:if="${callist.estDate} == null" class="gray-back">발송 예정일 미입력</p>-->
-<!--                    <th:block th:if="${callist.estDate} != null">-->
-<!--                        <p class="gray-back">중간 정산 전</p>-->
-                            <!--<th:block th:if="서포터 모두 구매 확정 시">-->
-                            <button type="submit" class="orange-back">최종 정산 신청</button>
-                            <!--</th:block>-->
-<!--                    </th:block>-->
+                    <!-- 발송 예정일 미입력 -->
+                    <!--<p th:if="${callist.estDate} == null" class="gray-back">발송 예정일 미입력</p>
+                    &lt;!&ndash; 발송 예정일 입력 완료 &ndash;&gt;
+                    <th:block  th:if="${callist.estDate} != null" class="gray-back">
+                        &lt;!&ndash; 서포터가 모두 구매 확정을 하지 않은 경우(발송 예정일 입력 완료) &ndash;&gt;
+                        <th:block>
+                            <p class="gray-back">발송 예정일 입력 완료</p>
+                        </th:block>
+                        &lt;!&ndash; 서포터가 모두 구매 확정을 한 경우(최종 정산 승인 신청) &ndash;&gt;
+                        <th:block>
+                            &lt;!&ndash; 최종 정산 승인 신청을 하지 않은 경우 &ndash;&gt;
+                            <th:block th:if="${callist.calculationList.get(0).calReqDatetime == null}">
+                                <button class="orange-back inblock" th:onclick="calModalOpen([[${callist.proCode}]])">최종 정산 신청</button>
+                            </th:block>
+                            &lt;!&ndash; 최종 정산 승인 신청을 한 경우 &ndash;&gt;
+                            <th:block th:if="${callist.calculationList.get(0).calReqDatetime != null}">
+                                &lt;!&ndash; 매니저가 승인을 하지 않은 경우 &ndash;&gt;
+                                <p th:if="${callist.calculationList.get(0).calAppDatetime == null}" class="gray-back">최종 정산 신청 완료</p>
+                                &lt;!&ndash; 매니저가 승인을 허락한 경우(최종 정산 승인 완료) &ndash;&gt;
+                                <p th:if="${callist.calculationList.get(0).calAppDatetime != null}" class="gray-back">최종 정산 승인 완료</p>
+                            </th:block>
+                        </th:block>
+                    </th:block>-->
+
+                    <p th:text="${callist.proCode}"></p>
+                    <p th:text="${callist.orderPayment.get(0).proCode}"></p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="finalCalModal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <h3>최종 정산 신청을 하시겠습니까?</h3>
+            <div class="d-flex buttonBox">
+                <button type="submit" id="finalcalpush" class="finalcalpush confirmBtn" th:onclick="insertCalculationList()">신청</button>
+                <button class="cancelBtn" onclick="finalCalModalClose()">취소</button>
             </div>
         </div>
     </div>
