@@ -4,36 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.companimal.semiProject.order.model.dao.OrderMapper">
 
-    <resultMap id="rewOptResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
-        <id property="rewOptCode" column="REW_OPT_CODE"/>
-        <result property="rewCode" column="REW_CODE"/>
-        <result property="rewOptNum" column="REW_OPT_NUM"/>
-        <result property="rewOptName" column="REW_OPT_NAME"/>
-        <result property="rewOptVal" column="REW_OPT_VAL"/>
-        <result property="rewOptLimit" column="REW_OPT_LIMIT"/>
-        <result property="rewAmount" column="REW_AMOUNT"/>
-    </resultMap>
-
-    <resultMap id="rewardResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
-        <id property="rewCode" column="REW_CODE"/>
-        <result property="rewNum" column="REW_NUM"/>
-        <result property="proCode" column="PRO_CODE"/>
-        <result property="rewName" column="REW_NAME"/>
-        <result property="rewExplain" column="REW_EXPLAIN"/>
-        <result property="rewSf" column="REW_SF"/>
-        <collection property="rewardOpt" resultMap="rewOptResultMap"/>
-    </resultMap>
-
-    <resultMap id="projectResultMap" type="com.companimal.semiProject.order.model.dto.GetOrderDetailsInfoDTO">
-        <id property="proCode" column="PRO_CODE"/>
-        <result property="proName" column="PRO_NAME"/>
-        <result property="orderAmount" column="ORDER_AMOUNT"/>
-        <result property="noOfOrder" column="NO_OF_ORDER"/>
-        <collection property="projectRewardDTOList" resultMap="rewardResultMap"/>
-    </resultMap>
-
     <resultMap id="couponResultMap" type="com.companimal.semiProject.order.model.dto.CouponDTO">
-        <id property="couCode" column="COU_CODe"/>
+        <id property="couCode" column="COU_CODE"/>
         <result property="couName" column="COU_NAME"/>
         <result property="couAmount" column="COU_AMOUNT"/>
         <result property="couDateTime" column="COU_DATETIME"/>
@@ -44,66 +16,53 @@
     <resultMap id="memberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
         <id property="memberId" column="MEM_ID"/>
         <result property="memberPwd" column="MEM_PWD"/>
-        <result property="memNickname" column="MEM_NICKNAME"/>
-        <result property="memName" column="MEM_NAME"/>
-        <result property="memPhone" column="MEM_PHONE"/>
-        <result property="memEmail" column="MEM_EMAIL"/>
-        <result property="memAuthority" column="MEM_AUTHORITY"/>
+        <result property="memberNickname" column="MEM_NICKNAME"/>
+        <result property="memberName" column="MEM_NAME"/>
+        <result property="memberPhone" column="MEM_PHONE"/>
+        <result property="memberEmail" column="MEM_EMAIL"/>
+        <result property="memberRole" column="MEM_AUTHORITY"/>
+    </resultMap>
+
+    <resultMap id="rewOptResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
+        <id property="rewOptCode" column="REW_OPT_CODE"/>
+        <result property="rewCode" column="REW_CODE"/>
+        <result property="rewOptNum" column="REW_OPT_NUM"/>
+        <result property="rewOptName" column="REW_OPT_NAME"/>
+        <result property="rewOptVal" column="REW_OPT_VAL"/>
+        <result property="rewOptLimit" column="REW_OPT_LIMIT"/>
+        <result property="rewAmount" column="REW_AMOUNT"/>
+    </resultMap>
+
+    <resultMap id="orderDetailsResultMap" type="com.companimal.semiProject.order.model.dto.GetOrderDetailsInfoDTO">
+        <id property="proCode" column="PRO_CODE"/>
+        <result property="orderAmount" column="ORDER_AMOUNT"/>
+        <result property="proName" column="PRO_NAME"/>
+    </resultMap>
+
+    <resultMap id="orderOptionDetailsResultMap" type="com.companimal.semiProject.order.model.dto.GetOrderOptionsInfoDTO">
+        <id property="rewName" column="REW_NAME"/>
+        <result property="rewSf" column="REW_SF"/>
+        <result property="rewardOpt" column="REW_OPT_CODE"/>
+        <result property="rewOptName" column="REW_OPT_NAME"/>
+        <result property="rewOptVal" column="REW_OPT_VAL"/>
+        <result property="rewAmount" column="REW_AMOUNT"/>
+        <result property="noOfOrder" column="NO_OF_ORDER"/>
     </resultMap>
 
     <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
-        <id property="orderNo" column="order_no" />
-        <result property="orderDate" column="order_date" />
-        <result property="memId" column="mem_id" />
-        <result property="address" column="address" />
-        <result property="request" column="request" />
-        <result property="recipient" column="recipient" />
-        <result property="finalPay" column="final_pay" />
-        <result property="proCode" column="pro_code" />
-        <result property="couCode" column="cou_code" />
-        <result property="purchaseStatus" column="purchase_status" />
+        <id property="orderCode" column="ORDER_CODE" />
+        <result property="orderDate" column="ORDER_DATE" />
+        <result property="memId" column="MEM_ID" />
+        <result property="address" column="ADDRESS" />
+        <result property="request" column="REQUEST" />
+        <result property="recipient" column="RECIPIENT" />
+        <result property="finalPay" column="FINAL_PAY" />
+        <result property="proCode" column="PRO_CODE" />
+        <result property="couCode" column="COU_CODE" />
+        <result property="purchaseStatus" column="PURCHASE_STATUS" />
     </resultMap>
 
-    <select id="findRewardInfo" resultMap="projectResultMap">
-        SELECT ropt.REW_OPT_NUM,
-               ropt.REW_OPT_NAME,
-               ropt.REW_OPT_VAL,
-               rew.REW_NUM,
-               rew.REW_NAME,
-               rew.REW_SF,
-               p.PRO_CODE,
-               p.PRO_NAME
-        FROM PROJECT p
-        INNER JOIN REWARD rew ON p.PRO_CODE= rew.PRO_CODE
-        INNER JOIN REWARD_OPT ropt ON rew.REW_CODE = ropt.REW_CODE
-            WHERE MEM_ID = #{ memId }
-    </select>
-
     <select id="findCouponInfo" resultMap="couponResultMap">
-        SELECT COU_CODE,
-               COU_NAME,
-               COU_AMOUNT
-        FROM COUPON
-            WHERE MEM_ID = #{ memId }
-        AND COU_YN = 'Y'
-    </select>
-
-    <select id="findMemberInfo" resultMap="memberResultMap">
-        SELECT MEM_ID,
-               MEM_NAME,
-               MEM_PHONE,
-               MEM_EMAIL
-        FROM DEFAULT_MEMBER
-            WHERE MEM_ID =#{ memId }
-    </select>
-
-<!--    <update id="updatePurchaseConfirm" parameterType="String">-->
-<!--        UPDATE order_payment-->
-<!--        SET purchase_status = now()-->
-<!--        WHERE order_code = #{orderCode}-->
-<!--    </update>-->
-
-    <select id="getCouponInfo" resultMap="couponResultMap">
         SELECT COU_CODE,
                COU_NAME,
                COU_AMOUNT,
@@ -112,11 +71,19 @@
                MEM_ID
         FROM COUPON
             WHERE MEM_ID = #{ memId }
-        AND COU_YN = 'Y'
-        ORDER BY COU_CODE
+        AND COU_YN = 'y'
     </select>
 
-    <insert id="insertOrderPaymentInfo" parameterType="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
+    <select id="findMemberInfo" resultMap="memberResultMap">
+        SELECT MEM_ID,
+               MEM_NAME,
+               MEM_PHONE,
+               MEM_EMAIL
+        FROM DEFAULT_MEMBER
+        WHERE MEM_ID =#{ memId }
+    </select>
+
+    <insert id="setOrderPaymentInfo" parameterType="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
         INSERT INTO ORDER_PAYMENT (ORDER_CODE,
                                    ORDER_DATE,
                                    MEM_ID,
@@ -135,7 +102,13 @@
                 #{ recipient },
                 #{ finalPay },
                 #{ proCode },
-                #{ couCode },
+                #{ couCode }
                 )
     </insert>
+
+    <update id="updateUsedCoupon" parameterType="String">
+        UPDATE COUPON
+            SET COU_YN = "n"
+        WHERE COU_CODE = #{ couCode }
+    </update>
 </mapper>

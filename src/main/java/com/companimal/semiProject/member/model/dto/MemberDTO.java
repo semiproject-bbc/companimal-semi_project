@@ -2,6 +2,7 @@ package com.companimal.semiProject.member.model.dto;
 
 import com.companimal.semiProject.order.model.dto.OrderOptDTO;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
+import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
 
 import java.sql.Timestamp;
@@ -18,11 +19,23 @@ public class MemberDTO {
     private String memberRole;
     private List<ProjectDTO> project;
     private List<OrderPaymentDTO> orderPayment;
+    private CreatorInfoDTO creatorInfo;
+
 
     public MemberDTO() {
     }
 
-    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole, List<ProjectDTO> project, List<OrderPaymentDTO> orderPayment) {
+    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole) {
+        this.memberId = memberId;
+        this.memberPwd = memberPwd;
+        this.memberNickname = memberNickname;
+        this.memberName = memberName;
+        this.memberPhone = memberPhone;
+        this.memberEmail = memberEmail;
+        this.memberRole = memberRole;
+    }
+
+    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole, List<ProjectDTO> project, List<OrderPaymentDTO> orderPayment, CreatorInfoDTO creatorInfo) {
         this.memberId = memberId;
         this.memberPwd = memberPwd;
         this.memberNickname = memberNickname;
@@ -32,6 +45,7 @@ public class MemberDTO {
         this.memberRole = memberRole;
         this.project = project;
         this.orderPayment = orderPayment;
+        this.creatorInfo = creatorInfo;
     }
 
     public String getMemberId() {
@@ -90,6 +104,7 @@ public class MemberDTO {
         this.memberRole = memberRole;
     }
 
+
     public List<ProjectDTO> getProject() {
         return project;
     }
@@ -106,6 +121,15 @@ public class MemberDTO {
         this.orderPayment = orderPayment;
     }
 
+    public CreatorInfoDTO getCreatorInfo() {
+        return creatorInfo;
+    }
+
+    public void setCreatorInfo(CreatorInfoDTO creatorInfo) {
+        this.creatorInfo = creatorInfo;
+    }
+
+
     @Override
     public String toString() {
         return "MemberDTO{" +
@@ -118,7 +142,7 @@ public class MemberDTO {
                 ", memberRole='" + memberRole + '\'' +
                 ", project=" + project +
                 ", orderPayment=" + orderPayment +
+                ", creatorInfo=" + creatorInfo +
                 '}';
     }
-
 }

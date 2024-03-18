@@ -8,6 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
+    <script src="/smartEditor/summerNote/lang/summernote-ko-KR.js"></script>
+    <script src="/smartEditor/summerNote/summernote-lite.js"></script>
+    <link href="/smartEditor/summerNote/summernote-lite.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/projectRegist.css}">
@@ -171,8 +174,33 @@
                     </div>
                 </div>
             </div>
-            <!--            </form>-->
-            <!--            </div>-->
+            <script>
+                function summerWrite() {
+                    let summercode = $('#summernote').summernote('code');
+                    let summernote = $('#summernote').val();
+
+                    if (summernote.length < 1) {
+                        alert('스토리 내용을 입력해주세요!');
+                    } else {
+                        $.ajax({
+                                data: {
+                                    "summercode": summercode,
+                                },
+                                type: "POST",
+                                url: "summerWrite",
+                                dataType: "text",
+                                success: function (data) {
+                                    if (data == "OK") {
+                                        alert("스토리가 작성되었습니다.")
+                                    } else {
+                                        alert("스토리 작성에 실패하였습니다.")
+                                    }
+                                }
+                            }
+                        )
+                    }
+                };
+            </script>
         </section>
         <section id="regist4" style="display: none">
             <div class="nav-bar-height side" id="side4">
@@ -210,25 +238,31 @@
                 <div id="reward-container">
                     <div class="input-wrap" id="input-wrap">
                         <p class="sub-title" id="sub-title">리워드 추가</p>
+                        <!--                        <button type="button" class="reward-plus">리워드 추가</button>-->
+                        <!--                        <button type="button" class="reward-remove">리워드 삭제</button>-->
                         <div class="child-reward" id="child-reward">
                             <div>
-                                <input name="rewardList[0].rewName" type="text" class="input-name"
-                                       placeholder="리워드명 (최대 30자)">
-                                <input name="rewardList[0].rewSf" type="number" class="input-number"
+<!--                                <input type="hidden" name="reward.rewNum">-->
+                                <input name="reward.rewName" type="text" class="input-name"
+                                       placeholder="리워드명 (최대 30자)" autofocus>
+                                <input name="reward.rewSf" type="number" class="input-number"
                                        placeholder="배송비"><br>
                                 <br>
-                                <textarea name="rewardList[0].rewExplain" class="input-text" placeholder="리워드 설명 (최대 30자)
+                                <textarea name="reward.rewExplain" class="input-text" placeholder="리워드 설명 (최대 30자)
                     리워드 구성과 혜택을 간결하게 설명해주세요."></textarea>
-                                <div class="option-add">
-                                    <div class="input-list" id="input-list">
-                                        <input name="rewardList[0].rewardOpt[0].rewOptName" type="text"
-                                               class="input-value" placeholder="옵션 (예시 : 색상)">
-                                        <input name="rewardList[0].rewardOpt[0].rewOptVal" type="text"
-                                               class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
-                                        <input name="rewardList[0].rewardOpt[0].rewOptLimit" type="text"
-                                               class="input-number" placeholder="제한 수량">
-                                        <input name="rewardList[0].rewardOpt[0].rewAmount" type="text"
-                                               class="input-number" placeholder="리워드 금액">
+                                <div class="reward-input-list">
+                                    <div class="option-add" id="optionAdd">
+                                        <div class="input-list" id="input-list">
+                                            <input type="hidden" id="numbering" name="rewOptNum">
+                                            <input name="rewardOpt.rewOptName" type="text"
+                                                   class="input-value rewOptName" placeholder="옵션 (예시 : 색상)">
+                                            <input name="rewardOpt.rewOptVal" type="text"
+                                                   class="input-value rewOptVal" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">
+                                            <input name="rewardOpt.rewOptLimit" type="text"
+                                                   class="input-number rewOptLimit" placeholder="제한 수량">
+                                            <input name="rewardOpt.rewAmount" type="text"
+                                                   class="input-number rewAmount" placeholder="리워드 금액">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -242,22 +276,60 @@
                     <button onclick="regist5()" type="button" class="next">다음</button>
                 </div>
             </div>
+<!--            <script>-->
+<!--                function addRow() {-->
+<!--                    function addRow() {-->
+<!--                        var num = parseInt(document.getElementById("numbering").value);-->
+
+<!--                        var row = document.createElement("div");-->
+<!--                        row.classList.add("input-list");-->
+
+<!--                        row.innerHTML = `-->
+<!--        <input type="hidden" name="reward.rewardOpt[${num}].rewOptNum" value="${num}">-->
+<!--        <input name="reward.rewardOpt[${num}].rewOptName" type="text" class="input-value" placeholder="옵션 (예시 : 색상)">-->
+<!--        <input name="reward.rewardOpt[${num}].rewOptVal" type="text" class="input-value" placeholder="옵션값 (예시 : 블랙, 화이트, 레드)">-->
+<!--        <input name="reward.rewardOpt[${num}].rewOptLimit" type="text" class="input-number" placeholder="제한 수량">-->
+<!--        <input name="reward.rewardOpt[${num}].rewAmount" type="text" class="input-number" placeholder="리워드 금액">-->
+<!--    `;-->
+
+<!--                        document.getElementById("optionAdd").appendChild(row);-->
+
+<!--                        num++;-->
+<!--                        document.getElementById("numbering").value = num;-->
+<!--                    }-->
+
+<!--                };-->
+<!--            </script>-->
             <script>
-                //                         // 리워드 추가 버튼 클릭 시 새 리워드 필드 추가
-                // document.querySelector('.btn-reward').addEventListener('click', function() {
-                //     const rewardContainer = document.getElementById('reward-container');
-                //     const newRewardField = document.querySelector('.child-reward').cloneNode(true);
-                //     rewardContainer.appendChild(newRewardField);
-                // });
 
-                // 옵션 추가 버튼 클릭 시 새 input-list 추가
-                document.querySelector('.option-plus').addEventListener('click', function () {
-                    const inputList = document.querySelector('.option-add');
-                    const newInputList = inputList.cloneNode(true);
-                    inputList.parentNode.appendChild(newInputList);
-                });
+                // function addRow(event) {
 
-                // 옵션 삭제 버튼 클릭 시 마지막으로 추가된 input-list 삭제 (단, 하나만 있을 경우 삭제 불가)
+                    // const rewOptName = event.getElementsByClassName('rewOptName')[0].innerHTML;
+                    // const rewOptVal = event.getElementsByClassName('rewOptVal')[0].innerHTML;
+                    // const rewOptLimit = event.getElementsByClassName('rewOptLimit')[0].innerHTML;
+                    // const rewAmount = event.getElementsByClassName('rewAmount')[0].innerHTML;
+                    //
+                    // $(".reward-input-list").append(
+                    //     "<div class=\"option-add\" id=\"optionAdd\">\n" +
+                    //     "<div class=\"input-list\" id=\"input-list\">\n" +
+                    //     "<input type=\"hidden\" id=\"numbering\" name=\"rewOptNum\">\n" +
+                    //     "<input name=\"rewOptName\" type=\"text\" class=\"input-value rewOptName\" placeholder=\"옵션 (예시 : 색상)\">\n" +
+                    //     "<input name=\"rewOptVal\" type=\"text\" class=\"input-value rewOptVal\" placeholder=\"옵션값 (예시 : 블랙, 화이트, 레드)\">\n" +
+                    //     "<input name=\"rewOptLimit\" type=\"text\" class=\"input-number rewOptLimit\" placeholder=\"제한 수량\">\n" +
+                    //     "<input name=\"rewAmount\" type=\"text\" class=\"input-number rewAmount\" placeholder=\"리워드 금액\">\n" +
+                    //     "</div>\n" +
+                    //     "</div>"
+                    // );
+
+                    // 옵션 추가 버튼 클릭 시 새 input-list 추가
+                    document.querySelector('.option-plus').addEventListener('click', function () {
+                        const inputList = document.querySelector('.option-add');
+                        const newInputList = inputList.cloneNode(true);
+                        inputList.parentNode.appendChild(newInputList);
+                    });
+                // };
+
+                // // 옵션 삭제 버튼 클릭 시 마지막으로 추가된 input-list 삭제 (단, 하나만 있을 경우 삭제 불가)
                 document.querySelector('.option-remove').addEventListener('click', function () {
                     const inputLists = document.querySelectorAll('.option-add');
                     if (inputLists.length > 1) {
@@ -265,10 +337,7 @@
                         lastInputList.parentNode.removeChild(lastInputList);
                     }
                 });
-
             </script>
-            <!--            </form>-->
-            <!--            </div>-->
         </section>
         <section id="regist5" style="display: none">
             <div class="nav-bar-height side" id="side5">
@@ -305,7 +374,7 @@
                 </div>
                 <br><br><br><br><br><br>
                 <p class="sub-title">기타 환불 불가 규정 <i class="choose">(선택)</i></p>
-                <textarea name="polNoRefund" type="text" class="input-text-pol"
+                <textarea autofocus name="polNoRefund" type="text" class="input-text-pol"
                           placeholder="기본 환불 정책 외 리워드 특성상 환불이 불가한 사유를 적어주세요. (최대 800자)
                         [예시]
                         • 포장 및 배송 중 발생될 수 있는 미세한 스크레치 및 찍힘은 환불이 어렵습니다.
@@ -313,7 +382,7 @@
                         • 겉면에 하얀 가루는 당분이 농축된 것이니 섭취해도 괜찮습니다."
                 ></textarea><br><br>
                 <p class="sub-title">A/S 정책 <i class="choose">(선택)</i></p>
-                <textarea name="polAs" type="text" class="input-text-pol"
+                <textarea autofocus name="polAs" type="text" class="input-text-pol"
                           placeholder="리워드 사용 중 문제가 발생할 수 있어요. 해결 방법을 미리 알려주시면 서포터님들의 신뢰를 얻을 수 있어요.
                         (최대 800자)
                         [예시]
@@ -334,14 +403,11 @@
 
                     $("#regist").on("click", function () {
                         checkUnload = false;
-                        $("submit").submit();
+                        // $("submit").submit();
                     });
-
 
                 </script>
             </div>
-            <!--            </form>-->
-            <!--            </div>-->
         </section>
     </form>
 </th:block>

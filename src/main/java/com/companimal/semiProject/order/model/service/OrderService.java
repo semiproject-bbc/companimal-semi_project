@@ -16,4 +16,8 @@ public interface OrderService {
     MemberDTO memberInfo(String memId);              // 멤버 정보
 
     void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO);
+
+    void setOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO);
+
+    void updateUsedCoupon(String couCode);
 }

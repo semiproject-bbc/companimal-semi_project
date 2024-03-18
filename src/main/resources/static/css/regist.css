@@ -1,7 +1,19 @@
+.companimalLogo {
+    margin: 0;
+    margin-top:20px;
+    height: 40px;
+    font-size: 40px;
+    font-style: italic;
+    font-weight: 400px;
+    margin-top: 90px;
+    margin-left: 638px;
+    height: 120px;
+}
+
 .account-intro-login {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .AccountContainer_title{

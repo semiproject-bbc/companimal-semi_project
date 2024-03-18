@@ -17,7 +17,7 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
     </resultMap>
@@ -72,6 +72,39 @@
         <result property="proFileName" column="pro_file_name"/>
         <result property="proFileOriName" column="pro_file_ori_name"/>
     </resultMap>
+
+    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
+        <id property="memberId" column="mem_id"/>
+        <result property="memberPwd" column="mem_pwd"/>
+        <result property="memberNickname" column="mem_nickname"/>
+        <result property="memberName" column="mem_name"/>
+        <result property="memberPhone" column="mem_phone"/>
+        <result property="memberEmail" column="mem_email"/>
+        <result property="memberRole" column="mem_authority"/>
+<!--        <association property="creatorInfo" resultMap="creatorInfoResultMap"/>-->
+    </resultMap>
+
+<!--    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">-->
+<!--        <id property="memberId" column="mem_id" />-->
+<!--        <result property="memberPwd" column="mem_pwd" />-->
+<!--        <result property="memberNickname" column="mem_nickname" />-->
+<!--        <result property="memberName" column="mem_name" />-->
+<!--        <result property="memberPhone" column="mem_phone" />-->
+<!--        <result property="memberEmail" column="mem_email" />-->
+<!--        <result property="memberAuthority" column="mem_authority" />-->
+<!--    </resultMap>-->
+
+    <resultMap id="creatorInfoResultMap" type="com.companimal.semiProject.member.model.dto.CreatorInfoDTO">
+        <id property="memId" column="mem_id"/>
+        <result property="creInqPhone" column="cre_inq_phone"/>
+        <result property="creInqEmail" column="cre_inq_email"/>
+        <result property="creImgName" column="cre_img_name"/>
+        <result property="creImgPath" column="cre_img_path"/>
+        <result property="creImgOriName" column="cre_img_ori_name"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="accountNo" column="account_no"/>
+        <result property="depositorName" column="depositor_name"/>
+    </resultMap>
     
     <resultMap id="projectDetailResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
         <id property="proCode" column="pro_code"/>
@@ -86,23 +119,15 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
+        <association property="member" resultMap="defaultMemberResultMap"/>
+<!--        <association property="creatorInfo" resultMap="creatorInfoResultMap"/>-->
         <collection property="reward" resultMap="projectRewardResultMap"/>
         <collection property="image" resultMap="projectImageResultMap"/>
 <!--        <collection property="file" resultMap="projectFileResultMap"/>-->
         <collection property="cate" resultMap="projectCateResultMap"/>
-    </resultMap>
-
-    <resultMap id="defaultMemberResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
-        <id property="memberId" column="mem_id" />
-        <result property="memberPwd" column="mem_pwd" />
-        <result property="memberNickname" column="mem_nickname" />
-        <result property="memberName" column="mem_name" />
-        <result property="memberPhone" column="mem_phone" />
-        <result property="memberEmail" column="mem_email" />
-        <result property="memberAuthority" column="mem_authority" />
     </resultMap>
 
     <resultMap id="orderOptResultMap" type="com.companimal.semiProject.order.model.dto.OrderOptDTO">
@@ -145,7 +170,7 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <collection property="defaultMember" resultMap="defaultMemberResultMap" />
@@ -169,7 +194,7 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <association property="calculationList" resultMap="calculationResultMap" />
@@ -190,11 +215,11 @@
                 ,mem_id
                 ,est_date
                 ,ach_rate
-                ,del_status
+                ,eva_status
                 ,cate_main
                 ,cate_sub
           FROM project
-         WHERE del_status = 'N'
+         WHERE eva_status = 'N'
 <!--           AND pro_code = #{ proCode }-->
 <!--           AND TO_DAYS(now())-TO_DAYS('end_date');-->
     </select>
@@ -212,14 +237,15 @@
                 ,mem_id
                 ,est_date
                 ,ach_rate
-                ,del_status
+                ,eva_status
                 ,cate_main
                 ,cate_sub
           FROM project
-         WHERE del_status = 'N'
+         WHERE eva_status = 'N'
     </select>
 
     <!-- 프로젝트 상세페이지 조회에서 DB에 저장한 정보 가져오는 쿼리 -->
+    <!-- 이미지 불러와야함!! -->
     <select id="selectProjectDetail" resultMap="projectDetailResultMap">
         SELECT p.pro_code
                 ,p.pro_name
@@ -233,7 +259,7 @@
                 ,p.mem_id
                 ,p.est_date
                 ,p.ach_rate
-                ,p.del_status
+                ,p.eva_status
                 ,p.cate_main
                 ,p.cate_sub
                 ,r.rew_code
@@ -254,6 +280,9 @@
                 ,i.pro_img_path
                 ,i.pro_img_name
                 ,i.pro_img_ori_name
+<!--                ,c.cre_inq_phone-->
+<!--                ,c.cre_inq_email-->
+                ,m.mem_nickname
 <!--                ,f.pro_file_name-->
                 ,c1.pro_cate_code
                 ,c1.pro_cate_name
@@ -263,10 +292,12 @@
           JOIN reward r ON (p.pro_code = r.pro_code)
           JOIN reward_opt o ON (r.rew_code = o.rew_code)
           JOIN project_image i ON (p.pro_code = i.pro_code)
+          JOIN default_member m ON (p.mem_id = m.mem_id)
+<!--          JOIN creator_info c ON (p.mem_id = c.mem_id)-->
 <!--          JOIN project_file f ON (p.pro_code = f.pro_code)-->
           JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
 <!--          JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)-->
-         WHERE p.del_status = 'N'
+         WHERE p.eva_status = 'N'
            AND p.pro_code = #{ proCode }
     </select>
 
@@ -283,67 +314,68 @@
                                 ,pol_as
                                 ,mem_id
                                 ,est_date
-                                ,ach_rate
-                                ,del_status
+                                ,eva_status
                                 ,cate_main
                                 ,cate_sub
                                 )
           VALUES (
-                    #{ proName }
-                    ,#{ proIntro }
-                    ,#{ goalAmount }
-                    ,#{ startDate }
-                    ,#{ endDate }
-                    ,#{ proStory }
-                    ,#{ polNoRefund }
-                    ,#{ polAs }
-                    ,#{ memId }
-                    ,#{ estDate }
-                    ,#{ achRate }
-                    ,#{ delStatus }
-                    ,#{ cateMain }
-                    ,#{ cateSub }
+                    #{ project.proName }
+                    ,#{ project.proIntro }
+                    ,#{ project.goalAmount }
+                    ,#{ project.startDate }
+                    ,#{ project.endDate }
+                    ,#{ project.proStory }
+                    ,#{ project.polNoRefund }
+                    ,#{ project.polAs }
+                    ,#{ project.memId }
+                    ,#{ project.estDate }
+                    ,#{ project.evaStatus }
+                    ,#{ project.cateMain }
+                    ,#{ project.cateSub }
                     )
-
+        <selectKey keyProperty="proCode" order="AFTER" resultType="int">
+            SELECT MAX(pro_code)
+              FROM project
+        </selectKey>
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
-        INSERT INTO project_reward (
-                                    rew_code
-                                    ,rew_num
-                                    ,pro_code
-                                    ,rew_name
-                                    ,rew_explain
-                                    ,rew_sf
-                                    )
+<!--        <selectKey keyProperty="proCode" order="BEFORE" resultType="int">-->
+<!--            SELECT IFNULL(MAX(pro_code+1),1)-->
+<!--            FROM project-->
+<!--        </selectKey>-->
+        INSERT INTO reward (
+                            rew_num
+                            ,pro_code
+                            ,rew_name
+                            ,rew_explain
+                            ,rew_sf
+                            )
         VALUES (
-                #{ rewCode }
-                ,#{ rewNum }
+                1
                 ,#{ proCode }
                 ,#{ rewName }
                 ,#{ rewExplain }
                 ,#{ rewSf }
                 )
+<!--        <selectKey keyProperty="proCode" order="AFTER" resultType="_int">-->
+<!--            SELECT pro_code-->
+<!--&lt;!&ndash;            FROM project&ndash;&gt;-->
+<!--        </selectKey>-->
     </insert>
 
     <insert id="insertProjectRewardOpt" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
-        INSERT INTO project_reward (
-                                    rew_opt_code
-                                    ,rew_code
-                                    ,rew_opt_num
-                                    ,pro_opt_name
+        INSERT INTO reward_opt (
+                                    pro_opt_name
                                     ,rew_opt_val
                                     ,rew_opt_limit
                                     ,rew_amount
                                     )
         VALUES (
-                #{ rewOptCode }
-                ,#{ rewCode }
-                ,#{ rewOptNum }
-                ,#{ proOptName }
-                ,#{ rewOptVal }
-                ,#{ rewOptLimit }
-                ,#{ rewAmount }
+                #{ reward.rewardOpt.proOptName }
+                ,#{ reward.rewardOpt.rewOptVal }
+                ,#{ reward.rewardOpt.rewOptLimit }
+                ,#{ reward.rewardOpt.rewAmount }
                 )
     </insert>
 
@@ -441,11 +473,11 @@
         ,mem_id
         ,est_date
         ,ach_rate
-        ,del_status
+        ,eva_status
         ,cate_main
         ,cate_sub
         FROM project
-        WHERE del_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
+        WHERE eva_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
         ORDER BY end_date
     </select>
 

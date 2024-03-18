@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/navLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/evaluation/creatorEvaluationDetail.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<th:block layout:fragment="content">
+    <section>
+
+        <div class="main">
+            <p class="creatorBusinessEvaluation">크리에이터 심사</p>
+
+            <div class="evaluationForm">
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">크리에이터 아이디</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.memId }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationFile">제출 파일</div>
+
+                    <div class="creatorBusinessEvaluationFileContent">
+                        <a th:each="file : ${CreatorEvaluationDetailDTO.files}"
+                           th:href="@{|/getCreatorFile/${file.creFileName}|}"
+                           th:text="${file.creFileOriName}"
+                           class="test111"
+                           download>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">은행명</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.bankName }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">계좌번호</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.accountNo }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">예금주 명</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.depositorName }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">사업자등록번호</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.busiNum }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">상호/법인명</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.busiName }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">설립일</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:date="${ CreatorEvaluationDetailDTO.busiDate }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">기업형태</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.busiType }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">업종</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.busiIndu }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">소재지</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.busiLoca }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">대표 번호</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.creInqPhone }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">대표 이메일</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.creInqEmail }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">기업규모</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.busiSize }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">홈페이지</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.busiUrl }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">담당자 이름</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.authName }"></p>
+                    </div>
+                </div>
+
+                <div class="creatorBusinessEvaluationItem">
+
+                    <div class="creatorBusinessEvaluationItemName">담당자 전화번호</div>
+
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.authNum }"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="return" >반려</button>
+                <div id="hiddenDiv" th:style="'display:none;'" th:text="${CreatorEvaluationDetailDTO.evaNum}"></div>
+                <button id="accept" class="accept" >승인</button>
+            </div>
+        </div>
+
+
+    </section>
+
+    <div id="rejectionModal" class="rejectionModal">
+        <p class="qksfutkdb">반려 사유 입력</p>
+        <div class="modalContent1">
+            <span class="close">&times;</span>
+            <textarea id="reaRejection" class="textarea" rows="9" cols="60" placeholder="반려 사유를 입력하세요..."></textarea>
+            <button id="submitRejection" class="submitRejection">반려</button>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+
+        <div class="modalContent">
+
+            <span class="close1">&times;</span>
+
+            <div class="modalText">
+                <p id="modalText">모달 내용</p>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/evaluation/evaluationProcessButton.js}"></script>
+    <script th:src="@{/js/regist/modalClose.js}"></script>
+</th:block>
+</html>

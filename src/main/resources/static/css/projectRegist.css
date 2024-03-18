@@ -323,7 +323,7 @@ section {
     font-size: 17px;
 }
 
-.btn-reward, .option-plus {
+.btn-reward, .option-plus, .reward-plus {
     width:150px;
     height:50px;
     background-color:#fca652;
@@ -337,7 +337,7 @@ section {
     margin-left: 600px;
 }
 
-.option-remove {
+.option-remove, .reward-remove {
     width:150px;
     height:50px;
     background-color:#ffffff;

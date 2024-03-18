@@ -31,8 +31,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
-
+    public void setOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
+        orderMapper.setOrderPaymentInfo(orderPaymentDTO);
     }
+
+    @Override
+    public void updateUsedCoupon(String couCode) {
+        orderMapper.updateUsedCoupon(couCode);
+    }
+
 }
 

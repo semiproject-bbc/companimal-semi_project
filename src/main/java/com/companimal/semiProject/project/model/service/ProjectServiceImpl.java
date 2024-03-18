@@ -1,10 +1,7 @@
 package com.companimal.semiProject.project.model.service;
 
 import com.companimal.semiProject.project.model.dao.ProjectMapper;
-import com.companimal.semiProject.project.model.dto.ProjectDTO;
-import com.companimal.semiProject.project.model.dto.ProjectFileDTO;
-import com.companimal.semiProject.project.model.dto.ProjectImageDTO;
-import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
+import com.companimal.semiProject.project.model.dto.*;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -42,7 +39,10 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public void insertProject(List<MultipartFile> files, ProjectDTO project) {
+    public void insertProject(MultipartFile[] files, ProjectDTO project, String memId) {
+
+        System.out.println("project 찍어보기 : " + project);
+
         Map<String, List<ProjectFileDTO>> fileMap = null;
 
         try {
@@ -51,16 +51,48 @@ public class ProjectServiceImpl implements ProjectService {
             e.printStackTrace();
         }
 
-        int result1 = projectMapper.insertProject(project);
+        int result1 = projectMapper.insertProject(project, memId);
 
-        ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
         ProjectFileDTO projectFileDTO = new ProjectFileDTO();
+        ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
+        List<ProjectRewardOptDTO> projectRewardOptList = new ArrayList<>();
 
-        projectRewardDTO.setProCode(project.getProCode());
+        /* FILE 셋팅 */
         projectFileDTO.setProCode(project.getProCode());
 
+        /* 리워드 셋팅 */
+        projectRewardDTO.setRewCode(project.getProCode() + "-1");
+        System.out.println("proCode 셋팅 값 : " + projectRewardDTO);
+//        projectRewardDTO.setRewNum(1);
+//        projectRewardDTO.setProCode(project.getProCode());
+//        projectRewardDTO.setRewName(project.getReward().getRewName());
+//        projectRewardDTO.setRewExplain(project.getReward().getRewExplain());
+//        projectRewardDTO.setRewSf(project.getReward().getRewSf());
+
+        /* 리워드 옵션 셋팅 */
+        for (int i = 0; i < project.getReward().getRewardOpt().size(); i++) {
+
+            ProjectRewardOptDTO projectRewardOpt = project.getReward().getRewardOpt().get(i);
+
+            projectRewardOpt.setRewOptCode(project.getProCode() + "-1-" + i);
+            projectRewardOpt.setRewCode(projectRewardDTO.getRewCode());
+            projectRewardOpt.setRewOptNum(i);
+            projectRewardOpt.setRewOptName(project.getReward().getRewardOpt().get(i).getRewOptName());
+            projectRewardOpt.setRewOptVal(project.getReward().getRewardOpt().get(i).getRewOptVal());
+            projectRewardOpt.setRewOptLimit(project.getReward().getRewardOpt().get(i).getRewOptLimit());
+            projectRewardOpt.setRewAmount(project.getReward().getRewardOpt().get(i).getRewAmount());
+
+            projectRewardOptList.add(projectRewardOpt);
+        }
+
+        System.out.println("=====================리워드========================");
+        System.out.println("service 에서 셋팅해준 리워드 : " + projectRewardDTO);
+
+        System.out.println("=====================리워드 옵션들======================");
+        System.out.println("service 에서 셋팅해준 리워드옵션들 : " + projectRewardOptList);
+
         int result2 = projectMapper.insertProjectReward(project.getReward());
-        int result3 = projectMapper.insertProjectRewardOpt(project.getRewardOpt());
+        int result3 = projectMapper.insertProjectRewardOpt(project.getReward().getRewardOpt());
 
         for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
             List<ProjectFileDTO> fileList = entry.getValue();
@@ -135,7 +167,7 @@ public class ProjectServiceImpl implements ProjectService {
         int result1 = projectMapper.insertImage(projectFile);
 //        int result2 = projectMapper.insertImage(projectImage);
 
-        if(result1 > 0) {
+        if (result1 > 0) {
             System.out.println("이미지 파일 등록 성공~");
         }
     }
@@ -217,7 +249,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
-    public Map<String, List<ProjectFileDTO>> FileUpload(List<MultipartFile> files) throws IOException {
+    public Map<String, List<ProjectFileDTO>> FileUpload(MultipartFile[] files) throws IOException {
 
         Resource resource = resourceLoader.getResource("classpath:static/image/store");
         String proFilePath = null;
@@ -246,7 +278,16 @@ public class ProjectServiceImpl implements ProjectService {
             // proFileName : 파일 저장명
 
             String proFileOriName = mf.getOriginalFilename();
-            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
+//            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
+
+            String ext = "";
+
+            if (proFileOriName != null) {
+                int lastIndex = proFileOriName.lastIndexOf(".");
+                if (lastIndex != -1 && lastIndex < proFileOriName.length() - 1) {
+                    ext = proFileOriName.substring(lastIndex);
+                }
+            }
             String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
 
 

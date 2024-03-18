@@ -19,9 +19,11 @@
 
                 <div class="creatorBusinessEvaluationItem">
 
-                    <div class="creatorBusinessEvaluationItemName">크리에이터명</div>
+                    <div class="creatorBusinessEvaluationItemName">크리에이터 아이디</div>
 
-                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.memId }"></div>
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.memId }"></p>
+                    </div>
                 </div>
 
                 <div class="creatorBusinessEvaluationItem">
@@ -30,9 +32,10 @@
 
                     <div class="creatorBusinessEvaluationFileContent">
                         <a th:each="file : ${CreatorEvaluationDetailDTO.files}"
-                           th:href="@{|${file.creFilePath}/${file.creFileName}|}"
+                           th:href="@{|/getCreatorFile/${file.creFileName}|}"
                            th:text="${file.creFileOriName}"
-                           download="${file.creFileOriName}">
+                           class="test111"
+                            download>
                         </a>
                     </div>
                 </div>
@@ -41,31 +44,61 @@
 
                     <div class="creatorBusinessEvaluationItemName">은행명</div>
 
-                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.bankName }"></div>
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.bankName }"></p>
+                    </div>
                 </div>
 
                 <div class="creatorBusinessEvaluationItem">
 
                     <div class="creatorBusinessEvaluationItemName">계좌번호</div>
 
-                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.accountNo }"></div>
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.accountNo }"></p>
+                    </div>
                 </div>
 
                 <div class="creatorBusinessEvaluationItem">
 
                     <div class="creatorBusinessEvaluationItemName">예금주 명</div>
 
-                    <div class="creatorBusinessEvaluationItemContent" th:text="${ CreatorEvaluationDetailDTO.depositorName }"></div>
+                    <div class="creatorBusinessEvaluationItemContent" >
+                        <p class="cotent" th:text="${ CreatorEvaluationDetailDTO.depositorName }"></p>
+                    </div>
                 </div>
             </div>
 
             <div class="buttons">
-                <button class="return" th:onclick="'go(' + ${CreatorEvaluationDetailDTO.evaNum} + ')'">반려</button>
-
-                <button class="accept" th:onclick="'go(' + ${CreatorEvaluationDetailDTO.evaNum} + ')'">승인</button>
+                <button class="return" >반려</button>
+                <div id="hiddenDiv" th:style="'display:none;'" th:text="${CreatorEvaluationDetailDTO.evaNum}"></div>
+                <button id="accept" class="accept" >승인</button>
             </div>
         </div>
 
+
     </section>
+
+    <div id="rejectionModal" class="rejectionModal">
+        <p class="qksfutkdb">반려 사유 입력</p>
+        <div class="modalContent1">
+            <span class="close">&times;</span>
+            <textarea id="reaRejection" class="textarea" rows="9" cols="60" placeholder="반려 사유를 입력하세요..."></textarea>
+            <button id="submitRejection" class="submitRejection">반려</button>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+
+        <div class="modalContent">
+
+            <span class="close1">&times;</span>
+
+            <div class="modalText">
+                <p id="modalText">모달 내용</p>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/evaluation/evaluationProcessButton.js}"></script>
+    <script th:src="@{/js/regist/modalClose.js}"></script>
 </th:block>
 </html>
