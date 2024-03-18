@@ -3,6 +3,7 @@ package com.companimal.semiProject.order.controller;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
 import com.companimal.semiProject.order.model.dto.GetOrderDetailsInfoDTO;
+import com.companimal.semiProject.order.model.dto.GetOrderOptionsInfoDTO;
 import com.companimal.semiProject.order.model.service.OrderService;
 import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
@@ -29,29 +30,54 @@ public class OrderController {
         this.httpSession = httpSession;
     }
 
-//    @PostMapping("/orderPayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
-//    public String orderPaymentPage(Model model,
-//                                   @ModelAttribute GetOrderDetailsInfoDTO getOrderDetailsInfoDTO,
-//                                   Authentication authentication) {
-//////        List<ProjectRewardOptDTO> projectRewardOptDTOList = ProjectRewardDTO
-////
-//        CouponDTO couponDTO = orderService.couponInfo(authentication.getName()); // memId에 맞는 coupon 정보들을 가져한다
-//        MemberDTO memberDTO = orderService.memberInfo(authentication.getName()); // memId에 맞는 member 정보들을 가져온다
-//////
-//////        // 결제화면에서 결제 성공시 DB에서 정보를 저장을 할 수 있겠금 정보를 session에 담는다
-//////        httpSession.setAttribute("rewardInfo", getOrderDetailsInfoDTO);
-//////        httpSession.setAttribute("couponInfo", couponDTO);
-//////        httpSession.setAttribute("memberInfo", memberDTO);
-//////
-//////        // 받은 정보들을 화면에 띄우기 위해서 model에 set을 해서 th:each/ th:text로 출력을 한다
-//////        model.addAttribute("rewardInfo", getOrderDetailsInfoDTO);
-//        model.addAttribute("couponInfo", couponDTO);
-//        model.addAttribute("memberInfo", memberDTO);
-////
-////        orderService.showAllInfo(model); // SELECT ... 필요없지 않나?
-//        return "contents/order/orderpayment";
-//    }
+    @PostMapping("/orderPayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
+    public String orderPaymentPage(Model model,
+                                   @ModelAttribute GetOrderDetailsInfoDTO getOrderDetailsInfoDTO,
+                                   @ModelAttribute GetOrderOptionsInfoDTO getOrderOptionsInfoDTOList,
+                                   Authentication authentication) {
 
+        System.out.println(getOrderDetailsInfoDTO); // !!!!!!!!!
+        System.out.println(getOrderOptionsInfoDTOList);
+
+        // form에서 받아온 값들을 process 해준다
+        String[] sArr1 = getOrderOptionsInfoDTOList.getRewName().split(",");
+        String[] sArr2 = getOrderOptionsInfoDTOList.getRewSf().split(",");
+        String[] sArr3 = getOrderOptionsInfoDTOList.getRewOptCode().split(",");
+        String[] sArr4 = getOrderOptionsInfoDTOList.getRewOptName().split(",");
+        String[] sArr5 = getOrderOptionsInfoDTOList.getRewOptVal().split(",");
+        String[] sArr6 = getOrderOptionsInfoDTOList.getRewAmount().split(",");
+        String[] sArr7 = getOrderOptionsInfoDTOList.getNoOfOrder().split(",");
+
+        List<GetOrderOptionsInfoDTO> realGetOrderOptionsInfoDTOList = new ArrayList<>();
+        for(int i = 0; i < sArr1.length; i++) {
+            GetOrderOptionsInfoDTO temp = new GetOrderOptionsInfoDTO(sArr1[i], sArr2[i], sArr3[i],sArr4[i], sArr5[i], sArr6[i], sArr7[i]);
+            realGetOrderOptionsInfoDTOList.add(temp);
+        }
+
+        System.out.println(realGetOrderOptionsInfoDTOList);  // !!!!!!!!! // 확인용
+        CouponDTO couponDTO = orderService.couponInfo(authentication.getName());        // memId에 맞는 coupon 정보들을 가져한다
+        MemberDTO memberDTO = orderService.memberInfo(authentication.getName());        // memId에 맞는 member 정보들을 가져온다
+
+        /* 화면에 띄우기 위한 정보들 */
+        model.addAttribute("rewardInfo", getOrderDetailsInfoDTO);           // 리워드 정보를 화면에 출력을 하기 위해서
+        model.addAttribute("rewardOptInfo", realGetOrderOptionsInfoDTOList);// 리워드 옵션 정보를 화면에 출력을 하기 위해서
+        /* login 한 회원에 대한 정보들을 담았다 */
+        model.addAttribute("couponInfo", couponDTO);                        // coupon 정보를 화면에 출력을 하기 위해서
+        model.addAttribute("memberInfo", memberDTO);                        // 회원 정보를 화면에 출력을 하기 위해서
+
+
+        /* 결제화면에서 결제 성공시 DB에 담기 위해서 정보를 session에다가 담는다 */
+        httpSession.setAttribute("rewardInfo", getOrderDetailsInfoDTO);               // 리워드 정보를 session에 담음
+        httpSession.setAttribute("rewardOptInfo", realGetOrderOptionsInfoDTOList);    // 리워드 옵션 정보를 session에 담음
+        httpSession.setAttribute("couponInfo", couponDTO);                            // 쿠폰 정보를 session에 담음
+        httpSession.setAttribute("memberInfo", memberDTO);                            // 회원 정보를 session에 담음
+
+        System.out.println("주문 결제화면으로 이동"); // double check
+
+        return "contents/order/orderpayment";
+    }
+
+    /* hard coding *//*
     @GetMapping("/orderpayment") // {memId}
     public String ontoOrderPaymentPage(Model model,
                                        Authentication authentication) {
@@ -103,7 +129,7 @@ public class OrderController {
             model.addAttribute("getOrderDetailsInfoDTO", getOrderDetailsInfoDTO);
         }
         return "contents/order/orderpayment";
-    }
+    }*/
 
     @ResponseBody
     @PostMapping("/updatePurchaseStatus")

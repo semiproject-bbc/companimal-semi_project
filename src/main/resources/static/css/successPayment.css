@@ -1,0 +1,81 @@
+/* header */
+/* section */
+html {
+    width: 1400px;
+    margin: auto;
+}
+
+.display {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+
+    img.checkboxImage {
+        height: 300px;
+        width: 300px;
+    }
+
+    .successMessage {
+        height: 200px;
+        margin: 0% 0% 3% 7%;
+
+        .successTitle {
+            display: flex;
+
+            .successMessageTitle {
+                font-size: 50px;
+                margin-bottom: 2%;
+                font-weight: bolder;
+            }
+
+            .restOfTheMessage {
+                display: flex;
+                align-items: flex-end;
+                margin-bottom: 4%;
+                font-size: 30px;
+                margin-left: 1%;
+            }
+
+        }
+
+        .successMessageDescription {
+            a {
+                font-size: 20px;
+                font-weight: bolder;
+                color: #FCA652;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .successSubMessage-container {
+        margin-top: 15%;
+
+        .registNoInfo,
+        .registDateInfo {
+            display: flex;
+        }
+
+        .registNoName,
+        .registDateName {
+            font-weight: bolder;
+        }
+
+        .registNo {
+            font-weight: bolder;
+            margin-bottom: 1%;
+            margin-left: 1%;
+        }
+
+        .registDateInfo {
+
+            .registDate {
+                color: #d5d5d5;
+                font-weight: bolder;
+                margin-left: 1%;
+            }
+        }
+    }
+}

@@ -102,9 +102,25 @@ html {
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
+                    cursor: pointer;
                 }
 
-                .deliverFeeAmount {
+                .projectNameInfo:hover,
+                .rewardNameInfo:hover,
+                .couponDiscount:hover,
+                .orderAmount:hover {
+                    white-space: normal;
+                    overflow: visible;
+                    text-overflow: initial;
+                    z-index: 9999;
+                }
+
+                .rewardOptions {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .couponAmount {
                     width: 60%;
                 }
 
@@ -254,7 +270,7 @@ html {
                     background: transparent;
                 }
 
-                .kakaopay {
+                .kakaopay1 {
                     height: 70px;
                     width: 70px;
                 }
@@ -269,6 +285,16 @@ html {
                     font-size: 30px;
                     font-weight: bolder;
                     margin-bottom: 35px;
+                }
+                .includingSf {
+                    display: flex;
+                    position: relative;
+
+                    .deliverFee {
+                        margin-left: 200px;
+                        position: absolute;
+                        bottom: 0;
+                    }
                 }
 
                 .finalPaymentAmount {
@@ -299,6 +325,12 @@ html {
                 border-color: #D5D5D5;
                 font-size: 25px;
 
+                .container1 {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+
 
                 .agreeToAll-container,
                 .tNcPaymentMethods-container,
@@ -306,7 +338,7 @@ html {
                 .tNcResponsible-container,
                 .tNchoowon-container {
                     display: flex;
-
+                    align-items: center;
                     margin: 3% 2%;
                 }
 
@@ -317,7 +349,6 @@ html {
                 .tNchoowon {
                     display: flex;
                     justify-content: center;
-                    align-items: center;
                     margin-left: 2%;
                 }
 
@@ -331,7 +362,12 @@ html {
                     color: blue;
                 }
 
-                .see:hover {
+                #see {
+                    text-decoration: none;
+                    font-size: 20px;
+                }
+
+                #see:hover {
                     font-weight: bolder;
                 }
             }
@@ -370,6 +406,10 @@ html {
             background-color: transparent;
         }
     }
+}
+
+.seeClass {
+    text-decoration: none;
 }
 /* 전체적인 화면 */
 
