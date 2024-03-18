@@ -80,6 +80,77 @@ public class MemberController {
         return isDuplicate;
     }
 
+    @GetMapping("/findId")
+    public String findId() {
+        return "/contents/member/findId";
+    }
+
+    @PostMapping("/findId")
+    public ModelAndView findId(@RequestParam("memName") String memName, ModelAndView modelAndView) {
+        String memId = memberService.selectMemId(memName);
+
+        System.out.println(memId);
+        // 이름으로 검색된 아이디가 있으면 성공 화면, 없으면 실패화면으로 보냄
+        if (memId == null) {
+            modelAndView.setViewName("/contents/member/findIdFail");
+        } else {
+                modelAndView.addObject("memId", memId);
+            modelAndView.setViewName("/contents/member/findIdSuccess");
+        }
+
+        return modelAndView;
+    }
+
+    @GetMapping("/findPassword")
+    public String findPassword() {
+        return "/contents/member/findPassword";
+    }
+
+    @ResponseBody
+    @PostMapping("/registeredEmailCheckByName")
+    public boolean registeredEmailCheckByName(@RequestParam("email") String email, @RequestParam("memName") String name) {
+
+        boolean registeredCheck = false;
+
+        String registeredEmail = memberService.registeredEmailCheckByName(name);
+
+        // 해당 이름으로 검색된 email이 있다면 입력한 이메일과 비교해서 일치하면 true값 전달
+        if (registeredEmail != null) {
+            if (email.equals(registeredEmail)) {
+                registeredCheck = true;
+            }
+        }
+
+        return registeredCheck;
+    }
+
+    @ResponseBody
+    @PostMapping("/registeredEmailCheckById")
+    public boolean registeredEmailCheck(@RequestParam("email") String email, @RequestParam("memId") String memId) {
+
+        boolean registeredCheck = false;
+
+
+        String registeredEmail = memberService.registeredEmailCheckById(memId);
+        // 해당 id로 검색된 email이 있다면 입력한 이메일과 비교해서 일치하면 true값 전달
+        if (registeredEmail != null) {
+            if (email.equals(registeredEmail)) {
+                registeredCheck = true;
+            }
+        }
+
+        return registeredCheck;
+    }
+
+    @PostMapping("/findPasswordResetPassword")
+    public String passwordReset(@RequestParam("memberPwd") String memberPwd, @RequestParam("memId") String memId) {
+
+
+        memberService.UpdatePassword(memId, memberPwd);
+
+        return "/auth/login";
+    }
+
     @RequestMapping("/mypage")
     public String showMypage() {
         System.out.println("마이페이지 확인");
@@ -126,8 +197,6 @@ public class MemberController {
     @PostMapping("/updatePurchaseStatus")
     public String updatePurchaseConfirm(@RequestParam("orderCode") String orderCode) {
 
-        System.out.println("😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤");
-
         int result = memberService.updatePurchaseConfirm(orderCode);
 
         if(result > 0) {
@@ -139,5 +208,13 @@ public class MemberController {
         return "redirect:/participateProject";
 
     }
+
+//    @RequestMapping("/selectProjectOrder/${orderCode}")
+//    public String selectProjectOrder(@RequestParam("orderCode") String orderCode, Model model) {
+//
+//
+//        return "contents/member/supportProject";
+//
+//    }
 
 }

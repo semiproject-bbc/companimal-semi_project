@@ -59,9 +59,10 @@
                         </div>
 
                         <div class="registEmailField">
-                            <input id="email" name="memberEmail" class="emailField" placeholder="   이메일" type="text" >
+                            <input id="email" name="memberEmail1" class="emailField" placeholder="   이메일" type="text" >
                             <div id="atSign">@</div>
                             <input id="email2" name="memberEmail2" class="emailField2" disabled>
+                            <input name="memberEmail" style="display: none;" >
                             <select class="emailSelect">
                                 <option selected disabled>선택</option>
                                 <option value="naver.com">@naver.com</option>
@@ -116,7 +117,7 @@
 
                         <input name="memberRole" value="MANAGER" type="hidden"/>
 
-                    <button class="registSubmitButton disabled" id="registSubmitButton" type="submit" >
+                    <button class="registSubmitButton disabled" id="registSubmitButton" type="submit" disabled>
                         <span class="registSubmitButtonText">가입</span>
                     </button>
                     </div>
@@ -147,5 +148,6 @@
     <script th:src="@{/js/regist/validateForm.js}"></script>
     <script th:src="@{/js/regist/registEnabled.js}"></script>
     <script th:src="@{/js/regist/modalClose.js}"></script>
+    <script th:src="@{/js/regist/fullEmailAddress.js}"></script>
 </body>
 </html>

@@ -101,6 +101,8 @@
             p.pro_code,
             p.pro_name,
             p.end_date,
+            p.ach_rate,
+            p.est_date,
             o.purchase_status,
             o.order_code,
             o.order_date
@@ -117,4 +119,27 @@
         WHERE order_code = #{orderCode}
     </update>
 
+    <select id="selectMemId" resultType="String">
+        SELECT MEM_ID
+        FROM DEFAULT_MEMBER
+        WHERE MEM_NAME = #{ memName }
+    </select>
+
+    <select id="registeredEmailCheckByName" resultType="String">
+        SELECT MEM_EMAIL
+        FROM DEFAULT_MEMBER
+        WHERE MEM_NAME = #{ memName }
+    </select>
+
+    <select id="registeredEmailCheckById" resultType="String">
+        SELECT MEM_EMAIL
+        FROM DEFAULT_MEMBER
+        WHERE MEM_ID = #{ memId }
+    </select>
+    
+    <update id="UpdatePassword" parameterType="String">
+        UPDATE DEFAULT_MEMBER
+           SET MEM_PWD = #{ memberPwd }
+         WHERE MEM_ID = #{ memId }
+    </update>
 </mapper>

@@ -1,4 +1,11 @@
 $(document).ready(function(){
+    function hidePasswordFields() {
+        $(".registPasswordField").hide();
+        $(".registPasswordCheckField").hide();
+    }
+
+    hidePasswordFields();
+
     $(".certificationNumberCheckButton").click(function(){
         let email = $("#email").val();
         if ($("#email2").val() == null) {
@@ -19,12 +26,16 @@ $(document).ready(function(){
                 if(isValid) {
                     $('#modalText').text('인증되었습니다.');
                     $('#myModal').show();
+                    // updateStatus('emailVerified', true);
+                    $(".registPasswordField").show();
+                    $(".registPasswordCheckField").show();
                     updateStatus('emailVerified', true);
+                    console.log()
 
                 } else {
                     $('#modalText').text('인증번호가 일치하지 않습니다.\n 다시 시도해주세요.');
                     $('#myModal').show();
-                     updateStatus('emailVerified', false);
+                    updateStatus('emailVerified', false);
 
                 }
             },
