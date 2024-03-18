@@ -73,19 +73,24 @@ public class ProjectController {
     @PostMapping("/projectRegist")
     public String insertProject(@RequestParam("files") MultipartFile[] files,
                                 @ModelAttribute ProjectDTO project,
-                                @ModelAttribute List<ProjectRewardDTO> reward,
-                                @ModelAttribute List<ProjectRewardOptDTO> rewardOpt,
                                 Authentication authentication) throws IOException {
 
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
         String memId = authDetails.getUsername();
 
+        /* 콘솔 찍어보기 */
         System.out.println("Logged-in User ID: " + memId);
+
+        System.out.println("project : " + project);
 
         ProjectRewardDTO projectReward = project.getReward();
         List<ProjectRewardOptDTO> projectRewardOpt = project.getReward().getRewardOpt();
-        System.out.println(projectReward);
-        System.out.println(projectRewardOpt);
+        System.out.println("리워드 : " + projectReward);
+        for(int i = 0; i < project.getReward().getRewardOpt().size(); i++){
+            System.out.println(projectRewardOpt.get(i));
+//            projectRewardOpt.get(i);
+        }
+//        System.out.println(projectRewardOpt);
 
         project.setMemId(memId);
 
