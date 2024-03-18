@@ -3,6 +3,7 @@ package com.companimal.semiProject.evaluation.controller;
 import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
 import com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO;
 import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDetailDTO;
+import com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO;
 import com.companimal.semiProject.evaluation.model.service.CreatorEvaluationService;
 import com.companimal.semiProject.evaluation.model.service.EvaluationService;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
@@ -172,6 +173,23 @@ public class EvaluationController {
     @GetMapping("/evaluationProcessAfter")
     public String EvaluationProcessAfter() {
         return "/contents/evaluation/manager/creatorEvaluationList";
+    }
+
+    @GetMapping("/projectEvaluationList")
+    public String projectEvaluationList(Model model) {
+
+        List<ProjectEvaluationDTO> selectAllProjectEvaList = evaluationService.selectAllProjectEva();
+
+        model.addAttribute("selectAllProjectEvaList", selectAllProjectEvaList);
+
+        System.out.println(selectAllProjectEvaList);
+
+        return "/contents/evaluation/projectEvaluationList";
+    }
+
+    @GetMapping("/projectEvaluationDetail")
+    public String projectEvaluationDetail() {
+        return "/contents/evaluation/projectEvaluationDetail";
     }
 
 }

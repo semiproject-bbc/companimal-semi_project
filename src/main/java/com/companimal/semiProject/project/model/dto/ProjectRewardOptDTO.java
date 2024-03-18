@@ -7,13 +7,13 @@ public class ProjectRewardOptDTO implements java.io.Serializable {
     private int rewOptNum;          // 리워드 옵션 번호
     private String rewOptName;      // 옵션명 o
     private String rewOptVal;       // 옵션값 o
-    private int rewOptLimit;        // 제한 수량
-    private int rewAmount;          // 리워드 금액 o
+    private String rewOptLimit;        // 제한 수량
+    private String rewAmount;          // 리워드 금액 o
 
     public ProjectRewardOptDTO() {
     }
 
-    public ProjectRewardOptDTO(String rewOptCode, String rewCode, int rewOptNum, String rewOptName, String rewOptVal, int rewOptLimit, int rewAmount) {
+    public ProjectRewardOptDTO(String rewOptCode, String rewCode, int rewOptNum, String rewOptName, String rewOptVal, String rewOptLimit, String rewAmount) {
         this.rewOptCode = rewOptCode;
         this.rewCode = rewCode;
         this.rewOptNum = rewOptNum;
@@ -63,19 +63,19 @@ public class ProjectRewardOptDTO implements java.io.Serializable {
         this.rewOptVal = rewOptVal;
     }
 
-    public int getRewOptLimit() {
+    public String getRewOptLimit() {
         return rewOptLimit;
     }
 
-    public void setRewOptLimit(int rewOptLimit) {
+    public void setRewOptLimit(String rewOptLimit) {
         this.rewOptLimit = rewOptLimit;
     }
 
-    public int getRewAmount() {
+    public String getRewAmount() {
         return rewAmount;
     }
 
-    public void setRewAmount(int rewAmount) {
+    public void setRewAmount(String rewAmount) {
         this.rewAmount = rewAmount;
     }
 

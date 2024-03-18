@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -69,11 +70,12 @@ public class ProjectController {
         return "contents/project/projectRegist";
     }
 
-    @ResponseBody
     @PostMapping("/projectRegist")
-    public String insertProject(@RequestParam("files") MultipartFile[] files,
+    public String insertProject(@RequestParam("files") List<MultipartFile> files,
                                 @ModelAttribute ProjectDTO project,
-                                Authentication authentication) throws IOException {
+                                @ModelAttribute("ProjectRewardOptDTO") ProjectRewardOptDTO projectRewardOpt,
+                                Authentication authentication,
+                                Model model) throws IOException {
 
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
         String memId = authDetails.getUsername();
@@ -81,27 +83,54 @@ public class ProjectController {
         /* 콘솔 찍어보기 */
         System.out.println("Logged-in User ID: " + memId);
 
-        System.out.println("project : " + project);
+        System.out.println("화면에서 받은 files : " + files);
+
+        System.out.println("화면에서 받은 project : " + project);
 
         ProjectRewardDTO projectReward = project.getReward();
-        List<ProjectRewardOptDTO> projectRewardOpt = project.getReward().getRewardOpt();
-        System.out.println("리워드 : " + projectReward);
-        for(int i = 0; i < project.getReward().getRewardOpt().size(); i++){
-            System.out.println(projectRewardOpt.get(i));
-//            projectRewardOpt.get(i);
-        }
-//        System.out.println(projectRewardOpt);
 
+        System.out.println("화면에서 받은 리워드 : " + projectReward);
+
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewOptName());
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewOptVal());
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewOptLimit());
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewAmount());
+
+        String[] rewOptName = projectRewardOpt.getRewOptName().split(",");
+        String[] RewOptVal = projectRewardOpt.getRewOptVal().split(",");
+        String[] RewOptLimit = projectRewardOpt.getRewOptLimit().split(",");
+        String[] RewAmount = projectRewardOpt.getRewAmount().split(",");
+
+        System.out.println("rewOptName 의 length : " + rewOptName.length);
+        System.out.println("RewOptVal 의 length : " + RewOptVal.length);
+        System.out.println("RewOptLimit 의 length : " + RewOptLimit.length);
+        System.out.println("RewAmount 의 length : " + RewAmount.length);
+
+        /* 셋팅 */
         project.setMemId(memId);
-
-        project.setProStory(Arrays.toString(files));
+        project.setProStory(files.toString());
         project.setEvaStatus("N");
-//        project.setAchRate(0);
-//        project.setEstDate(null);
+
+        List<ProjectRewardOptDTO> projectRewardOpts = new ArrayList<ProjectRewardOptDTO>();
+        for(int i = 0; i < rewOptName.length; i++) {
+            ProjectRewardOptDTO rewOpt = new ProjectRewardOptDTO();
+            rewOpt.setRewOptName(rewOptName[i]);
+            rewOpt.setRewOptVal(RewOptVal[i]);
+            rewOpt.setRewOptLimit(RewOptLimit[i]);
+            rewOpt.setRewAmount(RewAmount[i]);
+
+            projectRewardOpts.add(rewOpt);
+        }
+        project.getReward().setRewardOpt(projectRewardOpts);
+
+        System.out.println("project에 리워드 옵션 넣기 : " + project.getReward().getRewardOpt());
+
         projectService.insertProject(files, project, memId);
 
-        System.out.println("Uploaded files: " + Arrays.toString(files));
-        System.out.println("ProjectDTO: " + project);
+        System.out.println("Uploaded files: " + files);
+        System.out.println("DB 저장 후 ProjectDTO: " + project);
+
+
 
         return "contents/project/projectRegistAfter";
     }

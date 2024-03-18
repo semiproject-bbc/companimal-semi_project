@@ -1,62 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/navLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-    <header>
-        <div class="miniNav">
-            <a class="heart miniNav-item" href="">
-                <img class="heart-icon" src="../../image/heart.png">
-            </a>
-            <a class="bell miniNav-item" href="">
-                <img class="bell-icon" src="../../image/bell.png">
-            </a>
-            <button class="myPage miniNav-item" href="">마이페이지</button>
-            <button id="logout" class="logout miniNav-item" type="button">로그아웃</button>         
-            <button id="projectRegist" class="projectRegist miniNav-item">프로젝트 등록</button>
-        </div>
-        <div class="companimal" onclick="location.href=''">Companimal</div>
-        <div class="mainNav">
-            <div class="menu-bar">
-                <a class="funding+" href="">펀딩+</a>
-                <a class="community" href="">커뮤니티</a>
-                <a class="story" href="">스토리</a>
-            </div>
-            <div class="keyword-search">
-                <input class="search-box" placeholder="키워드 검색" type="text">
-                <button type="button">
-                    <img class="keyword-search-icon" src="../../image/search.png">
-                </button>
-            </div>
-        </div>
-        <img class="line" src="../../image/line.png">
-    </header>
-    <section>
-        <div class="sidetab">
-            <div class="sidewrap">
-                <div>
-                    <button class="managerbtn">매니저</button>
-                </div>
-                <div class="roleimage">
-                    <img src="../../image/profileimg.png" alt="이미지">
-                </div>
-                <div class="sidemenu">
-                    <p>심사 관리</p>
-                    <button>- 크리에이터 심사</button>
-                    <button>- 펀딩 프로젝트 심사</button>
-                    <button>- 후원금 최종 정산 심사</button>
-                    <p>신고 관리</p>
-                    <button>- 펀딩 프로젝트 신고 관리</button>
-                    <button>- 게시판 신고 관리</button>
-                    <button>- 댓글 신고 관리</button>
-                </div>
-            </div>
-        </div>
+<section>
+    <th:block layout:fragment="content">
         <div class="main">
             <h2>펀딩 프로젝트 심사</h2>
             <table class="listTable">
@@ -81,7 +34,7 @@
                     <td>2024.03.04</td>
                     <td>푸드</td>
                     <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
+                    <td><a class="evadetail" th:href="@{|/evaluation/projectEvaluationDetail/${allProject.proCode}|}">상세</a></td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -158,24 +111,6 @@
                 </tr>
             </table>
         </div>
-    </section>
-    <footer>
-        <hr>
-        <div class="footer">
-            <div>
-                <p>회사명(주) Companimal</p>
-                <p>주소 서울 종로구 인사동길 12 대일빌딩 7층, 15층</p>
-                <p>사업자등록번호 111-22-33333</p>
-                <span>대표 companier</span>&nbsp;&nbsp;&nbsp;
-                <span>대표번호 02-6080-0706</span>&nbsp;&nbsp;&nbsp;
-                <span>메일주소 companimal@gmail.com</span>
-            </div>
-            <div>
-                <h2>고객센터</h2>
-                <p>070-111-2222</p>
-                <p>상담 가능 시간 : 오전 9시 ~ 오후 6시 (오후 12시 ~ 오후 1시, 공휴일, 주말 제외)</p>
-            </div>
-        </div>
-    </footer>
-</body>
+    </th:block>
+</section>
 </html>
