@@ -197,8 +197,6 @@ public class MemberController {
     @PostMapping("/updatePurchaseStatus")
     public String updatePurchaseConfirm(@RequestParam("orderCode") String orderCode) {
 
-        System.out.println("😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤😤");
-
         int result = memberService.updatePurchaseConfirm(orderCode);
 
         if(result > 0) {
@@ -210,5 +208,13 @@ public class MemberController {
         return "redirect:/participateProject";
 
     }
+
+//    @RequestMapping("/selectProjectOrder/${orderCode}")
+//    public String selectProjectOrder(@RequestParam("orderCode") String orderCode, Model model) {
+//
+//
+//        return "contents/member/supportProject";
+//
+//    }
 
 }

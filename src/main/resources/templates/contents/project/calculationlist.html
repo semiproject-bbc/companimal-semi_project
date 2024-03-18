@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/navLayout}">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
@@ -28,7 +28,7 @@
         <div class="d-flex d-wrap projectlistbox">
             <div class="projectbox" id="proCode" th:each="callist : ${calculationList}">
                 <a th:href="@{|/project/projectDetail/${callist.proCode}|}">
-                    <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
+                    <img src="/image/thumb1.jpg" alt="프로젝트 썸네일"/>
                 </a>
                 <h3 th:text="${callist.proName}"></h3>
                 <div class="d-flex calBox">
@@ -37,15 +37,15 @@
                         <span class="pjpercentage ">% 달성</span>
                     </div>
                     <!-- 발송 예정일 미입력 -->
-                    <!--<p th:if="${callist.estDate} == null" class="gray-back">발송 예정일 미입력</p>
-                    &lt;!&ndash; 발송 예정일 입력 완료 &ndash;&gt;
-                    <th:block  th:if="${callist.estDate} != null" class="gray-back">
-                        &lt;!&ndash; 서포터가 모두 구매 확정을 하지 않은 경우(발송 예정일 입력 완료) &ndash;&gt;
-                        <th:block>
-                            <p class="gray-back">발송 예정일 입력 완료</p>
-                        </th:block>
-                        &lt;!&ndash; 서포터가 모두 구매 확정을 한 경우(최종 정산 승인 신청) &ndash;&gt;
-                        <th:block>
+                    <p th:if="${callist.estDate} == null" class="gray-back">발송 예정일 미입력</p>
+                    <!-- 발송 예정일 입력 완료 -->
+                    <th:block th:if="${callist.estDate} != null" class="gray-back">
+                        <!-- 서포터가 모두 구매 확정을 하지 않은 경우(발송 예정일 입력 완료) -->
+                        <!--                        <th:block>-->
+                        <p class="gray-back inblock">발송 예정일 입력 완료</p>
+                        <!--                        </th:block>-->
+                        <!-- 서포터가 모두 구매 확정을 한 경우(최종 정산 승인 신청) -->
+                        <!--<th:block>
                             &lt;!&ndash; 최종 정산 승인 신청을 하지 않은 경우 &ndash;&gt;
                             <th:block th:if="${callist.calculationList.get(0).calReqDatetime == null}">
                                 <button class="orange-back inblock" th:onclick="calModalOpen([[${callist.proCode}]])">최종 정산 신청</button>
@@ -57,11 +57,14 @@
                                 &lt;!&ndash; 매니저가 승인을 허락한 경우(최종 정산 승인 완료) &ndash;&gt;
                                 <p th:if="${callist.calculationList.get(0).calAppDatetime != null}" class="gray-back">최종 정산 승인 완료</p>
                             </th:block>
-                        </th:block>
                     </th:block>-->
+                    </th:block>
 
-                    <p th:text="${callist.proCode}"></p>
-                    <p th:text="${callist.orderPayment.get(0).proCode}"></p>
+                    <div>
+                        <p th:text="${callist.proCode}"></p>
+                        <p th:if="${callist.orderPayment.get(0).proCode == null}">으아아아아</p>
+                        <p th:if="${callist.orderPayment.get(0).proCode != null}">키아아아아</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +75,9 @@
         <div class="modal-body d-flex">
             <h3>최종 정산 신청을 하시겠습니까?</h3>
             <div class="d-flex buttonBox">
-                <button type="submit" id="finalcalpush" class="finalcalpush confirmBtn" th:onclick="insertCalculationList()">신청</button>
+                <button type="submit" id="finalcalpush" class="finalcalpush confirmBtn"
+                        th:onclick="insertCalculationList()">신청
+                </button>
                 <button class="cancelBtn" onclick="finalCalModalClose()">취소</button>
             </div>
         </div>

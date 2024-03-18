@@ -101,6 +101,8 @@
             p.pro_code,
             p.pro_name,
             p.end_date,
+            p.ach_rate,
+            p.est_date,
             o.purchase_status,
             o.order_code,
             o.order_date
