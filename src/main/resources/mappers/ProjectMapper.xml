@@ -17,7 +17,7 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
     </resultMap>
@@ -119,7 +119,7 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <association property="member" resultMap="defaultMemberResultMap"/>
@@ -162,7 +162,7 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <collection property="defaultMember" resultMap="defaultMemberResultMap" />
@@ -185,7 +185,7 @@
         <result property="memId" column="mem_id"/>
         <result property="estDate" column="est_date"/>
         <result property="achRate" column="ach_rate"/>
-        <result property="delStatus" column="del_status"/>
+        <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <association property="defaultMember" resultMap="defaultMemberResultMap" />
@@ -206,11 +206,11 @@
                 ,mem_id
                 ,est_date
                 ,ach_rate
-                ,del_status
+                ,eva_status
                 ,cate_main
                 ,cate_sub
           FROM project
-         WHERE del_status = 'N'
+         WHERE eva_status = 'N'
 <!--           AND pro_code = #{ proCode }-->
 <!--           AND TO_DAYS(now())-TO_DAYS('end_date');-->
     </select>
@@ -228,11 +228,11 @@
                 ,mem_id
                 ,est_date
                 ,ach_rate
-                ,del_status
+                ,eva_status
                 ,cate_main
                 ,cate_sub
           FROM project
-         WHERE del_status = 'N'
+         WHERE eva_status = 'N'
     </select>
 
     <!-- 프로젝트 상세페이지 조회에서 DB에 저장한 정보 가져오는 쿼리 -->
@@ -250,7 +250,7 @@
                 ,p.mem_id
                 ,p.est_date
                 ,p.ach_rate
-                ,p.del_status
+                ,p.eva_status
                 ,p.cate_main
                 ,p.cate_sub
                 ,r.rew_code
@@ -288,7 +288,7 @@
 <!--          JOIN project_file f ON (p.pro_code = f.pro_code)-->
           JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
 <!--          JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)-->
-         WHERE p.del_status = 'N'
+         WHERE p.eva_status = 'N'
            AND p.pro_code = #{ proCode }
     </select>
 
@@ -305,64 +305,68 @@
                                 ,pol_as
                                 ,mem_id
                                 ,est_date
-                                ,del_status
+                                ,eva_status
                                 ,cate_main
                                 ,cate_sub
                                 )
           VALUES (
-                    #{ proName }
-                    ,#{ proIntro }
-                    ,#{ goalAmount }
-                    ,#{ startDate }
-                    ,#{ endDate }
-                    ,#{ proStory }
-                    ,#{ polNoRefund }
-                    ,#{ polAs }
-                    ,#{ memId }
-                    ,#{ estDate }
-                    ,#{ delStatus }
-                    ,#{ cateMain }
-                    ,#{ cateSub }
+                    #{ project.proName }
+                    ,#{ project.proIntro }
+                    ,#{ project.goalAmount }
+                    ,#{ project.startDate }
+                    ,#{ project.endDate }
+                    ,#{ project.proStory }
+                    ,#{ project.polNoRefund }
+                    ,#{ project.polAs }
+                    ,#{ project.memId }
+                    ,#{ project.estDate }
+                    ,#{ project.evaStatus }
+                    ,#{ project.cateMain }
+                    ,#{ project.cateSub }
                     )
+        <selectKey keyProperty="proCode" order="AFTER" resultType="int">
+            SELECT MAX(pro_code)
+              FROM project
+        </selectKey>
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
-        INSERT INTO project_reward (
-                                    rew_code
-                                    ,rew_num
-                                    ,pro_code
-                                    ,rew_name
-                                    ,rew_explain
-                                    ,rew_sf
-                                    )
+<!--        <selectKey keyProperty="proCode" order="BEFORE" resultType="int">-->
+<!--            SELECT IFNULL(MAX(pro_code+1),1)-->
+<!--            FROM project-->
+<!--        </selectKey>-->
+        INSERT INTO reward (
+                            rew_num
+                            ,pro_code
+                            ,rew_name
+                            ,rew_explain
+                            ,rew_sf
+                            )
         VALUES (
-                #{ rewCode }
-                ,#{ rewNum }
+                1
                 ,#{ proCode }
                 ,#{ rewName }
                 ,#{ rewExplain }
                 ,#{ rewSf }
                 )
+<!--        <selectKey keyProperty="proCode" order="AFTER" resultType="_int">-->
+<!--            SELECT pro_code-->
+<!--&lt;!&ndash;            FROM project&ndash;&gt;-->
+<!--        </selectKey>-->
     </insert>
 
     <insert id="insertProjectRewardOpt" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
-        INSERT INTO project_reward (
-                                    rew_opt_code
-                                    ,rew_code
-                                    ,rew_opt_num
-                                    ,pro_opt_name
+        INSERT INTO reward_opt (
+                                    pro_opt_name
                                     ,rew_opt_val
                                     ,rew_opt_limit
                                     ,rew_amount
                                     )
         VALUES (
-                #{ rewOptCode }
-                ,#{ rewCode }
-                ,#{ rewOptNum }
-                ,#{ proOptName }
-                ,#{ rewOptVal }
-                ,#{ rewOptLimit }
-                ,#{ rewAmount }
+                #{ reward.rewardOpt.proOptName }
+                ,#{ reward.rewardOpt.rewOptVal }
+                ,#{ reward.rewardOpt.rewOptLimit }
+                ,#{ reward.rewardOpt.rewAmount }
                 )
     </insert>
 
@@ -460,11 +464,11 @@
         ,mem_id
         ,est_date
         ,ach_rate
-        ,del_status
+        ,eva_status
         ,cate_main
         ,cate_sub
         FROM project
-        WHERE del_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
+        WHERE eva_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
         ORDER BY end_date
     </select>
 
