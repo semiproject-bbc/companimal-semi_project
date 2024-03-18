@@ -87,18 +87,18 @@ public class ProjectServiceImpl implements ProjectService {
         System.out.println("service 에서 셋팅해준 리워드옵션들 : " + rewOpts);
 
         /* 파일 셋팅 */
-//        for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
-//            List<ProjectFileDTO> fileList = entry.getValue();
-//            for (int i = 0; i < fileList.size(); i++) {
-//
-//                ProjectFileDTO projectFile = entry.getValue().get(i);
-//
-//                projectFile.setProFileNum(i);
-//                projectFile.setProCode(project.getProCode());
-//
-//                projectMapper.insertProjectFile(projectFile);
-//            }
-//        }
+        for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
+            List<ProjectFileDTO> fileList = entry.getValue();
+            for (int i = 0; i < fileList.size(); i++) {
+
+                ProjectFileDTO projectFile = entry.getValue().get(i);
+
+                projectFile.setProFileNum(i);
+                projectFile.setProCode(project.getProCode());
+
+                projectMapper.insertProjectFile(projectFile);
+            }
+        }
         for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
 
             List<ProjectFileDTO> projectFileList = fileMap.get("proFile");
@@ -163,6 +163,7 @@ public class ProjectServiceImpl implements ProjectService {
             // proFileOriName : 원본 파일명
             String proFileOriName = mf.getOriginalFilename();
 //            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
+            System.out.println(proFileOriName);
 
             String ext = "";
 
