@@ -1,14 +1,19 @@
 package com.companimal.semiProject.project.controller;
 
+import com.companimal.semiProject.auth.model.AuthDetails;
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
+import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
+import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
 import com.companimal.semiProject.project.model.service.ProjectService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -17,18 +22,20 @@ public class ProjectController {
 
     private final ProjectService projectService;
 
+    private int rewardNumber = 1;
+
     private ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }
 
-//    @GetMapping("/")
-//    public String selectAllProject(Model model) {
-//        List<ProjectDTO> selectAllProjectList = projectService.selectAllProject();
-//
-//        model.addAttribute("selectAllProjectList", selectAllProjectList);
-//
-//        return "main";
-//    }
+    @GetMapping("/")
+    public String selectAllProject(Model model) {
+        List<ProjectDTO> selectAllProjectList = projectService.selectAllProject();
+
+        model.addAttribute("selectAllProjectList", selectAllProjectList);
+
+        return "main";
+    }
 
     @GetMapping("/projectPage")
     public String selectProject(Model model) {
@@ -62,16 +69,37 @@ public class ProjectController {
         return "contents/project/projectRegist";
     }
 
+    @ResponseBody
     @PostMapping("/projectRegist")
-    public String insertProject(@RequestParam("files") List<MultipartFile> files,
-                                @ModelAttribute ProjectDTO project) throws IOException {
-        System.out.println(project);
+    public String insertProject(@RequestParam("files") MultipartFile[] files,
+                                @ModelAttribute ProjectDTO project,
+                                @ModelAttribute List<ProjectRewardDTO> reward,
+                                @ModelAttribute List<ProjectRewardOptDTO> rewardOpt,
+                                Authentication authentication) throws IOException {
 
-        projectService.insertProject(files, project);
+        AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
+        String memId = authDetails.getUsername();
+
+        System.out.println("Logged-in User ID: " + memId);
+
+        ProjectRewardDTO projectReward = project.getReward();
+        List<ProjectRewardOptDTO> projectRewardOpt = project.getReward().getRewardOpt();
+        System.out.println(projectReward);
+        System.out.println(projectRewardOpt);
+
+        project.setMemId(memId);
+
+        project.setProStory(Arrays.toString(files));
+        project.setEvaStatus("N");
+//        project.setAchRate(0);
+//        project.setEstDate(null);
+        projectService.insertProject(files, project, memId);
+
+        System.out.println("Uploaded files: " + Arrays.toString(files));
+        System.out.println("ProjectDTO: " + project);
 
         return "contents/project/projectRegistAfter";
     }
-
 
     @GetMapping("/projectImage")
     public String imageInsert() {
@@ -80,7 +108,7 @@ public class ProjectController {
 
     @PostMapping("projectImage")
     public String projectImage(@RequestParam MultipartFile file1
-                               /*@RequestParam MultipartFile file2*/) {
+            /*@RequestParam MultipartFile file2*/) {
 
         projectService.insertImage(file1);
 
@@ -88,7 +116,7 @@ public class ProjectController {
     }
 
     @GetMapping("/endprolist")
-    public String selectEndProList(Authentication authentication,  Model model) {
+    public String selectEndProList(Authentication authentication, Model model) {
         String id = authentication.getName();
 
         List<ProjectDTO> selectEndProjectList = projectService.selectEndProjectList(id);
@@ -107,9 +135,9 @@ public class ProjectController {
 
         int result = projectService.updateShipment(estDateDto);
 
-        if(result > 0) {
+        if (result > 0) {
             System.out.println(":)");
-        }else {
+        } else {
             System.out.println(":(");
         }
 
@@ -136,15 +164,14 @@ public class ProjectController {
 
         List<ProjectDTO> calculationList = projectService.selectCalculationList(id);
 
-        for(int i = 0; i < calculationList.size(); i++) {
+        for (int i = 0; i < calculationList.size(); i++) {
             System.out.println("each ::::: " + calculationList.get(i));
-            for(int j = 0; j < calculationList.get(i).getOrderPayment().size(); j++) {
+            for (int j = 0; j < calculationList.get(i).getOrderPayment().size(); j++) {
                 System.out.println("each2 ::::: " + calculationList.get(i).getOrderPayment().get(j).getPurchaseStatus());
             }
         }
 
         model.addAttribute("calculationList", calculationList);
-
 
 
         return "contents/project/calculationlist";

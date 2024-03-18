@@ -7,9 +7,9 @@ public class ProjectRewardDTO implements java.io.Serializable {
     private String rewCode;                      // 리워드 코드
     private int rewNum;                          // 리워드 번호
     private int proCode;                         // 프로젝트 코드
-    private String rewName;                      // 리워드명
+    private String rewName;                      // 리워드명 o
     private String rewExplain;                   // 리워드 설명
-    private int rewSf;                           // 배송비
+    private int rewSf;                           // 배송비 o
     private List<ProjectRewardOptDTO> rewardOpt; // 프로젝트 리워드 옵션 DTO
 
     public ProjectRewardDTO() {

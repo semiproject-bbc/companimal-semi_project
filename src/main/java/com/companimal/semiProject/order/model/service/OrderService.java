@@ -18,5 +18,7 @@ public interface OrderService {
     @Transactional
     int updatePurchaseConfirm(String orderCode);
 
-    void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO);
+    void setOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO);
+
+    void updateUsedCoupon(String couCode);
 }

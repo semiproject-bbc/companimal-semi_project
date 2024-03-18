@@ -1,12 +1,12 @@
 section {
-    width: 1400px;
-    margin: auto;
+    justify-content: space-between;
 }
 .main {
 }
 .participateProject-container {
     display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(50%, 1fr));
+    grid-template-columns:repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
 
     .projectbox img {
         width: 90%;

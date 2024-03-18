@@ -141,6 +141,7 @@ ul.imgs li{
     margin-right: 200px;
     font-size: 46px;
     font-weight: bold;
+    text-align: center;
 
     .goal-price {
         margin-top: 6.5%;
@@ -249,13 +250,14 @@ ul.imgs li{
             .creater-info {
                 width: 400px;
                 display: flex;
-                justify-content: space-between;
+                /*justify-content: space-between;*/
             }
 
             .creater-image {
                 width: 100px;
                 height: 100px;
                 border-radius: 50%;
+                margin-right: 15px;
             }
 
         }
@@ -323,6 +325,7 @@ ul.imgs li{
                         padding-left: 40px;
                         padding-top: 15px;
                         padding-bottom: 15px;
+                        font-size: 15px;
 
                         .reward-price {
                             font-size: 30px;

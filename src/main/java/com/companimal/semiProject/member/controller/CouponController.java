@@ -19,12 +19,11 @@ public class CouponController {
         this.couponService = couponService;
     }
 
-    @GetMapping("/coupon")
+    @GetMapping("/coupon") // 쿠폰 페이지에서 정보를 출력을 하기 위해서이다
     public String couponPage(Model model, Authentication authentication) {
 
         CouponDTO coupon = couponService.getCouponInfo(authentication.getName());
         model.addAttribute("coupon", coupon);
         return "contents/member/supportercoupon";
     }
-
 }

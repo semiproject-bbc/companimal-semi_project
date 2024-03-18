@@ -8,36 +8,16 @@ import java.util.List;
 public class GetOrderDetailsInfoDTO {
 
     private int proCode;                            // 프로젝트 코드
-    private int noOfOrder;                          // 수량
     private int orderAmount;                        // 총 금액
-    private String proName;
-    List<ProjectRewardDTO> projectRewardDTOList;
+    private String proName;                         // 프로젝트 이름
 
     public GetOrderDetailsInfoDTO() {
     }
 
-    public GetOrderDetailsInfoDTO(int noOfOrder, int orderAmount, int proCode, String proName, List<ProjectRewardDTO> projectRewardDTOList) {
-        this.noOfOrder = noOfOrder;
-        this.orderAmount = orderAmount;
+    public GetOrderDetailsInfoDTO(int proCode, int orderAmount, String proName) {
         this.proCode = proCode;
-        this.proName = proName;
-        this.projectRewardDTOList = projectRewardDTOList;
-    }
-
-    public int getNoOfOrder() {
-        return noOfOrder;
-    }
-
-    public void setNoOfOrder(int noOfOrder) {
-        this.noOfOrder = noOfOrder;
-    }
-
-    public int getOrderAmount() {
-        return orderAmount;
-    }
-
-    public void setOrderAmount(int orderAmount) {
         this.orderAmount = orderAmount;
+        this.proName = proName;
     }
 
     public int getProCode() {
@@ -48,6 +28,14 @@ public class GetOrderDetailsInfoDTO {
         this.proCode = proCode;
     }
 
+    public int getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(int orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
     public String getProName() {
         return proName;
     }
@@ -56,22 +44,12 @@ public class GetOrderDetailsInfoDTO {
         this.proName = proName;
     }
 
-    public List<ProjectRewardDTO> getProjectRewardDTOList() {
-        return projectRewardDTOList;
-    }
-
-    public void setProjectRewardDTOList(List<ProjectRewardDTO> projectRewardDTOList) {
-        this.projectRewardDTOList = projectRewardDTOList;
-    }
-
     @Override
     public String toString() {
         return "GetOrderDetailsInfoDTO{" +
-                "noOfOrder=" + noOfOrder +
+                "proCode=" + proCode +
                 ", orderAmount=" + orderAmount +
-                ", proCode=" + proCode +
                 ", proName='" + proName + '\'' +
-                ", projectRewardDTOList=" + projectRewardDTOList +
                 '}';
     }
 }

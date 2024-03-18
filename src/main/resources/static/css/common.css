@@ -274,3 +274,8 @@ footer {
 .footer div {
     width:50%;
 }
+
+.story-display {
+    padding-left: 130px;
+    align-self: center;
+}
