@@ -2,6 +2,7 @@ package com.companimal.semiProject.evaluation.model.service;
 
 import com.companimal.semiProject.evaluation.model.dao.EvaluationMapper;
 import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
+import com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,12 @@ public class EvaluationServiceImpl implements EvaluationService {
         int result = evaluationMapper.updateCalAppDate(proCode);
 
         return result;
+    }
+
+    @Override
+    public List<ProjectEvaluationDTO> selectAllProjectEva() {
+        List<ProjectEvaluationDTO> selectAllProjectEva = evaluationMapper.selectAllProjectEva();
+
+        return selectAllProjectEva;
     }
 }

@@ -109,6 +109,23 @@
             <result property="creFileOriName" column="CRE_FILE_ORI_NAME"/>
         </collection>
     </resultMap>
+    
+    <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
+        <id property="evaNum" column="eva_num"/>
+        <result property="evaDateTime" column="eva_datetime"/>
+        <result property="evaSituation" column="eva_situation"/>
+        <result property="reaRejection" column="rea_rejection"/>
+    </resultMap>
+
+    <resultMap id="projectEvaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO">
+        <id property="evaNum" column="eva_num"/>
+        <result property="evaDateTime" column="eva_datetime"/>
+        <result property="evaSituation" column="eva_situation"/>
+        <result property="reaRejection" column="rea_rejection"/>
+        <association property="proCode" resultMap="projectResultMap"/>
+        <association property="cateMain" resultMap="projectResultMap"/>
+        <association property="proName" resultMap="projectResultMap"/>
+    </resultMap>
 
     <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap">
         SELECT
@@ -353,4 +370,22 @@
         FROM CREATOR_BUSINESS
         WHERE MEM_ID = #{ memid }
     </delete>
+
+    <select id="selectAllProjectEva" resultMap="projectEvaluationResultMap">
+--         SELECT e.eva_num
+--         ,e.eva_datetime
+--         ,e.eva_situation
+--         ,e.rea_rejection
+--         ,p.cate_main
+--         ,p.pro_name
+--         ,p.pro_code
+--           FROM evaluation e
+--           JOIN project_eva pe ON (e.eva_num = pe.eva_num)
+--           JOIN project p ON (pe.pro_code = p.pro_code)
+        SELECT eva_num
+             ,eva_datetime
+             ,eva_situation
+             ,rea_rejection
+        FROM evaluation
+    </select>
 </mapper>

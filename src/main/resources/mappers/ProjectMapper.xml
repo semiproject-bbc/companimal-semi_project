@@ -313,25 +313,23 @@
                                 ,pol_no_refund
                                 ,pol_as
                                 ,mem_id
-                                ,est_date
                                 ,eva_status
                                 ,cate_main
                                 ,cate_sub
                                 )
           VALUES (
-                    #{ project.proName }
-                    ,#{ project.proIntro }
-                    ,#{ project.goalAmount }
-                    ,#{ project.startDate }
-                    ,#{ project.endDate }
-                    ,#{ project.proStory }
-                    ,#{ project.polNoRefund }
-                    ,#{ project.polAs }
-                    ,#{ project.memId }
-                    ,#{ project.estDate }
-                    ,#{ project.evaStatus }
-                    ,#{ project.cateMain }
-                    ,#{ project.cateSub }
+                    #{ proName }
+                    ,#{ proIntro }
+                    ,#{ goalAmount }
+                    ,#{ startDate }
+                    ,#{ endDate }
+                    ,#{ proStory }
+                    ,#{ polNoRefund }
+                    ,#{ polAs }
+                    ,#{ memId }
+                    ,#{ evaStatus }
+                    ,#{ cateMain }
+                    ,#{ cateSub }
                     )
         <selectKey keyProperty="proCode" order="AFTER" resultType="int">
             SELECT MAX(pro_code)
@@ -345,14 +343,16 @@
 <!--            FROM project-->
 <!--        </selectKey>-->
         INSERT INTO reward (
-                            rew_num
+                            rew_code
+                            ,rew_num
                             ,pro_code
                             ,rew_name
                             ,rew_explain
                             ,rew_sf
                             )
         VALUES (
-                1
+                #{ rewCode }
+                ,#{ rewNum }
                 ,#{ proCode }
                 ,#{ rewName }
                 ,#{ rewExplain }
@@ -366,16 +366,22 @@
 
     <insert id="insertProjectRewardOpt" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
         INSERT INTO reward_opt (
-                                    pro_opt_name
+                                    rew_opt_code
+                                    ,rew_code
+                                    ,rew_opt_num
+                                    ,rew_opt_name
                                     ,rew_opt_val
                                     ,rew_opt_limit
                                     ,rew_amount
                                     )
         VALUES (
-                #{ reward.rewardOpt.proOptName }
-                ,#{ reward.rewardOpt.rewOptVal }
-                ,#{ reward.rewardOpt.rewOptLimit }
-                ,#{ reward.rewardOpt.rewAmount }
+                #{ rewOptCode }
+                ,#{ rewCode }
+                ,#{ rewOptNum }
+                ,#{ rewOptName }
+                ,#{ rewOptVal }
+                ,#{ rewOptLimit }
+                ,#{ rewAmount }
                 )
     </insert>
 

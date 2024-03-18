@@ -45,4 +45,6 @@ public interface EvaluationMapper {
     int selectCreatorFile(String memId);
 
     void deleteCreatorBusinessEvaluation(String memId);
+
+    List<ProjectEvaluationDTO> selectAllProjectEva();
 }

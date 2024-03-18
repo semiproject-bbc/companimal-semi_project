@@ -309,8 +309,8 @@ public class ProjectDTO implements java.io.Serializable {
         this.image = image;
     }
 
-    public MultipartFile getFile() {
-        return (MultipartFile) file;
+    public List<ProjectFileDTO> getFile() {
+        return file;
     }
 
     public void setFile(List<ProjectFileDTO> file) {
