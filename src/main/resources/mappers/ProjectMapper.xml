@@ -324,30 +324,35 @@
                     ,#{ project.cateMain }
                     ,#{ project.cateSub }
                     )
+        <selectKey keyProperty="proCode" order="AFTER" resultType="int">
+            SELECT MAX(pro_code)
+              FROM project
+        </selectKey>
     </insert>
 
     <insert id="insertProjectReward" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
-<!--        <selectKey keyColumn="proCode,rewCode" keyProperty="proCode,rewCode" order="AFTER" resultType="Map">-->
-<!--            SELECT (IFNULL(MAX(p.pro_code), 0) + 1) AS proCode-->
-<!--                    , (SELECT CONCAT((SELECT IFNULL(MAX(pro_code), 0) + 1 FROM project), '-', 1) AS rewCode-->
-<!--              FROM project p-->
-<!--              JOIN reward r ON (p.pro_code = r.pro_code)-->
-<!--             WHERE p.eva_status = 'N'-->
+<!--        <selectKey keyProperty="proCode" order="BEFORE" resultType="int">-->
+<!--            SELECT IFNULL(MAX(pro_code+1),1)-->
+<!--            FROM project-->
 <!--        </selectKey>-->
         INSERT INTO reward (
-                            rew_name,
-                            rew_explain,
-                            rew_sf
+                            rew_num
+                            ,pro_code
+                            ,rew_name
+                            ,rew_explain
+                            ,rew_sf
                             )
         VALUES (
-                #{ rewName },
-                #{ rewExplain },
-                #{ rewSf }
+                1
+                ,#{ proCode }
+                ,#{ rewName }
+                ,#{ rewExplain }
+                ,#{ rewSf }
                 )
-        <selectKey keyProperty="proCode" order="AFTER" resultType="_int">
-            SELECT LAST_INSERT_ID()
-<!--            FROM project-->
-        </selectKey>
+<!--        <selectKey keyProperty="proCode" order="AFTER" resultType="_int">-->
+<!--            SELECT pro_code-->
+<!--&lt;!&ndash;            FROM project&ndash;&gt;-->
+<!--        </selectKey>-->
     </insert>
 
     <insert id="insertProjectRewardOpt" parameterType="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">

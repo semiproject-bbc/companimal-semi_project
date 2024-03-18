@@ -40,6 +40,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional
     public void insertProject(MultipartFile[] files, ProjectDTO project, String memId) {
+
+        System.out.println("project 찍어보기 : " + project);
+
         Map<String, List<ProjectFileDTO>> fileMap = null;
 
         try {
@@ -50,19 +53,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         int result1 = projectMapper.insertProject(project, memId);
 
-        int result2 = projectMapper.insertProjectReward(project.getReward());
-        int result3 = projectMapper.insertProjectRewardOpt(project.getReward().getRewardOpt());
-
-        for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
-            List<ProjectFileDTO> fileList = entry.getValue();
-            for (ProjectFileDTO file : fileList) {
-                int result4 = projectMapper.insertProjectFile(file);
-                if (result4 <= 0) {
-                    // 파일 저장 실패 시 처리
-                }
-            }
-        }
-
         ProjectFileDTO projectFileDTO = new ProjectFileDTO();
         ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
         List<ProjectRewardOptDTO> projectRewardOptList = new ArrayList<>();
@@ -72,11 +62,12 @@ public class ProjectServiceImpl implements ProjectService {
 
         /* 리워드 셋팅 */
         projectRewardDTO.setRewCode(project.getProCode() + "-1");
-        projectRewardDTO.setRewNum(1);
-        projectRewardDTO.setProCode(project.getProCode());
-        projectRewardDTO.setRewName(project.getReward().getRewName());
-        projectRewardDTO.setRewExplain(project.getReward().getRewExplain());
-        projectRewardDTO.setRewSf(project.getReward().getRewSf());
+        System.out.println("proCode 셋팅 값 : " + projectRewardDTO);
+//        projectRewardDTO.setRewNum(1);
+//        projectRewardDTO.setProCode(project.getProCode());
+//        projectRewardDTO.setRewName(project.getReward().getRewName());
+//        projectRewardDTO.setRewExplain(project.getReward().getRewExplain());
+//        projectRewardDTO.setRewSf(project.getReward().getRewSf());
 
         /* 리워드 옵션 셋팅 */
         for (int i = 0; i < project.getReward().getRewardOpt().size(); i++) {
@@ -99,6 +90,19 @@ public class ProjectServiceImpl implements ProjectService {
 
         System.out.println("=====================리워드 옵션들======================");
         System.out.println("service 에서 셋팅해준 리워드옵션들 : " + projectRewardOptList);
+
+        int result2 = projectMapper.insertProjectReward(project.getReward());
+        int result3 = projectMapper.insertProjectRewardOpt(project.getReward().getRewardOpt());
+
+        for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
+            List<ProjectFileDTO> fileList = entry.getValue();
+            for (ProjectFileDTO file : fileList) {
+                int result4 = projectMapper.insertProjectFile(file);
+                if (result4 <= 0) {
+                    // 파일 저장 실패 시 처리
+                }
+            }
+        }
 
         if (result1 > 0 && result2 > 0 && result3 > 0) {
             System.out.println("프로젝트 등록 성공!");

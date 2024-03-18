@@ -73,6 +73,8 @@ public class ProjectController {
     @PostMapping("/projectRegist")
     public String insertProject(@RequestParam("files") MultipartFile[] files,
                                 @ModelAttribute ProjectDTO project,
+                                @ModelAttribute List<ProjectRewardDTO> reward,
+                                @ModelAttribute List<ProjectRewardOptDTO> rewardOpt,
                                 Authentication authentication) throws IOException {
 
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
@@ -80,10 +82,10 @@ public class ProjectController {
 
         System.out.println("Logged-in User ID: " + memId);
 
-        ProjectRewardDTO reward = project.getReward();
-        List<ProjectRewardOptDTO> rewardOpt = project.getReward().getRewardOpt();
-        System.out.println(reward);
-        System.out.println(rewardOpt);
+        ProjectRewardDTO projectReward = project.getReward();
+        List<ProjectRewardOptDTO> projectRewardOpt = project.getReward().getRewardOpt();
+        System.out.println(projectReward);
+        System.out.println(projectRewardOpt);
 
         project.setMemId(memId);
 
@@ -97,9 +99,7 @@ public class ProjectController {
         System.out.println("ProjectDTO: " + project);
 
         return "contents/project/projectRegistAfter";
-
     }
-
 
     @GetMapping("/projectImage")
     public String imageInsert() {
