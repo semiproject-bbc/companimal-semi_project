@@ -111,4 +111,11 @@
             SET COU_YN = "n"
         WHERE COU_CODE = #{ couCode }
     </update>
+
+<!--    <select id="" parameterType="String" resultMap="">-->
+<!--        SELECT-->
+
+<!--            FROM order_payment o-->
+<!--            JOIN -->
+<!--    </select>-->
 </mapper>

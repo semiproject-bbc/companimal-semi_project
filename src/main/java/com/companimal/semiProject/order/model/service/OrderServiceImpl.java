@@ -40,5 +40,9 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.updateUsedCoupon(couCode);
     }
 
+//    @Override
+//    public OrderPaymentDTO selectProOrderList(String orderCode) {
+//        return orderMapper.selectProOrderList(orderCode);
+//    }
 }
 

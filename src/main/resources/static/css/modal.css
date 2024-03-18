@@ -14,14 +14,16 @@
     opacity: 0.6;
 }
 .modal-body {
-    position:sticky;
+    position:fixed;
     width:450px;
     background-color:#ffffff;
     border:#fca652 3px solid;
     border-radius:10px;
     margin:auto;
     padding:30px;
-    top:300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     flex-direction: column;
     justify-content: space-between;
 }
@@ -135,6 +137,9 @@
     border-radius:5px;
     color:#000000;
     font-size:18px;
+}
+.closeBtn {
+    border:none;
 }
 
 /* 탈퇴 */

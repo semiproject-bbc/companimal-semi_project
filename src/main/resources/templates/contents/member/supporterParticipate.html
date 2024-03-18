@@ -31,18 +31,26 @@
                     </th:block>
                     <!-- 프로젝트가 종료된 경우 -->
                     <th:block th:if="${#numbers.#strings.replace(participatelist.project.get(0).endDate, '-', '') < #calendars.format(#calendars.createNow(), 'yyyyMMdd')}">
-                        <th:block>
+                        <!-- 100 달성 실패 -->
+                        <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.project.get(0).achRate < 100}">펀딩 실패</button>
+                        <!-- 100 달성 완료 -->
+                        <th:block th:if="${participatelist.project.get(0).achRate >= 100}">
                             <!-- 프로젝트 종료 후 중간 정산 완료 전까지 중간 정산 전 버튼(비활성화)-->
                             <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하지 않으면 구매 미확정 버튼(활성화) -->
-                            <button class="orderDetails"
-                                    th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}"
-                                    th:onclick="purchaseModalOpen([[${participatelist.orderPayment.get(0).orderCode}]])">구매 미확정
-                            </button>
-                            <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하면 구매 확정 완료 버튼(비활성화) -->
-                            <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.orderPayment.get(0).purchaseStatus != null}">구매 확정 완료</button>
+                            <!-- 배송 예정일 미입력 상태 일때 -->
+                            <button  class="purchaseConfirmed noPointer" disabled th:if="${participatelist.project.get(0).estDate == null}">배송 예정일 미확정</button>
+                            <!-- 배송 예정일 입력 상태 일때 -->
+                            <th:block th:if="${participatelist.project.get(0).estDate != null}">
+                                <button class="orderDetails"
+                                        th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}"
+                                        th:onclick="purchaseModalOpen([[${participatelist.orderPayment.get(0).orderCode}]])">구매 미확정
+                                </button>
+                                <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하면 구매 확정 완료 버튼(비활성화) -->
+                                <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.orderPayment.get(0).purchaseStatus != null}">구매 확정 완료</button>
+                            </th:block>
                         </th:block>
                     </th:block>
-                    <button class="orderDetails">내역 조회</button>
+                    <a class="orderDetails" th:href="@{|/order/selectProjectOrder/${participatelist.getOrderPayment().get(0).orderCode}|}">내역 조회</a>
                 </div>
                 <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</button></div>
             </div>

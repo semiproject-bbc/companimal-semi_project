@@ -105,7 +105,7 @@
         <result property="accountNo" column="account_no"/>
         <result property="depositorName" column="depositor_name"/>
     </resultMap>
-    
+
     <resultMap id="projectDetailResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
         <id property="proCode" column="pro_code"/>
         <result property="proName" column="pro_name"/>
@@ -136,6 +136,7 @@
         <result property="orderAmount" column="order_amount" />
     </resultMap>
 
+    <!-- 원본 -->
     <resultMap id="orderPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
         <id property="orderCode" column="order_code" />
         <result property="orderDate" column="order_date" />
@@ -148,6 +149,19 @@
         <result property="couCode" column="cou_code" />
         <result property="purchaseStatus" column="purchase_status" />
     </resultMap>
+
+    <!--<resultMap id="orderPaymentCodeResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentCodeDTO">
+        <id property="orderCode" column="order_code" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="finalPay" column="final_pay" />
+        <result property="projectCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
+    </resultMap>-->
 
     <resultMap id="calculationResultMap" type="com.companimal.semiProject.evaluation.model.dto.CalculationListDTO">
         <id property="proCode" column="pro_code" />
@@ -200,6 +214,20 @@
         <association property="calculationList" resultMap="calculationResultMap" />
         <collection property="orderPayment" resultMap="orderPaymentResultMap" />
     </resultMap>
+    <!--<resultMap id="selectCalculationResultMap" type="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
+        <id property="orderCode" column="order_code" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="finalPay" column="final_pay" />
+        <result property="proCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
+        <association property="calculationList" resultMap="calculationResultMap" />
+        <collection property="projectPayment" resultMap="ProjectResultMap" />
+    </resultMap>-->
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
     <select id="selectProject" resultMap="projectResultMap">
@@ -478,7 +506,7 @@
         ,cate_sub
         FROM project
         WHERE eva_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
-        ORDER BY end_date
+        ORDER BY end_date desc
     </select>
 
     <!-- 배송 예정일 업데이트 쿼리 -->
@@ -507,10 +535,9 @@
     <select id="selectCalculationList" parameterType="String" resultMap="selectCalculationResultMap">
         SELECT
             p.pro_code,
-            o.pro_code,
-            p.pro_name,
             p.est_date,
             p.ach_rate,
+            o.pro_code,
             c.cal_req_datetime,
             c.cal_app_datetime
             FROM project p
@@ -527,6 +554,30 @@
             LEFT JOIN calculation_list c ON (p.pro_code = c.pro_code)
             WHERE mem_id = #{id} AND DATEDIFF(end_date, now()) <![CDATA[ <= ]]> 0 AND ach_rate >= 100;
     </select>
+
+<!--    <select id="selectCalculationList" parameterType="String" resultMap="selectCalculationResultMap">
+        SELECT
+        p.pro_code,
+        p.est_date,
+        p.ach_rate,
+        o.pro_code,
+        c.cal_req_datetime,
+        c.cal_app_datetime
+        FROM project p
+        LEFT JOIN (SELECT DISTINCT
+        pro_code as 'abc',
+        purchase_status
+        FROM order_payment
+        WHERE pro_code in (SELECT
+        pro_code
+        FROM project
+        WHERE mem_id = #{id}
+        AND DATEDIFF(end_date, now()) <![CDATA[ <= ]]> 0)
+        AND purchase_status IS NULL) o ON (p.pro_code = o.pro_code)
+        LEFT JOIN calculation_list c ON (p.pro_code = c.pro_code)
+        WHERE mem_id = #{id} AND DATEDIFF(end_date, now()) <![CDATA[ <= ]]> 0 AND ach_rate >= 100;
+
+    </select>-->
 
     <insert id="insertCalculationList" parameterType="String">
         INSERT INTO calculation_list

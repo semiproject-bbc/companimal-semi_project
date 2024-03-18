@@ -4,6 +4,7 @@ import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.CouponDTO;
 import com.companimal.semiProject.order.model.dto.GetOrderDetailsInfoDTO;
 import com.companimal.semiProject.order.model.dto.GetOrderOptionsInfoDTO;
+import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import com.companimal.semiProject.order.model.service.OrderService;
 import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
@@ -76,6 +77,17 @@ public class OrderController {
 
         return "contents/order/orderpayment";
     }
+
+//    @ResponseBody
+//    @RequestMapping("/selectProjectOrder/${orderCode}")
+//    public String selectProjectOrder(@RequestParam("orderCode") String orderCode, Model model) {
+//
+//        OrderPaymentDTO selectProOrderList = orderService.selectProOrderList(orderCode);
+//        model.addAttribute("selectProOrderList", selectProOrderList);
+//
+//        return "contents/member/supportProject";
+//
+//    }
 
     /* hard coding *//*
     @GetMapping("/orderpayment") // {memId}
