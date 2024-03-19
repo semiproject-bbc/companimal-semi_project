@@ -47,19 +47,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         System.out.println("Service에서 project 찍어보기 : " + project);
 
-        // 아래 삭제!!!
-/*
-        Map<String, List<ProjectFileDTO>> fileMap = null;
-
-        try {
-            fileMap = FileUpload(files);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
-
         int result1 = projectMapper.insertProject(project);
 
         System.out.println("proCode : " + project.getProCode());
@@ -94,104 +81,31 @@ public class ProjectServiceImpl implements ProjectService {
 
         System.out.println("=====================리워드 옵션들======================");
         System.out.println("service 에서 셋팅해준 리워드옵션들 : " + rewOpts);
-
-        // 여기서부터 삭제
-        /* 파일 셋팅 */
-            /*List<ProjectFileDTO> projectFileList = fileMap.get("proFile");
-            for (int i = 0; i < projectFileList.size(); i++) {
-
-                ProjectFileDTO projectFile = projectFileList.get(i);
-
-                projectFile.setProFileNum(i);
-                projectFile.setProCode(project.getProCode());
-
-                projectMapper.insertProjectFile(projectFile);
-            }
-
-            List<ProjectFileDTO> projectImageList = fileMap.get("proImg");
-            for (int i = 0; i < projectImageList.size(); i++) {
-
-                ProjectFileDTO projectImage = projectImageList.get(i);
-
-                projectImage.setProFileNum(i);
-                projectImage.setProCode(project.getProCode());
-
-                projectMapper.insertProjectImage(projectImage);
-//            }*/
-
-        /* 파일 저장 경로 지정  */
-        /*
-        Resource resource = resourceLoader.getResource("classpath:static/image/store");
-        // proFilePath : 파일 저장경로
-        String proFilePath = null;
-
-        if (!resource.exists()) {
-            String root = "src/main/resources/static/image/store";
-            File Image = new File(root);
-            Image.mkdir();
-
-            proFilePath = Image.getAbsolutePath();
-
-        } else {
-            proFilePath = resource.getFile().getAbsolutePath();
-        }
-
-        List<ProjectFileDTO> projectImgList = new ArrayList<>();
-
-        List<String> saveFiles = new ArrayList<>(); // 파일 경로들을 받게될 list
-
-        for (MultipartFile mf : files) {
-
-            System.out.println(mf);
-
-            // proFileOriName : 원본 파일명
-            String proFileOriName = mf.getOriginalFilename();
-            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
-            System.out.println("원본 파일명 : " + proFileOriName);
-
-            // proFileName : 파일 저장명
-            String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
-
-            System.out.println("파일 저장명 : " + proFileName);
-
-            ProjectFileDTO fileDTO = new ProjectFileDTO();
-//            fileDTO()
-//            projectImgList.add(new ProjectFileDTO(projectImgList.size() + 1, 0, proFilePath, proFileName, proFileOriName));
-//
-//            mf.transferTo(new File(proFilePath + "/" + proFileName));
-//
-//            saveFiles.add("static/image/store" + proFileName);
-//
-//                projectImage.setProFileNum(mk);
-//                projectImage.setProCode(project.getProCode());
-//
-//                projectMapper.insertProjectImage(projectImage);
-        }
-            */
-        // 여기까지 삭제
         
         /* 파일 저장 */
         /* 이미지(다건) 저장 */
-        List<Projec> saveImages = new ArrayList<>(); // 이미지 경로들을 받게될 list
+        List<ProjectImagePathDTO> saveImages = new ArrayList<>(); // 이미지 경로들을 받게될 list
 
         for(int i = 0; i < images.size(); i++) {
             ProjectFileDTO fileDTO = FileUpload(images.get(i));
 
             if(fileDTO != null) {
                 fileDTO.setProCode(project.getProCode());
-                fileDTO.setProFileNum(++i);
+                fileDTO.setProFileNum(i);
 
                 projectMapper.insertProjectImage(fileDTO);
 
-                saveImages.add("static/image/store" + fileDTO.getProFileName());
+                System.out.println("static/image/store/" + fileDTO.getProFileName());
 
                 System.out.println("이미지들 저장경로 : " + saveImages);
+
+                ProjectImagePathDTO projectImagePath = new ProjectImagePathDTO();
+
+                projectImagePath.setProImgPath("static/image/store" + fileDTO.getProFileName());
+
+                saveImages.add(projectImagePath);
             }
         }
-        ProjectFileDTO projectImagePath = new ProjectFileDTO();
-
-//        String[] imgPath = saveImages.get
-
 
         model.addAttribute("imgs", saveImages);
 
@@ -223,6 +137,7 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
             System.out.println("프로젝트 등록 실패~!");
         }
+//        return ""
     }
 
     public ProjectFileDTO FileUpload(MultipartFile savefile) throws IOException {
