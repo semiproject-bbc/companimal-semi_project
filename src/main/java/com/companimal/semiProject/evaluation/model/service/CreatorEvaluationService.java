@@ -18,7 +18,7 @@ public interface CreatorEvaluationService {
 
     void insertCreatorBusiness(MultipartFile businessRegistration, CreatorBusinessDTO creatorBusinessDTO, String creatorId) throws IOException;
 
-    List<CreatorEvaluationDTO> selectCreatorEvaluationList();
+    List<CreatorEvaluationDTO> selectCreatorEvaluationList(int offset, int limit);
 
     CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum);
 
@@ -35,4 +35,6 @@ public interface CreatorEvaluationService {
     boolean selectCreatorInfo(String creatorId);
 
     void updateEvaSituation(Map<String, Object> map);
+
+    int countTotalItems();
 }

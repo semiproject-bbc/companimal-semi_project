@@ -1,9 +1,6 @@
 package com.companimal.semiProject.evaluation.controller;
 
-import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDetailDTO;
-import com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.*;
 import com.companimal.semiProject.evaluation.model.service.CreatorEvaluationService;
 import com.companimal.semiProject.evaluation.model.service.EvaluationService;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
@@ -120,12 +117,38 @@ public class EvaluationController {
     }
 
     @GetMapping("/manager/creatorEvaluationList")
-    public ModelAndView creatorEvaluationList(ModelAndView modelAndView) {
+    public ModelAndView creatorEvaluationList(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 10; // 페이지당 표시할 아이템 수
 
-        modelAndView.addObject("CreatorEvaluationList", creatorEvaluationService.selectCreatorEvaluationList());
+        // 전체 아이템 수 조회
+        int totalItems = creatorEvaluationService.countTotalItems();
+        System.out.println("totalItems : " + totalItems);
+
+        // 전체 페이지 수 계산
+        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+        System.out.println("totalPages : " + totalPages);
+        
+        // 현재 페이지 번호가 유효한지 확인하여 조정
+        if (page < 1) {
+            page = 1;
+        } else if (page > totalPages) {
+            page = totalPages;
+        }
+
+        // 현재 페이지의 아이템 범위 계산
+        int offset = (page - 1) * pageSize;
+        int limit = pageSize;
+
+        // 현재 페이지의 아이템 목록 조회
+        List<CreatorEvaluationDTO> creatorEvaluationList = creatorEvaluationService.selectCreatorEvaluationList(offset, limit);
+        System.out.println(creatorEvaluationList.size());
+
+        // ModelAndView에 추가
+        modelAndView.addObject("CreatorEvaluationList", creatorEvaluationList);
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("totalPages", totalPages);
 
         modelAndView.setViewName("/contents/evaluation/manager/creatorEvaluationList");
-
 
         return modelAndView;
     }

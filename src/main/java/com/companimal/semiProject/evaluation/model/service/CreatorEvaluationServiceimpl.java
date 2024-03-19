@@ -40,6 +40,11 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
     }
 
     @Override
+    public int countTotalItems() {
+        return evaluationMapper.countTotalItems();
+    }
+
+    @Override
     @Transactional
     public void insertCreatorInfo(MultipartFile creatorProductPlan
             , MultipartFile creatorProductPortfolio
@@ -144,8 +149,8 @@ public class CreatorEvaluationServiceimpl implements CreatorEvaluationService {
     }
 
     @Override
-    public List<CreatorEvaluationDTO> selectCreatorEvaluationList() {
-        return evaluationMapper.selectCreatorEvaluationList();
+    public List<CreatorEvaluationDTO> selectCreatorEvaluationList(int offset, int limit) {
+        return evaluationMapper.selectCreatorEvaluationList(offset, limit);
     }
 
     @Override

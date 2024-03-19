@@ -127,7 +127,7 @@
         <association property="proName" resultMap="projectResultMap"/>
     </resultMap>
 
-    <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap">
+    <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap" parameterType="map">
         SELECT
             C.MEM_ID ,
             E.EVA_NUM ,
@@ -155,12 +155,21 @@
             CASE
                 WHEN B.BUSI_NUM IS NULL THEN '개인'
                 ELSE '사업자'
-            END AS CREATOR_TYPE
+                END AS CREATOR_TYPE
         FROM CREATOR_EVA C
-        JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
-        JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
-        LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID
-        ORDER BY C.EVA_NUM ASC;
+                 JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
+                 JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
+                 LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID
+        ORDER BY C.EVA_NUM ASC
+            LIMIT #{limit} OFFSET #{offset};
+    </select>
+
+    <select id="countTotalItems" resultType="int">
+        SELECT COUNT(*)
+        FROM CREATOR_EVA C
+                 JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
+                 JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
+                 LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID;
     </select>
 
     <select id="selectCreatorEvaluationDetail" resultMap="CreatorEvaluationDetailResultMap">
@@ -203,8 +212,8 @@
         WHERE C.EVA_NUM = #{ evaNum }
     </select>
 
-    <select id="selectCreatorInfo" parameterType="String">
-        SELECT MEM_ID
+    <select id="selectCreatorInfo" parameterType="String" resultType="boolean">
+        SELECT COUNT(*)
         FROM CREATOR_INFO
         WHERE MEM_ID = #{creatorId}
     </select>

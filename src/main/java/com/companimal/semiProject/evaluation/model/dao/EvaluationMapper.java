@@ -30,7 +30,7 @@ public interface EvaluationMapper {
 
     boolean insertCreatorEva(CreatorEvaDTO creatorEvaDTO);
 
-    List<CreatorEvaluationDTO> selectCreatorEvaluationList();
+    List<CreatorEvaluationDTO> selectCreatorEvaluationList(int offset, int limit);
 
     CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum);
 
@@ -51,4 +51,6 @@ public interface EvaluationMapper {
     List<ProjectEvaluationDTO> selectAllProjectEva();
 
     void updateEvaSituation(Map<String, Object> map);
+
+    int countTotalItems();
 }
