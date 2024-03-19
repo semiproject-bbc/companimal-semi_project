@@ -1,8 +1,10 @@
 package com.companimal.semiProject.project.model.dto;
 
 import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
+import com.companimal.semiProject.evaluation.model.dto.ProjectEvaDTO;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.order.model.dto.OrderOptDTO;
+import com.companimal.semiProject.order.model.dto.OrderProPaymentDTO;
 import org.springframework.web.multipart.MultipartFile;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 
@@ -26,10 +28,9 @@ public class ProjectDTO implements java.io.Serializable {
     private String evaStatus;                       // 심사 상황
     private int cateMain;                           // 메인 카테고리
     private int cateSub;                            // 서브 카테고리
-    private int dDay;                               // 종료일 d-day
+    private int dDay;                              // 종료일 d-day
     private ProjectRewardDTO reward;          // 프로젝트 리워드 DTO
-
-//    private List<ProjectRewardOptDTO> rewardOpt;    // 프로젝트 리워드 옵션 DTO
+    private List<ProjectRewardOptDTO> rewardOpt;    // 프로젝트 리워드 옵션 DTO
     private List<ProjectImageDTO> image;            // 프로젝트 이미지 DTO
     private List<ProjectFileDTO> file;              // 프로젝트 파일 DTO
     private List<ProjectCateDTO> cate;              // 프로젝트 카테고리 DTO
@@ -41,6 +42,10 @@ public class ProjectDTO implements java.io.Serializable {
     private List<OrderOptDTO> orderOpt;
     private List<MemberDTO> defaultMember;
     private List<CalculationListDTO> calculationList;
+    private List<OrderProPaymentDTO> orderProPayment;
+    private ProjectEvaDTO projectEva;
+    private ProjectCateDTO category;
+    private ProjectCateSubDTO categorySub;
 
     public ProjectDTO() {
     }
@@ -125,7 +130,7 @@ public class ProjectDTO implements java.io.Serializable {
         this.defaultMember = defaultMember;
     }
 
-    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String evaStatus, int cateMain, int cateSub, int dDay, ProjectRewardDTO reward, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, CreatorInfoDTO creatorInfo, MemberDTO member, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember) {
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String evaStatus, int cateMain, int cateSub, int dDay, ProjectRewardDTO reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, CreatorInfoDTO creatorInfo, MemberDTO member, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember, List<CalculationListDTO> calculationList, List<OrderProPaymentDTO> orderProPayment) {
         this.proCode = proCode;
         this.proName = proName;
         this.proIntro = proIntro;
@@ -143,7 +148,7 @@ public class ProjectDTO implements java.io.Serializable {
         this.cateSub = cateSub;
         this.dDay = dDay;
         this.reward = reward;
-//        this.rewardOpt = rewardOpt;
+        this.rewardOpt = rewardOpt;
         this.image = image;
         this.file = file;
         this.cate = cate;
@@ -155,6 +160,73 @@ public class ProjectDTO implements java.io.Serializable {
         this.orderOpt = orderOpt;
         this.defaultMember = defaultMember;
         this.calculationList = calculationList;
+        this.orderProPayment = orderProPayment;
+    }
+
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String evaStatus, int cateMain, int cateSub, int dDay, ProjectRewardDTO reward, List<ProjectRewardOptDTO> rewardOpt, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, CreatorInfoDTO creatorInfo, MemberDTO member, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember, List<CalculationListDTO> calculationList) {
+        this.proCode = proCode;
+        this.proName = proName;
+        this.proIntro = proIntro;
+        this.goalAmount = goalAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.proStory = proStory;
+        this.polNoRefund = polNoRefund;
+        this.polAs = polAs;
+        this.memId = memId;
+        this.estDate = estDate;
+        this.achRate = achRate;
+        this.evaStatus = evaStatus;
+        this.cateMain = cateMain;
+        this.cateSub = cateSub;
+        this.dDay = dDay;
+        this.reward = reward;
+        this.rewardOpt = rewardOpt;
+        this.image = image;
+        this.file = file;
+        this.cate = cate;
+        this.noOfOrder = noOfOrder;
+        this.orderAmount = orderAmount;
+        this.creatorInfo = creatorInfo;
+        this.member = member;
+        this.orderPayment = orderPayment;
+        this.orderOpt = orderOpt;
+        this.defaultMember = defaultMember;
+        this.calculationList = calculationList;
+    }
+
+    public ProjectDTO(int proCode, String proName, String proIntro, int goalAmount, Date startDate, Date endDate, String proStory, String polNoRefund, String polAs, String memId, Date estDate, int achRate, String evaStatus, int cateMain, int cateSub, int dDay, ProjectRewardDTO reward, List<ProjectImageDTO> image, List<ProjectFileDTO> file, List<ProjectCateDTO> cate, int noOfOrder, int orderAmount, CreatorInfoDTO creatorInfo, MemberDTO member, List<OrderPaymentDTO> orderPayment, List<OrderOptDTO> orderOpt, List<MemberDTO> defaultMember, List<CalculationListDTO> calculationList, ProjectEvaDTO projectEva, ProjectCateDTO category, ProjectCateSubDTO categorySub) {
+        this.proCode = proCode;
+        this.proName = proName;
+        this.proIntro = proIntro;
+        this.goalAmount = goalAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.proStory = proStory;
+        this.polNoRefund = polNoRefund;
+        this.polAs = polAs;
+        this.memId = memId;
+        this.estDate = estDate;
+        this.achRate = achRate;
+        this.evaStatus = evaStatus;
+        this.cateMain = cateMain;
+        this.cateSub = cateSub;
+        this.dDay = dDay;
+        this.reward = reward;
+        this.image = image;
+        this.file = file;
+        this.cate = cate;
+        this.noOfOrder = noOfOrder;
+        this.orderAmount = orderAmount;
+        this.creatorInfo = creatorInfo;
+        this.member = member;
+        this.orderPayment = orderPayment;
+        this.orderOpt = orderOpt;
+        this.defaultMember = defaultMember;
+        this.calculationList = calculationList;
+        this.projectEva = projectEva;
+        this.category = category;
+        this.categorySub = categorySub;
     }
 
     public int getProCode() {
@@ -293,13 +365,13 @@ public class ProjectDTO implements java.io.Serializable {
         this.reward = reward;
     }
 
-//    public List<ProjectRewardOptDTO> getRewardOpt() {
-//        return rewardOpt;
-//    }
-//
-//    public void setRewardOpt(List<ProjectRewardOptDTO> rewardOpt) {
-//        this.rewardOpt = rewardOpt;
-//    }
+    public List<ProjectRewardOptDTO> getRewardOpt() {
+        return rewardOpt;
+    }
+
+    public void setRewardOpt(List<ProjectRewardOptDTO> rewardOpt) {
+        this.rewardOpt = rewardOpt;
+    }
 
     public List<ProjectImageDTO> getImage() {
         return image;
@@ -389,6 +461,38 @@ public class ProjectDTO implements java.io.Serializable {
         this.member = member;
     }
 
+    public List<OrderProPaymentDTO> getOrderProPayment() {
+        return orderProPayment;
+    }
+
+    public void setOrderProPayment(List<OrderProPaymentDTO> orderProPayment) {
+        this.orderProPayment = orderProPayment;
+    }
+  
+    public ProjectEvaDTO getProjectEva() {
+        return projectEva;
+    }
+
+    public void setProjectEva(ProjectEvaDTO projectEva) {
+        this.projectEva = projectEva;
+    }
+
+    public ProjectCateDTO getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProjectCateDTO category) {
+        this.category = category;
+    }
+
+    public ProjectCateSubDTO getCategorySub() {
+        return categorySub;
+    }
+
+    public void setCategorySub(ProjectCateSubDTO categorySub) {
+        this.categorySub = categorySub;
+    }
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
@@ -409,17 +513,21 @@ public class ProjectDTO implements java.io.Serializable {
                 ", cateSub=" + cateSub +
                 ", dDay=" + dDay +
                 ", reward=" + reward +
-//                ", rewardOpt=" + rewardOpt +
+                ", rewardOpt=" + rewardOpt +
                 ", image=" + image +
                 ", file=" + file +
                 ", cate=" + cate +
                 ", noOfOrder=" + noOfOrder +
                 ", orderAmount=" + orderAmount +
                 ", creatorInfo=" + creatorInfo +
-                ", Member=" + member +
+                ", member=" + member +
                 ", orderPayment=" + orderPayment +
                 ", orderOpt=" + orderOpt +
                 ", defaultMember=" + defaultMember +
+                ", calculationList=" + calculationList +
+                ", projectEva=" + projectEva +
+                ", category=" + category +
+                ", categorySub=" + categorySub +
                 '}';
     }
 }

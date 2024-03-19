@@ -37,11 +37,11 @@ a {
 input:focus {
     outline:none;
 }
-.ellipsisWrap {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+/*.ellipsisWrap {*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*}*/
 .inblock {
     display:inline-block;
     padding:10px;
@@ -239,6 +239,7 @@ input:focus {
     justify-content: space-between;
 }
 .myactive button {
+    display:flex;
     background-color: #ffffff;
     border:none;
 }
@@ -247,7 +248,10 @@ input:focus {
     margin-right:10px;
 }
 .myactive span {
+    height:30px;
     font-size:20px;
+    display:inline-block;
+    line-height:30px;
 }
 
 /* supportercoupon */

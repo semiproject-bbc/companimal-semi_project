@@ -2,6 +2,7 @@ package com.companimal.semiProject.evaluation.model.dao;
 
 import com.companimal.semiProject.evaluation.model.dto.*;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
+import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -53,4 +54,5 @@ public interface EvaluationMapper {
     void updateEvaSituation(Map<String, Object> map);
 
     int countTotalItems();
+
 }

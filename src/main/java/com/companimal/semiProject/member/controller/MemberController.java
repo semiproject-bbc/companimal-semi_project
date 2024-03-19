@@ -217,12 +217,4 @@ public class MemberController {
         return "/contents/member/mypage/ongoingProject";
     }
 
-//    @RequestMapping("/selectProjectOrder/${orderCode}")
-//    public String selectProjectOrder(@RequestParam("orderCode") String orderCode, Model model) {
-//
-//
-//        return "contents/member/supportProject";
-//
-//    }
-
 }

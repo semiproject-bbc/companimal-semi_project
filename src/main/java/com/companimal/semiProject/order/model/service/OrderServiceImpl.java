@@ -30,11 +30,6 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.findMemberInfo(memId);
     }
 
-//    @Override
-//    public void insertOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
-//
-//    }
-
     @Override
     public void setOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO) {
         orderMapper.setOrderPaymentInfo(orderPaymentDTO);

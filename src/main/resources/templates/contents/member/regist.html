@@ -115,7 +115,40 @@
 
                 <div class="registButton">
 
-                    <input name="memberRole" value="SUPPORTER" type="hidden"/>
+                    <div class="agreement">
+                        <img class="icon" th:src="@{/image/check.png}">
+                        <p>이용 약관 전체 동의</p>
+                      </div>
+                      
+                      <section class="agreement-contents">
+                        <div class="terms">
+                          <div class="item">
+                            <div class="term">
+                              <img class="icon" th:src="@{/image/check.png}">
+                              <p class="agreementName">회원가입 약관</p>
+                            </div>
+                            <p class="view">보기</p>
+                          </div>
+                          <div class="item">
+                            <div class="term">
+                              <img class="icon" th:src="@{/image/check.png}">
+                              <p class="agreementName">개인정보 수집 및 이용 동의</p>
+                            </div>
+                            <p class="view">보기</p>
+                          </div>
+                          <div class="item">
+                            <div class="term">
+                              <img class="icon" th:src="@{/image/check.png}">
+                              <p class="agreementName">만 14세 이상입니다.</p>
+                            </div>
+                            <p class="view">보기</p>
+                          </div>
+                        </div>
+                      </section>
+
+                    <div class="registButton">
+
+                        <input name="memberRole" value="CREATOR" type="hidden"/>
 
                     <button class="registSubmitButton disabled" id="registSubmitButton" type="submit" disabled>
                         <span class="registSubmitButtonText">가입</span>

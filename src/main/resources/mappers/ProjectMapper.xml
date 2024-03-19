@@ -123,6 +123,7 @@
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <association property="member" resultMap="defaultMemberResultMap"/>
+        <association property="category" resultMap="projectCateResultMap"/>
 <!--        <association property="creatorInfo" resultMap="creatorInfoResultMap"/>-->
         <collection property="reward" resultMap="projectRewardResultMap"/>
         <collection property="image" resultMap="projectImageResultMap"/>
@@ -145,6 +146,19 @@
         <result property="recipient" column="recipient" />
         <result property="finalPay" column="final_pay" />
         <result property="proCode" column="pro_code" />
+        <result property="couCode" column="cou_code" />
+        <result property="purchaseStatus" column="purchase_status" />
+    </resultMap>
+
+    <resultMap id="orderProPaymentResultMap" type="com.companimal.semiProject.order.model.dto.OrderProPaymentDTO">
+        <id property="orderCode" column="order_code" />
+        <result property="orderDate" column="order_date" />
+        <result property="memId" column="mem_id" />
+        <result property="address" column="address" />
+        <result property="request" column="request" />
+        <result property="recipient" column="recipient" />
+        <result property="finalCalPay" column="final_cal_pay" />
+        <result property="orderProCode" column="order_pro_code" />
         <result property="couCode" column="cou_code" />
         <result property="purchaseStatus" column="purchase_status" />
     </resultMap>
@@ -198,7 +212,26 @@
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <association property="calculationList" resultMap="calculationResultMap" />
-        <collection property="orderPayment" resultMap="orderPaymentResultMap" />
+<!--         <collection property="orderPayment" resultMap="orderPaymentResultMap" />-->
+        <collection property="orderProPayment" resultMap="orderProPaymentResultMap" />
+    </resultMap>
+
+    <!-- 최종 정산 내역 -->
+    <resultMap id="finalCalResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <collection property="orderProPayment" resultMap="orderProPaymentResultMap" />
+    </resultMap>
+
+    <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
+        <id property="evaNum" column="eva_num"/>
+        <result property="evaDateTime" column="eva_datetime"/>
+        <result property="evaSituation" column="eva_situation"/>
+        <result property="reaRejection" column="rea_rejection"/>
     </resultMap>
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
@@ -419,11 +452,6 @@
                 )
     </insert>
 
-<!--    <insert id="insertProjectCate" parameterType="com.companimal.semiProject.project.model.dto.ProjectCateDTO">-->
-<!--        INSERT INTO project_cate (-->
-<!--        pro_code-->
-<!--    </insert>-->
-
     <!-- 프로젝트 상세페이지 조회에서 카테고리 이름 가져오는 쿼리 -->
     <select id="selectProjectCate" resultMap="projectCateResultMap">
         SELECT pro_cate_name
@@ -513,7 +541,7 @@
     <select id="selectCalculationList" parameterType="String" resultMap="selectCalculationResultMap">
         SELECT
             p.pro_code,
-            o.pro_code,
+            o.pro_code as 'order_pro_code',
             p.pro_name,
             p.est_date,
             p.ach_rate,
@@ -549,5 +577,64 @@
                 , NULL
                 , 'N'
             )
+    </insert>
+
+    <!-- 최종 정산 내역 -->
+    <select id="selectFinalCal" parameterType="int" resultMap="finalCalResultMap">
+        SELECT
+            p.pro_name,
+            p.goal_amount,
+            p.ach_rate,
+            p.start_date,
+            p.end_date,
+            SUM(o.final_pay) as 'final_cal_pay'
+            FROM project p
+            JOIN order_payment o ON (p.pro_code = o.pro_code)
+            WHERE p.pro_code = #{proCode}
+    </select>
+
+    <!-- 펀딩 플러스 조회 -->
+    <select id="selectMenuProject" parameterType="int" resultMap="projectDetailResultMap">
+        SELECT
+            p.pro_code
+            ,p.pro_name
+            ,p.start_date
+            ,p.end_date
+            ,p.mem_id
+            ,p.ach_rate
+            ,p.eva_status
+            ,p.cate_main
+            ,p.cate_sub
+            ,c.pro_cate_code
+            ,c.pro_cate_name
+            ,c.pro_cate_type
+            FROM project p
+            JOIN project_cate c ON (c.pro_cate_code = p.cate_main)
+    </select>
+  
+    <insert id="insertProjectEva" parameterType="com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO">
+        INSERT INTO evaluation (
+                                eva_datetime
+                                ,eva_situation
+                                )
+        VALUES (
+                NOW()
+                ,'처리중'
+                )
+        <selectKey keyProperty="evaNum" order="AFTER" resultType="int">
+            SELECT MAX(eva_num)
+            FROM evaluation
+        </selectKey>
+    </insert>
+
+    <insert id="insertProjectEvaDetail" parameterType="com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO">
+        INSERT INTO project_eva (
+                                pro_code
+                                ,eva_num
+                                )
+        VALUES (
+                #{ proCode }
+                ,#{ evaNum }
+                )
     </insert>
 </mapper>

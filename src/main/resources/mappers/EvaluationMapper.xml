@@ -109,22 +109,110 @@
             <result property="creFileOriName" column="CRE_FILE_ORI_NAME"/>
         </collection>
     </resultMap>
-    
+
+    <resultMap id="projectCateResultMap" type="com.companimal.semiProject.project.model.dto.ProjectCateDTO">
+        <id property="proCateCode" column="pro_cate_code"/>
+        <result property="proCateName" column="pro_cate_name"/>
+        <result property="proCateType" column="pro_cate_type"/>
+    </resultMap>
+
+    <resultMap id="projectCateSubResultMap" type="com.companimal.semiProject.project.model.dto.ProjectCateSubDTO">
+        <id property="proCateCode" column="pro_cate_code"/>
+        <result property="proCateSubName" column="pro_category_sub_name"/>
+        <result property="proCateType" column="pro_cate_type"/>
+    </resultMap>
+
+    <resultMap id="projectForEvaResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="delStatus" column="del_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+        <collection property="cate" resultMap="projectCateResultMap"/>
+    </resultMap>
+
+    <resultMap id="projectEvaResultMap" type="com.companimal.semiProject.evaluation.model.dto.ProjectEvaDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="evaNum" column="eva_num"/>
+        <association property="project" resultMap="projectForEvaResultMap"/>
+    </resultMap>
+
     <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
         <id property="evaNum" column="eva_num"/>
         <result property="evaDateTime" column="eva_datetime"/>
         <result property="evaSituation" column="eva_situation"/>
         <result property="reaRejection" column="rea_rejection"/>
+        <association property="projectEvaluation" resultMap="projectEvaResultMap"/>
     </resultMap>
 
-    <resultMap id="projectEvaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO">
-        <id property="evaNum" column="eva_num"/>
-        <result property="evaDateTime" column="eva_datetime"/>
-        <result property="evaSituation" column="eva_situation"/>
-        <result property="reaRejection" column="rea_rejection"/>
-        <association property="proCode" resultMap="projectResultMap"/>
-        <association property="cateMain" resultMap="projectResultMap"/>
-        <association property="proName" resultMap="projectResultMap"/>
+    <resultMap id="projectRewardOptResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO">
+        <id property="rewOptCode" column="rew_opt_code"/>
+        <result property="rewCode" column="rew_code"/>
+        <result property="rewOptNum" column="rew_opt_num"/>
+        <result property="rewOptName" column="rew_opt_name"/>
+        <result property="rewOptVal" column="rew_opt_val"/>
+        <result property="rewOptLimit" column="rew_opt_limit"/>
+        <result property="rewAmount" column="rew_amount"/>
+    </resultMap>
+
+    <resultMap id="projectRewardResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
+        <id property="rewCode" column="rew_code"/>
+        <result property="rewNum" column="rew_num"/>
+        <result property="proCode" column="pro_code"/>
+        <result property="rewName" column="rew_name"/>
+        <result property="rewExplain" column="rew_explain"/>
+        <result property="rewSf" column="rew_sf"/>
+        <collection property="rewardOpt" resultMap="projectRewardOptResultMap"/>
+    </resultMap>
+
+    <resultMap id="projectImageResultMap" type="com.companimal.semiProject.project.model.dto.ProjectImageDTO">
+        <id property="proImgNum" column="pro_img_num"/>
+        <id property="proCode" column="pro_code"/>
+        <result property="proImgPath" column="pro_img_path"/>
+        <result property="proImgName" column="pro_img_name"/>
+        <result property="proImgOriName" column="pro_img_ori_name"/>
+    </resultMap>
+
+    <resultMap id="projectFileResultMap" type="com.companimal.semiProject.project.model.dto.ProjectFileDTO">
+        <id property="proFileNum" column="pro_file_num"/>
+        <id property="proCode" column="pro_code"/>
+        <result property="proFilePath" column="pro_file_path"/>
+        <result property="proFileName" column="pro_file_name"/>
+        <result property="proFileOriName" column="pro_file_ori_name"/>
+    </resultMap>
+
+    <resultMap id="projectForEvaDetailResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="delStatus" column="del_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+        <association property="projectEva" resultMap="projectEvaResultMap"/>
+        <association property="category" resultMap="projectCateResultMap"/>
+        <association property="categorySub" resultMap="projectCateSubResultMap"/>
+        <collection property="reward" resultMap="projectRewardResultMap"/>
+        <collection property="image" resultMap="projectImageResultMap"/>
+        <collection property="file" resultMap="projectFileResultMap"/>
     </resultMap>
 
     <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap" parameterType="map">
@@ -400,21 +488,49 @@
         WHERE MEM_ID = #{ memid }
     </delete>
 
-    <select id="selectAllProjectEva" resultMap="projectEvaluationResultMap">
---         SELECT e.eva_num
---         ,e.eva_datetime
---         ,e.eva_situation
---         ,e.rea_rejection
---         ,p.cate_main
---         ,p.pro_name
---         ,p.pro_code
---           FROM evaluation e
---           JOIN project_eva pe ON (e.eva_num = pe.eva_num)
---           JOIN project p ON (pe.pro_code = p.pro_code)
-        SELECT eva_num
-             ,eva_datetime
-             ,eva_situation
-             ,rea_rejection
-        FROM evaluation
+    <select id="selectAllProjectEvaluation" resultMap="evaluationResultMap">
+        SELECT e.eva_num
+             ,e.eva_datetime
+             ,e.eva_situation
+             ,e.rea_rejection
+            ,p.pro_code
+            ,c.pro_cate_name
+            ,pr.pro_name
+        FROM project_eva p
+        JOIN evaluation e ON (e.eva_num = p.eva_num)
+        JOIN project pr ON (pr.pro_code = p.pro_code)
+        JOIN project_cate c ON (c.pro_cate_code = pr.cate_main)
     </select>
+
+    <select id="selectProjectEvaDetail" resultMap="projectForEvaDetailResultMap">
+        SELECT c1.pro_cate_name
+        ,c2.pro_cate_name AS pro_category_sub_name
+        ,p.pro_name
+        ,p.pro_intro
+        ,p.start_date
+        ,p.end_date
+        ,p.goal_amount
+        ,p.pro_story
+        ,p.pol_no_refund
+        ,p.pol_as
+        ,e.eva_num
+          FROM project p
+          JOIN project_eva e ON (p.pro_code = e.pro_code)
+          JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
+          JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)
+         WHERE e.eva_num = #{ evaNum }
+    </select>
+
+    <update id="updateProjectAccept" parameterType="int">
+        UPDATE evaluation
+           SET eva_situation = '승인'
+         WHERE eva_num = #{ evaNum }
+    </update>
+
+    <update id="updateProjectReject" parameterType="java.util.Map">
+        UPDATE evaluation
+           SET eva_situation = #{ evaSituation },
+                rea_rejection = #{ reaRejection }
+         WHERE eva_num = #{ evaNumInt }
+    </update>
 </mapper>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/noNavLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/fundingPlus.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/fundingPlus.js}"></script>
+</head>
+
+<th:block layout:fragment="content">
+    <div class="mainPageContainer">
+        <div class="categoryWrapper">
+            <div class="mainCategory">
+                <button><img src="/image/all.png"></button>
+                <button><img src="/image/fitness.png"></button>
+                <button><img src="/image/food.png"></button>
+                <button><img src="/image/living.png"></button>
+                <button><img src="/image/etc.png"></button>
+            </div>
+
+            <div class="subCategory">
+                <div class="d-flex">
+                <button onclick="clickSubCate(10)"><img src="/image/all.png"></button>
+                <button onclick="clickSubCate(5)"><img src="/image/mammal.png"></button>
+                <button onclick="clickSubCate(6)"><img src="/image/reptile.png"></button>
+                <button onclick="clickSubCate(7)"><img src="/image/fish.png"></button>
+                <button onclick="clickSubCate(8)"><img src="/image/bird.png"></button>
+                <button onclick="clickSubCate(9)"><img src="/image/amphibian.png"></button>
+                </div>
+            </div>
+
+            <div class="filter">
+                <button>전체</button>
+                <button>진행중</button>
+                <button>종료</button>
+                <button>마감임박</button>
+                <button>등록순</button>
+            </div>
+
+        </div>
+
+        <section>
+            <div class="gridContainer">
+                <div class="mainContentContainer">
+                    <div class="mainContentWrapper" th:each="cateProject : ${selectMenuProjectList}">
+                        <a th:href="@{|/project/projectDetail/${cateProject.proCode}|}">
+                            <div class="thumbnailImageContainer">
+                                <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                            </div>
+
+                            <div class="mainContentInfoBoxContainer">
+                                <h3>
+                                    <div class="achieve-rate">
+                                        <span class="infoStringWrapper" th:text="${ cateProject.achRate }"></span>
+                                        <span class="ach">% 달성</span>
+                                    </div>
+                                    <strong class="title" th:text="${ cateProject.proName }"></strong>
+                                    <p th:text="${cateProject.getCate().get(0).proCateCode}"></p>
+                                </h3>
+                                <!--                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>-->
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</th:block>
+
+</html>
