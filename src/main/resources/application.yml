@@ -24,5 +24,8 @@ spring:
           starttls:
             enable: true
 
+file:
+  upload-dir: /proStory/
+
 mybatis:
   mapper-locations: mappers/**/*.xml

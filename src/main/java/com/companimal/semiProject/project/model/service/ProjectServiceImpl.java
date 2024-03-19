@@ -95,7 +95,7 @@ public class ProjectServiceImpl implements ProjectService {
 
                 projectMapper.insertProjectImage(fileDTO);
 
-                System.out.println("static/image/store/" + fileDTO.getProFileName());
+                System.out.println("static/image/store" + fileDTO.getProFileName());
 
                 System.out.println("이미지들 저장경로 : " + saveImages);
 
@@ -158,6 +158,8 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
             proFilePath = resource.getFile().getAbsolutePath();
         }
+
+        System.out.println("파일 저장 경로 : " + proFilePath);
 
         /* 파일명 변경 처리 */
         // proFileOriName : 원본 파일명

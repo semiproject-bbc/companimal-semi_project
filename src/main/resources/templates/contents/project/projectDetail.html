@@ -19,20 +19,39 @@
                     <input type="radio" name="slide" id="slide1" checked>
                     <input type="radio" name="slide" id="slide2">
                     <input type="radio" name="slide" id="slide3">
-                    <th:block>
-                    <ul id="imgholder" class="imgs" >
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
-                    </ul>
-                    <div class="bullets">
-                        <label for="slide1">&nbsp;</label>
-                        <label for="slide2">&nbsp;</label>
-                        <label for="slide3">&nbsp;</label>
-                    </div>
+                    <th:block th:if="${selectProject.image[0].proImgPath != null}">
+                        <ul id="imgholder" class="imgs">
+                            <th:block th:each="image, stat : ${selectProject.image}">
+                                <li th:if="${stat.index == 0}" th:remove="tag">
+                                    <img class="detail-main-image" th:src="@{|/image/store/${image.proImgName}|}">
+                                </li>
+                                <li th:if="${stat.index != 0}" th:remove="tag">
+                                    <img class="detail-main-image" th:src="@{|/image/store/${image.proImgName}|}" style="display: none;">
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="bullets">
+                            <label for="slide1" onclick="changeImage(0)">&nbsp;</label>
+                            <label for="slide2" onclick="changeImage(1)">&nbsp;</label>
+                            <label for="slide3" onclick="changeImage(2)">&nbsp;</label>
+                        </div>
                     </th:block>
                 </div>
             </div>
+
+            <script>
+                function changeImage(index) {
+                    var images = document.getElementsByClassName("detail-main-image");
+                    for (var i = 0; i < images.length; i++) {
+                        if (i === index) {
+                            images[i].style.display = "block";
+                        } else {
+                            images[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+
             <!--            <th:block th:each="project : ${ selectProjectList }">-->
             <div class="door-content">
                 <p th:text="${ selectProject.endDate }" class="d-day"></p>
@@ -68,6 +87,9 @@
         <div class="content">
             <div class="story">
                 <p class="sub-info">프로젝트 스토리</p>
+                <script>
+                    $('#summernote').summernote('pasteHTML', value);
+                </script>
                 <img class="story-image" th:src="@{/image/petsonHome1.jpg}">
                 <img class="story-image" th:src="@{/image/petsonHome2.jpg}">
                 <img class="story-image" th:src="@{/image/petsonHome3.jpg}">
