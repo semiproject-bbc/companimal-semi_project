@@ -13,9 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/project")
@@ -201,13 +199,14 @@ public class ProjectController {
         String id = authentication.getName();
 
         List<ProjectDTO> calculationList = projectService.selectCalculationList(id);
+        System.out.println(calculationList);
 
         model.addAttribute("calculationList", calculationList);
 
         return "contents/project/calculationlist";
     }
 
-//    @ResponseBody
+    @ResponseBody
     @PostMapping("/insertCalculationList")
     public String insertCalculationList(@RequestParam("proCode") String proCode) {
 
@@ -221,5 +220,29 @@ public class ProjectController {
 
         return "redirect:/calculationlist";
     }
+
+    @RequestMapping("/finalCalculation/{proCode}")
+    public String selectFinalCal(@PathVariable("proCode") int proCode, Model model) {
+        System.out.println("최종 정산 " + proCode);
+
+        ProjectDTO finalCalList = projectService.selectFinalCal(proCode);
+
+        model.addAttribute("finalCalList", finalCalList);
+
+        return "contents/project/finalCalculationList";
+    }
+
+    @GetMapping("/fundingPlus")
+    public String showFundingPlus(@RequestParam(value="cateMain", defaultValue="0") int cateMain, @RequestParam(value="cateSub", defaultValue="10") int cateSub, Model model) {
+        System.out.println("메인" + cateMain + "서브" + cateSub);
+
+        List<ProjectDTO> selectMenuProjectList = projectService.selectMenuProject();
+        System.out.println(selectMenuProjectList.toString());
+
+        model.addAttribute("selectMenuProjectList", selectMenuProjectList);
+
+        return "contents/project/fundingPlus";
+    }
+
 
 }

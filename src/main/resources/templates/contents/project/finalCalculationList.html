@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/navLayout}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/finalCalculationList.css}">
+</head>
+
+<th:block layout:fragment="content">
+    <div class="main">
+        <h2>최종 정산 내역</h2>
+        <div class="d-flex">
+            <div class="half1">
+                <img class="image1" src="/image/detail_main_image1.png" alt="parrot product">
+                <p class="projectRate" th:text="${finalCalList.achRate} + '%' + ' 달성'"></p>
+                <h3 th:text="${finalCalList.proName}" class="finalProTitle"></h3>
+                <p class="projectDate" th:text="${finalCalList.startDate} + '  -  ' + ${finalCalList.endDate}"></p>
+            </div>
+            <div class="half2">
+                <div>
+                    <span class="listTitle">작성 기대 금액</span>
+                    <span th:text="${#numbers.formatInteger(finalCalList.goalAmount, 3, 'COMMA') + '원'}"></span>
+                </div>
+                <div>
+                    <span class="listTitle">총 후원 금액</span>
+                    <span th:text="${#numbers.formatInteger(finalCalList.orderProPayment.get(0).finaCalPay, 3, 'COMMA') + '원'}"></span>
+                </div>
+                <div>
+                    <span class="listTitle">결제 대행 수수료</span>
+                    <span th:text="${#numbers.formatInteger(finalCalList.orderProPayment.get(0).finaCalPay * 0.03, 3, 'COMMA') + '원'}"></span>
+                </div>
+                <div>
+                    <span class="listTitle">플랫폼 서비스 수수료</span>
+                    <span th:text="${#numbers.formatInteger(finalCalList.orderProPayment.get(0).finaCalPay * 0.05, 3, 'COMMA')} + '원'"></span>
+                </div>
+                <p class="finalBar"></p>
+                <div>
+                    <span class="listTitle">최종 정산 금액</span>
+                    <span th:text="${#numbers.formatInteger(finalCalList.orderProPayment.get(0).finaCalPay - finalCalList.orderProPayment.get(0).finaCalPay * 0.03 - finalCalList.orderProPayment.get(0).finaCalPay * 0.05, 3, 'COMMA') + '원'}"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</th:block>
+
+</html>

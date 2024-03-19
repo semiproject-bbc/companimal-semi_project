@@ -22,7 +22,7 @@
             <tr th:each="supportlist : ${supportList}">
                 <td th:text="${supportlist.orderPayment.get(0).memId}"></td>
                 <td>
-                    <span th:text="${supportlist.orderOpt.get(0).orderAmount * supportlist.rewardOpt.get(0).rewAmount}"></span>
+                    <span th:text="${supportlist.orderOpt.get(0).orderAmount} * ${supportlist.rewardOpt.get(0).rewAmount}"></span>
                     <span>원</span>
                 </td>
                 <td th:text="${#strings.substring(supportlist.orderPayment.get(0).orderDate, 0, 10)}"></td>

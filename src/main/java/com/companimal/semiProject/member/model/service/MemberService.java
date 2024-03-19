@@ -76,4 +76,5 @@ public class MemberService {
     public void UpdatePassword(String memberPwd, String memId) {
         memberMapper.UpdatePassword(memId, passwordEncoder.encode(memberPwd));
     }
+
 }

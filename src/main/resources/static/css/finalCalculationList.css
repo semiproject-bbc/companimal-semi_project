@@ -1,0 +1,45 @@
+h2 {
+    text-align:center;
+    margin-bottom:50px;
+}
+.half1, .half2 {
+    width:50%;
+}
+.half1 {
+    text-align:center;
+}
+.half1 img {
+    width:100%;
+}
+.projectDate {
+    font-size:18px;
+    color:#cccccc;
+    font-weight:bold;
+}
+.projectRate {
+    font-weight:bold;
+    color:#ff9123;
+    font-size:20px;
+}
+.half2 {
+    border:#d5d5d5 2px solid;
+    margin:0 30px;
+    font-size:18px;
+    padding:50px 40px;
+}
+.half2 div {
+    display:flex;
+    justify-content: space-between;
+}
+.half2 div:not(:last-child) {
+    margin-bottom:40px;
+}
+.half2 div:last-child {
+    margin-top:40px;
+}
+.listTitle {
+    font-weight:bold;
+}
+.finalBar {
+    border:#d5d5d5 2px dashed;
+}
