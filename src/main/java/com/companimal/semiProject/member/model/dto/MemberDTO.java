@@ -21,18 +21,7 @@ public class MemberDTO {
     private List<OrderPaymentDTO> orderPayment;
     private CreatorInfoDTO creatorInfo;
 
-
     public MemberDTO() {
-    }
-
-    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole) {
-        this.memberId = memberId;
-        this.memberPwd = memberPwd;
-        this.memberNickname = memberNickname;
-        this.memberName = memberName;
-        this.memberPhone = memberPhone;
-        this.memberEmail = memberEmail;
-        this.memberRole = memberRole;
     }
 
     public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole, List<ProjectDTO> project, List<OrderPaymentDTO> orderPayment, CreatorInfoDTO creatorInfo) {
@@ -68,16 +57,16 @@ public class MemberDTO {
         return memberNickname;
     }
 
+    public void setMemberNickname(String memberNickname) {
+        this.memberNickname = memberNickname;
+    }
+
     public String getMemberName() {
         return memberName;
     }
 
     public void setMemberName(String memberName) {
         this.memberName = memberName;
-    }
-
-    public void setMemberNickname(String memberNickname) {
-        this.memberNickname = memberNickname;
     }
 
     public String getMemberPhone() {
@@ -104,7 +93,6 @@ public class MemberDTO {
         this.memberRole = memberRole;
     }
 
-
     public List<ProjectDTO> getProject() {
         return project;
     }
@@ -128,7 +116,6 @@ public class MemberDTO {
     public void setCreatorInfo(CreatorInfoDTO creatorInfo) {
         this.creatorInfo = creatorInfo;
     }
-
 
     @Override
     public String toString() {

@@ -73,8 +73,15 @@ public class MemberService {
     }
 
     @Transactional
-    public void UpdatePassword(String memberPwd, String memId) {
-        memberMapper.UpdatePassword(memId, passwordEncoder.encode(memberPwd));
+    public void UpdatePassword(MemberDTO memberDTO) {
+
+        memberDTO.setMemberPwd(passwordEncoder.encode(memberDTO.getMemberPwd()));
+        System.out.println(memberDTO.getMemberPwd());
+        if (memberMapper.UpdatePassword(memberDTO)) {
+            System.out.println("성공");
+        } else {
+            System.out.println("실패");
+        }
     }
 
 }

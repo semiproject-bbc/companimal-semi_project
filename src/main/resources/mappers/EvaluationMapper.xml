@@ -215,7 +215,7 @@
         <collection property="file" resultMap="projectFileResultMap"/>
     </resultMap>
 
-    <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap">
+    <select id="selectCreatorEvaluationList" resultMap="CreatorEvaluationResultMap" parameterType="map">
         SELECT
             C.MEM_ID ,
             E.EVA_NUM ,
@@ -243,12 +243,21 @@
             CASE
                 WHEN B.BUSI_NUM IS NULL THEN '개인'
                 ELSE '사업자'
-            END AS CREATOR_TYPE
+                END AS CREATOR_TYPE
         FROM CREATOR_EVA C
-        JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
-        JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
-        LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID
-        ORDER BY C.EVA_NUM ASC;
+                 JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
+                 JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
+                 LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID
+        ORDER BY C.EVA_NUM ASC
+            LIMIT #{limit} OFFSET #{offset};
+    </select>
+
+    <select id="countTotalItems" resultType="int">
+        SELECT COUNT(*)
+        FROM CREATOR_EVA C
+                 JOIN EVALUATION E ON C.EVA_NUM = E.EVA_NUM
+                 JOIN CREATOR_INFO I ON C.MEM_ID = I.MEM_ID
+                 LEFT JOIN CREATOR_BUSINESS B ON B.MEM_ID = I.MEM_ID;
     </select>
 
     <select id="selectCreatorEvaluationDetail" resultMap="CreatorEvaluationDetailResultMap">
@@ -291,6 +300,12 @@
         WHERE C.EVA_NUM = #{ evaNum }
     </select>
 
+    <select id="selectCreatorInfo" parameterType="String" resultType="boolean">
+        SELECT COUNT(*)
+        FROM CREATOR_INFO
+        WHERE MEM_ID = #{creatorId}
+    </select>
+
     <insert id="insertCreatorInfo" parameterType="com.companimal.semiProject.project.model.dto.CreatorInfoDTO">
         INSERT
         INTO CREATOR_iNFO (
@@ -316,6 +331,20 @@
                 ,#{ depositorName }
                )
     </insert>
+
+    <update id="updateCreatorInfo" parameterType="com.companimal.semiProject.project.model.dto.CreatorInfoDTO">
+        UPDATE CREATOR_INFO
+        SET
+              CRE_INQ_PHONE = #{creInqPhone}
+            , CRE_INQ_EMAIL = #{creInqEmail}
+            , CRE_IMG_NAME = #{creImgName}
+            , CRE_IMG_PATH = #{creImgPath}
+            , CRE_IMG_ORI_NAME = #{creImgOriName}
+            , BANK_NAME = #{bankName}
+            , ACCOUNT_NO = #{accountNo}
+            , DEPOSITOR_NAME = #{depositorName}
+        WHERE MEM_ID = #{memId}
+    </update>
 
     <insert id="InsertCreatorBusiness" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO">
         INSERT
@@ -422,12 +451,6 @@
         WHERE MEM_ID = #{ memId }
     </update>
 
-    <delete id="deleteCreatorEvaluation" parameterType="string">
-        DELETE
-        FROM CREATOR_EVA
-        WHERE MEM_ID = #{ memId }
-    </delete>
-
     <delete id="deleteCreatorFile" parameterType="string">
         DELETE
         FROM CREATOR_FILE
@@ -444,6 +467,12 @@
         UPDATE EVALUATION
         SET REA_REJECTION = #{ reaRejection },
             EVA_SITUATION = #{ evaSituation }
+        WHERE EVA_NUM = #{ evaNum }
+    </update>
+
+    <update id="updateEvaSituation" parameterType="java.util.Map">
+        UPDATE EVALUATION
+        SET EVA_SITUATION = #{ evaSituation }
         WHERE EVA_NUM = #{ evaNum }
     </update>
 

@@ -126,12 +126,12 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/registeredEmailCheckById")
-    public boolean registeredEmailCheck(@RequestParam("email") String email, @RequestParam("memId") String memId) {
+    public boolean registeredEmailCheck(@RequestParam("email") String email, @RequestParam("memberId") String memberId) {
 
         boolean registeredCheck = false;
 
 
-        String registeredEmail = memberService.registeredEmailCheckById(memId);
+        String registeredEmail = memberService.registeredEmailCheckById(memberId);
         // 해당 id로 검색된 email이 있다면 입력한 이메일과 비교해서 일치하면 true값 전달
         if (registeredEmail != null) {
             if (email.equals(registeredEmail)) {
@@ -143,10 +143,13 @@ public class MemberController {
     }
 
     @PostMapping("/findPasswordResetPassword")
-    public String passwordReset(@RequestParam("memberPwd") String memberPwd, @RequestParam("memId") String memId) {
+    public String passwordReset(@ModelAttribute MemberDTO memberDTO) {
 
 
-        memberService.UpdatePassword(memId, memberPwd);
+        System.out.println("getId: " + memberDTO.getMemberId());
+        System.out.println("getPwd: " + memberDTO.getMemberPwd());
+
+        memberService.UpdatePassword(memberDTO);
 
         return "/auth/login";
     }
@@ -207,6 +210,11 @@ public class MemberController {
 
         return "redirect:/participateProject";
 
+    }
+
+    @GetMapping("/mypage/ongoingProject")
+    public String ongoingPage() {
+        return "/contents/member/mypage/ongoingProject";
     }
 
 }

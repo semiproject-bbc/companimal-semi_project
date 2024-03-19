@@ -88,7 +88,7 @@
                         <input name="depositorName" class="creatorEvaluationInput" type="text" placeholder="   예금주명">
                     </div>
 
-                    <button class="evlauationRegistSubmitButton" type="submit">
+                    <button id="submitButton" class="evlauationRegistSubmitButton disabled" type="submit" disabled>
                         <p class="evaluationRegistText">심사 등록</p>
                     </button>
 
@@ -97,5 +97,6 @@
         </div>
     </section>
     <script th:src="@{/js/evaluation/fileUpload.js}"></script>
+    <script th:src="@{/js/evaluation/evaluationRegistButtonEnabled.js}"></script>
 </th:block>
 </html>

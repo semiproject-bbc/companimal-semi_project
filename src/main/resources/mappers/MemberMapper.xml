@@ -136,9 +136,9 @@
         WHERE MEM_ID = #{ memId }
     </select>
     
-    <update id="UpdatePassword" parameterType="String">
+    <update id="UpdatePassword" parameterType="com.companimal.semiProject.member.model.dto.MemberDTO">
         UPDATE DEFAULT_MEMBER
-           SET MEM_PWD = #{ memberPwd }
-         WHERE MEM_ID = #{ memId }
+           SET MEM_PWD = #{memberPwd}
+         WHERE MEM_ID = #{memberId}
     </update>
 </mapper>

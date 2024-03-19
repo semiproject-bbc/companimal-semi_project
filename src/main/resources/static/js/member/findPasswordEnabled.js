@@ -15,10 +15,10 @@ function checkAllCompleted() {
 
     const allCompleted = Object.values(status).every(val => val === true);
     if (allCompleted) {
-        $('#findIdSubmitButton').removeClass('disabled');
+        $('#findIdSubmitButton').removeClass('disabled').addClass('enabled');
         $('#findIdSubmitButton').prop('disabled', false);
     } else {
-        $('#findIdSubmitButton').addClass('disabled');
+        $('#findIdSubmitButton').addClass('disabled').removeClass('enabled');
         $('#findIdSubmitButton').prop('disabled', true);
     }
 }

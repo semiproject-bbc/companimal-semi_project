@@ -8,3 +8,9 @@ $(window).click(function(e) {
         $('#myModal').hide();
     }
 });
+
+$(window).click(function(e) {
+    if ($(e.target).is('#myModal1')) {
+        $('#myModal1').hide();
+    }
+});

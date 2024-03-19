@@ -11,7 +11,11 @@ import java.util.Map;
 @Mapper
 public interface EvaluationMapper {
 
+    boolean selectCreatorInfo(String creatorId);
+
     boolean insertCreatorInfo(CreatorInfoDTO creatorInfoDTO);
+
+    boolean updateCreatorInfo(CreatorInfoDTO creatorInfoDTO);
 
     boolean InsertCreatorFile(CreatorFileDTO creatorFileDTO);
 
@@ -27,15 +31,13 @@ public interface EvaluationMapper {
 
     boolean insertCreatorEva(CreatorEvaDTO creatorEvaDTO);
 
-    List<CreatorEvaluationDTO> selectCreatorEvaluationList();
+    List<CreatorEvaluationDTO> selectCreatorEvaluationList(int offset, int limit);
 
     CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum);
 
     String selectCreatorId(int evaNum);
 
     void updateCreatorRole(String memId, String memberRole);
-
-    void deleteCreatorEvaluation(String memId);
 
     void deleteCreatorFile(String memId);
 
@@ -47,11 +49,10 @@ public interface EvaluationMapper {
 
     void deleteCreatorBusinessEvaluation(String memId);
 
-    List<EvaluationDTO> selectAllProjectEvaluation();
+    List<ProjectEvaluationDTO> selectAllProjectEva();
 
-    ProjectDTO selectProjectEvaDetail(int evaNum);
+    void updateEvaSituation(Map<String, Object> map);
 
-    int updateProjectAccept(int evaNumInt);
+    int countTotalItems();
 
-    int updateProjectReject(Map<String, Object> map);
 }
