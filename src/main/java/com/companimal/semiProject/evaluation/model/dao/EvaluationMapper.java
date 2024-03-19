@@ -55,4 +55,11 @@ public interface EvaluationMapper {
 
     int countTotalItems();
 
+    List<EvaluationDTO> selectAllProjectEvaluation();
+
+    void updateProjectReject(Map<String, Object> map);
+
+    int updateProjectAccept(int evaNumInt);
+
+    ProjectDTO selectProjectEvaDetail(int evaNum);
 }
