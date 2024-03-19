@@ -60,6 +60,8 @@ public class ProjectController {
         return "contents/project/projectDetail";
     }
 
+
+
     @GetMapping("/projectRegistBefore")
     public String goInsertProjectBefore() {
         return "contents/project/projectRegistBefore";
@@ -71,11 +73,20 @@ public class ProjectController {
     }
 
     @PostMapping("/projectRegist")
-    public String insertProject(@RequestParam("files") List<MultipartFile> files,
+    public String insertProject(@RequestParam("proImgName") List<MultipartFile> images,
+                                @RequestParam("proFileName") MultipartFile file,
                                 @ModelAttribute ProjectDTO project,
                                 @ModelAttribute("ProjectRewardOptDTO") ProjectRewardOptDTO projectRewardOpt,
                                 Authentication authentication,
                                 Model model) throws IOException {
+
+        System.out.println("=============================================");
+        for (MultipartFile filesTemp : images) {
+            System.out.println("이미지들 : " + filesTemp.getOriginalFilename());
+        }
+        System.out.println("=============================================");
+        System.out.println("파일들 : " + file.getOriginalFilename());
+        System.out.println("=============================================");
 
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
         String memId = authDetails.getUsername();
@@ -83,7 +94,9 @@ public class ProjectController {
         /* 콘솔 찍어보기 */
         System.out.println("Logged-in User ID: " + memId);
 
-        System.out.println("화면에서 받은 files : " + files);
+        System.out.println("화면에서 받은 images : " + images);
+
+        System.out.println("화면에서 받은 file : " + file);
 
         System.out.println("화면에서 받은 project : " + project);
 
@@ -108,7 +121,7 @@ public class ProjectController {
 
         /* 셋팅 */
         project.setMemId(memId);
-        project.setProStory(files.toString());
+        project.setProStory(images.toString());
         project.setEvaStatus("N");
 
         List<ProjectRewardOptDTO> projectRewardOpts = new ArrayList<ProjectRewardOptDTO>();
@@ -125,11 +138,12 @@ public class ProjectController {
 
         System.out.println("project에 리워드 옵션 넣기 : " + project.getReward().getRewardOpt());
 
-        projectService.insertProject(files, project, memId);
+        projectService.insertProject(images, project, file, model);
 
-        System.out.println("Uploaded files: " + files);
+        System.out.println("Uploaded images: " + images);
+        System.out.println("Uploaded file: " + file);
         System.out.println("DB 저장 후 ProjectDTO: " + project);
-
+        System.out.println("model : " + model);
 
 
         return "contents/project/projectRegistAfter";

@@ -9,14 +9,26 @@ public class EvaluationDTO implements java.io.Serializable {
     private String evaSituation;        // 심사 상황
     private String reaRejection;        // 반려 사유
 
+    private ProjectEvaDTO projectEvaluation;
+
+
     public EvaluationDTO() {
     }
+
 
     public EvaluationDTO(int evaNum, Timestamp evaDateTime, String evaSituation, String reaRejection) {
         this.evaNum = evaNum;
         this.evaDateTime = evaDateTime;
         this.evaSituation = evaSituation;
         this.reaRejection = reaRejection;
+    }
+
+    public EvaluationDTO(int evaNum, Timestamp evaDateTime, String evaSituation, String reaRejection, ProjectEvaDTO projectEvaluation) {
+        this.evaNum = evaNum;
+        this.evaDateTime = evaDateTime;
+        this.evaSituation = evaSituation;
+        this.reaRejection = reaRejection;
+        this.projectEvaluation = projectEvaluation;
     }
 
     public int getEvaNum() {
@@ -51,6 +63,14 @@ public class EvaluationDTO implements java.io.Serializable {
         this.reaRejection = reaRejection;
     }
 
+    public ProjectEvaDTO getProjectEvaluation() {
+        return projectEvaluation;
+    }
+
+    public void setProjectEvaluation(ProjectEvaDTO projectEvaluation) {
+        this.projectEvaluation = projectEvaluation;
+    }
+
     @Override
     public String toString() {
         return "EvaluationDTO{" +
@@ -58,6 +78,7 @@ public class EvaluationDTO implements java.io.Serializable {
                 ", evaDateTime=" + evaDateTime +
                 ", evaSituation='" + evaSituation + '\'' +
                 ", reaRejection='" + reaRejection + '\'' +
+                ", projectEvaluation=" + projectEvaluation +
                 '}';
     }
 }

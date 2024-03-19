@@ -1,5 +1,7 @@
 package com.companimal.semiProject.project.model.dao;
 
+import com.companimal.semiProject.evaluation.model.dto.EvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO;
 import com.companimal.semiProject.project.model.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -42,4 +44,8 @@ public interface ProjectMapper {
     List<ProjectDTO> selectCalculationList(String id);
 
     int insertCalculationList(String proCode);
+
+    int insertProjectEva(ProjectEvaluationDTO projectEvaluation);
+
+    int insertProjectEvaDetail(ProjectEvaluationDTO projectEvaluation);
 }

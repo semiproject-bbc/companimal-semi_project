@@ -29,86 +29,16 @@
                     <th>상세</th>
                     <th>심사 상황</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2024.03.04</td>
-                    <td>푸드</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><a class="evadetail" th:href="@{|/evaluation/projectEvaluationDetail/${allProject.proCode}|}">상세</a></td>
-                    <td>-</td>
+                <th:block th:each="projectEva : ${ selectAllProjectEvaList }">
+                <tr th:each="cate : ${ projectEva.projectEvaluation.project.cate}">
+                    <td th:text="${ projectEva.evaNum }"></td>
+                    <td th:text="${ #dates.format( projectEva.evaDateTime, 'yyyy-MM-dd') }"></td>
+                    <td th:text="${ cate.proCateName }"></td>
+                    <td th:text="${ projectEva.projectEvaluation.project.proName }"></td>
+                    <td><a class="evadetail" th:href="@{|/evaluation/projectEvaluationDetail/${ projectEva.evaNum }|}">상세</a></td>
+                    <td th:text="${ projectEva.evaSituation }"></td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>2024.03.04</td>
-                    <td>푸드</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>2024.03.04</td>
-                    <td>푸드</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>2024.03.04</td>
-                    <td>생활용품</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>승인</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>2024.03.04</td>
-                    <td>푸드</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>승인</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>2024.03.04</td>
-                    <td>생활용품</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>승인</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>2024.03.04</td>
-                    <td>생활용품</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>승인</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>2024.03.04</td>
-                    <td>푸드</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>반려</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>2024.03.04</td>
-                    <td>푸드</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>승인</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>2024.03.04</td>
-                    <td>생활용품</td>
-                    <td>프로젝트 제목입니다.</td>
-                    <td><button class="evadetail">상세</button></td>
-                    <td>반려</td>
-                </tr>
+                </th:block>
             </table>
         </div>
     </th:block>

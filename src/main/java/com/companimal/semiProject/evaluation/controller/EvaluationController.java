@@ -1,12 +1,10 @@
 package com.companimal.semiProject.evaluation.controller;
 
-import com.companimal.semiProject.evaluation.model.dto.CalculationListDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO;
-import com.companimal.semiProject.evaluation.model.dto.CreatorEvaluationDetailDTO;
-import com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.*;
 import com.companimal.semiProject.evaluation.model.service.CreatorEvaluationService;
 import com.companimal.semiProject.evaluation.model.service.EvaluationService;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
+import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -178,19 +176,65 @@ public class EvaluationController {
     @GetMapping("/projectEvaluationList")
     public String projectEvaluationList(Model model) {
 
-        List<ProjectEvaluationDTO> selectAllProjectEvaList = evaluationService.selectAllProjectEva();
+        List<EvaluationDTO> selectAllProjectEvaList = evaluationService.selectAllProjectEva();
+
+        System.out.println("컨트롤러 : " + selectAllProjectEvaList);
 
         model.addAttribute("selectAllProjectEvaList", selectAllProjectEvaList);
-
-        System.out.println(selectAllProjectEvaList);
 
         return "/contents/evaluation/projectEvaluationList";
     }
 
-    @GetMapping("/projectEvaluationDetail")
-    public String projectEvaluationDetail() {
+    @GetMapping("/projectEvaluationDetail/{evaNum}")
+    public String projectEvaluationDetail(@PathVariable("evaNum") int evaNum, Model model) {
+
+        ProjectDTO project = evaluationService.selectProjectEvaDetail(evaNum);
+
+        model.addAttribute("project", project);
+
         return "/contents/evaluation/projectEvaluationDetail";
     }
+
+    @ResponseBody
+    @GetMapping("/updateProjectEva")
+    public String projectEvaluationAccept(@RequestParam("evaNum") String evaNum
+                                            , Model model) {
+        System.out.println(evaNum);
+
+        int evaNumInt = Integer.parseInt(evaNum);
+
+        System.out.println(evaNumInt + evaNumInt);
+
+        int project = evaluationService.updateProjectAccept(evaNumInt);
+
+        if(project > 0) {
+            System.out.println("프로젝트 정산 심사 성공!");
+        } else {
+            System.out.println("프로젝트 정산 심사 실패!");
+        }
+
+        model.addAttribute("project", project);
+
+        return "/main";
+    }
+
+    @ResponseBody
+    @GetMapping("/updateProjectEvaReject")
+    public String projectEvaluationReject(@RequestParam("evaNum") String evaNum
+                                            ,@RequestParam("reaRejection") String reaRejection) {
+        System.out.println(evaNum);
+
+        int evaNumInt = Integer.parseInt(evaNum);
+
+        System.out.println(evaNumInt + evaNumInt);
+        System.out.println("반려 사유 : " + reaRejection);
+
+        evaluationService.updateProjectReject(evaNumInt, reaRejection);
+
+        return "/main";
+    }
+
+
 
 }
 
