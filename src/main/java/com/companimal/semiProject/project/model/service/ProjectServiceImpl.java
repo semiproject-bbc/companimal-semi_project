@@ -137,7 +137,6 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
             System.out.println("프로젝트 등록 실패~!");
         }
-//        return ""
     }
 
     public ProjectFileDTO FileUpload(MultipartFile savefile) throws IOException {
