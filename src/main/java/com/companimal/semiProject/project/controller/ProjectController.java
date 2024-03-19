@@ -5,6 +5,7 @@ import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
 import com.companimal.semiProject.project.model.service.ProjectService;
+import com.google.gson.JsonObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -261,5 +262,11 @@ public class ProjectController {
         return "contents/project/fundingPlus";
     }
 
+    @RequestMapping(value="SummerNoteImageFile" , method = RequestMethod.POST)
+    public @ResponseBody JsonObject SummerNoteImageFile(@RequestParam("file") MultipartFile file) {
+        JsonObject jsonObject = projectService.SummerNoteImageFile(file);
+        System.out.println(jsonObject);
+        return jsonObject;
+    }
 
 }

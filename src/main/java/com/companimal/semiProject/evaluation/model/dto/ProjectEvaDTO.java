@@ -24,6 +24,13 @@ public class ProjectEvaDTO {
         this.project = project;
     }
 
+    public ProjectEvaDTO(int proCode, int evaNum, ProjectDTO project, EvaluationDTO evaluation) {
+        this.proCode = proCode;
+        this.evaNum = evaNum;
+        this.project = project;
+        this.evaluation = evaluation;
+    }
+
     public int getProCode() {
         return proCode;
     }
@@ -48,12 +55,21 @@ public class ProjectEvaDTO {
         this.project = project;
     }
 
+    public EvaluationDTO getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(EvaluationDTO evaluation) {
+        this.evaluation = evaluation;
+    }
+
     @Override
     public String toString() {
         return "ProjectEvaDTO{" +
                 "proCode=" + proCode +
                 ", evaNum=" + evaNum +
                 ", project=" + project +
+                ", evaluation=" + evaluation +
                 '}';
     }
 }

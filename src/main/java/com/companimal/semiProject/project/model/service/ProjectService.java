@@ -1,6 +1,7 @@
 package com.companimal.semiProject.project.model.service;
 
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
+import com.google.gson.JsonObject;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,4 +41,7 @@ public interface ProjectService {
     List<ProjectDTO> selectMenuProject();
 
     ProjectDTO selectFinalCal(int proCode);
+
+    @Transactional
+    JsonObject SummerNoteImageFile(MultipartFile file);
 }

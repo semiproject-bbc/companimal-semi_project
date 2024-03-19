@@ -53,4 +53,6 @@ public interface ProjectMapper {
     int insertProjectEva(ProjectEvaluationDTO projectEvaluation);
 
     int insertProjectEvaDetail(ProjectEvaluationDTO projectEvaluation);
+
+    void insertFileInfo(Map<String, Object> paramMap);
 }

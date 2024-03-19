@@ -245,11 +245,11 @@ public class EvaluationController {
     @GetMapping("/projectEvaluationDetail/{evaNum}")
     public String projectEvaluationDetail(@PathVariable("evaNum") int evaNum, Model model) {
 
-        ProjectDTO project = evaluationService.selectProjectEvaDetail(evaNum);
+        List<ProjectDTO> project = evaluationService.selectProjectEvaDetail(evaNum);
 
         model.addAttribute("project", project);
 
-        return "/contents/evaluation/projectEvaluationDetail";
+        return "contents/evaluation/projectEvaluationDetail";
     }
 
     @ResponseBody

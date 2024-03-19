@@ -12,7 +12,7 @@
     <script type="text/javascript" th:src="@{/js/evaModal.js}"></script>
 </head>
 <th:block layout:fragment="content">
-    <div class="main">
+    <div class="main" th:each="project : ${ project[0]}">
         <h2>프로젝트 심사</h2>
         <div class="evaBox">
             <table class="evaTable">
@@ -41,11 +41,18 @@
                     <td>프로젝트 소개</td>
                     <td colspan="3" th:text="${ project.proIntro }">프로젝트를 소개하는 말을 작성/최대 300자로 제한</td>
                 </tr>
-                <tr>
+                <tr th:each="pro : ${ project}">
+                    <th:block th:if="${project.image[0].proImgPath != null}">
                     <td rowspan="2">대표 이미지</td>
-                    <td rowspan="2" class="pjThumbnailBox">
-                        <img src="../../image/etc1.jpg" class="pjThumbnail" alt="프로젝트 이미지">
+                    <td rowspan="2" class="pjThumbnailBox" th:each="image, stat : ${project.image}">
+                        <div th:style="'display:flex;'">
+                            <img th:src="@{|/image/store/${image.proImgName}|}" class="pjThumbnail" alt="프로젝트 이미지">
+                        </div>
                     </td>
+<!--                    <td rowspan="2" class="pjThumbnailBox" th:each="image, stat : ${project.image}">-->
+<!--                        <img th:if="${stat.index != 0}"  th:src="@{|/image/store/${image.proImgName}|}" class="pjThumbnail" alt="프로젝트 이미지">-->
+<!--                    </td>-->
+                    </th:block>
                 </tr>
                 <div class="eva-cate">
                 <tr class="eva-cate">
@@ -63,7 +70,7 @@
                     <td>스토리</td>
                     <td colspan="3">프로젝트 스토리 작성</td>
                 </tr>
-                <tr>
+<!--                <tr>-->
 <!--                    <th:block th:each="rewardOpt : ${ project.reward.rewardOpt }">-->
 <!--                        <td>리워드</td>-->
 <!--                        <td colspan="3" th:text="${ project.reward }">리워드 작성</td>-->
@@ -72,7 +79,7 @@
 <!--                        <td colspan="3" th:text="${ rewardOpt.rewOptLimit }"></td>-->
 <!--                        <td colspan="3" th:text="${ rewardOpt.rewAmount }"></td>-->
 <!--                    </th:block>-->
-                </tr>
+<!--                </tr>-->
                 <tr>
                     <td>기타 환불 불가 규정</td>
                     <td colspan="3" th:text="${ project.polNoRefund }"></td>
@@ -84,8 +91,7 @@
                 <tr>
                     <td>제출 파일</td>
                     <td colspan="3">
-                        <p>관련 인증 서류 제출1.pdf</p>
-                        <p>관련 인증 서류 제출2.pdf</p>
+                        <p>포트폴리오.pdf</p>
                     </td>
                 </tr>
             </table>
