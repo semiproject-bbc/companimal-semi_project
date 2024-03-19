@@ -7,6 +7,8 @@ import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -16,12 +18,8 @@ public class OrderServiceImpl implements OrderService {
         this.orderMapper = orderMapper;
     }
 
-
     @Override
-    public void showAllInfo(Model model) {}
-
-    @Override
-    public CouponDTO couponInfo(String memId) {
+    public List<CouponDTO> couponInfo(String memId) {
         return orderMapper.findCouponInfo(memId);
     }
 

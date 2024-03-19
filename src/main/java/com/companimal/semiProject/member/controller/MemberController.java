@@ -1,5 +1,8 @@
 package com.companimal.semiProject.member.controller;
 
+import com.companimal.semiProject.member.model.dto.InquiryCateDTO;
+import com.companimal.semiProject.member.model.dto.InquiryDTO;
+import com.companimal.semiProject.member.model.dto.SupporterParticipatedProjectDTO;
 import com.companimal.semiProject.member.model.service.DuplicateCheckService;
 import com.companimal.semiProject.member.model.service.MailService;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
@@ -11,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -137,7 +143,69 @@ public class MemberController {
         }
 
         return "redirect:/participateProject";
+    }
 
+    @GetMapping("/supporterProject")
+    public String supporterProject(Authentication authentication,
+                                   Model model) {
+        List<SupporterParticipatedProjectDTO> supporterParticipatedProjectDTOList = memberService.getSupporterProject(authentication.getName());
+        for (SupporterParticipatedProjectDTO supporterParticipatedProjectDTO : supporterParticipatedProjectDTOList) {
+            System.out.println(supporterParticipatedProjectDTO);
+        }
+        model.addAttribute("orderInfo", supporterParticipatedProjectDTOList);
+
+        return "contents/member/supporterProject";
+    }
+
+    @PostMapping("/supporterInquiry")
+    public String SupporterInquiryConfirmationPage(@ModelAttribute InquiryCateDTO inquiryCateDTO,
+                                                   @RequestParam("inputtedText") String inputtedText,
+                                                   @PathVariable("proCode") int proCode,
+                                                   Authentication authentication) {
+
+        System.out.println(inquiryCateDTO.getInqCateCode()); // 확인용
+        System.out.println(inquiryCateDTO.getInqCateName()); // 확인용
+        System.out.println(inputtedText);                    // 확인용
+
+//        model.addAttribute("inquiryDetails", inquiryCateDTO);
+//        model.addAttribute("inquiryContext", inputtedText);
+
+        /* 현재시간으로 timestamp으로 포맷하는 방식 */
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime currentTime = LocalDateTime.now();        // 현시간을 출력한다
+        String formattedTime = currentTime.format(formatter);   // 시간 포맷
+        Timestamp timestamp = Timestamp.valueOf(formattedTime); // timestamp 방식으로 저장을 한다
+
+        InquiryDTO inquiryDTO = new InquiryDTO();
+        inquiryDTO.setMemId(authentication.getName());              // 회원ID
+        inquiryDTO.setProCode(proCode);                             // 프로젝트 코드
+        inquiryDTO.setInqContent(inputtedText);                     // 작성한 내용
+        inquiryDTO.setInqDateTime(timestamp);                       // 문의한 시간
+        // inquiryDTO.setInqAnswer();                               // 아직 미정
+        inquiryDTO.setInqCateCode(inquiryCateDTO.getInqCateCode()); // categoryCode
+
+        memberService.setSupporterInquiredProject(inquiryDTO); // 저장이 잘 됐으면 성공 페이지로 이동한다
+
+        return "/contents/member/inquiredSubmitSuccess";
+    }
+
+    // test용
+    @GetMapping("/supporterInquiry")
+    public String successPage() {
+        System.out.println("successPage로 이동");
+        return "/contents/member/inquiredSubmitSuccess";
+    }
+
+
+//    @PostMapping("/supporterInquiry")
+//    public String SupporterInquiryConfirmationPage1() {
+//
+//        return "/contents/member/supporterInquiry";
+//    }
+
+    @GetMapping("/supporterSendInquiry")
+    public String supporterSendInquiry() {
+        return "/contents/member/supporterInquiryPage";
     }
 
 }

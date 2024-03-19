@@ -1,7 +1,11 @@
 package com.companimal.semiProject.member.model.dao;
 
+import com.companimal.semiProject.member.model.dto.InquiryDTO;
 import com.companimal.semiProject.member.model.dto.LoginMemberDTO;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
+import com.companimal.semiProject.member.model.dto.SupporterParticipatedProjectDTO;
+import com.companimal.semiProject.order.model.dto.CouponDTO;
+import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,4 +22,14 @@ public interface MemberMapper {
     List<MemberDTO> selectParticipate(String id);
 
     int updatePurchaseConfirm(String orderCode);
+
+    List<CouponDTO> getUsedCouponInfo(String memId);
+
+    List<CouponDTO> getAvailableCouponInfo(String memId);
+
+    List<CouponDTO> downloadCouponInfo(String memId);
+
+    List<SupporterParticipatedProjectDTO> getSupporterProject(String memId);
+
+    void setSupporterInquiredProject(InquiryDTO inquiryDTO);
 }

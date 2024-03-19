@@ -1,8 +1,11 @@
 package com.companimal.semiProject.member.model.service;
 
 import com.companimal.semiProject.member.model.dao.MemberMapper;
+import com.companimal.semiProject.member.model.dto.InquiryDTO;
 import com.companimal.semiProject.member.model.dto.LoginMemberDTO;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
+import com.companimal.semiProject.member.model.dto.SupporterParticipatedProjectDTO;
+import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,5 +61,13 @@ public class MemberService {
         int result = memberMapper.updatePurchaseConfirm(orderCode);
 
         return result;
+    }
+
+    public List<SupporterParticipatedProjectDTO> getSupporterProject(String memId) {
+        return memberMapper.getSupporterProject(memId);
+    }
+
+    public void setSupporterInquiredProject(InquiryDTO inquiryDTO) {
+        memberMapper.setSupporterInquiredProject(inquiryDTO);
     }
 }

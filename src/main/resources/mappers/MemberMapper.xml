@@ -57,6 +57,43 @@
         <collection property="orderPayment" resultMap="orderPaymentResultMap" />
     </resultMap>
 
+    <resultMap id="couponResultMap" type="com.companimal.semiProject.order.model.dto.CouponDTO">
+        <id property="couCode" column="COU_CODE"/>
+        <result property="couName" column="COU_NAME"/>
+        <result property="couAmount" column="COU_AMOUNT"/>
+        <result property="couDateTime" column="COU_DATETIME"/>
+        <result property="couYn" column="COU_YN"/>
+        <result property="memId" column="MEM_ID"/>
+    </resultMap>
+
+    <resultMap id="rewardOptionsResultMap" type="com.companimal.semiProject.project.model.dto.ProjectRewardDTO">
+        <id property="rewOptCode" column="rew_opt_code"/>
+        <result property="rewCode" column="rew_code"/>
+        <result property="rewOptNum" column="rew_opt_num"/>
+        <result property="rewOptName" column="rew_opt_name"/>
+        <result property="rewOptVal" column="rew_opt_val"/>
+        <result property="rewOptLimit" column="rew_opt_limit"/>
+        <result property="rewAmount" column="rew_amount"/>
+    </resultMap>
+
+    <resultMap id="rewardResultMap" type="com.companimal.semiProject.member.model.dto.SupporterParticipatedProjectDTO">
+        <id property="orderCode" column="ORDER_CODE"/>
+        <result property="finalPay" column="FINAL_PAY"/>
+        <result property="orderDate" column="ORDER_DATE"/>
+        <result property="rewName" column="REW_NAME"/>
+        <result property="rewOptName" column="REW_OPT_NAME"/>
+        <result property="rewOptVal" column="REW_OPT_VAL"/>
+    </resultMap>
+
+    <resultMap id="inquiryResultMap" type="com.companimal.semiProject.member.model.dto.InquiryDTO">
+        <id property="memId" column="MEM_ID"/>
+        <result property="proCode" column="PRO_CODE"/>
+        <result property="inqContent" column="INQ_CONTENT"/>
+        <result property="inqDateTime" column="INQ_DATEITME"/>
+        <result property="inqAnswer" column="INQ_ANSWER"/>
+        <result property="inqCateCode" column="INQ_CATE_CODE"/>
+    </resultMap>
+
     <insert id="registMember" parameterType="com.companimal.semiProject.member.model.dto.MemberDTO">
         INSERT
         INTO DEFAULT_MEMBER (MEM_ID
@@ -116,5 +153,72 @@
         SET purchase_status = now()
         WHERE order_code = #{orderCode}
     </update>
+
+    <select id="getAvailableCouponInfo" resultMap="couponResultMap">
+        SELECT COU_CODE,
+               COU_NAME,
+               COU_AMOUNT,
+               COU_DATETIME,
+               COU_YN,
+               MEM_ID
+        FROM COUPON
+            WHERE MEM_ID = #{ memId }
+        AND COU_YN = 'y'
+    </select>
+
+    <select id="getUsedCouponInfo" resultMap="couponResultMap">
+        SELECT COU_CODE,
+               COU_NAME,
+               COU_AMOUNT,
+               COU_DATETIME,
+               COU_YN,
+               MEM_ID
+        FROM COUPON
+        WHERE MEM_ID = #{ memId }
+          AND COU_YN = 'n'
+    </select>
+
+    <select id="downloadCouponInfo" resultMap="couponResultMap">
+        SELECT COU_CODE,
+               COU_NAME,
+               COU_AMOUNT,
+               COU_DATETIME,
+               COU_YN,
+               MEM_ID
+        FROM COUPON
+        WHERE MEM_ID = #{ memId }
+          AND COU_YN = 'd'
+    </select>
+
+    <select id="getSupporterProject" resultMap="rewardResultMap">
+        SELECT op.FINAL_PAY,
+               op.ORDER_CODE,
+               op.ORDER_DATE,
+               r.REW_NAME,
+               ropt.REW_OPT_NAME,
+               ropt.REW_OPT_VAL
+        FROM ORDER_PAYMENT op
+        INNER JOIN PROJECT p ON (op.MEM_ID = p.MEM_ID)
+        INNER JOIN REWARD r ON (r.PRO_CODE = p.PRO_CODE)
+        INNER JOIN REWARD_OPT ropt ON (r.REW_CODE = ropt.REW_CODE)
+        WHERE op.MEM_ID = #{ memId }
+    </select>
+
+    <insert id="setSupporterInquiredProject" parameterType="com.companimal.semiProject.member.model.dto.InquiryDTO">
+        INSERT INTO INQUIRY (MEM_ID,
+                             PRO_CODE,
+                             INQ_CONTENT,
+                             INQ_DATETIME,
+                             INQ_ANSWER,
+                             INQ_CATE_CODE)
+        VALUES (
+                #{ memId },
+                #{ proCode },
+                #{ inqContent },
+                #{ inqDateTime },
+                #{ inqAnswer },
+                #{ inqCateCode }
+                )
+    </insert>
 
 </mapper>

@@ -53,3 +53,8 @@ button {
 .backPage-context {
     color: white;
 }
+
+.confirm-context {
+    display: flex;
+    justify-content: end;
+}

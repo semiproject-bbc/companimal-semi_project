@@ -61,9 +61,10 @@ public class KakaoPayController {
                            @RequestParam("address") String address,
                            @RequestParam("request") String request,
                            @RequestParam("couponCode") String couponCode,
-                           @RequestParam("totalAmount") String totalAmount) {
+                           @RequestParam("totalAmount") int totalAmount) {
 
         System.out.println("받은 쿠폰코드 : " + couponCode); // couponCode를 잘 받았는지 확인용
+        System.out.println("받은 최종 결제 금액 : " + totalAmount); // 결제 최종 금액
         httpSession.setAttribute("usedCouponCode", couponCode); // 잘 받았으면 session에다가 담는다
         httpSession.setAttribute("totalAmount", totalAmount);   // 배송비, 쿠폰 할인을 포함한 최종 결제 금액
 
@@ -97,41 +98,47 @@ public class KakaoPayController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         // 현시간을 출력한다
-        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        // Format the current time using the formatter
+        String formattedTime = currentTime.format(formatter);
+
+        // Convert the formatted time to a Timestamp
+        Timestamp timestamp = Timestamp.valueOf(formattedTime);
 
         // 시간을 원하는 형식으로 format을 한다
-        Timestamp timestamp = Timestamp.valueOf(currentDate);
-        httpSession.setAttribute("orderDate", timestamp);
 
         // 확인용
-        System.out.println("Current Date and Time: " + timestamp);
-        model.addAttribute("orderedTime", timestamp);
+        System.out.println("Current Date and Time: " + formattedTime);
+        model.addAttribute("orderedTime", formattedTime);
         model.addAttribute("member", authentication.getName());
 
         /* 주문결제를 하면서 선택한 값들을 출력 */
         MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberInfo");
-        CouponDTO couponDTO = (CouponDTO) httpSession.getAttribute("couponInfo");
         GetOrderDetailsInfoDTO getOrderDetailsInfoDTO = (GetOrderDetailsInfoDTO) httpSession.getAttribute("rewardInfo");
         OrderPaymentDTO orderPaymentDTO = new OrderPaymentDTO();
         /* 결제까지 다 성공을 했을 때 DB에다가 저장 */
         orderPaymentDTO.setOrderCode((String) httpSession.getAttribute("partner_order_id"));     // 주문 코드
-        orderPaymentDTO.setOrderDate((Timestamp) httpSession.getAttribute("orderDate"));         // 주문일시
+        orderPaymentDTO.setOrderDate(timestamp);         // 주문일시
         orderPaymentDTO.setMemId(memberDTO.getMemberId());                                          // 회원id
         orderPaymentDTO.setAddress((String) httpSession.getAttribute("address"));                // 주소
         orderPaymentDTO.setRequest((String) httpSession.getAttribute("request"));                // 배송 시 요청 사항
         orderPaymentDTO.setRecipient((String) httpSession.getAttribute("recipient"));            // 수취인명
         orderPaymentDTO.setFinalPay((int) httpSession.getAttribute("totalAmount"));              // 총 금액
         orderPaymentDTO.setProCode(getOrderDetailsInfoDTO.getProCode());                            // 프로젝트 코드
-        orderPaymentDTO.setCouCode(couponDTO.getCouCode());                                         // 쿠폰 코드
+        orderPaymentDTO.setCouCode((String) httpSession.getAttribute("usedCouponCode"));         // 사용한 쿠폰 코드
 //        orderPaymentDTO.setPurchaseStatus(); // not null 이기 때문에 나중에 정한다
 
+        System.out.println(orderPaymentDTO); // 확인용
         orderService.setOrderPaymentInfo(orderPaymentDTO); // 받은 값들을 저장을 하기 위해서 data 정보들을 보낸다..!
         /* 결제가 완료 됐으면, 사용한 coupon의 사용여부를 'n'로 바꿔야한다*/
         orderService.updateUsedCoupon((String) httpSession.getAttribute("usedCouponCode"));
+        System.out.println(httpSession.getAttribute("usedCouponCode"));
+        // 결제 성공 화면으로 이동
         return "contents/order/successPage";
     }
     @RequestMapping("kakaoPayCancel")
     public String kakaoPayFail() {
-        return "contents/kakaoPay/kakaoPayCancel";
+        return "contents/order/failedPage";
     }
 }

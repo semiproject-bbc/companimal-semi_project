@@ -126,198 +126,278 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* ====================================================================================================== */
 /* 5. 약관동의 보기를 누르면 해당 약관동의 page가 현재 page에서 overlay 되면서 현재 화면에 표시가 된다 */
-function openCondition(e) {
-    const targetId = e.id // click한 id를 가져와
-    const num = targetId.substring(9); // id의 뒤에 있는 번호 No를 가져오고
-    const test2 = document.getElementById("seeCondition" + num); // 약관동의와 일치하게 만들어. 쉽잖아?
-    // 다음으로,,, 눌렀을 때 일치하면 hidden을 끌 수 있겠금 coding읋 하면 끝이잖아?
-    test2.classList.remove('display-hidden');
-    // document.querySelector('.display-hidden').remove('display-hidden');
+// function openCondition(e) {
+//
+//     var button1 = document.getElementById('tNc1');
+//     var button2 = document.getElementById('tNc2');
+//     var button3 = document.getElementById('tNc3');
+//     var button4 = document.getElementById('tNc4');
+//
+// // 각 약관동의들
+// // var condition1 = document.getElementById('condition1');
+// // var condition2 = document.getElementById('condition2');
+// // var condition3 = document.getElementById('condition3');
+// // var condition4 = document.getElementById('condition4');
+//
+// // 약관 동의 겉 부분 (hidden)
+//     var condition1box = document.getElementById('myModal1');
+//     var condition2box = document.getElementById('myModal2');
+//     var condition3box = document.getElementById('myModal3');
+//     var condition4box = document.getElementById('myModal4');
+//
+//     button1.addEventListener('click', function (e) {
+//         condition1box.style.display = "block";
+//     });
+//
+//     button2.addEventListener('click', function () {
+//         condition2box.style.display = "block";
+//     });
+//
+//     button3.addEventListener('click', function () {
+//         condition3box.style.display = 'block';
+//     });
+//
+//     button4.addEventListener('click', function () {
+//         condition4box.style.display = 'block';
+//     });
+// };
 
-    const modalBlock = document.getElementById('modal1');
-    const modalBlock2 = document.getElementById('modal2');
-    /*console.log(e.id);
-    if (targetId === 'condition1') {
-    if (condition1box.onclick) {
-        seeCondition1box.classList.add('showmodal');
 
-    } else if (targetId === 'condition2') {
-        test2.classList.remove('display-hidde');
-    } else if (targetId === 'condition3') {
-        test2.classList.remove('display-hidde');
-    } else if (targetId === 'condition4') {
-        test2.classList.remove('display-hidde');
-    }
-*/
-    modalBlock.classList.remove('display-hidden');
-    modalBlock2.classList.remove('display-hidden');
-};
+
+//     const targetId = e.id // click한 id를 가져와
+//     const num = targetId.substring(9); // id의 뒤에 있는 번호 No를 가져오고
+//     const test2 = document.getElementById("seeCondition" + num); // 약관동의와 일치하게 만들어. 쉽잖아?
+//     // 다음으로,,, 눌렀을 때 일치하면 hidden을 끌 수 있겠금 coding읋 하면 끝이잖아?
+//     test2.classList.remove('display-hidden');
+//     // document.querySelector('.display-hidden').remove('display-hidden');
+//
+//     const modalBlock = document.getElementById('modal1');
+//     const modalBlock2 = document.getElementById('modal2');
+//     /*console.log(e.id);
+//     if (targetId === 'condition1') {
+//     if (condition1box.onclick) {
+//         seeCondition1box.classList.add('showmodal');
+//
+//     } else if (targetId === 'condition2') {
+//         test2.classList.remove('display-hidde');
+//     } else if (targetId === 'condition3') {
+//         test2.classList.remove('display-hidde');
+//     } else if (targetId === 'condition4') {
+//         test2.classList.remove('display-hidde');
+//     }
+// */
+//     modalBlock.classList.remove('display-hidden');
+//     modalBlock2.classList.remove('display-hidden');
+// };
 
 /* ====================================================================================================== */
-/* 각 약관들의 close-button을 누르면 창을 닫는다 */
+/* 6. 쿠폰을 선택을 했을 때 총금액에 쿠폰금액만큼 차감한다, 아니면 주문금액 + 배송비값을 그대로 보낸다 */
 
-// function closeButton(e) {
-//     const closeButton = e.class;
-//     window.close();
-// }
-
-/* ====================================================================================================== */
-/* 6. 쿠폰을 선택을 했을 때 총금액에 쿠폰금액만큼 차감한다 */
 document.addEventListener('DOMContentLoaded', function() {
     var selectedCoupon = document.getElementById('couponAmountId');         // 쿠폰을 선택할 때 id
     var preFinalPayment = document.getElementById('finalPaymentAmountId');  // 최종 결제 금액 id
-    // var rewSf = 2500;
+    var originalFinalPayment = parseInt(preFinalPayment.textContent.replace('원', '')); // Original final payment amount
 
-    selectedCoupon.addEventListener('change', function(event) {   // 왜 select가 아닌지
-        var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];    // 선택한 쿠폰 정보를 가져온다
-        var selectedCouponAmount = parseInt(selectedCouponOption.value);           // 선택한 쿠폰값을 가져온다
-        console.log('Selected coupon amount:', selectedCouponAmount);                       // couponAmount를 잘 선택을 했는지 확인하는 용도
+    // 쿠폰이 선택될때 마다 작동하는 코드
+    function applyCoupon(selectedCouponAmount, selectedCouponCode) {
+        var finalPaymentAfterCoupon = originalFinalPayment - selectedCouponAmount;
+        preFinalPayment.textContent = finalPaymentAfterCoupon + '원'; // 쿠폰이 선택이 되면 최종결제 금액이 적용이 되겠금 하는 코드
 
-        /* 쿠폰 할인을 뺀 최종 결제 금액값  */
-        var finalPaymentBeforeRewSf = parseInt(preFinalPayment.textContent.replace('원', ''));
-        var finalPaymentAfterCoupon = finalPaymentBeforeRewSf - selectedCouponAmount;    // 최종금액에서 쿠폰값을 뺀 금액
-        console.log("Final payment after coupon : ", finalPaymentAfterCoupon);                   // 확인용
-        preFinalPayment.textContent = finalPaymentAfterCoupon + '원';                             // 출력
+        var selectedCoupon = document.getElementById('couponAmountId'); // 쿠폰 listbox의 id를 가져온다
+        var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];       // 선택한 쿠폰의 index를 불러온다
+        var selectedCouponCode = selectedCouponOption.id;                                      // 쿠폰Code 값을 가져온다
 
-        var hiddenInput = document.createElement('input');              // 최종 결제 금액을 보내기 위해서
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = 'totalAmount';
-        hiddenInput.value = String(finalPaymentAfterCoupon);
+        // couponCode를 잘 담았는지 확인할 것
+        console.log('Selected coupon code : ', selectedCouponCode); // 확인용
+        console.log('Coupon Amount : ', selectedCouponAmount);
+        console.log('Amount after subtractions : ', finalPaymentAfterCoupon);
+
+        // Update hidden input for totalAmount
+        var hiddenInputTotalAmount = document.createElement('input');
+        hiddenInputTotalAmount.type = 'hidden';
+        hiddenInputTotalAmount.name = 'totalAmount';
+        hiddenInputTotalAmount.value = String(finalPaymentAfterCoupon);
+
+        var hiddenInputCouponCode = document.createElement('input');
+        hiddenInputCouponCode.type = 'hidden';
+        hiddenInputCouponCode.name = 'couponCode';
+        hiddenInputCouponCode.value = String(selectedCouponCode);
+
+// Remove existing hidden inputs
+        var form = document.getElementById('myForm');
+        var existingTotalAmountInput = form.querySelector('input[name="totalAmount"]');
+        if (existingTotalAmountInput) {
+            existingTotalAmountInput.remove();
+        }
+        var existingCouponCodeInput = form.querySelector('input[name="couponCode"]');
+        if (existingCouponCodeInput) {
+            existingCouponCodeInput.remove();
+        }
+
+        // Append the new hidden inputs
+        form.append(hiddenInputTotalAmount);
+        form.append(hiddenInputCouponCode);
+    }
+
+    // Event listener for coupon select element
+    selectedCoupon.addEventListener('change', function() {
+        var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];
+        var selectedCouponAmount = parseInt(selectedCouponOption.value);
+
+        if (selectedCouponAmount !== 0) { // 쿠폰 선택이 됐으면
+            applyCoupon(selectedCouponAmount); // 값을 넣는다
+        } else {
+            // 쿠폰을 선택을 하지 않으면, 원래 값으로 돌아간다
+            preFinalPayment.textContent = originalFinalPayment + '원';
+            form.querySelector('input[name="totalAmount"]').remove(); // Remove existing hidden input
+        }
+    });
+
+
+    // 쿠폰을 선택을 했을 때
+    var initialSelectedCouponAmount = parseInt(selectedCoupon.options[selectedCoupon.selectedIndex].value);
+    if (initialSelectedCouponAmount !== 0) {
+        applyCoupon(initialSelectedCouponAmount);
+    } else {
+
+        // 쿠폰을 선택을 하지 않으면, 원래 값으로 돌아간다
+        preFinalPayment.textContent = originalFinalPayment + '원';
+
+        // Remove existing hidden inputs
+        var form = document.getElementById('myForm');
+        var existingTotalAmountInput = form.querySelector('input[name="totalAmount"]');
+        if (existingTotalAmountInput) {
+            existingTotalAmountInput.remove();
+        }
+        var existingCouponCodeInput = form.querySelector('input[name="couponCode"]');
+        if (existingCouponCodeInput) {
+            existingCouponCodeInput.remove();
+        }
+    }
+});
+
+/* ====================================================================================================== */
+/* 약관동의 보기 */
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all the buttons with the class "btn"
+    var modalButtons = document.querySelectorAll('.btn');
+
+    // Get all the modals
+    var modals = document.querySelectorAll('.modal');
+
+    // Attach click event listener to each modal button
+    modalButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Get the ID of the modal to display from the data-target attribute
+            var modalIdToShow = button.dataset.target;
+
+            // Loop through all modals to hide them
+            modals.forEach(function(modal) {
+                modal.style.display = 'none';
+            });
+
+            // Display the modal with the corresponding ID
+            var modalToShow = document.getElementById(modalIdToShow);
+            if (modalToShow) {
+                modalToShow.style.display = 'block';
+            }
+        });
+    });
+
+    // Attach click event listener to close buttons of modals
+    var closeButtons = document.querySelectorAll('.close');
+    closeButtons.forEach(function(closeButton) {
+        closeButton.addEventListener('click', function() {
+            // Hide the modal when close button is clicked
+            var modal = closeButton.closest('.modal');
+            modal.style.display = 'none';
+        });
     });
 });
 
 
-// selectedCoupon.addEventListener('select', function(event) {
-//     var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];          // 선택한 쿠폰의 index를 불러온다
-//     var selectedCouponAmount = parseInt(selectedCouponOption.value);                 // 선택한 쿠폰 값을 저장한다
-//     console.log('Selected coupon amount : ', selectedCouponAmount);
+// document.addEventListener('DOMContentLoaded', function() {
+//     var selectedCoupon = document.getElementById('couponAmountId');         // 쿠폰을 선택할 때 id
+//     var preFinalPayment = document.getElementById('finalPaymentAmountId');  // 최종 결제 금액 id
+//     var couponApplied = false;
+//     // Function to update totalAmount
+//     function updateTotalAmount() {
+//         var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];    // 선택한 쿠폰 정보를 가져온다
+//         var selectedCouponAmount = parseInt(selectedCouponOption.value);           // 선택한 쿠폰값을 가져온다
 //
-//     preFinalPayment.addEventListener("change", function (event) {
+//         /* 쿠폰을 빼기 전 최종 결제 금액  */
+//         var finalPaymentBeforeRewSf = parseInt(preFinalPayment.textContent.replace('원', '')); // int로 받고
 //
-//         /* 다음으로 최종 결제 금액에서 차감을 해야하기 때문에 작성하는 코드 */
-//         var finalPaymentBeforeRewSf = parseInt(preFinalPayment.textContent.replace('원', ''));
-//         var finalPaymentAfterCoupon = finalPaymentBeforeRewSf - selectedCouponAmount; // 배송시를 제외한 최종 결제 금액
+//         // 쿠폰을 선택하지 않았으면 그냥 값을 돌려주고, 쿠폰을 선택을 했으면 주문금액에서 쿠폰값을 빼서 최종 결제 금액으로 저장을 하겠금 정보를 보낸다
+//         var finalPaymentAfterCoupon = selectedCouponAmount === 0 ? finalPaymentBeforeRewSf : finalPaymentBeforeRewSf - selectedCouponAmount;
 //
-//         console.log("Final payment after coupon : ", finalPaymentAfterCoupon);
-//         preFinalPayment.textContent = finalPaymentAfterCoupon + '원';
-//     });
+//         console.log("Final payment after coupon : ", finalPaymentAfterCoupon);           // 확인용
+//         preFinalPayment.textContent = finalPaymentAfterCoupon + '원';                     // 화면에다가 출력
+//
+//         var hiddenInput = document.createElement('input');     // 최종 결제 금액을 보내기 위해서
+//         hiddenInput.type = 'hidden';
+//         hiddenInput.name = 'totalAmount';
+//         hiddenInput.value = String(finalPaymentAfterCoupon);
+//
+//         var form = document.getElementById('myForm');
+//         // Remove any existing hidden input for totalAmount
+//         var existingInput = form.querySelector('input[name="totalAmount"]');
+//         if (existingInput) {
+//             existingInput.remove();
+//         }
+//         form.append(hiddenInput);
+//     }
+//
+//     // 쿠폰이 선택할 때 마다 바뀐다
+//     selectedCoupon.addEventListener('change', updateTotalAmount);
+//
+//     // 값을 다 update를 한다
+//     updateTotalAmount();
 // });
 
-// var selectedCoupon = document.getElementById('couponAmountId');        // 쿠폰 listbox의 id를 가져온다
-// var preFinalPayment = document.getElementById('finalPaymentAmountId'); // 배송비, 쿠폰값 적용하기 전 금액
 
-// selectedCoupon.addEventListener('change', function(event) {
-//     console.log('Coupon selection changed');
-//     var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex]; // 선택한 쿠폰의 index를 불러온다
-//     console.log('Selected option : ', selectedCouponOption);
-//     var selectedCouponAmount = parseInt(selectedCouponOption.value);                 // 선택한 쿠폰 값을 저장한다
-//
-//     /* 다음으로 최종 결제 금액에서 차감을 해야하기 때문에 작성하는 코드 */
-//     var finalPaymentBeforeRewSf = parseInt(preFinalPayment.textContent.replace('원', ''));
-//     var finalPaymentAfterCoupon = finalPaymentBeforeRewSf - selectedCouponAmount; // 배송시를 제외한 최종 결제 금액
-//
-//     console.log("Final payment after coupon : ", finalPaymentAfterCoupon);
-//     preFinalPayment.textContent = finalPaymentAfterCoupon + '원';
-// });
+/* ====================================================================================================== */
 
-
-
-
-/* 7. 쿠폰을 선택을 했으면 couponCode를 넘겨서 DB에서 쿠폰 사용여부를 'y'에서 'n'으로 바꿔야 하기 때문에 작성하는 코드 */
-/* user가 선택한 couponCode를 담기 위해서*/
-document.addEventListener('submit', function (event) { //
-    event.preventDefault();
-
-    var selectedCoupon = document.getElementById('couponAmountId'); // 쿠폰 listbox의 id를 가져온다
-    var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];       // 선택한 쿠폰의 index를 불러온다
-    var selectedCouponCode = selectedCouponOption.id;                                      // 쿠폰Code 값을 가져온다
-
-    // couponCode를 잘 담았는지 확인할 것
-    console.log('Selected coupon code : ', selectedCouponCode);
-
-    var hiddenInput = document.createElement('input');
-    hiddenInput.type = 'hidden';
-    hiddenInput.name = 'couponCode';
-    hiddenInput.value = selectedCouponCode;
-
-    var form = document.getElementById('myForm'); // form tag에 적용을 하기 위해서
-    form.append(hiddenInput);
-
-    form.submit(); // couponCode를 담은 hiddenInput에 form을 보낸다..!
-})
-
-
-
-/* 쿠폰의 couAmount을 뽑아낸다 */
-
-/* couCode를 선택을 해서 나중에 couCode 사용여부를 바꾸기 위해서 */
-
-
-
-
-
-
-
-
-
-// var selectedCoupon = document.getElementById('couponAmountId'); // 선택한 coupon
-// var selectedCouponDetails = selectedCoupon.selectedIndex;
-// var selectedCouponOption = selectedCoupon.options[selectedCouponDetails];
-// var selectedCouponCode = selectedCouponOption.id;
-//
-// console.log('Selected coupon ID:' , selectedCouponCode);
-//
-//
-// var selectedCoupon = document.getElementById('couponAmountId');     // 쿠폰 list들
-// var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];           // list중에 선택된 coupon의 정보를 가져온다
-// var selectedCouponValue = parseInt(selectedCouponOption.value);                    // 쿠폰 값을 받는다
-//
-// var finalAmountId = document.getElementById('finalPaymentAmountId') // 총금액 (바꾸기 위해서)
-//
-// let originalFinalAmount = parseInt(finalAmountId.innerText.replace('원','')); // 총금액'원'에서 원을 빼야 값을 int로 저장할 수 있다
-//
-// // coupon을 선택했을 때 최종 결제 금액이 바뀌겠금 event listener를 추가한다
-// finalAmountId.addEventListener('change', function() { // 쿠폰을 선택을 했을 때 finalPayment을 바꿔준다
-//
-//     var finalAmount = originalFinalAmount - selectedCouponValue; // 총금액 - 배송비값
-//     /* 배송비도 포함을 해야한다... */
-//
-//     finalAmountId.textContent = finalAmount + '원'; // + 바뀐 값을 출력하기 위해서 String 값
-// });
-//
-// /* 7. 사용자가 coupon을 선택을 했을 때 coupon Code를 불러오기 위해서이다 */
-// var form = document.querySelector('form'); // form을 불러온다
-//
-// form.addEventListener('submit', function(event) { // 결제하기를 누르면 선택한 쿠폰의 정보를 보내기 위해서이다
-//     // 다른 활동들을 멈추기 위해서
+// document.addEventListener('submit', function (event) { //
 //     event.preventDefault();
 //
-//     // var selectedOption = document.getElementById('couponAmountId').selectedOptions[0]; /* 첫번째 coupon을 선택을 했을 때 받아온 coupon에 대한 정보를 받아온다 */
-//     // var couponCode = selectedOption.getAttribute('data-coupon-code'); // You may need to adjust this depending on how your coupon data is structured
+//     var selectedCoupon = document.getElementById('couponAmountId'); // 쿠폰 listbox의 id를 가져온다
+//     var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];       // 선택한 쿠폰의 index를 불러온다
+//     var selectedCouponCode = selectedCouponOption.id;                                      // 쿠폰Code 값을 가져온다
 //
-//     var selectElement = document.getElementById('couponAmountId');
-//     // var selectedOption = selectElement.options[selectElement.selectedIndex];
-//     var selectedOption = selectElement.selectedOptions[0];
-//     // var couponCode = selectedOption.getAttribute('id');
-//     var couponCode = selectedOption.id;
-//
-//
-// // Debugging: Log the selected coupon code
-//     console.log('Selected coupon code:', couponCode);
+//     // couponCode를 잘 담았는지 확인할 것
+//     console.log('Selected coupon code : ', selectedCouponCode);
 //
 //     var hiddenInput = document.createElement('input');
 //     hiddenInput.type = 'hidden';
 //     hiddenInput.name = 'couponCode';
-//     hiddenInput.value = couponCode;
-//     document.getElementById('myForm').append(hiddenInput);
+//     hiddenInput.value = selectedCouponCode;
+//
+//     var form = document.getElementById('myForm'); // form tag에 적용을 하기 위해서
+//     form.append(hiddenInput);
+//
+//     form.submit(); // couponCode를 담은 hiddenInput에 form을 보낸다..!
 // });
-
-// Now you can submit the form with the selected coupon code
-// You can do this using AJAX or by setting a hidden input field value and then submitting the form
-// For example:
-// var hiddenInput = document.createElement('input');
-// hiddenInput.type = 'hidden';
-// hiddenInput.name = 'selectedCouponCode';
-// hiddenInput.value = couponCode;
-// form.appendChild(hiddenInput);
-// form.submit();
+//
+// /* 8. 약관동의를 누르면 해당 페이지가 overlay로 뜬다 */
+// // 각 buttons
+//
+//
+// // close button
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Get close button elements
+//     var closeButtons = document.querySelectorAll('.close');
+//
+//     // Attach click event listeners to close buttons
+//     closeButtons.forEach(function(button) {
+//         button.addEventListener('click', function() {
+//             // Get the parent modal element
+//             var modal = button.closest('.modal1');
+//
+//             // Hide the modal
+//             if (modal) {
+//                 modal.style.display = 'none';
+//             }
+//         });
+//     });
+// });

@@ -75,10 +75,6 @@ public class KakaoPay {
         /* 주문결제에서 받아온 정보들 */
         GetOrderDetailsInfoDTO getOrderDetailsInfoDTO = (GetOrderDetailsInfoDTO) httpSession.getAttribute("rewardInfo");
         List<GetOrderOptionsInfoDTO> realGetOrderOptionsInfoDTOList =(List<GetOrderOptionsInfoDTO>)  httpSession.getAttribute("rewardOptInfo");
-        int deliverFee = Integer.parseInt(realGetOrderOptionsInfoDTOList.get(0).getRewSf()); // 배송비
-        int OrderAmount = (getOrderDetailsInfoDTO.getOrderAmount());          // 주문금액
-        int totalCost = deliverFee + OrderAmount;                             // 총금액
-        httpSession.setAttribute("totalcost", totalCost);
 
         int totalNoOfOrder = 0;
         for (GetOrderOptionsInfoDTO getOrderOptionsInfoDTO : realGetOrderOptionsInfoDTOList) {
@@ -100,7 +96,7 @@ public class KakaoPay {
         params.put("partner_user_id", memberDTO.getMemberName());          // 가맹점 회원 id
         params.put("item_name", getOrderDetailsInfoDTO.getProName());      // 상품명을 넣으면 된다
         params.put("quantity", totalNoOfOrder);                            // 상품 수량 (int)
-        params.put("total_amount", totalCost);                             // 총 주문금액
+        params.put("total_amount", httpSession.getAttribute("totalAmount"));                             // 총 주문금액
         /* hard coding 정보들 ..*/
 //        params.put("partner_order_id", "asd");                           // 가맹점 주문번호
 //        params.put("partner_user_id", "memberDTO.getMemberName()");      // 가맹점 회원 id

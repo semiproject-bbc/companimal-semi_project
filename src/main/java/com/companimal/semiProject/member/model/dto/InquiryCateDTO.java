@@ -1,14 +1,14 @@
 package com.companimal.semiProject.member.model.dto;
 
-public class InquiryDTO {
+public class InquiryCateDTO {
 
     private int inqCateCode;
     private String inqCateName;
 
-    public InquiryDTO() {
+    public InquiryCateDTO() {
     }
 
-    public InquiryDTO(int inqCateCode, String inqCateName) {
+    public InquiryCateDTO(int inqCateCode, String inqCateName) {
         this.inqCateCode = inqCateCode;
         this.inqCateName = inqCateName;
     }
