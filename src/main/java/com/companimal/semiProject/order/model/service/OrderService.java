@@ -19,4 +19,5 @@ public interface OrderService {
     void setOrderPaymentInfo(OrderPaymentDTO orderPaymentDTO);
 
     void updateUsedCoupon(String couCode);
+
 }

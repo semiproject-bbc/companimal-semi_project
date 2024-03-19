@@ -1,11 +1,15 @@
 package com.companimal.semiProject.project.model.service;
 
+import com.companimal.semiProject.evaluation.model.dto.EvaluationDTO;
+import com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO;
 import com.companimal.semiProject.project.model.dao.ProjectMapper;
 import com.companimal.semiProject.project.model.dto.*;
+import groovy.util.Eval;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -39,116 +43,247 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public void insertProject(MultipartFile[] files, ProjectDTO project, String memId) {
+    public void insertProject(List<MultipartFile> images, ProjectDTO project, MultipartFile file, Model model) throws IOException {
 
-        System.out.println("project 찍어보기 : " + project);
+        System.out.println("Service에서 project 찍어보기 : " + project);
 
+        // 아래 삭제!!!
+/*
         Map<String, List<ProjectFileDTO>> fileMap = null;
 
         try {
             fileMap = FileUpload(files);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
 
-        int result1 = projectMapper.insertProject(project, memId);
+        int result1 = projectMapper.insertProject(project);
 
-        ProjectFileDTO projectFileDTO = new ProjectFileDTO();
-        ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
-        List<ProjectRewardOptDTO> projectRewardOptList = new ArrayList<>();
-
-        /* FILE 셋팅 */
-        projectFileDTO.setProCode(project.getProCode());
+        System.out.println("proCode : " + project.getProCode());
 
         /* 리워드 셋팅 */
-        projectRewardDTO.setRewCode(project.getProCode() + "-1");
-        System.out.println("proCode 셋팅 값 : " + projectRewardDTO);
-//        projectRewardDTO.setRewNum(1);
-//        projectRewardDTO.setProCode(project.getProCode());
-//        projectRewardDTO.setRewName(project.getReward().getRewName());
-//        projectRewardDTO.setRewExplain(project.getReward().getRewExplain());
-//        projectRewardDTO.setRewSf(project.getReward().getRewSf());
+        project.getReward().setRewCode(project.getProCode() + "-1");
+        project.getReward().setRewNum(1);
+        project.getReward().setProCode(project.getProCode());
+
+        System.out.println("rewCode : " + project.getReward().getRewCode());
+        System.out.println("rewNum : " + project.getReward().getRewNum());
+        System.out.println("proCode : " + project.getReward().getProCode());
+
+        int result2 = projectMapper.insertProjectReward(project.getReward());
+
+        List<ProjectRewardOptDTO> rewOpts = project.getReward().getRewardOpt();
 
         /* 리워드 옵션 셋팅 */
-        for (int i = 0; i < project.getReward().getRewardOpt().size(); i++) {
+        for (int i = 0; i < rewOpts.size(); i++) {
 
-            ProjectRewardOptDTO projectRewardOpt = project.getReward().getRewardOpt().get(i);
+            ProjectRewardOptDTO projectRewardOpt = rewOpts.get(i);
 
             projectRewardOpt.setRewOptCode(project.getProCode() + "-1-" + i);
-            projectRewardOpt.setRewCode(projectRewardDTO.getRewCode());
+            projectRewardOpt.setRewCode(project.getReward().getRewCode());
             projectRewardOpt.setRewOptNum(i);
-            projectRewardOpt.setRewOptName(project.getReward().getRewardOpt().get(i).getRewOptName());
-            projectRewardOpt.setRewOptVal(project.getReward().getRewardOpt().get(i).getRewOptVal());
-            projectRewardOpt.setRewOptLimit(project.getReward().getRewardOpt().get(i).getRewOptLimit());
-            projectRewardOpt.setRewAmount(project.getReward().getRewardOpt().get(i).getRewAmount());
 
-            projectRewardOptList.add(projectRewardOpt);
+            projectMapper.insertProjectRewardOpt(projectRewardOpt);
         }
 
         System.out.println("=====================리워드========================");
-        System.out.println("service 에서 셋팅해준 리워드 : " + projectRewardDTO);
+        System.out.println("service 에서 셋팅해준 리워드 : " + project.getReward());
 
         System.out.println("=====================리워드 옵션들======================");
-        System.out.println("service 에서 셋팅해준 리워드옵션들 : " + projectRewardOptList);
+        System.out.println("service 에서 셋팅해준 리워드옵션들 : " + rewOpts);
 
-        int result2 = projectMapper.insertProjectReward(project.getReward());
-        int result3 = projectMapper.insertProjectRewardOpt(project.getReward().getRewardOpt());
+        // 여기서부터 삭제
+        /* 파일 셋팅 */
+            /*List<ProjectFileDTO> projectFileList = fileMap.get("proFile");
+            for (int i = 0; i < projectFileList.size(); i++) {
 
-        for (Map.Entry<String, List<ProjectFileDTO>> entry : fileMap.entrySet()) {
-            List<ProjectFileDTO> fileList = entry.getValue();
-            for (ProjectFileDTO file : fileList) {
-                int result4 = projectMapper.insertProjectFile(file);
-                if (result4 <= 0) {
-                    // 파일 저장 실패 시 처리
-                }
+                ProjectFileDTO projectFile = projectFileList.get(i);
+
+                projectFile.setProFileNum(i);
+                projectFile.setProCode(project.getProCode());
+
+                projectMapper.insertProjectFile(projectFile);
             }
+
+            List<ProjectFileDTO> projectImageList = fileMap.get("proImg");
+            for (int i = 0; i < projectImageList.size(); i++) {
+
+                ProjectFileDTO projectImage = projectImageList.get(i);
+
+                projectImage.setProFileNum(i);
+                projectImage.setProCode(project.getProCode());
+
+                projectMapper.insertProjectImage(projectImage);
+//            }*/
+
+        /* 파일 저장 경로 지정  */
+        /*
+        Resource resource = resourceLoader.getResource("classpath:static/image/store");
+        // proFilePath : 파일 저장경로
+        String proFilePath = null;
+
+        if (!resource.exists()) {
+            String root = "src/main/resources/static/image/store";
+            File Image = new File(root);
+            Image.mkdir();
+
+            proFilePath = Image.getAbsolutePath();
+
+        } else {
+            proFilePath = resource.getFile().getAbsolutePath();
         }
 
-        if (result1 > 0 && result2 > 0 && result3 > 0) {
+        List<ProjectFileDTO> projectImgList = new ArrayList<>();
+
+        List<String> saveFiles = new ArrayList<>(); // 파일 경로들을 받게될 list
+
+        for (MultipartFile mf : files) {
+
+            System.out.println(mf);
+
+            // proFileOriName : 원본 파일명
+            String proFileOriName = mf.getOriginalFilename();
+            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
+            System.out.println("원본 파일명 : " + proFileOriName);
+
+            // proFileName : 파일 저장명
+            String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+
+            System.out.println("파일 저장명 : " + proFileName);
+
+            ProjectFileDTO fileDTO = new ProjectFileDTO();
+//            fileDTO()
+//            projectImgList.add(new ProjectFileDTO(projectImgList.size() + 1, 0, proFilePath, proFileName, proFileOriName));
+//
+//            mf.transferTo(new File(proFilePath + "/" + proFileName));
+//
+//            saveFiles.add("static/image/store" + proFileName);
+//
+//                projectImage.setProFileNum(mk);
+//                projectImage.setProCode(project.getProCode());
+//
+//                projectMapper.insertProjectImage(projectImage);
+        }
+            */
+        // 여기까지 삭제
+        
+        /* 파일 저장 */
+        /* 이미지(다건) 저장 */
+        List<Projec> saveImages = new ArrayList<>(); // 이미지 경로들을 받게될 list
+
+        for(int i = 0; i < images.size(); i++) {
+            ProjectFileDTO fileDTO = FileUpload(images.get(i));
+
+            if(fileDTO != null) {
+                fileDTO.setProCode(project.getProCode());
+                fileDTO.setProFileNum(++i);
+
+                projectMapper.insertProjectImage(fileDTO);
+
+                saveImages.add("static/image/store" + fileDTO.getProFileName());
+
+                System.out.println("이미지들 저장경로 : " + saveImages);
+            }
+        }
+        ProjectFileDTO projectImagePath = new ProjectFileDTO();
+
+//        String[] imgPath = saveImages.get
+
+
+        model.addAttribute("imgs", saveImages);
+
+        /* 심사서류 파일(단건) 저장 */
+        ProjectFileDTO fileDTO = FileUpload(file);
+
+        fileDTO.setProCode(project.getProCode());
+        fileDTO.setProFileNum(1);
+
+        projectMapper.insertProjectFile(fileDTO);
+
+        /* 심사 셋팅 */
+//        EvaluationDTO evaluation = new EvaluationDTO();
+        ProjectEvaluationDTO projectEvaluation = new ProjectEvaluationDTO();
+
+        int result3 = projectMapper.insertProjectEva(projectEvaluation);
+        System.out.println(result3 + " : 심사 테이블 insert 성공!");
+        System.out.println("projectEvaluation : " + projectEvaluation);
+        System.out.println("evaNum : " + projectEvaluation.getEvaNum());
+
+        projectEvaluation.setProCode(project.getProCode());
+        projectEvaluation.setEvaNum(projectEvaluation.getEvaNum());
+
+        int result4 = projectMapper.insertProjectEvaDetail(projectEvaluation);
+        System.out.println(result3 + "프로젝트 심사 테이블 insert 성공!");
+
+        if (result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
             System.out.println("프로젝트 등록 성공!");
         } else {
             System.out.println("프로젝트 등록 실패~!");
         }
     }
 
+    public ProjectFileDTO FileUpload(MultipartFile savefile) throws IOException {
 
-//    @Override
-//    @Transactional
-//    public void insertProject(MultipartFile file, ProjectDTO project) {
+        /* 파일 저장 경로 지정 */
+        Resource resource = resourceLoader.getResource("classpath:static/image/store");
+        // proFilePath : 파일 저장경로
+        String proFilePath = null;
+
+//        Map<String, List<ProjectFileDTO>> returnMap = new HashMap<>();
+
+        if (!resource.exists()) {
+            String root = "src/main/resources/static/image/store";
+            File file = new File(root);
+            file.mkdir();
+
+            proFilePath = file.getAbsolutePath();
+
+        } else {
+            proFilePath = resource.getFile().getAbsolutePath();
+        }
+
+        /* 파일명 변경 처리 */
+        // proFileOriName : 원본 파일명
+        String proFileOriName = savefile.getOriginalFilename();
+            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
+        System.out.println("원본 파일명 : " + proFileOriName);
+
+//        String ext = "";
 //
-//        ProjectFileDTO projectFile = null;
-//        ProjectFileDTO projectImage = null;
-//        try {
-//            projectFile = FileUpload(file);
-//            projectImage = FileUpload(file);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
+//        if (proFileOriName != null) {
+//            int lastIndex = proFileOriName.lastIndexOf(".");
+//            if (lastIndex != -1 && lastIndex < proFileOriName.length() - 1) {
+//                ext = proFileOriName.substring(lastIndex);
+//            }
 //        }
-//
-//        int result1 = projectMapper.insertProject(project);
-//
-//        ProjectRewardDTO projectRewardDTO = new ProjectRewardDTO();
-//        ProjectFileDTO projectFileDTO = new ProjectFileDTO();
-//
-////        projectDTO.getRewardOpt().get(1).getRewAmount(); => 펀딩 상세페이지 조회할 때 가져올 타임리프 정보
-//
-//        projectRewardDTO.setProCode(project.getProCode());
-//        projectFileDTO.setProCode(project.getProCode());
-//
-//        int result2 = projectMapper.insertProjectReward(project.getReward());
-//        int result3 = projectMapper.insertProjectRewardOpt(project.getRewardOpt());
-//        int result4 = projectMapper.insertProjectFile(projectFile);
-//        int result5 = projectMapper.insertProjectImage(projectImage);
-//
-////        projectMapper.insertProjectFile(projectFile);
-//
-//        if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0 && result5 > 0) {
-//            System.out.println("프로젝트 등록 성공!");
-//        } else {
-//            System.out.println("프로젝트 등록 실패~!");
-//        }
-//    }
+        // proFileName : 파일 저장명
+        String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+
+        System.out.println("파일 저장명 : " + proFileName);
+
+//        private int proFileNum;         // 파일 번호
+//        private int proCode;            // 프로젝트 코드
+//        private String proFilePath;     // 파일 저장경로
+//        private String proFileName;     // 파일 저장명
+//        private String proFileOriName;  // 원본 파일명
+
+        ProjectFileDTO projectFileDTO = new ProjectFileDTO(1, 1, proFilePath, proFileName, proFileOriName);
+
+        try {
+            /* 파일 저장 */
+            savefile.transferTo(new File(proFilePath + "/" + proFileName));
+
+        } catch (Exception e) {
+            projectFileDTO = null;
+        }
+
+        return projectFileDTO;
+    }
+
+
 
     @Override
     public void insertImage(MultipartFile file) {
@@ -209,143 +344,6 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
-    public ProjectFileDTO FileUpload1(MultipartFile file) throws IOException {
-
-        Resource resource = resourceLoader.getResource("classpath:static/image/store");
-        String proFilePath = null;
-
-        ProjectFileDTO projectFile = null;
-
-        if (!resource.exists()) {
-            String root = "src/main/resources/static/image/store";
-            File directory = new File(root);
-            directory.mkdirs();
-
-            proFilePath = directory.getAbsolutePath();
-        } else {
-            proFilePath = resource.getFile().getAbsolutePath();
-        }
-
-        // proFilePath : 파일 저장경로
-        // proFileOriName : 원본 파일명
-        // proFileName : 파일 저장명
-
-        String proFileOriName = file.getOriginalFilename();
-        String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
-        String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
-
-        try {
-            /* 파일 저장 */
-            file.transferTo(new File(proFilePath + "/" + proFileName));
-
-            projectFile = new ProjectFileDTO(0, 1, proFilePath, proFileName, proFileOriName);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return projectFile;
-    }
-
-
-    public Map<String, List<ProjectFileDTO>> FileUpload(MultipartFile[] files) throws IOException {
-
-        Resource resource = resourceLoader.getResource("classpath:static/image/store");
-        String proFilePath = null;
-
-        Map<String, List<ProjectFileDTO>> returnMap = new HashMap<>();
-
-        for (MultipartFile mf : files) {
-
-            System.out.println(mf);
-
-            if (!resource.exists()) {
-                String root = "src/main/resources/static/image/store";
-                File file = new File(root);
-                file.mkdir();
-
-                proFilePath = file.getAbsolutePath();
-            } else {
-                proFilePath = resource.getFile().getAbsolutePath();
-            }
-
-            List<ProjectFileDTO> projectFileList = new ArrayList<>();
-            List<ProjectFileDTO> projectImgList = new ArrayList<>();
-
-            // proFilePath : 파일 저장경로
-            // proFileOriName : 원본 파일명
-            // proFileName : 파일 저장명
-
-            String proFileOriName = mf.getOriginalFilename();
-//            String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
-
-            String ext = "";
-
-            if (proFileOriName != null) {
-                int lastIndex = proFileOriName.lastIndexOf(".");
-                if (lastIndex != -1 && lastIndex < proFileOriName.length() - 1) {
-                    ext = proFileOriName.substring(lastIndex);
-                }
-            }
-            String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
-
-
-            try {
-                /* 파일 저장 */
-                mf.transferTo(new File(proFilePath + "/" + proFileName));
-
-                if (mf.getName().substring(0, 3).equals("img")) {
-                    projectImgList.add(new ProjectFileDTO(projectImgList.size() + 1, 0, proFilePath, proFileName, proFileOriName));
-                } else {
-                    projectFileList.add(new ProjectFileDTO(projectFileList.size() + 1, 0, proFilePath, proFileName, proFileOriName));
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            returnMap.put("img", projectImgList);
-            returnMap.put("file", projectFileList);
-
-        }
-        return returnMap;
-    }
-
-//    public ProjectFileDTO FileUpload(MultipartFile files) throws IOException {
-//
-//        Resource resource = resourceLoader.getResource("classpath:static/image/store");
-//        String proFilePath = null;
-//
-//        if(!resource.exists()) {
-//            String root = "src/main/resources/static/image/store";
-//            File file = new File(root);
-//            file.mkdir();
-//
-//            proFilePath = file.getAbsolutePath();
-//        } else {
-//            proFilePath = resource.getFile().getAbsolutePath();
-//        }
-//
-//        List<ProjectFileDTO> projectFiles = new ArrayList<>();
-//
-//        String proFileOriName = files.getOriginalFilename();
-//        String ext = proFileOriName.substring(proFileOriName.lastIndexOf("."));
-//        String proFileName = UUID.randomUUID().toString().replace("-", "") + ext;
-//
-//        try {
-//            projectFiles.add(new ProjectFileDTO(0, 0, proFilePath, proFileName, proFileOriName));
-//            /* 파일 저장 */
-//            files.transferTo(new File(proFilePath + "/" + proFileName));
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return (ProjectFileDTO) projectFiles;
-//    }
-
-
     @Override
     public ProjectDTO selectProjectDetail(int proCode) {
         return projectMapper.selectProjectDetail(proCode);
@@ -378,5 +376,15 @@ public class ProjectServiceImpl implements ProjectService {
         int result = projectMapper.insertCalculationList(proCode);
 
         return result;
+    }
+
+    @Override
+    public ProjectDTO selectFinalCal(int proCode) {
+        return projectMapper.selectFinalCal(proCode);
+    }
+
+    @Override
+    public List<ProjectDTO> selectMenuProject() {
+        return projectMapper.selectMenuProject();
     }
 }

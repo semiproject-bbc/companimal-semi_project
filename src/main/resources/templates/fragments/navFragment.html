@@ -14,7 +14,7 @@
             <div class="sidemenu">
                 <p>심사 관리</p>
                 <button>- 크리에이터 심사</button>
-                <button>- 펀딩 프로젝트 심사</button>
+                <button th:onclick="|location.href='@{/evaluation/projectEvaluationList}'|">- 펀딩 프로젝트 심사</button>
                 <button th:onclick="|location.href='@{/evaluation/evacalculationlist}'|">- 후원금 최종 정산 심사</button>
                 <p>신고 관리</p>
                 <button>- 펀딩 프로젝트 신고 관리</button>
@@ -35,7 +35,7 @@
             </div>
             <div class="sidemenu">
                 <p>진행 중인 프로젝트</p>
-                <button>- 진행 중인 프로젝트 조회</button>
+                <button class="ongoingProject">- 진행 중인 프로젝트 조회</button>
                 <p>진행 종료 프로젝트</p>
                 <button th:onclick="|location.href='@{/project/endprolist}'|">- 진행 종료 프로젝트 조회</button>
                 <button th:onclick="|location.href='@{/project/calculationlist}'|">- 후원금 정산 진행 현황</button>

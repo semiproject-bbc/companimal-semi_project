@@ -96,7 +96,13 @@ html {
     color:#000000;
     font-size:18px;
 }
-
+a.orderDetails {
+    text-decoration: none;
+    display:block;
+    width:50%;
+    text-align:center;
+    padding-top:10px;
+}
 .orderDetails {
     background-color:white;
     border:#fca652 2px solid;
@@ -116,4 +122,18 @@ html {
     border-radius:5px;
     color:#000000;
     font-size:18px;
+}
+
+.pjpercentage {
+    display:inline-block;
+    color:#fca652;
+    font-weight:bold;
+    margin-top:0px;
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.justiB {
+    margin-top:20px;
+    justify-content: space-between;
 }

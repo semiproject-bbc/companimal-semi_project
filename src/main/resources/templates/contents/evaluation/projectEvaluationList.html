@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/navLayout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<section>
+    <th:block layout:fragment="content">
+        <div class="main">
+            <h2>펀딩 프로젝트 심사</h2>
+            <table class="listTable">
+                <colgroup>
+                    <col style="width:12%">
+                    <col style="width:20%">
+                    <col style="width:12%">
+                    <col style="width:30%">
+                    <col style="width:13%">
+                    <col style="width:13%">
+                </colgroup>
+                <tr>
+                    <th>심사 번호</th>
+                    <th>심사 요청 일시</th>
+                    <th>카테고리</th>
+                    <th>제목</th>
+                    <th>상세</th>
+                    <th>심사 상황</th>
+                </tr>
+                <th:block th:each="projectEva : ${ selectAllProjectEvaList }">
+                <tr th:each="cate : ${ projectEva.projectEvaluation.project.cate}">
+                    <td th:text="${ projectEva.evaNum }"></td>
+                    <td th:text="${ #dates.format( projectEva.evaDateTime, 'yyyy-MM-dd') }"></td>
+                    <td th:text="${ cate.proCateName }"></td>
+                    <td th:text="${ projectEva.projectEvaluation.project.proName }"></td>
+                    <td><a class="evadetail" th:href="@{|/evaluation/projectEvaluationDetail/${ projectEva.evaNum }|}">상세</a></td>
+                    <td th:text="${ projectEva.evaSituation }"></td>
+                </tr>
+                </th:block>
+            </table>
+        </div>
+    </th:block>
+</section>
+</html>

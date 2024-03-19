@@ -70,4 +70,28 @@ public class MemberService {
     public void setSupporterInquiredProject(InquiryDTO inquiryDTO) {
         memberMapper.setSupporterInquiredProject(inquiryDTO);
     }
+    public String selectMemId(String memName) {
+        return memberMapper.selectMemId(memName);
+    }
+
+    public String registeredEmailCheckByName(String name) {
+        return memberMapper.registeredEmailCheckByName(name);
+    }
+
+    public String registeredEmailCheckById(String memId) {
+        return memberMapper.registeredEmailCheckById(memId);
+    }
+
+    @Transactional
+    public void UpdatePassword(MemberDTO memberDTO) {
+
+        memberDTO.setMemberPwd(passwordEncoder.encode(memberDTO.getMemberPwd()));
+        System.out.println(memberDTO.getMemberPwd());
+        if (memberMapper.UpdatePassword(memberDTO)) {
+            System.out.println("성공");
+        } else {
+            System.out.println("실패");
+        }
+    }
+
 }

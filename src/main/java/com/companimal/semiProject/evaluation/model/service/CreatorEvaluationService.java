@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface CreatorEvaluationService {
@@ -17,7 +18,7 @@ public interface CreatorEvaluationService {
 
     void insertCreatorBusiness(MultipartFile businessRegistration, CreatorBusinessDTO creatorBusinessDTO, String creatorId) throws IOException;
 
-    List<CreatorEvaluationDTO> selectCreatorEvaluationList();
+    List<CreatorEvaluationDTO> selectCreatorEvaluationList(int offset, int limit);
 
     CreatorEvaluationDetailDTO selectCreatorEvaluationDetail(int evaNum);
 
@@ -25,5 +26,15 @@ public interface CreatorEvaluationService {
 
     void updateCreatorRole(String memId, String memberRole);
 
-    void deleteCreatorEvaluation(int evaNum, String reaRejection, String memId);
+    void updateReaRejection(Map<String, Object> map);
+
+    void deleteCreFileAndBusinessInfo(String memId);
+
+    void updateCreatorInfo(MultipartFile creatorProductPlan, MultipartFile creatorProductPortfolio, MultipartFile creatorImg, CreatorInfoDTO creatorInfoDTO, String creatorId) throws IOException;
+
+    boolean selectCreatorInfo(String creatorId);
+
+    void updateEvaSituation(Map<String, Object> map);
+
+    int countTotalItems();
 }

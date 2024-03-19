@@ -23,6 +23,7 @@ public interface MemberMapper {
 
     int updatePurchaseConfirm(String orderCode);
 
+
     List<CouponDTO> getUsedCouponInfo(String memId);
 
     List<CouponDTO> getAvailableCouponInfo(String memId);
@@ -32,4 +33,12 @@ public interface MemberMapper {
     List<SupporterParticipatedProjectDTO> getSupporterProject(String memId);
 
     void setSupporterInquiredProject(InquiryDTO inquiryDTO);
+
+    String selectMemId(String memName);
+
+    String registeredEmailCheckByName(String name);
+
+    String registeredEmailCheckById(String memId);
+
+    boolean UpdatePassword(MemberDTO memberDTO);
 }

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/project")
@@ -59,6 +59,8 @@ public class ProjectController {
         return "contents/project/projectDetail";
     }
 
+
+
     @GetMapping("/projectRegistBefore")
     public String goInsertProjectBefore() {
         return "contents/project/projectRegistBefore";
@@ -69,34 +71,80 @@ public class ProjectController {
         return "contents/project/projectRegist";
     }
 
-    @ResponseBody
     @PostMapping("/projectRegist")
-    public String insertProject(@RequestParam("files") MultipartFile[] files,
+    public String insertProject(@RequestParam("proImgName") List<MultipartFile> images,
+                                @RequestParam("proFileName") MultipartFile file,
                                 @ModelAttribute ProjectDTO project,
-                                @ModelAttribute List<ProjectRewardDTO> reward,
-                                @ModelAttribute List<ProjectRewardOptDTO> rewardOpt,
-                                Authentication authentication) throws IOException {
+                                @ModelAttribute("ProjectRewardOptDTO") ProjectRewardOptDTO projectRewardOpt,
+                                Authentication authentication,
+                                Model model) throws IOException {
+
+        System.out.println("=============================================");
+        for (MultipartFile filesTemp : images) {
+            System.out.println("이미지들 : " + filesTemp.getOriginalFilename());
+        }
+        System.out.println("=============================================");
+        System.out.println("파일들 : " + file.getOriginalFilename());
+        System.out.println("=============================================");
 
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
         String memId = authDetails.getUsername();
 
+
+        /* 콘솔 찍어보기 */
         System.out.println("Logged-in User ID: " + memId);
 
+        System.out.println("화면에서 받은 images : " + images);
+
+        System.out.println("화면에서 받은 file : " + file);
+
+        System.out.println("화면에서 받은 project : " + project);
+
         ProjectRewardDTO projectReward = project.getReward();
-        List<ProjectRewardOptDTO> projectRewardOpt = project.getReward().getRewardOpt();
-        System.out.println(projectReward);
-        System.out.println(projectRewardOpt);
 
+        System.out.println("화면에서 받은 리워드 : " + projectReward);
+
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewOptName());
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewOptVal());
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewOptLimit());
+        System.out.println("화면에서 받은 리워드 옵션 : " + projectRewardOpt.getRewAmount());
+
+        String[] rewOptName = projectRewardOpt.getRewOptName().split(",");
+        String[] RewOptVal = projectRewardOpt.getRewOptVal().split(",");
+        String[] RewOptLimit = projectRewardOpt.getRewOptLimit().split(",");
+        String[] RewAmount = projectRewardOpt.getRewAmount().split(",");
+
+        System.out.println("rewOptName 의 length : " + rewOptName.length);
+        System.out.println("RewOptVal 의 length : " + RewOptVal.length);
+        System.out.println("RewOptLimit 의 length : " + RewOptLimit.length);
+        System.out.println("RewAmount 의 length : " + RewAmount.length);
+
+        /* 셋팅 */
         project.setMemId(memId);
-
-        project.setProStory(Arrays.toString(files));
+        project.setProStory(images.toString());
         project.setEvaStatus("N");
-//        project.setAchRate(0);
-//        project.setEstDate(null);
-        projectService.insertProject(files, project, memId);
 
-        System.out.println("Uploaded files: " + Arrays.toString(files));
-        System.out.println("ProjectDTO: " + project);
+        List<ProjectRewardOptDTO> projectRewardOpts = new ArrayList<ProjectRewardOptDTO>();
+        for(int i = 0; i < rewOptName.length; i++) {
+            ProjectRewardOptDTO rewOpt = new ProjectRewardOptDTO();
+            rewOpt.setRewOptName(rewOptName[i]);
+            rewOpt.setRewOptVal(RewOptVal[i]);
+            rewOpt.setRewOptLimit(RewOptLimit[i]);
+            rewOpt.setRewAmount(RewAmount[i]);
+
+            projectRewardOpts.add(rewOpt);
+        }
+        project.getReward().setRewardOpt(projectRewardOpts);
+
+        System.out.println("project에 리워드 옵션 넣기 : " + project.getReward().getRewardOpt());
+
+        projectService.insertProject(images, project, file, model);
+
+        System.out.println("Uploaded images: " + images);
+        System.out.println("Uploaded file: " + file);
+        System.out.println("DB 저장 후 ProjectDTO: " + project);
+        System.out.println("model : " + model);
+
 
         return "contents/project/projectRegistAfter";
     }
@@ -167,13 +215,14 @@ public class ProjectController {
         String id = authentication.getName();
 
         List<ProjectDTO> calculationList = projectService.selectCalculationList(id);
+        System.out.println(calculationList);
 
         model.addAttribute("calculationList", calculationList);
 
         return "contents/project/calculationlist";
     }
 
-//    @ResponseBody
+    @ResponseBody
     @PostMapping("/insertCalculationList")
     public String insertCalculationList(@RequestParam("proCode") String proCode) {
 
@@ -187,5 +236,29 @@ public class ProjectController {
 
         return "redirect:/calculationlist";
     }
+
+    @RequestMapping("/finalCalculation/{proCode}")
+    public String selectFinalCal(@PathVariable("proCode") int proCode, Model model) {
+        System.out.println("최종 정산 " + proCode);
+
+        ProjectDTO finalCalList = projectService.selectFinalCal(proCode);
+
+        model.addAttribute("finalCalList", finalCalList);
+
+        return "contents/project/finalCalculationList";
+    }
+
+    @GetMapping("/fundingPlus")
+    public String showFundingPlus(@RequestParam(value="cateMain", defaultValue="0") int cateMain, @RequestParam(value="cateSub", defaultValue="10") int cateSub, Model model) {
+        System.out.println("메인" + cateMain + "서브" + cateSub);
+
+        List<ProjectDTO> selectMenuProjectList = projectService.selectMenuProject();
+        System.out.println(selectMenuProjectList.toString());
+
+        model.addAttribute("selectMenuProjectList", selectMenuProjectList);
+
+        return "contents/project/fundingPlus";
+    }
+
 
 }

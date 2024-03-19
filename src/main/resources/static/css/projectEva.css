@@ -1,0 +1,8 @@
+.eva-cate {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+.eva-cate td {
+    width: 25%;
+}

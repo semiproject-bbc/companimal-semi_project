@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/navLayout}">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet" th:href="@{/css/modal.css}">
     <link rel="stylesheet" th:href="@{/css/supporterParticipate.css}">
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
@@ -17,34 +17,60 @@
         <div class="participateProject-container">
             <div class="projectbox" th:each="participatelist : ${participateList}">
                 <a th:href="@{|/project/projectDetail/${participatelist.project.get(0).proCode}|}">
-                    <img src="/image/thumb1.jpg" alt="프로젝트 썸네일" />
+                    <img src="/image/thumb1.jpg" alt="프로젝트 썸네일"/>
                 </a>
                 <div class="projectInfo">
                     <div class="projectTitle ellipsisWrap" th:text="${participatelist.project.get(0).proName}"></div>
-                    <div class="projectDate" th:text="${#strings.substring(participatelist.orderPayment.get(0).orderDate, 0, 10)}"></div>
-<!--                    <div class="deliverStatus">배송 완료</div>-->
+                    <div class="d-flex justiB">
+                        <div>
+                            <p class="pjpercentage" th:text="${participatelist.project.get(0).achRate}"></p>
+                            <p class="pjpercentage">% 달성</p>
+                        </div>
+                        <div class="projectDate"
+                             th:text="${#strings.substring(participatelist.orderPayment.get(0).orderDate, 0, 10)}"></div>
+                        <!--                    <div class="deliverStatus">배송 완료</div>-->
+                    </div>
                 </div>
                 <div class="d-flex endpjbtn">
                     <!-- 프로젝트가 진행 중인 경우 프로젝트 진행 중 버튼(비활성화) -->
-                    <th:block th:if="${#numbers.#strings.replace(participatelist.project.get(0).endDate, '-', '') >= #calendars.format(#calendars.createNow(), 'yyyyMMdd')}">
+                    <th:block
+                            th:if="${#numbers.#strings.replace(participatelist.project.get(0).endDate, '-', '') >= #calendars.format(#calendars.createNow(), 'yyyyMMdd')}">
                         <button class="purchaseConfirmed noPointer" disabled>프로젝트 진행 중</button>
                     </th:block>
                     <!-- 프로젝트가 종료된 경우 -->
-                    <th:block th:if="${#numbers.#strings.replace(participatelist.project.get(0).endDate, '-', '') < #calendars.format(#calendars.createNow(), 'yyyyMMdd')}">
-                        <th:block>
+                    <th:block
+                            th:if="${#numbers.#strings.replace(participatelist.project.get(0).endDate, '-', '') < #calendars.format(#calendars.createNow(), 'yyyyMMdd')}">
+                        <!-- 100 달성 실패 -->
+                        <button class="purchaseConfirmed noPointer" disabled
+                                th:if="${participatelist.project.get(0).achRate < 100}">펀딩 실패
+                        </button>
+                        <!-- 100 달성 완료 -->
+                        <th:block th:if="${participatelist.project.get(0).achRate >= 100}">
                             <!-- 프로젝트 종료 후 중간 정산 완료 전까지 중간 정산 전 버튼(비활성화)-->
                             <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하지 않으면 구매 미확정 버튼(활성화) -->
-                            <button class="orderDetails"
-                                    th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}"
-                                    th:onclick="purchaseModalOpen([[${participatelist.orderPayment.get(0).orderCode}]])">구매 미확정
+                            <!-- 배송 예정일 미입력 상태 일때 -->
+                            <button class="purchaseConfirmed noPointer" disabled
+                                    th:if="${participatelist.project.get(0).estDate == null}">배송 예정일 미확정
                             </button>
-                            <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하면 구매 확정 완료 버튼(비활성화) -->
-                            <button class="purchaseConfirmed noPointer" disabled th:if="${participatelist.orderPayment.get(0).purchaseStatus != null}">구매 확정 완료</button>
+                            <!-- 배송 예정일 입력 상태 일때 -->
+                            <th:block th:if="${participatelist.project.get(0).estDate != null}">
+                                <button class="orderDetails"
+                                        th:if="${participatelist.orderPayment.get(0).purchaseStatus == null}"
+                                        th:onclick="purchaseModalOpen([[${participatelist.orderPayment.get(0).orderCode}]])">
+                                    구매 미확정
+                                </button>
+                                <!-- 프로젝트 종료 후 중간 정산 완료 후 구매 확정 일시가 존재하면 구매 확정 완료 버튼(비활성화) -->
+                                <button class="purchaseConfirmed noPointer" disabled
+                                        th:if="${participatelist.orderPayment.get(0).purchaseStatus != null}">구매 확정 완료
+                                </button>
+                            </th:block>
                         </th:block>
                     </th:block>
-                    <button class="orderDetails">내역 조회</button>
+                    <a class="orderDetails" th:href="/">내역 조회</a>
                 </div>
-                <div class="inquiryHistory"><button class="creatorInquiry">크리에이터 문의하기</button></div>
+                <div class="inquiryHistory">
+                    <button class="creatorInquiry">크리에이터 문의하기</button>
+                </div>
             </div>
         </div>
     </div>
@@ -55,7 +81,9 @@
             <p>* 구매 확정을 하시면 수정할 수 없습니다.</p>
             <h3>구매를 확정하시겠습니까?</h3>
             <div class="d-flex buttonBox">
-                <button type="submit" id="purchasepush" class="purchasepush confirmBtn" th:onclick="updatePurchase()">구매 확정</button>
+                <button type="submit" id="purchasepush" class="purchasepush confirmBtn" th:onclick="updatePurchase()">구매
+                    확정
+                </button>
                 <button class="cancelBtn" onclick="purchaseModalClose()">취소</button>
             </div>
         </div>

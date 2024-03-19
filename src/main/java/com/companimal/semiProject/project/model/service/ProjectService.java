@@ -2,9 +2,9 @@ package com.companimal.semiProject.project.model.service;
 
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface ProjectService {
@@ -14,7 +14,7 @@ public interface ProjectService {
     ProjectDTO selectProject();
 
     @Transactional
-    void insertProject(MultipartFile[] files, ProjectDTO project, String memId);
+    void insertProject(List<MultipartFile> images, ProjectDTO project, MultipartFile file, Model model) throws IOException;
 
 //    @Transactional
 //    void insertProject(MultipartFile file, ProjectDTO project) throws IOException;
@@ -34,4 +34,8 @@ public interface ProjectService {
 
     @Transactional
     int insertCalculationList(String proCode);
+
+    List<ProjectDTO> selectMenuProject();
+
+    ProjectDTO selectFinalCal(int proCode);
 }

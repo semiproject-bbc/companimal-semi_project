@@ -45,21 +45,17 @@
                     th:onclick="'go(' + ${CreatorEvaluation.evaNum} + ')'">상세
             </button>
 
+            <div class="creatorEvaluationSituation" th:text="${CreatorEvaluation.evaSituation}">-</div>
+
         </div>
 
         <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">7</a>
-            <a href="#">8</a>
-            <a href="#">9</a>
-            <a href="#">10</a>
-            <a href="#">&raquo;</a>
+            <a th:href="@{/evaluation/manager/creatorEvaluationList?page=1}">&laquo;</a>
+            <th:block th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                <a th:href="@{/evaluation/manager/creatorEvaluationList?page=__${pageNumber}__}" th:class="${pageNumber == currentPage ? 'active' : ''}" th:text="${pageNumber}">1</a>
+
+            </th:block>
+            <a th:href="@{/evaluation/manager/creatorEvaluationList?page=__${totalPages}__}">&raquo;</a>
         </div>
     </div>
 

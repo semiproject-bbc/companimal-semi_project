@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/navLayout}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/projectEva.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/evaModal.js}"></script>
+</head>
+<th:block layout:fragment="content">
+    <div class="main">
+        <h2>프로젝트 심사</h2>
+        <div class="evaBox">
+            <table class="evaTable">
+<!--                <colgroup>-->
+<!--&lt;!&ndash;                    <col style="width:50%">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <col style="width:30%">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <col style="width:20%">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <col style="width:30%">&ndash;&gt;-->
+<!--                </colgroup>-->
+                <div class="eva-cate">
+                <tr class="eva-cate">
+                    <td class="grayBack">심사 번호</td>
+                    <td th:text="${ project.projectEva.evaNum }"></td>
+                    <div id="evaNum" th:style="'display:none;'" th:text="${ project.projectEva.evaNum }"></div>
+                    <td class="grayBack">카테고리</td>
+                    <td th:text="${ project.category.proCateName }">푸드</td>
+                    <td class="grayBack">서브 카테고리</td>
+                    <td th:text="${ project.categorySub.proCateSubName }">포유류</td>
+                </tr>
+                </div>
+                <tr>
+                    <td>프로젝트 제목</td>
+                    <td colspan="3" th:text="${ project.proName }">프로젝트 제목입니다.</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 소개</td>
+                    <td colspan="3" th:text="${ project.proIntro }">프로젝트를 소개하는 말을 작성/최대 300자로 제한</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">대표 이미지</td>
+                    <td rowspan="2" class="pjThumbnailBox">
+                        <img src="../../image/etc1.jpg" class="pjThumbnail" alt="프로젝트 이미지">
+                    </td>
+                </tr>
+                <div class="eva-cate">
+                <tr class="eva-cate">
+                    <td class="grayBack">프로젝트 시작일</td>
+                    <td th:text="${ project.startDate }">2024.02.20</td>
+                    <td class="grayBack">프로젝트 종료일</td>
+                    <td th:text="${ project.endDate }">2024.03.30</td>
+                </tr>
+                </div>
+                <tr>
+                    <td>목표 금액</td>
+                    <td colspan="3" th:text="${ project.goalAmount }">1000만원~</td>
+                </tr>
+                <tr>
+                    <td>스토리</td>
+                    <td colspan="3">프로젝트 스토리 작성</td>
+                </tr>
+                <tr>
+<!--                    <th:block th:each="rewardOpt : ${ project.reward.rewardOpt }">-->
+<!--                        <td>리워드</td>-->
+<!--                        <td colspan="3" th:text="${ project.reward }">리워드 작성</td>-->
+<!--                        <td colspan="3" th:text="${ rewardOpt.rewOptName }"></td>-->
+<!--                        <td colspan="3" th:text="${ rewardOpt.rewOptVal }"></td>-->
+<!--                        <td colspan="3" th:text="${ rewardOpt.rewOptLimit }"></td>-->
+<!--                        <td colspan="3" th:text="${ rewardOpt.rewAmount }"></td>-->
+<!--                    </th:block>-->
+                </tr>
+                <tr>
+                    <td>기타 환불 불가 규정</td>
+                    <td colspan="3" th:text="${ project.polNoRefund }"></td>
+                </tr>
+                <tr>
+                    <td>A/S 정책</td>
+                    <td colspan="3" th:text="${ project.polAs }"></td>
+                </tr>
+                <tr>
+                    <td>제출 파일</td>
+                    <td colspan="3">
+                        <p>관련 인증 서류 제출1.pdf</p>
+                        <p>관련 인증 서류 제출2.pdf</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="evaBtnBox">
+                <button class="modalbtn rejectBtn" onclick="rejectModalOpen()">반려</button>
+                <button class="modalbtn approveBtn" onclick="approveModalOpen()">승인</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="rejectModal">
+        <div class="modal-bg"></div>
+        <div class="modal-body">
+            <h3>반려 사유를 입력하세요.</h3>
+            <div class="d-flex buttonBox">
+                <input id="reaRejection" type="text" class="rejectReason" name="rejectReason" placeholder="반려 사유를 입력하세요">
+                <button class="confirmBtn" onclick="updateProjectEvaReject()">확인</button>
+                <button class="cancelBtn" onclick="rejectModalClose()">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="approveModal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <div class="text-end">
+                <button class="cancelBtn closeBtn" onclick="approveModalClose()">
+                    <img src="/image/x1.png" alt="엑스">
+                </button>
+            </div>
+            <div class="text-center">
+                <h2>크리에이터 심사가 승인되었습니다.</h2>
+                <img src="/image/orangecheck.png" class="approveImg" alt="승인">
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
