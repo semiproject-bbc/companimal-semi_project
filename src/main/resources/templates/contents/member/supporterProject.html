@@ -1,41 +1,45 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/navLayout}">
 <head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" th:href="@{/css/supporterProject.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/supporterProject.css">
+    <link rel="stylesheet" href="/css/common.css"> <!-- 이것도 다시 수정할 것 ...! -->
 </head>
 <th:block layout:fragment="content">
+<section>
     <div class="main">
         <div class="projectInfo-outerlayer">
             <div class="orderList">주문 조회</div>
-            <div class="projectInfo-container">
-                <img class="image1" src="/image/detail_main_image1.png" alt="parrot product">
+            <div class="projectInfo-container" th:each="order : ${ orderInfo }">
+                <img class="image1" src="/image/dogPics.png" alt="parrot product">
                 <div class="projectDetails-container">
                     <div class="projectName-container">
                         <div class="projectName">상품명</div>
-                        <div class="projectNameInfo">상품명</div>
+                        <div class="projectNameInfo" th:text="${ order.rewName}">상품명</div>
                     </div>
                     <div class="projectDescription-container">
                         <div class="projectDescriptionName">상품정보</div>
-                        <div class="projectDescriptionInfo">상품정보</div>
+                        <div class="projectDescriptionInfo" th:text="${ order.rewOptName + order.rewOptVal}">상품정보</div>
                     </div>
                     <div class="orderNo-container">
                         <div class="orderNo">주문번호</div>
-                        <div class="orderNoInfo">주문번호</div>
+                        <div class="orderNoInfo" th:text="${ order.orderCode }">주문번호</div>
                     </div>
                     <div class="orderDate-container">
                         <div class="orderDate">주문일자</div>
-                        <div class="orderDateInfo">주문일자</div>
+                        <div class="orderDateInfo" th:text="${ order.orderDate }">주문일자</div>
                     </div>
                     <div class="paymentDate-container">
                         <div class="paymentDate">결제일</div>
-                        <div class="paymentDateInfo">결제일</div>
+                        <div class="paymentDateInfo" th:text="${ order.orderDate}">결제일</div>
                     </div>
                     <div class="paymentAmount-container">
                         <div class="paymentAmount">결제금액</div>
-                        <div class="paymentAmountInfo">결제금액</div>
+                        <div class="paymentAmountInfo" th:text="${ order.finalPay + '원'}">결제금액</div>
                     </div>
                 </div>
                 <a href="" class="confirmation-container">
@@ -44,5 +48,6 @@
             </div>
         </div>
     </div>
-</th:block>>
+</section>
+</th:block>
 </html>

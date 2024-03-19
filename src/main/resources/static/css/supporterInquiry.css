@@ -1,0 +1,60 @@
+.PAGE {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+#inquiryTitle {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.container {
+    max-width: 700px;
+}
+
+.inquiry-container {
+    border-style: solid;
+    border-color: #d5d5d5;
+    width: 100%;
+    margin-top: 5%;
+}
+hr {
+    color: #d5d5d5;
+}
+
+.container-title, .container-content {
+    margin: 2%;
+}
+.outer-container {
+    display: flex;
+    justify-content: right;
+}
+
+button {
+    margin-top: 4%;
+    background-color: #fca652;
+    border-radius: 10%;
+    border-style: solid;
+    border-color: #fca652;
+    width: 60px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.backPage-container {
+    margin-top: 3%;
+}
+
+.backPage-context {
+    color: white;
+}
+
+.confirm-context {
+    display: flex;
+    justify-content: end;
+}

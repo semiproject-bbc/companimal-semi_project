@@ -4,6 +4,9 @@ body {
 }
 
 section {
+    width: 1400px;
+    margin: auto;
+    justify-content: center;
     .main {
         .projectInfo-outerlayer {
             margin: 0% 4%;
@@ -25,6 +28,7 @@ section {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin-bottom: 20%;
 
             .image1 {
                 height: 450px;
@@ -39,6 +43,7 @@ section {
                 flex-direction: column;
                 border-style: solid;
                 border-color: #d5d5d5;
+                margin: 12% 0%;
 
 
                 .projectName-container,
@@ -60,7 +65,8 @@ section {
                 .orderDate,
                 .paymentDate,
                 .paymentAmount {
-                    width: 250px;
+                    width: 150px;
+                    font-weight: bold;
                 }
             }
 

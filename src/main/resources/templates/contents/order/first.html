@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/firstTermsAndConditions.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="firstTermsAndConditions">
-        <div class="termsAndConditions-container">
-            <div class="termsAndConditionsHeader">
-                <div class="termsAndConditionsTitle">전자금융거래 이용약관</div>
-                <a class="close" href="#">
-                    <img class="close" src="/image/close.png">
-                </a>
+<body th:fragment="firsttNc">
+    <div class="firstTermsAndConditions modal-dialog">
+        <div class="termsAndConditions-container modal-content">
+            <div class="termsAndConditionsHeader modal-header">
+                <div class="termsAndConditionsTitle modal-title">전자금융거래 이용약관</div>
             </div>
             <div class="termsAndConditionsContext-container">
                 <div class="termsAndConditionsContext">

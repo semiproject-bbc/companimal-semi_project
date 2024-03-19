@@ -56,14 +56,19 @@ public class OrderController {
         }
 
         System.out.println(realGetOrderOptionsInfoDTOList);  // !!!!!!!!! // 확인용
-        CouponDTO couponDTO = orderService.couponInfo(authentication.getName());        // memId에 맞는 coupon 정보들을 가져한다
+        List<CouponDTO> couponDTO = orderService.couponInfo(authentication.getName());        // memId에 맞는 coupon 정보들을 가져한다
         MemberDTO memberDTO = orderService.memberInfo(authentication.getName());        // memId에 맞는 member 정보들을 가져온다
+
+        List<CouponDTO> couponDTOList = orderService.couponInfo(authentication.getName());        // memId에 맞는 coupon 정보들을 가져한다
+        for(CouponDTO couponDTO1 : couponDTOList) {
+            System.out.println(couponDTO1);
+        }
 
         /* 화면에 띄우기 위한 정보들 */
         model.addAttribute("rewardInfo", getOrderDetailsInfoDTO);           // 리워드 정보를 화면에 출력을 하기 위해서
         model.addAttribute("rewardOptInfo", realGetOrderOptionsInfoDTOList);// 리워드 옵션 정보를 화면에 출력을 하기 위해서
         /* login 한 회원에 대한 정보들을 담았다 */
-        model.addAttribute("couponInfo", couponDTO);                        // coupon 정보를 화면에 출력을 하기 위해서
+        model.addAttribute("couponInfo", couponDTOList);                        // coupon 정보를 화면에 출력을 하기 위해서
         model.addAttribute("memberInfo", memberDTO);                        // 회원 정보를 화면에 출력을 하기 위해서
 
 

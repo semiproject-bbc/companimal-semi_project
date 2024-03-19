@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 300px;
+        width: 300px;
+    }
+    .successText-container {
+        padding: 50px;
+
+        .asd {
+            font-size: 35px;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/navLayout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/supporterInquiryPage.css">
+    <script src="/js/supporterInquiryPage.js"></script>
+</head>
+<th:block layout:fragment="content">
+    <form id="myForm" th:action="@{/member/supporterInquiry}" method="post">
+        <div class="PAGE">
+            <div id="inquiryTitle">문의하기</div>
+            <div class="emailNotification">문의에 대한 답은 이메일로 받을 수 있습니다.</div>
+            <select class="inquiryContext-container" id="optionList">
+                <option class="inquiryContext" id="placeholder" value="0">교환/환불/질문</option>
+                <option class="inquiryContext" id="exchange" value="1">교환</option>
+                <option class="inquiryContext" id="refund" value="2">환불</option>
+                <option class="inquiryContext" id="question" value="3">질문</option>
+            </select>
+            <div class="sendForm-container">
+                <div id="sendForm">
+                    <textarea class="message" name="textArea" id="textContext" rows="5" cols="50" placeholder="여기에다가 작성을 해주세요."></textarea>
+                    <br>
+                    <button type="submit" class="submitButton">전송</button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden", name="inqCateName" value=".">
+        <input type="hidden", name="inqCateCode" value=".">
+    </form>
+</th:block>>
+</html>
