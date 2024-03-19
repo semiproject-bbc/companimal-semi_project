@@ -1,5 +1,7 @@
 package com.companimal.semiProject.evaluation.model.dto;
 
+import com.companimal.semiProject.project.model.dto.ProjectDTO;
+
 import java.sql.Timestamp;
 
 public class ProjectEvaluationDTO {
@@ -12,11 +14,11 @@ public class ProjectEvaluationDTO {
     /* 프로젝트 테이블 */
     private int cateMain;               // 메인 카테고리
     private String proName;             // 프로젝트 제목
-    private int proCode;                // 프로젝트 번호
+    private int proCode;                // 프로젝트 코드
 
+    private ProjectDTO project;
 
-    public ProjectEvaluationDTO(int evaNum) {
-        this.evaNum = evaNum;
+    public ProjectEvaluationDTO() {
     }
 
     public ProjectEvaluationDTO(int evaNum, Timestamp evaDateTime, String evaSituation, String reaRejection, int cateMain, String proName, int proCode) {
@@ -27,6 +29,17 @@ public class ProjectEvaluationDTO {
         this.cateMain = cateMain;
         this.proName = proName;
         this.proCode = proCode;
+    }
+
+    public ProjectEvaluationDTO(int evaNum, Timestamp evaDateTime, String evaSituation, String reaRejection, int cateMain, String proName, int proCode, ProjectDTO project) {
+        this.evaNum = evaNum;
+        this.evaDateTime = evaDateTime;
+        this.evaSituation = evaSituation;
+        this.reaRejection = reaRejection;
+        this.cateMain = cateMain;
+        this.proName = proName;
+        this.proCode = proCode;
+        this.project = project;
     }
 
     public int getEvaNum() {
@@ -85,6 +98,14 @@ public class ProjectEvaluationDTO {
         this.reaRejection = reaRejection;
     }
 
+    public ProjectDTO getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectDTO project) {
+        this.project = project;
+    }
+
     @Override
     public String toString() {
         return "ProjectEvaluationDTO{" +
@@ -95,6 +116,7 @@ public class ProjectEvaluationDTO {
                 ", cateMain=" + cateMain +
                 ", proName='" + proName + '\'' +
                 ", proCode=" + proCode +
+                ", project=" + project +
                 '}';
     }
 }

@@ -123,6 +123,7 @@
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
         <association property="member" resultMap="defaultMemberResultMap"/>
+        <association property="category" resultMap="projectCateResultMap"/>
 <!--        <association property="creatorInfo" resultMap="creatorInfoResultMap"/>-->
         <collection property="reward" resultMap="projectRewardResultMap"/>
         <collection property="image" resultMap="projectImageResultMap"/>
@@ -224,6 +225,13 @@
         <result property="endDate" column="end_date"/>
         <result property="achRate" column="ach_rate"/>
         <collection property="orderProPayment" resultMap="orderProPaymentResultMap" />
+    </resultMap>
+
+    <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
+        <id property="evaNum" column="eva_num"/>
+        <result property="evaDateTime" column="eva_datetime"/>
+        <result property="evaSituation" column="eva_situation"/>
+        <result property="reaRejection" column="rea_rejection"/>
     </resultMap>
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
@@ -444,11 +452,6 @@
                 )
     </insert>
 
-<!--    <insert id="insertProjectCate" parameterType="com.companimal.semiProject.project.model.dto.ProjectCateDTO">-->
-<!--        INSERT INTO project_cate (-->
-<!--        pro_code-->
-<!--    </insert>-->
-
     <!-- 프로젝트 상세페이지 조회에서 카테고리 이름 가져오는 쿼리 -->
     <select id="selectProjectCate" resultMap="projectCateResultMap">
         SELECT pro_cate_name
@@ -608,4 +611,30 @@
             FROM project p
             JOIN project_cate c ON (c.pro_cate_code = p.cate_main)
     </select>
+  
+    <insert id="insertProjectEva" parameterType="com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO">
+        INSERT INTO evaluation (
+                                eva_datetime
+                                ,eva_situation
+                                )
+        VALUES (
+                NOW()
+                ,'처리중'
+                )
+        <selectKey keyProperty="evaNum" order="AFTER" resultType="int">
+            SELECT MAX(eva_num)
+            FROM evaluation
+        </selectKey>
+    </insert>
+
+    <insert id="insertProjectEvaDetail" parameterType="com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO">
+        INSERT INTO project_eva (
+                                pro_code
+                                ,eva_num
+                                )
+        VALUES (
+                #{ proCode }
+                ,#{ evaNum }
+                )
+    </insert>
 </mapper>
