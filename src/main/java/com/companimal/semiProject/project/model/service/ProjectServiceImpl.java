@@ -377,4 +377,14 @@ public class ProjectServiceImpl implements ProjectService {
 
         return result;
     }
+
+    @Override
+    public ProjectDTO selectFinalCal(int proCode) {
+        return projectMapper.selectFinalCal(proCode);
+    }
+
+    @Override
+    public List<ProjectDTO> selectMenuProject() {
+        return projectMapper.selectMenuProject();
+    }
 }

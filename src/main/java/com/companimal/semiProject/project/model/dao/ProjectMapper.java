@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProjectMapper {
@@ -45,6 +46,10 @@ public interface ProjectMapper {
 
     int insertCalculationList(String proCode);
 
+    List<ProjectDTO> selectMenuProject();
+
+    ProjectDTO selectFinalCal(int proCode);
+  
     int insertProjectEva(ProjectEvaluationDTO projectEvaluation);
 
     int insertProjectEvaDetail(ProjectEvaluationDTO projectEvaluation);
