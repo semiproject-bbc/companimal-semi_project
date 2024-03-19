@@ -2,152 +2,166 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
     <title>COMPANIMAL</title>
     <link rel="stylesheet" th:href="@{/css/regist.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-</head> 
+</head>
 <body>
 <div class="companimalLogo" onclick="location.href='/main'">Companimal</div>
 <div class="MainWeapper_contest">
 
-        <div class="account-intro-login">
+    <div class="account-intro-login">
 
-            <div class="AccountContainer_container">
+        <div class="AccountContainer_container">
 
-                <h1 class="AccountContainer_title">회원가입</h1>
+            <h1 class="AccountContainer_title">회원가입</h1>
 
 
-                
-                <form class="registForm_form" th:action="@{/member/regist}" th:method="post">
+            <form class="registForm_form" th:action="@{/member/regist}" th:method="post">
 
-                    <div class="registFormRegistField">
+                <div class="registFormRegistField">
 
-                        <div class="registIdField" >
+                    <div class="registIdField">
 
-                            <input id="memberId" name="memberId"  class="idField" maxlength="20" placeholder="   아이디" type="text" >
-                            <button type="button" class="idDuplicateCheckButton">중복 확인</button>
-                        </div>
+                        <input id="memberId" name="memberId" class="idField" maxlength="20" placeholder="   아이디"
+                               type="text">
+                        <button type="button" class="idDuplicateCheckButton">중복 확인</button>
+                    </div>
 
-                        <div class="registPasswordField">
+                    <div class="registPasswordField">
 
-                            <input id="memberPwd" name="memberPwd" class="passwordField" maxlength="20" placeholder="   비밀번호" type="password" >
-                        </div>
+                        <input id="memberPwd" name="memberPwd" class="passwordField" maxlength="20"
+                               placeholder="   비밀번호" type="password">
+                    </div>
 
-                        <div class="registPasswordCheckField">
+                    <div class="registPasswordCheckField">
 
-                            <input id="passwordCheck" class="passwordCheckField" maxlength="20" placeholder="   비밀번호 확인" type="password" >
-
-                        </div>
-
-                        <div  class="registNicknameField">
-
-                            <input id="memberNickname" name="memberNickname" class="nicknameField" maxlength="20" placeholder="   닉네임" type="text" >
-
-                        </div>      
-                        
-                        <div class="registNameField">
-
-                            <input id="memberName" name="memberName" class="nameField" maxlength="20" placeholder="   이름" type="text" >
-                        </div>
-
-                        <div  class="registPhoneNumberField">
-
-                            <input id="memberPhone" name="memberPhone" class="phoneNumberField" maxlength="20" placeholder="   휴대폰 번호" type="text" >
-                        </div>
-
-                        <div class="registEmailField">
-                            <input id="email" name="memberEmail1" class="emailField" placeholder="   이메일" type="text" >
-                            <div id="atSign">@</div>
-                            <input id="email2" name="memberEmail2" class="emailField2" disabled>
-                            <input name="memberEmail" style="display: none;" >
-                            <select class="emailSelect">
-                                <option selected disabled>선택</option>
-                                <option value="naver.com">@naver.com</option>
-                                <option value="gmail.com">@gmail.com</option>
-                                <option value="hanmail.net">@hanmail.net</option>
-                                <option value="direct">직접 입력</option>
-                            </select>
-                            <button type="button" id="sendEmail" class="emailSendButton">전송</button>
-                        </div>
-
-                        <div class="registEmailCheckField">
-
-                            <input class="emailCertificationNumberField" maxlength="6" placeholder="   이메일 인증 번호" type="text" >
-
-                            <button type="button" class="certificationNumberCheckButton">확인</button>
-                        </div>  
+                        <input id="passwordCheck" class="passwordCheckField" maxlength="20" placeholder="   비밀번호 확인"
+                               type="password">
 
                     </div>
 
-                    <div class="agreement">
-                        <img class="icon" th:src="@{/image/check.png}">
-                        <p>이용 약관 전체 동의</p>
-                      </div>
-                      
-                      <section class="agreement-contents">
-                        <div class="terms">
-                          <div class="item">
-                            <div class="term">
-                              <img class="icon" th:src="@{/image/check.png}">
-                              <p class="agreementName">회원가입 약관</p>
-                            </div>
-                            <p class="view">보기</p>
-                          </div>
-                          <div class="item">
-                            <div class="term">
-                              <img class="icon" th:src="@{/image/check.png}">
-                              <p class="agreementName">개인정보 수집 및 이용 동의</p>
-                            </div>
-                            <p class="view">보기</p>
-                          </div>
-                          <div class="item">
-                            <div class="term">
-                              <img class="icon" th:src="@{/image/check.png}">
-                              <p class="agreementName">만 14세 이상입니다.</p>
-                            </div>
-                            <p class="view">보기</p>
-                          </div>
-                        </div>
-                      </section>
+                    <div class="registNicknameField">
 
-                    <div class="registButton">
+                        <input id="memberNickname" name="memberNickname" class="nicknameField" maxlength="20"
+                               placeholder="   닉네임" type="text">
 
-                        <input name="memberRole" value="MANAGER" type="hidden"/>
+                    </div>
+
+                    <div class="registNameField">
+
+                        <input id="memberName" name="memberName" class="nameField" maxlength="20" placeholder="   이름"
+                               type="text">
+                    </div>
+
+                    <div class="registPhoneNumberField">
+
+                        <input id="memberPhone" name="memberPhone" class="phoneNumberField" maxlength="20"
+                               placeholder="   휴대폰 번호" type="text">
+                    </div>
+
+                    <div class="registEmailField">
+                        <input id="email" name="memberEmail1" class="emailField" placeholder="   이메일" type="text">
+                        <div id="atSign">@</div>
+                        <input id="email2" name="memberEmail2" class="emailField2" disabled>
+                        <input name="memberEmail" style="display: none;">
+                        <select class="emailSelect">
+                            <option selected disabled>선택</option>
+                            <option value="naver.com">@naver.com</option>
+                            <option value="gmail.com">@gmail.com</option>
+                            <option value="hanmail.net">@hanmail.net</option>
+                            <option value="direct">직접 입력</option>
+                        </select>
+                        <button type="button" id="sendEmail" class="emailSendButton">전송</button>
+                    </div>
+
+                    <div class="registEmailCheckField">
+
+                        <input class="emailCertificationNumberField" maxlength="6" placeholder="   이메일 인증 번호"
+                               type="text">
+
+                        <button type="button" class="certificationNumberCheckButton">확인</button>
+                    </div>
+
+                </div>
+
+                <div class="agreement">
+                    <input type="checkbox" class="individualCheckbox" id="selectAll">
+                    <p>이용 약관 전체 동의</p>
+                </div>
+
+                <section class="agreement-contents">
+                    <div class="term">
+                        <input type="checkbox" class="individualCheckbox" id="term1">
+                        <label for="term1" class="agreementName">회원가입 약관</label>
+                        <button type="button" class="view" id="view1">보기</button>
+                    </div>
+                    <div class="term">
+                        <input type="checkbox" class="individualCheckbox" id="term2">
+                        <label for="term2" class="agreementName">개인정보 수집 및 이용 동의</label>
+                        <button type="button" class="view" id="view2">보기</button>
+                    </div>
+                    <div class="term">
+                        <input type="checkbox" class="individualCheckbox" id="term3">
+                        <label for="term3" class="agreementName">만 14세 이상입니다.</label>
+                        <button type="button" class="view" id="view3"></button>
+                    </div>
+                </section>
+
+
+                <div class="registButton">
+
+                    <input name="memberRole" value="MANAGER" type="hidden"/>
 
                     <button class="registSubmitButton disabled" id="registSubmitButton" type="submit" disabled>
                         <span class="registSubmitButtonText">가입</span>
                     </button>
-                    </div>
+                </div>
 
-                </form>
-
-            </div>
+            </form>
 
         </div>
-        
+
     </div>
 
-    <div id="myModal" class="modal">
+</div>
 
-        <div class="modalContent">
+<div id="myModal" class="modal">
 
-            <span class="close">&times;</span>
+    <div class="modalContent">
 
-            <div class="modalText">
-                <p id="modalText">모달 내용</p>
-            </div>
+        <span class="close">&times;</span>
+
+        <div class="modalText">
+            <p id="modalText">모달 내용</p>
         </div>
     </div>
+</div>
 
-    <script th:src="@{/js/regist/idDuplicateCheck.js}"></script>
-    <script th:src="@{/js/regist/emailAuth.js}"></script>
-    <script th:src="@{/js/regist/verifyEmail.js}"></script>
-    <script th:src="@{/js/regist/validateForm.js}"></script>
-    <script th:src="@{/js/regist/registEnabled.js}"></script>
-    <script th:src="@{/js/regist/modalClose.js}"></script>
-    <script th:src="@{/js/regist/fullEmailAddress.js}"></script>
+<div id="myModal1" class="modal1">
+
+    <div class="modalContent1">
+
+        <span class="close">&times;</span>
+
+        <div class="modalText">
+            <p id="modalText1">모달 내용</p>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/regist/idDuplicateCheck.js}"></script>
+<script th:src="@{/js/regist/emailAuth.js}"></script>
+<script th:src="@{/js/regist/verifyEmail.js}"></script>
+<script th:src="@{/js/regist/validateForm.js}"></script>
+<script th:src="@{/js/regist/registEnabled.js}"></script>
+<script th:src="@{/js/regist/modalClose.js}"></script>
+<script th:src="@{/js/regist/fullEmailAddress.js}"></script>
+<script th:src="@{/js/regist/termOfUse.js}"></script>
+<script th:src="@{/js/regist/viewTerm.js}"></script>
 </body>
 </html>
