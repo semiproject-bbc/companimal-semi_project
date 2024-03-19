@@ -13,14 +13,15 @@
 
 <th:block layout:fragment="content">
     <section>
-        <div class="door">
+        <div class="door" th:each="project : ${ selectProject }">
             <div class="door-image">
                 <div class="slider">
                     <input type="radio" name="slide" id="slide1" checked>
                     <input type="radio" name="slide" id="slide2">
                     <input type="radio" name="slide" id="slide3">
-                    <ul id="imgholder" class="imgs">
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image1.png}"></li>
+                    <th:block th:unless="${ img != null}">
+                    <ul id="imgholder" class="imgs" th:each="img : ${ imgs }">
+                        <li><img class="detail-main-image" th:src="${ img }"></li>
                         <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
                         <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
                     </ul>
@@ -29,17 +30,18 @@
                         <label for="slide2">&nbsp;</label>
                         <label for="slide3">&nbsp;</label>
                     </div>
+                    </th:block>
                 </div>
             </div>
             <!--            <th:block th:each="project : ${ selectProjectList }">-->
-            <div class="door-content" th:each="project : ${ selectProject }">
+            <div class="door-content">
                 <p th:text="${ project.endDate }" class="d-day"></p>
                 <div class="category-title">
                     <div class="category">
                         <button type="button" class="category_button">
                             <img class="category-image" th:src="@{/image/living.png}">
                         </button>
-                        <p class="living">카테고리</p>
+                        <p class="living" th:text="${ project.category.proCateName }">카테고리</p>
                     </div>
                     <p class="title" name="proName" th:text="${ project.proName }"></p>
                 </div>
