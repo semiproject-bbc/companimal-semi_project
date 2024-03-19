@@ -1,14 +1,5 @@
 $(document).ready(function () {
 
-    $(".emailSelect").change(function () {
-        let selectedDomain = $(this).val();
-        if (selectedDomain === "direct") {
-            $("#email2").prop('disabled', false).val('').focus();
-        } else {
-            $("#email2").val(selectedDomain).prop('disabled', true);
-        }
-    });
-
     $("#sendEmail").click(function () {
         let email = $("#email").val();
         let memName = $("input[name='memName']").val()

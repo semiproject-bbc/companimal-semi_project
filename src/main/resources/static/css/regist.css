@@ -285,7 +285,7 @@
     border: 1px solid #d5d5d5;
 }
 
-.registSubmitButton enabled:hover {
+.registSubmitButton.enabled:hover {
     background-color: #ff8000;
     border: 1px solid #ff8000;
     box-sizing: border-box;

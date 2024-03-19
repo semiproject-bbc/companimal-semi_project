@@ -14,10 +14,10 @@ function checkAllCompleted() {
 
     const allCompleted = Object.values(status).every(val => val === true);
     if (allCompleted) {
-        $('#resetPasswordSubmitButton').removeClass('disabled');
+        $('#resetPasswordSubmitButton').removeClass('disabled').addClass('enabled');
         $('#resetPasswordSubmitButton').prop('disabled', false);
     } else {
-        $('#resetPasswordSubmitButton').addClass('disabled');
+        $('#resetPasswordSubmitButton').addClass('disabled').removeClass('enabled');
         $('#resetPasswordSubmitButton').prop('disabled', true);
     }
 }

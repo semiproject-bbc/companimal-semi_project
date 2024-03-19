@@ -203,6 +203,12 @@
         WHERE C.EVA_NUM = #{ evaNum }
     </select>
 
+    <select id="selectCreatorInfo" parameterType="String">
+        SELECT MEM_ID
+        FROM CREATOR_INFO
+        WHERE MEM_ID = #{creatorId}
+    </select>
+
     <insert id="insertCreatorInfo" parameterType="com.companimal.semiProject.project.model.dto.CreatorInfoDTO">
         INSERT
         INTO CREATOR_iNFO (
@@ -228,6 +234,20 @@
                 ,#{ depositorName }
                )
     </insert>
+
+    <update id="updateCreatorInfo" parameterType="com.companimal.semiProject.project.model.dto.CreatorInfoDTO">
+        UPDATE CREATOR_INFO
+        SET
+              CRE_INQ_PHONE = #{creInqPhone}
+            , CRE_INQ_EMAIL = #{creInqEmail}
+            , CRE_IMG_NAME = #{creImgName}
+            , CRE_IMG_PATH = #{creImgPath}
+            , CRE_IMG_ORI_NAME = #{creImgOriName}
+            , BANK_NAME = #{bankName}
+            , ACCOUNT_NO = #{accountNo}
+            , DEPOSITOR_NAME = #{depositorName}
+        WHERE MEM_ID = #{memId}
+    </update>
 
     <insert id="InsertCreatorBusiness" parameterType="com.companimal.semiProject.evaluation.model.dto.CreatorBusinessDTO">
         INSERT
@@ -334,12 +354,6 @@
         WHERE MEM_ID = #{ memId }
     </update>
 
-    <delete id="deleteCreatorEvaluation" parameterType="string">
-        DELETE
-        FROM CREATOR_EVA
-        WHERE MEM_ID = #{ memId }
-    </delete>
-
     <delete id="deleteCreatorFile" parameterType="string">
         DELETE
         FROM CREATOR_FILE
@@ -356,6 +370,12 @@
         UPDATE EVALUATION
         SET REA_REJECTION = #{ reaRejection },
             EVA_SITUATION = #{ evaSituation }
+        WHERE EVA_NUM = #{ evaNum }
+    </update>
+
+    <update id="updateEvaSituation" parameterType="java.util.Map">
+        UPDATE EVALUATION
+        SET EVA_SITUATION = #{ evaSituation }
         WHERE EVA_NUM = #{ evaNum }
     </update>
 

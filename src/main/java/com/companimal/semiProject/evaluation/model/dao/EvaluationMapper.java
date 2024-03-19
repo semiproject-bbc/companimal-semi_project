@@ -10,7 +10,11 @@ import java.util.Map;
 @Mapper
 public interface EvaluationMapper {
 
+    boolean selectCreatorInfo(String creatorId);
+
     boolean insertCreatorInfo(CreatorInfoDTO creatorInfoDTO);
+
+    boolean updateCreatorInfo(CreatorInfoDTO creatorInfoDTO);
 
     boolean InsertCreatorFile(CreatorFileDTO creatorFileDTO);
 
@@ -34,8 +38,6 @@ public interface EvaluationMapper {
 
     void updateCreatorRole(String memId, String memberRole);
 
-    void deleteCreatorEvaluation(String memId);
-
     void deleteCreatorFile(String memId);
 
     void deleteCreatorInfo(String memId);
@@ -47,4 +49,6 @@ public interface EvaluationMapper {
     void deleteCreatorBusinessEvaluation(String memId);
 
     List<ProjectEvaluationDTO> selectAllProjectEva();
+
+    void updateEvaSituation(Map<String, Object> map);
 }
