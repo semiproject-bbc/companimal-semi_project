@@ -1,6 +1,7 @@
 package com.companimal.semiProject.project.controller;
 
 import com.companimal.semiProject.auth.model.AuthDetails;
+import com.companimal.semiProject.member.model.service.MemberService;
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
@@ -23,11 +24,12 @@ import java.util.*;
 public class ProjectController {
 
     private final ProjectService projectService;
-
+    private final MemberService memberService;
     private int rewardNumber = 1;
 
-    private ProjectController(ProjectService projectService) {
+    private ProjectController(ProjectService projectService, MemberService memberService) {
         this.projectService = projectService;
+        this.memberService = memberService;
     }
 
     @GetMapping("/")
