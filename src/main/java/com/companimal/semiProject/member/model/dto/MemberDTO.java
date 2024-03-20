@@ -4,6 +4,7 @@ import com.companimal.semiProject.order.model.dto.OrderOptDTO;
 import com.companimal.semiProject.order.model.dto.OrderPaymentDTO;
 import com.companimal.semiProject.project.model.dto.CreatorInfoDTO;
 import com.companimal.semiProject.project.model.dto.ProjectDTO;
+import com.companimal.semiProject.project.model.dto.ProjectImageDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,11 +21,12 @@ public class MemberDTO {
     private List<ProjectDTO> project;
     private List<OrderPaymentDTO> orderPayment;
     private CreatorInfoDTO creatorInfo;
+    private List<ProjectImageDTO> image;
 
     public MemberDTO() {
     }
 
-    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole, List<ProjectDTO> project, List<OrderPaymentDTO> orderPayment, CreatorInfoDTO creatorInfo) {
+    public MemberDTO(String memberId, String memberPwd, String memberNickname, String memberName, String memberPhone, String memberEmail, String memberRole, List<ProjectDTO> project, List<OrderPaymentDTO> orderPayment, CreatorInfoDTO creatorInfo, List<ProjectImageDTO> image) {
         this.memberId = memberId;
         this.memberPwd = memberPwd;
         this.memberNickname = memberNickname;
@@ -35,6 +37,7 @@ public class MemberDTO {
         this.project = project;
         this.orderPayment = orderPayment;
         this.creatorInfo = creatorInfo;
+        this.image = image;
     }
 
     public String getMemberId() {
@@ -117,6 +120,14 @@ public class MemberDTO {
         this.creatorInfo = creatorInfo;
     }
 
+    public List<ProjectImageDTO> getImage() {
+        return image;
+    }
+
+    public void setImage(List<ProjectImageDTO> image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "MemberDTO{" +
@@ -130,6 +141,7 @@ public class MemberDTO {
                 ", project=" + project +
                 ", orderPayment=" + orderPayment +
                 ", creatorInfo=" + creatorInfo +
+                ", image=" + image +
                 '}';
     }
 }
