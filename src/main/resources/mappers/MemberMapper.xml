@@ -160,6 +160,7 @@
             p.pro_name,
             p.end_date,
             p.est_date,
+            p.ach_rate,
             o.purchase_status,
             o.order_code,
             o.order_date,
@@ -173,7 +174,7 @@
             JOIN project p ON (o.pro_code = p.pro_code)
             JOIN project_image i ON (p.pro_code = i.pro_code)
             WHERE m.mem_id = #{id}
-            ORDER BY o.order_date desc
+            ORDER BY o.order_date
     </select>
 
     <update id="updatePurchaseConfirm" parameterType="String">
