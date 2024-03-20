@@ -29,14 +29,22 @@ document.addEventListener("DOMContentLoaded", function() {
             var inputtedText = document.getElementById('textContext').value;
             console.log(inputtedText); // 입력한 값들 확인용
 
-            var hiddenInput = document.createElement('input');
-            hiddenInput.type = 'hidden';
-            hiddenInput.name = 'inputtedText';
-            hiddenInput.value = String(inputtedText);
+            var hiddenInputText = document.createElement('input');
+            hiddenInputText.type = 'hidden';
+            hiddenInputText.name = 'inputtedText';
+            hiddenInputText.value = String(inputtedText);
+            sendForm.append(hiddenInputText);
 
-            sendForm.append(hiddenInput);
-            sendForm.querySelector('[name="inqCateName"]').value = selectedOptionName;      // InquiryData로 정보를 바로 보내기 위해서
-            sendForm.querySelector('[name="inqCateCode"]').value = selectedOptionRealValue;
+            var hiddenInputCode = document.createElement('input');
+
+            hiddenInputCode.type = 'hidden';
+            hiddenInputCode.name = 'inqCateCode';
+            hiddenInputCode.value = (selectedOptionRealValue + "");
+
+            sendForm.append(hiddenInputCode);
+
+            // sendForm.querySelector('[name="inqCateName"]').value = selectedOptionName;      // InquiryData로 정보를 바로 보내기 위해서
+            // sendForm.querySelector('[name="inqCateCode"]').value = selectedOptionRealValue;
 
             sendForm.submit();
         });

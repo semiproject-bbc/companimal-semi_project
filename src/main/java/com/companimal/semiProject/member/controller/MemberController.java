@@ -3,10 +3,12 @@ package com.companimal.semiProject.member.controller;
 import com.companimal.semiProject.member.model.dto.InquiryCateDTO;
 import com.companimal.semiProject.member.model.dto.InquiryDTO;
 import com.companimal.semiProject.member.model.dto.SupporterParticipatedProjectDTO;
+import com.companimal.semiProject.member.model.service.CouponService;
 import com.companimal.semiProject.member.model.service.DuplicateCheckService;
 import com.companimal.semiProject.member.model.service.MailService;
 import com.companimal.semiProject.member.model.dto.MemberDTO;
 import com.companimal.semiProject.member.model.service.MemberService;
+import com.companimal.semiProject.order.model.dto.CouponDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -26,11 +28,13 @@ public class MemberController {
     private final MemberService memberService;
     private final MailService mailService;
     private final DuplicateCheckService duplicateCheckService;
+    private final CouponService couponService;
 
-    public MemberController(MemberService memberService, MailService mailService, DuplicateCheckService duplicateCheckService) {
+    public MemberController(MemberService memberService, MailService mailService, DuplicateCheckService duplicateCheckService, CouponService couponService) {
         this.memberService = memberService;
         this.mailService = mailService;
         this.duplicateCheckService = duplicateCheckService;
+        this.couponService = couponService;
     }
 
     @GetMapping("/regist")
@@ -168,9 +172,33 @@ public class MemberController {
     }
 
     @RequestMapping("/coupon")
-    public String selectCouponList() {
+    public String selectCouponList(Authentication authentication,
+                                   Model model) {
         System.out.println("쿠폰 목록");
 
+        System.out.println("잘 도착");
+        /* 사용가능한 쿠폰들 호출 */
+        List<CouponDTO> availableCouponList = couponService.getAvailableCouponInfo(authentication.getName());
+        for (CouponDTO couponDTO : availableCouponList) {
+            System.out.println(couponDTO);
+        }
+        /* 사용한 쿠폰들 호출 */
+        List<CouponDTO> usedCouponList = couponService.getUsedCouponInfo(authentication.getName());
+        for (CouponDTO couponDTO : usedCouponList) {
+            System.out.println(couponDTO);
+        }
+
+        /* 다운 받을 쿠폰들 호출*/
+//        List<CouponDTO> downloadCouponList = couponService.downloadCouponInfo(authentication.getName());
+//        for (CouponDTO couponDTO : downloadCouponList) {
+//            System.out.println(couponDTO);
+//        }
+
+        model.addAttribute("availableCoupon", availableCouponList);
+        model.addAttribute("usedCoupon", usedCouponList);
+//        model.addAttribute("downloadCoupon", downloadCouponList);
+
+        System.out.println("쿠폰 페이지로 전송");
         return "contents/member/supportercoupon";
     }
 
@@ -229,14 +257,32 @@ public class MemberController {
         return "contents/member/supporterProject";
     }
 
-    @PostMapping("/supporterInquiry")
-    public String SupporterInquiryConfirmationPage(@ModelAttribute InquiryCateDTO inquiryCateDTO,
-                                                   @RequestParam("inputtedText") String inputtedText,
-                                                   @PathVariable("proCode") int proCode,
-                                                   Authentication authentication) {
+//    // test용
+//    @GetMapping("/supporterInquiry")
+//    public String successPage() {
+//        System.out.println("successPage로 이동");
+//        return "/contents/member/inquiredSubmitSuccess";
+//    }
 
-        System.out.println(inquiryCateDTO.getInqCateCode()); // 확인용
-        System.out.println(inquiryCateDTO.getInqCateName()); // 확인용
+
+    @GetMapping("/supporterInquiryPage/{proCode}")
+    public String supporterSendInquiry(@PathVariable("proCode") int proCode,
+                                       HttpSession session) {
+        session.setAttribute("proCode123", proCode);
+
+        return "/contents/member/supporterInquiryPage";
+    }
+
+    @PostMapping("/supporterInquiry")
+    public String SupporterInquiryConfirmationPage(/*@ModelAttribute InquiryCateDTO inquiryCateDTO,*/
+                                                   @RequestParam("inputtedText") String inputtedText,
+                                                   @RequestParam("inqCateCode") String inqCategoryCode,
+                                                   Authentication authentication,
+                                                   HttpSession session) {
+//        int categoryCode = Integer.parseInt(inqCategoryCode.trim());
+        int categoryCode = Integer.parseInt(inqCategoryCode.substring(2));
+        System.out.println(inqCategoryCode); // 가져온 categoryCode 값
+//        System.out.println(inquiryCateDTO.getInqCateName()); // 확인용
         System.out.println(inputtedText);                    // 확인용
 
 //        model.addAttribute("inquiryDetails", inquiryCateDTO);
@@ -250,35 +296,16 @@ public class MemberController {
 
         InquiryDTO inquiryDTO = new InquiryDTO();
         inquiryDTO.setMemId(authentication.getName());              // 회원ID
-        inquiryDTO.setProCode(proCode);                             // 프로젝트 코드
+        inquiryDTO.setProCode((int)session.getAttribute("proCode123"));                             // 프로젝트 코드
         inquiryDTO.setInqContent(inputtedText);                     // 작성한 내용
         inquiryDTO.setInqDateTime(timestamp);                       // 문의한 시간
         // inquiryDTO.setInqAnswer();                               // 아직 미정
-        inquiryDTO.setInqCateCode(inquiryCateDTO.getInqCateCode()); // categoryCode
+        inquiryDTO.setInqCateCode(categoryCode); // categoryCode
 
         memberService.setSupporterInquiredProject(inquiryDTO); // 저장이 잘 됐으면 성공 페이지로 이동한다
-
         return "/contents/member/inquiredSubmitSuccess";
     }
 
-    // test용
-    @GetMapping("/supporterInquiry")
-    public String successPage() {
-        System.out.println("successPage로 이동");
-        return "/contents/member/inquiredSubmitSuccess";
-    }
-
-
-//    @PostMapping("/supporterInquiry")
-//    public String SupporterInquiryConfirmationPage1() {
-//
-//        return "/contents/member/supporterInquiry";
-//    }
-
-    @GetMapping("/supporterSendInquiry")
-    public String supporterSendInquiry() {
-        return "/contents/member/supporterInquiryPage";
-    }
 
     @GetMapping("/mypage/ongoingProject")
     public String ongoingPage() {
