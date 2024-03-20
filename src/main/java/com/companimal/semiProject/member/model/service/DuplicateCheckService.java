@@ -12,8 +12,8 @@ public class DuplicateCheckService {
         this.memberMapper = memberMapper;
     }
 
-    public int idDuplicateCheck(String id) {
-       return memberMapper.idDuplicateCheck(id);
+    public boolean idDuplicateCheck(String id) {
+        return memberMapper.idDuplicateCheck(id) > 0;
     }
 
 }

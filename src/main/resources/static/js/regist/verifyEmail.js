@@ -16,6 +16,7 @@ $(document).ready(function(){
                 authCode: authCode
             },
             success: function(isValid) {
+                // 반환 받은 값이 true면 이메일 인증에 대한 상태를 true로 바꿈
                 if(isValid) {
                     $('#modalText').text('인증되었습니다.');
                     $('#myModal').show();

@@ -119,6 +119,7 @@ public class EvaluationController {
 
     @GetMapping("/manager/creatorEvaluationList")
     public ModelAndView creatorEvaluationList(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page) {
+
         int pageSize = 10; // 페이지당 표시할 아이템 수
 
         // 전체 아이템 수 조회
@@ -204,7 +205,7 @@ public class EvaluationController {
         map.put("evaSituation", "승인");
         creatorEvaluationService.updateEvaSituation(map);
 
-        return "/contents/evaluation/manager/creatorEvaluationList";
+        return "/main";
     }
 
     @GetMapping("/manager/return")
@@ -220,14 +221,13 @@ public class EvaluationController {
         map.put("evaSituation", "반려");
         creatorEvaluationService.updateReaRejection(map);
 
-//        creatorEvaluationService.deleteCreatorEvaluation(evaNum, reaRejection, memId);
-
         return  "/contents/evaluation/manager/creatorEvaluationList";
     }
 
     @GetMapping("/evaluationProcessAfter")
     public String EvaluationProcessAfter() {
-        return "/contents/evaluation/manager/creatorEvaluationList";
+        System.out.println("심사처리후 리스트페이지 진입");
+        return "/evaluation/manager/creatorEvaluationList";
     }
 
     @GetMapping("/projectEvaluationList")
