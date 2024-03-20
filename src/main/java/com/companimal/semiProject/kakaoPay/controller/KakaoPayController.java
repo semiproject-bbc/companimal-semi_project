@@ -135,6 +135,8 @@ public class KakaoPayController {
         orderService.updateUsedCoupon((String) httpSession.getAttribute("usedCouponCode"));
         System.out.println(httpSession.getAttribute("usedCouponCode"));
         // 결제 성공 화면으로 이동
+
+
         return "contents/order/successPage";
     }
     @RequestMapping("kakaoPayCancel")

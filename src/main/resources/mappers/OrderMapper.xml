@@ -55,7 +55,7 @@
         <result property="memId" column="MEM_ID" />
         <result property="address" column="ADDRESS" />
         <result property="request" column="REQUEST" />
-        <result property="recipient" column="RECIPENT" />
+        <result property="recipient" column="RECIPIENT" />
         <result property="finalPay" column="FINAL_PAY" />
         <result property="proCode" column="PRO_CODE" />
         <result property="couCode" column="COU_CODE" />
@@ -89,7 +89,7 @@
         MEM_ID,
         ADDRESS,
         REQUEST,
-        RECIPENT,
+        RECIPIENT,
         PRO_CODE,
         FINAL_PAY,
         COU_CODE,
