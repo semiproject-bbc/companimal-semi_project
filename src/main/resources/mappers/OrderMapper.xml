@@ -70,8 +70,8 @@
                COU_YN,
                MEM_ID
         FROM COUPON
-            WHERE MEM_ID = #{ memId }
-        AND COU_YN = 'y'
+        WHERE MEM_ID = #{ memId }
+          AND COU_YN = 'y'
     </select>
 
     <select id="findMemberInfo" resultMap="memberResultMap">
@@ -85,32 +85,32 @@
 
     <insert id="setOrderPaymentInfo" parameterType="com.companimal.semiProject.order.model.dto.OrderPaymentDTO">
         INSERT INTO ORDER_PAYMENT (ORDER_CODE,
-        ORDER_DATE,
-        MEM_ID,
-        ADDRESS,
-        REQUEST,
-        RECIPIENT,
-        PRO_CODE,
-        FINAL_PAY,
-        COU_CODE,
-        PURCHASE_STATUS
+                                   ORDER_DATE,
+                                   MEM_ID,
+                                   ADDRESS,
+                                   REQUEST,
+                                   RECIPIENT,
+                                   PRO_CODE,
+                                   FINAL_PAY,
+                                   COU_CODE,
+                                   PURCHASE_STATUS
         )
         VALUES (#{orderCode},
-        #{orderDate},
-        #{memId},
-        #{address},
-        #{request},
-        #{recipient},
-        #{proCode},
-        #{finalPay},
-        #{couCode},
-        #{purchaseStatus}
-        )
+                #{orderDate},
+                #{memId},
+                #{address},
+                #{request},
+                #{recipient},
+                #{proCode},
+                #{finalPay},
+                #{couCode},
+                #{purchaseStatus}
+               )
     </insert>
 
     <update id="updateUsedCoupon" parameterType="String">
         UPDATE COUPON
-            SET COU_YN = "n"
+        SET COU_YN = "n"
         WHERE COU_CODE = #{ couCode }
     </update>
 </mapper>
