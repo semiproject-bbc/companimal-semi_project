@@ -315,4 +315,8 @@ public class MemberController {
             return "/contents/member/supportercoupon";
     }
 
+    @GetMapping("/creatorEvaluation")
+    public String creatorEvaluation() {
+        return "/contents/member/mypage/ongoingProject";
+    }
 }
