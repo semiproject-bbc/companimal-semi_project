@@ -16,8 +16,8 @@
         <h2>참여 프로젝트</h2>
         <div class="participateProject-container">
             <div class="projectbox" th:each="participatelist : ${participateList}">
-                <a th:href="@{|/project/projectDetail/${participatelist.project.get(0).proCode}|}">
-                    <img src="/image/thumb1.jpg" alt="프로젝트 썸네일"/>
+                <a class="thumbimg" th:href="@{|/project/projectDetail/${participatelist.project.get(0).proCode}|}">
+                    <img class="thumbimg" th:src="@{|/image/store/${participatelist.image[0].proImgName}|}" alt="프로젝트 썸네일"/>
                 </a>
                 <div class="projectInfo">
                     <div class="projectTitle ellipsisWrap" th:text="${participatelist.project.get(0).proName}"></div>
@@ -66,10 +66,10 @@
                             </th:block>
                         </th:block>
                     </th:block>
-                    <a class="orderDetails" th:href="/">내역 조회</a>
+                    <a class="orderDetails" href="/member/supporterProject">내역 조회</a>
                 </div>
                 <div class="inquiryHistory">
-                    <button class="creatorInquiry">크리에이터 문의하기</button>
+                    <a th:href="@{|/member/supporterInquiryPage/${participatelist.project.get(0).proCode}|}" class="creatorInquiry">크리에이터 문의하기</a>
                 </div>
             </div>
         </div>

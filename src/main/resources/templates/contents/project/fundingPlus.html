@@ -49,7 +49,7 @@
                     <div class="mainContentWrapper" th:each="cateProject : ${selectMenuProjectList}">
                         <a th:href="@{|/project/projectDetail/${cateProject.proCode}|}">
                             <div class="thumbnailImageContainer">
-                                <img class="thumbnailImage" th:src="@{/image/detail_main_image1.png}">
+                                <img class="thumbnailImage" th:src="@{|/image/store/${cateProject.image[0].proImgName}|}">
                             </div>
 
                             <div class="mainContentInfoBoxContainer">
@@ -59,7 +59,6 @@
                                         <span class="ach">% 달성</span>
                                     </div>
                                     <strong class="title" th:text="${ cateProject.proName }"></strong>
-                                    <p th:text="${cateProject.getCate().get(0).proCateCode}"></p>
                                 </h3>
                                 <!--                            <p class="MainContentCreaterNameWrapper">크리에이터 이름</p>-->
                             </div>

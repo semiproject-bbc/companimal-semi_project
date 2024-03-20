@@ -14,6 +14,14 @@
         <result property="memberRole" column="MEM_AUTHORITY"/>
     </resultMap>
 
+    <resultMap id="projectImageResultMap" type="com.companimal.semiProject.project.model.dto.ProjectImageDTO">
+        <id property="proImgNum" column="pro_img_num"/>
+        <id property="proCode" column="pro_code"/>
+        <result property="proImgPath" column="pro_img_path"/>
+        <result property="proImgName" column="pro_img_name"/>
+        <result property="proImgOriName" column="pro_img_ori_name"/>
+    </resultMap>
+
     <resultMap id="projectResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
         <id property="proCode" column="pro_code"/>
         <result property="proName" column="pro_name"/>
@@ -94,6 +102,19 @@
         <result property="inqCateCode" column="INQ_CATE_CODE"/>
     </resultMap>
 
+    <resultMap id="selectShowParticipateResultMap" type="com.companimal.semiProject.member.model.dto.MemberDTO">
+        <id property="memberId" column="MEM_ID"/>
+        <result property="memberPwd" column="MEM_PWD"/>
+        <result property="memberNickname" column="MEM_NICKNAME"/>
+        <result property="memberName" column="MEM_NAME"/>
+        <result property="memberPhone" column="MEM_PHONE"/>
+        <result property="memberEmail" column="MEM_EMAIL"/>
+        <result property="memberRole" column="MEM_AUTHORITY"/>
+        <collection property="project" resultMap="projectResultMap" />
+        <collection property="orderPayment" resultMap="orderPaymentResultMap" />
+        <collection property="image" resultMap="projectImageResultMap" />
+    </resultMap>
+
     <insert id="registMember" parameterType="com.companimal.semiProject.member.model.dto.MemberDTO">
         INSERT
         INTO DEFAULT_MEMBER (MEM_ID
@@ -133,7 +154,7 @@
         WHERE MEM_ID = #{ id }
     </select>
 
-    <select id="selectParticipate" parameterType="String" resultMap="selectParticipateResultMap">
+    <select id="selectParticipate" parameterType="String" resultMap="selectShowParticipateResultMap">
         SELECT
             p.pro_code,
             p.pro_name,
@@ -141,10 +162,16 @@
             p.est_date,
             o.purchase_status,
             o.order_code,
-            o.order_date
+            o.order_date,
+            i.pro_img_num,
+            i.pro_code,
+            i.pro_img_path,
+            i.pro_img_name,
+            i.pro_img_ori_name
             FROM default_member m
             JOIN order_payment o ON (m.mem_id = o.mem_id)
             JOIN project p ON (o.pro_code = p.pro_code)
+            JOIN project_image i ON (p.pro_code = i.pro_code)
             WHERE m.mem_id = #{id}
             ORDER BY o.order_date desc
     </select>
