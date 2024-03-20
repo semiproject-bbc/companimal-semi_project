@@ -25,34 +25,34 @@ public class CouponController {
         this.couponService = couponService;
     }
 
-    @GetMapping("/coupon") // 쿠폰 페이지에서 정보를 출력을 하기 위해서이다
-    public String couponPage(Model model, Authentication authentication) {
-
-        System.out.println("잘 도착");
-        /* 사용가능한 쿠폰들 호출 */
-        List<CouponDTO> availableCouponList = couponService.getAvailableCouponInfo(authentication.getName());
-        for (CouponDTO couponDTO : availableCouponList) {
-            System.out.println(couponDTO);
-        }
-        /* 사용한 쿠폰들 호출 */
-        List<CouponDTO> usedCouponList = couponService.getUsedCouponInfo(authentication.getName());
-        for (CouponDTO couponDTO : usedCouponList) {
-            System.out.println(couponDTO);
-        }
-
-        /* 다운 받을 쿠폰들 호출*/
-//        List<CouponDTO> downloadCouponList = couponService.downloadCouponInfo(authentication.getName());
-//        for (CouponDTO couponDTO : downloadCouponList) {
+//    @GetMapping("/coupon") // 쿠폰 페이지에서 정보를 출력을 하기 위해서이다
+//    public String couponPage(Model model, Authentication authentication) {
+//
+//        System.out.println("잘 도착");
+//        /* 사용가능한 쿠폰들 호출 */
+//        List<CouponDTO> availableCouponList = couponService.getAvailableCouponInfo(authentication.getName());
+//        for (CouponDTO couponDTO : availableCouponList) {
 //            System.out.println(couponDTO);
 //        }
-
-        model.addAttribute("availableCoupon", availableCouponList);
-        model.addAttribute("usedCoupon", usedCouponList);
-//        model.addAttribute("downloadCoupon", downloadCouponList);
-
-        System.out.println("쿠폰 페이지로 전송");
-        return "contents/member/supportercoupon";
-    }
+//        /* 사용한 쿠폰들 호출 */
+//        List<CouponDTO> usedCouponList = couponService.getUsedCouponInfo(authentication.getName());
+//        for (CouponDTO couponDTO : usedCouponList) {
+//            System.out.println(couponDTO);
+//        }
+//
+//        /* 다운 받을 쿠폰들 호출*/
+////        List<CouponDTO> downloadCouponList = couponService.downloadCouponInfo(authentication.getName());
+////        for (CouponDTO couponDTO : downloadCouponList) {
+////            System.out.println(couponDTO);
+////        }
+//
+//        model.addAttribute("availableCoupon", availableCouponList);
+//        model.addAttribute("usedCoupon", usedCouponList);
+////        model.addAttribute("downloadCoupon", downloadCouponList);
+//
+//        System.out.println("쿠폰 페이지로 전송");
+//        return "contents/member/supportercoupon";
+//    }
 
     @PostMapping("/downloadCoupon")
     @ResponseBody
