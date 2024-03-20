@@ -330,7 +330,7 @@ html {
                     justify-content: space-between;
                     width: 100%;
 
-                    .btn1, .btn2, .btn3, .btn4 {
+                    .btn11, .btn21, .btn31, .btn41 {
                         background: none;
                         border-style: none;
                         color: blue;
