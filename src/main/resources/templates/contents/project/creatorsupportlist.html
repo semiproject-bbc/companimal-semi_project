@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script type="text/javascript" th:src="@{/js/prev.js}"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -30,6 +31,7 @@
                 <td th:if="${supportlist.orderPayment.get(0).finalPay} == null">취소/환불</td>
             </tr>
         </table>
+<!--        <button th:onclick="history()">목록</button>-->
     </div>
 </th:block>
 

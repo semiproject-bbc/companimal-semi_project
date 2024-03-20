@@ -39,4 +39,6 @@ public interface ProjectService {
     List<ProjectDTO> selectMenuProject();
 
     ProjectDTO selectFinalCal(int proCode);
+
+    List<ProjectDTO> selectIngPro(String id);
 }

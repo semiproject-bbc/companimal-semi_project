@@ -47,6 +47,9 @@ input:focus {
     padding:10px;
     border-radius:5px;
 }
+.justiB {
+    justify-content: space-between;
+}
 
 /* creatorendpj */
 .projectlistbox>div {
@@ -137,6 +140,12 @@ input:focus {
     background-color: #ff8000;
     border:#ff8000 2px solid;
 }
+.boxs {
+    width:90%;
+}
+.supportlist {
+    margin-bottom:30px;
+}
 /* creatorendpj - modal */
 /*.modal {*/
 /*    position:absolute;*/
@@ -217,6 +226,9 @@ input:focus {
     justify-content: space-between;
     align-items: center;
     padding:0 20px;
+}
+.couponbox img {
+    height:80%;
 }
 .usedCoupon img {
     height:80%;
