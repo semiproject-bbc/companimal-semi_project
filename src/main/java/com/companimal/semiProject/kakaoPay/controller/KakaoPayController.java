@@ -60,7 +60,7 @@ public class KakaoPayController {
     public String kakaoPay(@RequestParam("recipient") String recipient,
                            @RequestParam("address") String address,
                            @RequestParam("request") String request,
-                           @RequestParam("couponCode") String couponCode,
+                           @RequestParam(value = "couponCode", required = false) String couponCode, // couponCode를 안받아도 된다
                            @RequestParam("totalAmount") int totalAmount) {
 
         System.out.println("받은 쿠폰코드 : " + couponCode); // couponCode를 잘 받았는지 확인용

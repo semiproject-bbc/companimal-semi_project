@@ -341,4 +341,9 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectDTO> selectMenuProject() {
         return projectMapper.selectMenuProject();
     }
+
+    @Override
+    public List<ProjectDTO> selectIngPro(String id) {
+        return projectMapper.selectIngPro(id);
+    }
 }

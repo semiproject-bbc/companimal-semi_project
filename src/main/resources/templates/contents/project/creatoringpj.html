@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/navLayout}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
+</head>
+
+<th:block layout:fragment="content">
+    <div class="main">
+        <h2>진행 중인 프로젝트 조회</h2>
+        <div class="d-flex d-wrap projectlistbox">
+            <th:block th:each="ingpjlist : ${selectIngProList}">
+                <th:block th:if="${ingpjlist.proCode != null}">
+                    <input type="hidden" id="proCode" name="proCode" th:value="${ingpjlist.proCode}"/>
+                    <div class="projectbox">
+                        <a th:href="@{|/project/projectDetail/${ingpjlist.proCode}|}">
+                            <img src="/image/thumb2.jpg" alt="프로젝트 썸네일"/>
+                        </a>
+                        <div class="boxs">
+                            <h3 th:text="${ingpjlist.proName}"></h3>
+                            <div class="d-flex justiB">
+                                <p class="pjpercentage" th:text="${ingpjlist.achRate} + '% 달성'"></p>
+                                <a class="orange-back inblock supportlist" th:href="@{|/project/supportlist/${ingpjlist.proCode}|}">후원내역 조회</a>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </div>
+    </div>
+
+    <div class="modal" id="shipmentModal">
+        <div class="modal-bg"></div>
+        <div class="modal-body d-flex">
+            <div class="text-end">
+                <button class="cancelBtn closeBtn" th:onclick="shipmentModalClose()">
+                    <img src="/image/x1.png" class="shipmentclose" alt="x">
+                </button>
+            </div>
+            <h3>배송 예정일을 입력하세요.</h3>
+            <div class="d-flex contentModal">
+                <input type="text" id="shipmentValue" name="estDate" placeholder="YYYY.MM.DD"/>
+                <button type="submit" id="shipmentpush" class="modaldatapush" th:onclick="updateShipment()">입력</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</html>

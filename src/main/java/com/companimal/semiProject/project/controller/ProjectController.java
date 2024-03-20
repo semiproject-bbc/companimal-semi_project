@@ -251,8 +251,7 @@ public class ProjectController {
     }
 
     @GetMapping("/fundingPlus")
-    public String showFundingPlus(@RequestParam(value="cateMain", defaultValue="0") int cateMain, @RequestParam(value="cateSub", defaultValue="10") int cateSub, Model model) {
-        System.out.println("메인" + cateMain + "서브" + cateSub);
+    public String showFundingPlus(/*@RequestParam(value="cateMain", defaultValue="0") int cateMain, @RequestParam(value="cateSub", defaultValue="10") int cateSub, */Model model) {
 
         List<ProjectDTO> selectMenuProjectList = projectService.selectMenuProject();
         System.out.println(selectMenuProjectList.toString());
@@ -267,6 +266,17 @@ public class ProjectController {
         JsonObject jsonObject = projectService.SummerNoteImageFile(file);
         System.out.println(jsonObject);
         return jsonObject;
+    }
+
+    @RequestMapping("/selectIngProject")
+    public String selectIngPro(Model model, Authentication authentication) {
+        String id = authentication.getName();
+
+        List<ProjectDTO> selectIngProList = projectService.selectIngPro(id);
+
+        model.addAttribute("selectIngProList", selectIngProList);
+
+        return "contents/project/creatoringpj";
     }
 
 }

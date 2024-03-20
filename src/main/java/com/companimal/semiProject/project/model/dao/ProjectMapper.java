@@ -55,4 +55,7 @@ public interface ProjectMapper {
     int insertProjectEvaDetail(ProjectEvaluationDTO projectEvaluation);
 
     void insertFileInfo(Map<String, Object> paramMap);
+
+    List<ProjectDTO> selectIngPro(String id);
+
 }

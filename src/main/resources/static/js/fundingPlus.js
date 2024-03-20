@@ -24,13 +24,13 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function() {
-
-    $('.mainCategory button').on('click', function(e) {
-        console.log(e);
-    })
-
-})
+// $(document).ready(function() {
+//
+//     $('.mainCategory button').on('click', function(e) {
+//         console.log(e);
+//     })
+//
+// })
 // function clickMainMenu(cateMain) {
 //     console.log(cateMain);
 //

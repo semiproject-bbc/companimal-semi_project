@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 /* ====================================================================================================== */
 /* 6. 쿠폰을 선택을 했을 때 총금액에 쿠폰금액만큼 차감한다, 아니면 주문금액 + 배송비값을 그대로 보낸다 */
 
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     var selectedCoupon = document.getElementById('couponAmountId');         // 쿠폰을 선택할 때 id
     var preFinalPayment = document.getElementById('finalPaymentAmountId');  // 최종 결제 금액 id
     var originalFinalPayment = parseInt(preFinalPayment.textContent.replace('원', '')); // Original final payment amount
@@ -203,9 +203,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var finalPaymentAfterCoupon = originalFinalPayment - selectedCouponAmount;
         preFinalPayment.textContent = finalPaymentAfterCoupon + '원'; // 쿠폰이 선택이 되면 최종결제 금액이 적용이 되겠금 하는 코드
 
-        var selectedCoupon = document.getElementById('couponAmountId'); // 쿠폰 listbox의 id를 가져온다
-        var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];       // 선택한 쿠폰의 index를 불러온다
-        var selectedCouponCode = selectedCouponOption.id;                                      // 쿠폰Code 값을 가져온다
+        if (selectedCouponAmount > 0) {
+            var selectedCoupon = document.getElementById('couponAmountId'); // 쿠폰 listbox의 id를 가져온다
+            var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];       // 선택한 쿠폰의 index를 불러온다
+            selectedCouponCode = selectedCouponOption.id;                                      // 쿠폰Code 값을 가져온다
+        } else {
+            selectedCouponCode = null;
+        }
+
 
         // couponCode를 잘 담았는지 확인할 것
         console.log('Selected coupon code : ', selectedCouponCode); // 확인용
@@ -223,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenInputCouponCode.name = 'couponCode';
         hiddenInputCouponCode.value = String(selectedCouponCode);
 
-// Remove existing hidden inputs
+        // Remove existing hidden inputs
         var form = document.getElementById('myForm');
         var existingTotalAmountInput = form.querySelector('input[name="totalAmount"]');
         if (existingTotalAmountInput) {
@@ -274,7 +279,137 @@ document.addEventListener('DOMContentLoaded', function() {
             existingCouponCodeInput.remove();
         }
     }
-});
+});*/
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     var selectedCoupon = document.getElementById('couponAmountId');         // 쿠폰을 선택할 때 id
+//     var preFinalPayment = document.getElementById('finalPaymentAmountId');  // 최종 결제 금액 id
+//     var originalFinalPayment = parseInt(preFinalPayment.textContent.replace('원', '')); // Original final payment amount
+//
+//     function applyCoupon(selectedCouponAmount, selectedCouponCode, form) {
+//         var finalPaymentAfterCoupon = originalFinalPayment - selectedCouponAmount;
+//         preFinalPayment.textContent = finalPaymentAfterCoupon + '원';
+//
+//         // if (selectedCouponAmount > 0) {
+//         //     var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];
+//         //     selectedCouponCode = selectedCouponOption.id;
+//         // } else {
+//         //     selectedCouponCode = null;
+//         // }
+//
+//         if (selectedCouponAmount > 0) {
+//             applyCoupon(selectedCouponAmount, null, form);
+//         } else {
+//             preFinalPayment.textContent = originalFinalPayment + '원';
+//             // Instead of removing totalAmount input here, it's always appended in applyCoupon function
+//         }
+//
+//
+//         console.log('Selected coupon code: ', selectedCouponCode);
+//         console.log('Coupon Amount: ', selectedCouponAmount);
+//         console.log('Amount after subtractions: ', finalPaymentAfterCoupon);
+//
+//         var hiddenInputTotalAmount = document.createElement('input');
+//         hiddenInputTotalAmount.type = 'hidden';
+//         hiddenInputTotalAmount.name = 'totalAmount';
+//         hiddenInputTotalAmount.value = String(finalPaymentAfterCoupon);
+//
+//         var hiddenInputCouponCode = document.createElement('input');
+//         hiddenInputCouponCode.type = 'hidden';
+//         hiddenInputCouponCode.name = 'couponCode';
+//         hiddenInputCouponCode.value = String(selectedCouponCode);
+//
+//         var existingTotalAmountInput = form.querySelector('input[name="totalAmount"]');
+//         if (existingTotalAmountInput) {
+//             existingTotalAmountInput.remove();
+//         }
+//         var existingCouponCodeInput = form.querySelector('input[name="couponCode"]');
+//         if (existingCouponCodeInput) {
+//             existingCouponCodeInput.remove();
+//         }
+//
+//         form.append(hiddenInputTotalAmount);
+//         form.append(hiddenInputCouponCode);
+//     }
+//
+//     selectedCoupon.addEventListener('change', function() {
+//         var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];
+//         var selectedCouponAmount = parseInt(selectedCouponOption.value);
+//         var form = document.getElementById('myForm');
+//
+//         if (selectedCouponAmount !== 0) {
+//             applyCoupon(selectedCouponAmount, null, form);
+//         } else {
+//             preFinalPayment.textContent = originalFinalPayment + '원';
+//             form.querySelector('input[name="totalAmount"]').remove();
+//         }
+//     });
+//
+//     function applyInitialCoupon() {
+//         var initialSelectedCouponAmount = parseInt(selectedCoupon.options[selectedCoupon.selectedIndex].value);
+//         var form = document.getElementById('myForm');
+//
+//         if (initialSelectedCouponAmount !== 0) {
+//             applyCoupon(initialSelectedCouponAmount, null, form);
+//         } else {
+//             preFinalPayment.textContent = originalFinalPayment + '원';
+//             form.querySelector('input[name="totalAmount"]').remove();
+//         }
+//     }
+//
+//     applyInitialCoupon();
+// });
+
+function applyCoupon(selectedCouponAmount, selectedCouponCode, form) {
+    var finalPaymentAfterCoupon = originalFinalPayment - selectedCouponAmount;
+    preFinalPayment.textContent = finalPaymentAfterCoupon + '원';
+
+    // Determine the coupon code
+    if (selectedCouponAmount > 0) {
+        var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];
+        selectedCouponCode = selectedCouponOption.id;
+    } else {
+        selectedCouponCode = null;
+    }
+
+    console.log('Selected coupon code: ', selectedCouponCode);
+    console.log('Coupon Amount: ', selectedCouponAmount);
+    console.log('Amount after subtractions: ', finalPaymentAfterCoupon);
+
+    // Create hidden input for totalAmount
+    var hiddenInputTotalAmount = document.createElement('input');
+    hiddenInputTotalAmount.type = 'hidden';
+    hiddenInputTotalAmount.name = 'totalAmount';
+    hiddenInputTotalAmount.value = String(finalPaymentAfterCoupon);
+
+    // Create hidden input for couponCode
+    var hiddenInputCouponCode = document.createElement('input');
+    hiddenInputCouponCode.type = 'hidden';
+    hiddenInputCouponCode.name = 'couponCode';
+    hiddenInputCouponCode.value = String(selectedCouponCode);
+
+    // Log the inputs being appended
+    console.log('Appending hiddenInputTotalAmount:', hiddenInputTotalAmount);
+    console.log('Appending hiddenInputCouponCode:', hiddenInputCouponCode);
+
+    // Remove existing hidden inputs (if any)
+    var existingTotalAmountInput = form.querySelector('input[name="totalAmount"]');
+    if (existingTotalAmountInput) {
+        existingTotalAmountInput.remove();
+    }
+    var existingCouponCodeInput = form.querySelector('input[name="couponCode"]');
+    if (existingCouponCodeInput) {
+        existingCouponCodeInput.remove();
+    }
+
+    // Append the new hidden inputs to the form
+    form.append(hiddenInputTotalAmount);
+    form.append(hiddenInputCouponCode);
+
+    // Log the form's HTML after appending inputs
+    console.log('Form HTML after appending inputs:', form.innerHTML);
+}
+
 
 /* ====================================================================================================== */
 /* 약관동의 보기 */
@@ -314,90 +449,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     var selectedCoupon = document.getElementById('couponAmountId');         // 쿠폰을 선택할 때 id
-//     var preFinalPayment = document.getElementById('finalPaymentAmountId');  // 최종 결제 금액 id
-//     var couponApplied = false;
-//     // Function to update totalAmount
-//     function updateTotalAmount() {
-//         var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];    // 선택한 쿠폰 정보를 가져온다
-//         var selectedCouponAmount = parseInt(selectedCouponOption.value);           // 선택한 쿠폰값을 가져온다
-//
-//         /* 쿠폰을 빼기 전 최종 결제 금액  */
-//         var finalPaymentBeforeRewSf = parseInt(preFinalPayment.textContent.replace('원', '')); // int로 받고
-//
-//         // 쿠폰을 선택하지 않았으면 그냥 값을 돌려주고, 쿠폰을 선택을 했으면 주문금액에서 쿠폰값을 빼서 최종 결제 금액으로 저장을 하겠금 정보를 보낸다
-//         var finalPaymentAfterCoupon = selectedCouponAmount === 0 ? finalPaymentBeforeRewSf : finalPaymentBeforeRewSf - selectedCouponAmount;
-//
-//         console.log("Final payment after coupon : ", finalPaymentAfterCoupon);           // 확인용
-//         preFinalPayment.textContent = finalPaymentAfterCoupon + '원';                     // 화면에다가 출력
-//
-//         var hiddenInput = document.createElement('input');     // 최종 결제 금액을 보내기 위해서
-//         hiddenInput.type = 'hidden';
-//         hiddenInput.name = 'totalAmount';
-//         hiddenInput.value = String(finalPaymentAfterCoupon);
-//
-//         var form = document.getElementById('myForm');
-//         // Remove any existing hidden input for totalAmount
-//         var existingInput = form.querySelector('input[name="totalAmount"]');
-//         if (existingInput) {
-//             existingInput.remove();
-//         }
-//         form.append(hiddenInput);
-//     }
-//
-//     // 쿠폰이 선택할 때 마다 바뀐다
-//     selectedCoupon.addEventListener('change', updateTotalAmount);
-//
-//     // 값을 다 update를 한다
-//     updateTotalAmount();
-// });
-
-
-/* ====================================================================================================== */
-
-// document.addEventListener('submit', function (event) { //
-//     event.preventDefault();
-//
-//     var selectedCoupon = document.getElementById('couponAmountId'); // 쿠폰 listbox의 id를 가져온다
-//     var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];       // 선택한 쿠폰의 index를 불러온다
-//     var selectedCouponCode = selectedCouponOption.id;                                      // 쿠폰Code 값을 가져온다
-//
-//     // couponCode를 잘 담았는지 확인할 것
-//     console.log('Selected coupon code : ', selectedCouponCode);
-//
-//     var hiddenInput = document.createElement('input');
-//     hiddenInput.type = 'hidden';
-//     hiddenInput.name = 'couponCode';
-//     hiddenInput.value = selectedCouponCode;
-//
-//     var form = document.getElementById('myForm'); // form tag에 적용을 하기 위해서
-//     form.append(hiddenInput);
-//
-//     form.submit(); // couponCode를 담은 hiddenInput에 form을 보낸다..!
-// });
-//
-// /* 8. 약관동의를 누르면 해당 페이지가 overlay로 뜬다 */
-// // 각 buttons
-//
-//
-// // close button
-// document.addEventListener('DOMContentLoaded', function() {
-//     // Get close button elements
-//     var closeButtons = document.querySelectorAll('.close');
-//
-//     // Attach click event listeners to close buttons
-//     closeButtons.forEach(function(button) {
-//         button.addEventListener('click', function() {
-//             // Get the parent modal element
-//             var modal = button.closest('.modal1');
-//
-//             // Hide the modal
-//             if (modal) {
-//                 modal.style.display = 'none';
-//             }
-//         });
-//     });
-// });

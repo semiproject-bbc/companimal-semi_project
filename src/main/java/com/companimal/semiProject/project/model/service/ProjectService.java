@@ -42,6 +42,10 @@ public interface ProjectService {
 
     ProjectDTO selectFinalCal(int proCode);
 
+
     @Transactional
     JsonObject SummerNoteImageFile(MultipartFile file);
+
+    List<ProjectDTO> selectIngPro(String id);
+
 }
