@@ -47,7 +47,7 @@ public class EvaluationServiceImpl implements EvaluationService {
     }
 
     @Override
-    public ProjectDTO selectProjectEvaDetail(int evaNum) {
+    public List<ProjectDTO> selectProjectEvaDetail(int evaNum) {
         return evaluationMapper.selectProjectEvaDetail(evaNum);
     }
 

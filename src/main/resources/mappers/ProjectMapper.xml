@@ -4,6 +4,27 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.companimal.semiProject.project.model.dao.ProjectMapper">
 
+    <resultMap id="projectImageResultMap" type="com.companimal.semiProject.project.model.dto.ProjectImageDTO">
+        <id property="proImgNum" column="pro_img_num"/>
+        <id property="proCode" column="pro_code"/>
+        <result property="proImgPath" column="pro_img_path"/>
+        <result property="proImgName" column="pro_img_name"/>
+        <result property="proImgOriName" column="pro_img_ori_name"/>
+    </resultMap>
+
+    <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
+        <id property="evaNum" column="eva_num"/>
+        <result property="evaDateTime" column="eva_datetime"/>
+        <result property="evaSituation" column="eva_situation"/>
+        <result property="reaRejection" column="rea_rejection"/>
+    </resultMap>
+
+    <resultMap id="projectEvaResultMap" type="com.companimal.semiProject.evaluation.model.dto.ProjectEvaDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="evaNum" column="eva_num"/>
+        <association property="evaluation" resultMap="evaluationResultMap"/>
+    </resultMap>
+
     <resultMap id="projectResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
         <id property="proCode" column="pro_code"/>
         <result property="proName" column="pro_name"/>
@@ -20,6 +41,8 @@
         <result property="evaStatus" column="eva_status"/>
         <result property="cateMain" column="cate_main"/>
         <result property="cateSub" column="cate_sub"/>
+        <association property="projectEva" resultMap="projectEvaResultMap"/>
+        <collection property="image" resultMap="projectImageResultMap"/>
     </resultMap>
 
     <resultMap id="projectCateResultMap" type="com.companimal.semiProject.project.model.dto.ProjectCateDTO">
@@ -55,14 +78,6 @@
         <result property="rewName" column="rew_name"/>
         <result property="rewExplain" column="rew_explain"/>
         <result property="rewSf" column="rew_sf"/>
-    </resultMap>
-
-    <resultMap id="projectImageResultMap" type="com.companimal.semiProject.project.model.dto.ProjectImageDTO">
-        <id property="proImgNum" column="pro_img_num"/>
-        <id property="proCode" column="pro_code"/>
-        <result property="proImgPath" column="pro_img_path"/>
-        <result property="proImgName" column="pro_img_name"/>
-        <result property="proImgOriName" column="pro_img_ori_name"/>
     </resultMap>
 
     <resultMap id="projectFileResultMap" type="com.companimal.semiProject.project.model.dto.ProjectFileDTO">
@@ -227,54 +242,68 @@
         <collection property="orderProPayment" resultMap="orderProPaymentResultMap" />
     </resultMap>
 
-    <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">
-        <id property="evaNum" column="eva_num"/>
-        <result property="evaDateTime" column="eva_datetime"/>
-        <result property="evaSituation" column="eva_situation"/>
-        <result property="reaRejection" column="rea_rejection"/>
-    </resultMap>
+<!--    <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">-->
+<!--        <id property="evaNum" column="eva_num"/>-->
+<!--        <result property="evaDateTime" column="eva_datetime"/>-->
+<!--        <result property="evaSituation" column="eva_situation"/>-->
+<!--        <result property="reaRejection" column="rea_rejection"/>-->
+<!--    </resultMap>-->
 
     <!-- 프로젝트 상세페이지 조회에서 하드코딩으로 등록한 정보 가져오는 쿼리 -->
     <select id="selectProject" resultMap="projectResultMap">
-        SELECT pro_code
-                ,pro_name
-                ,pro_intro
-                ,goal_amount
-                ,start_date
-                ,end_date
-                ,pro_story
-                ,pol_no_refund
-                ,pol_as
-                ,mem_id
-                ,est_date
-                ,ach_rate
-                ,eva_status
-                ,cate_main
-                ,cate_sub
-          FROM project
+        SELECT p.pro_code
+                ,p.pro_name
+                ,p.pro_intro
+                ,p.goal_amount
+                ,p.start_date
+                ,p.end_date
+                ,p.pro_story
+                ,p.pol_no_refund
+                ,p.pol_as
+                ,p.mem_id
+                ,p.est_date
+                ,p.ach_rate
+                ,p.eva_status
+                ,p.cate_main
+                ,p.cate_sub
+        ,i.pro_img_num
+        ,i.pro_code
+        ,i.pro_img_path
+        ,i.pro_img_name
+        ,i.pro_img_ori_name
+          FROM project p
+          JOIN project_image i ON (p.pro_code = i.pro_code)
          WHERE eva_status = 'N'
 <!--           AND pro_code = #{ proCode }-->
 <!--           AND TO_DAYS(now())-TO_DAYS('end_date');-->
     </select>
 
     <select id="selectAllProject" resultMap="projectResultMap">
-        SELECT pro_code
-                ,pro_name
-                ,pro_intro
-                ,goal_amount
-                ,start_date
-                ,end_date
-                ,pro_story
-                ,pol_no_refund
-                ,pol_as
-                ,mem_id
-                ,est_date
-                ,ach_rate
-                ,eva_status
-                ,cate_main
-                ,cate_sub
-          FROM project
-         WHERE eva_status = 'N'
+        SELECT p.pro_code
+                ,p.pro_name
+                ,p.pro_intro
+                ,p.goal_amount
+                ,p.start_date
+                ,p.end_date
+                ,p.pro_story
+                ,p.pol_no_refund
+                ,p.pol_as
+                ,p.mem_id
+                ,p.est_date
+                ,p.ach_rate
+                ,p.eva_status
+                ,p.cate_main
+                ,p.cate_sub
+                ,i.pro_img_num
+                ,i.pro_code
+                ,i.pro_img_path
+                ,i.pro_img_name
+                ,i.pro_img_ori_name
+        FROM project p
+        JOIN project_image i ON (p.pro_code = i.pro_code)
+        JOIN project_eva e ON (e.pro_code = p.pro_code)
+        JOIN evaluation ev ON (e.eva_num = ev.eva_num)
+        WHERE ev.eva_situation LIKE '%승인'
     </select>
 
     <!-- 프로젝트 상세페이지 조회에서 DB에 저장한 정보 가져오는 쿼리 -->
@@ -635,6 +664,27 @@
         VALUES (
                 #{ proCode }
                 ,#{ evaNum }
+                )
+    </insert>
+
+    <insert id="insertFileInfo" parameterType="java.util.Map">
+        <selectKey keyProperty="proCode" order="BEFORE" resultType="int">
+            SELECT MAX(pro_code) + 1
+            FROM project
+        </selectKey>
+        INSERT INTO project_file (
+                                    pro_file_num
+                                    ,pro_code
+                                    ,pro_file_path
+                                    ,pro_file_name
+                                    ,pro_file_ori_name
+                                    )
+        VALUES (
+                2
+                ,#{proCode}
+                ,#{proFilePath}
+                ,#{proFileName}
+                ,#{proFileOriName}
                 )
     </insert>
 

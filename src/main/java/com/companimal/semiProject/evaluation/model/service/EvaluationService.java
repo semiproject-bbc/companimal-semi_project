@@ -22,7 +22,7 @@ public interface EvaluationService {
 
     List<EvaluationDTO> selectAllProjectEva();
 
-    ProjectDTO selectProjectEvaDetail(int evaNum);
+    List<ProjectDTO> selectProjectEvaDetail(int evaNum);
 
     @Transactional
     int updateProjectAccept(int evaNumInt);

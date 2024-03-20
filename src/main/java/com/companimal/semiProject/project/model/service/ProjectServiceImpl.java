@@ -4,7 +4,9 @@ import com.companimal.semiProject.evaluation.model.dto.EvaluationDTO;
 import com.companimal.semiProject.evaluation.model.dto.ProjectEvaluationDTO;
 import com.companimal.semiProject.project.model.dao.ProjectMapper;
 import com.companimal.semiProject.project.model.dto.*;
+import com.google.gson.JsonObject;
 import groovy.util.Eval;
+import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 @Service
@@ -95,7 +98,7 @@ public class ProjectServiceImpl implements ProjectService {
 
                 projectMapper.insertProjectImage(fileDTO);
 
-                System.out.println("static/image/store/" + fileDTO.getProFileName());
+                System.out.println("static/image/store" + fileDTO.getProFileName());
 
                 System.out.println("이미지들 저장경로 : " + saveImages);
 
@@ -137,7 +140,6 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
             System.out.println("프로젝트 등록 실패~!");
         }
-//        return ""
     }
 
     public ProjectFileDTO FileUpload(MultipartFile savefile) throws IOException {
@@ -159,6 +161,8 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
             proFilePath = resource.getFile().getAbsolutePath();
         }
+
+        System.out.println("파일 저장 경로 : " + proFilePath);
 
         /* 파일명 변경 처리 */
         // proFileOriName : 원본 파일명
@@ -296,6 +300,41 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDTO selectFinalCal(int proCode) {
         return projectMapper.selectFinalCal(proCode);
+    }
+
+    @Transactional
+    @Override
+    public JsonObject SummerNoteImageFile(MultipartFile file) {
+        JsonObject jsonObject = new JsonObject();
+        String fileRoot = "C:\\summernoteImg\\";
+        String originalFileName = file.getOriginalFilename();
+        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+        String saveFileName = UUID.randomUUID() + extension;
+
+        File targetFile = new File(fileRoot + saveFileName);
+
+        try {
+            InputStream fileStream = file.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+
+            // DB에 파일 정보 저장
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("proFileOriName", originalFileName);
+            paramMap.put("proFileName", saveFileName);
+            paramMap.put("proFilePath", fileRoot);
+            projectMapper.insertFileInfo(paramMap);
+
+            System.out.println("스토리 insert : " + paramMap);
+
+            jsonObject.addProperty("url", "/summernoteImg/" + saveFileName);
+            jsonObject.addProperty("responseCode", "success");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);
+            jsonObject.addProperty("responseCode", "error");
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
     @Override

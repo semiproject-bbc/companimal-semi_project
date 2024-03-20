@@ -61,5 +61,5 @@ public interface EvaluationMapper {
 
     int updateProjectAccept(int evaNumInt);
 
-    ProjectDTO selectProjectEvaDetail(int evaNum);
+    List<ProjectDTO> selectProjectEvaDetail(int evaNum);
 }

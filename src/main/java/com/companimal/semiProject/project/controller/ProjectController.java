@@ -5,11 +5,13 @@ import com.companimal.semiProject.project.model.dto.ProjectDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardDTO;
 import com.companimal.semiProject.project.model.dto.ProjectRewardOptDTO;
 import com.companimal.semiProject.project.model.service.ProjectService;
+import com.google.gson.JsonObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -257,6 +259,13 @@ public class ProjectController {
         model.addAttribute("selectMenuProjectList", selectMenuProjectList);
 
         return "contents/project/fundingPlus";
+    }
+
+    @RequestMapping(value="SummerNoteImageFile" , method = RequestMethod.POST)
+    public @ResponseBody JsonObject SummerNoteImageFile(@RequestParam("file") MultipartFile file) {
+        JsonObject jsonObject = projectService.SummerNoteImageFile(file);
+        System.out.println(jsonObject);
+        return jsonObject;
     }
 
     @RequestMapping("/selectIngProject")

@@ -514,10 +514,14 @@
         ,p.pol_no_refund
         ,p.pol_as
         ,e.eva_num
+        ,i.pro_img_path
+        ,i.pro_img_name
+        ,i.pro_img_ori_name
           FROM project p
           JOIN project_eva e ON (p.pro_code = e.pro_code)
           JOIN project_cate c1 ON (p.cate_main = c1.pro_cate_code)
           JOIN project_cate c2 ON (p.cate_sub = c2.pro_cate_code)
+          JOIN project_image i ON (i.pro_code = p.pro_code)
          WHERE e.eva_num = #{ evaNum }
     </select>
 

@@ -13,41 +13,60 @@
 
 <th:block layout:fragment="content">
     <section>
-        <div class="door" th:each="project : ${ selectProject }">
+        <div class="door">
             <div class="door-image">
                 <div class="slider">
                     <input type="radio" name="slide" id="slide1" checked>
                     <input type="radio" name="slide" id="slide2">
                     <input type="radio" name="slide" id="slide3">
-                    <th:block th:unless="${ img != null}">
-                    <ul id="imgholder" class="imgs" th:each="img : ${ imgs }">
-                        <li><img class="detail-main-image" th:src="${ img }"></li>
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image2.png}"></li>
-                        <li><img class="detail-main-image" th:src="@{/image/detail_main_image3.png}"></li>
-                    </ul>
-                    <div class="bullets">
-                        <label for="slide1">&nbsp;</label>
-                        <label for="slide2">&nbsp;</label>
-                        <label for="slide3">&nbsp;</label>
-                    </div>
+                    <th:block th:if="${selectProject.image[0].proImgPath != null}">
+                        <ul id="imgholder" class="imgs">
+                            <th:block th:each="image, stat : ${selectProject.image}">
+                                <li th:if="${stat.index == 0}" th:remove="tag">
+                                    <img class="detail-main-image" th:src="@{|/image/store/${image.proImgName}|}">
+                                </li>
+                                <li th:if="${stat.index != 0}" th:remove="tag">
+                                    <img class="detail-main-image" th:src="@{|/image/store/${image.proImgName}|}" style="display: none;">
+                                </li>
+                            </th:block>
+                        </ul>
+                        <div class="bullets">
+                            <label for="slide1" onclick="changeImage(0)">&nbsp;</label>
+                            <label for="slide2" onclick="changeImage(1)">&nbsp;</label>
+                            <label for="slide3" onclick="changeImage(2)">&nbsp;</label>
+                        </div>
                     </th:block>
                 </div>
             </div>
+
+            <script>
+                function changeImage(index) {
+                    var images = document.getElementsByClassName("detail-main-image");
+                    for (var i = 0; i < images.length; i++) {
+                        if (i === index) {
+                            images[i].style.display = "block";
+                        } else {
+                            images[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+
             <!--            <th:block th:each="project : ${ selectProjectList }">-->
             <div class="door-content">
-                <p th:text="${ project.endDate }" class="d-day"></p>
+                <p th:text="${ selectProject.endDate }" class="d-day"></p>
                 <div class="category-title">
                     <div class="category">
                         <button type="button" class="category_button">
                             <img class="category-image" th:src="@{/image/living.png}">
                         </button>
-                        <p class="living" th:text="${ project.category.proCateName }">카테고리</p>
+                        <p class="living" th:text="${ selectProject.category.proCateName }">카테고리</p>
                     </div>
-                    <p class="title" name="proName" th:text="${ project.proName }"></p>
+                    <p class="title" name="proName" th:text="${ selectProject.proName }"></p>
                 </div>
-                <p class="introduce" th:text="${ project.proIntro }"></p>
+                <p class="introduce" th:text="${ selectProject.proIntro }"></p>
                 <div class="goal-container">
-                    <p class="goal-price" th:text="${ project.achRate }"></p>
+                    <p class="goal-price" th:text="${ selectProject.achRate }"></p>
                     <p class="goal-won"> % 달성</p>
                 </div>
                 <div class="heart-gray-icon-container">
@@ -65,9 +84,12 @@
 
     </section>
     <section class="section2">
-        <div class="content" th:each="project : ${ selectProject }">
+        <div class="content">
             <div class="story">
                 <p class="sub-info">프로젝트 스토리</p>
+<!--                <script>-->
+<!--                    $('#summernote').summernote('pasteHTML', value);-->
+<!--                </script>-->
                 <img class="story-image" th:src="@{/image/petsonHome1.jpg}">
                 <img class="story-image" th:src="@{/image/petsonHome2.jpg}">
                 <img class="story-image" th:src="@{/image/petsonHome3.jpg}">
@@ -78,7 +100,7 @@
                 <img class="story-image" th:src="@{/image/petsonHome8.jpg}">
                 <img class="story-image" th:src="@{/image/petsonHome9.jpg}">
                 <div class="creater-introduce">
-                    <p class="intro-title" th:text="${ project.proStory }"></p>
+                    <p class="intro-title"></p>
                     <p class="intro-content">약 1년이라는 시간동안 히즈독을 운영하면서 반려인들의 이야기를 들을 기회가 많았었는데요,
                         수많은 이야기 중에서도 제 이목을 크게 집중시켰던 것은 바로 강아지의 신체구조상
                         여름철 더위가 너무 고통이라는 이야기였습니다. 게다가 항상 반려견을 동반하여 외출할 수 없기 때문에
@@ -99,9 +121,9 @@
                     <p class="sub-info">배송 안내</p>
                     <p class="sub-content">• 발송 예정일 : 추후 공지 예정<br>
                     <p class="sub-info">환불 불가 정책</p>
-                    <p class="sub-content" th:text="${ project.polNoRefund }"></p>
+                    <p class="sub-content" th:text="${ selectProject.polNoRefund }"></p>
                     <p class="sub-info">A/S 규정</p>
-                    <P class="sub-content" th:text="${ project.polAs }"></P>
+                    <P class="sub-content" th:text="${ selectProject.polAs }"></P>
                 </div>
             </div>
             <div class="creater-reward">
@@ -109,8 +131,8 @@
                     <p class="sub-info">크리에이터 정보</p>
                     <div class="creater-info">
                         <div><img class="creater-image" th:src="@{/image/creater1.png}"></div>
-                        <div th:text="${ project.member.memberNickname }"><br>
-                        <div th:text="${ project.member.memberPhone }">
+                        <div th:text="${ selectProject.member.memberNickname }"><br>
+                        <div th:text="${ selectProject.member.memberPhone }">
 <!--                        <div th:text="${ project.member.memberEmail }">-->
                         </div>
                     </div>
@@ -118,11 +140,11 @@
                 <div class="reward">
                     <p class="sub-info">리워드 선택</p>
                     <div class="reward-scroll">
-                        <div class="reward-list" th:each=" reward : ${ project.reward }">
-                            <div class="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }" onclick="toggleEvent(this)" data-fg-set="true" th:data-opt-code="${ rewardOpt.rewOptCode }">
+                        <div class="reward-list">
+                            <div class="reward-1" th:each="rewardOpt : ${ selectProject.reward.rewardOpt }" onclick="toggleEvent(this)" data-fg-set="true" th:data-opt-code="${ rewardOpt.rewOptCode }">
                                 <!--                            <div class="reward-1" id="reward-1" th:each="rewardOpt : ${ reward.rewardOpt }">-->
                                 <input type="hidden" class="divRewOptCode" th:value="${ rewardOpt.rewOptCode }">
-                                <div class="reward-title" th:text="${ reward.rewName }"></div>
+                                <div class="reward-title" th:text="${ selectProject.reward.rewName }"></div>
                                 <div class="op-limit">
                                     <div class="reward-option" th:text="${ rewardOpt.rewOptName }"></div>
                                     <div class="reward-option reward-value" th:text="${ rewardOpt.rewOptVal }"></div>
@@ -132,8 +154,8 @@
                                 </div>
                                 <div class="reward-content">
                                     <span class="reward-price" th:text="${ rewardOpt.rewAmount }"></span> 원<br>
-                                    배송비  <span class="reward-etc reward-sf" th:text="${ reward.rewSf }"></span><br>
-                                    <span class="reward-etc reward-explain" th:text="${ reward.rewExplain }"></span>
+                                    배송비  <span class="reward-etc reward-sf" th:text="${ selectProject.reward.rewSf }"></span><br>
+                                    <span class="reward-etc reward-explain" th:text="${ selectProject.reward.rewExplain }"></span>
                                 </div>
                             </div>
                         </div>
@@ -246,8 +268,8 @@
                     </script>
                     <form th:action="@{/order/orderPayment}" method="post" id="order_form">
                         <input type="hidden" id="rowCount" value="0">
-                        <input type="hidden" id="proCode" name="proCode" th:value="${project.proCode}">
-                        <input type="hidden" id="proName" name="proName" th:value="${project.proName}">
+                        <input type="hidden" id="proCode" name="proCode" th:value="${selectProject.proCode}">
+                        <input type="hidden" id="proName" name="proName" th:value="${selectProject.proName}">
                         <input type="hidden" id="orderAmount" name="orderAmount" value="">
                     <div class="reward-choose">
                         <div class="reward-choose-list" id="reward-choose-list">
