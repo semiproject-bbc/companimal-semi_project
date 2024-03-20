@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
             hiddenInputText.type = 'hidden';
             hiddenInputText.name = 'inputtedText';
             hiddenInputText.value = String(inputtedText);
+
             sendForm.append(hiddenInputText);
 
             var hiddenInputCode = document.createElement('input');

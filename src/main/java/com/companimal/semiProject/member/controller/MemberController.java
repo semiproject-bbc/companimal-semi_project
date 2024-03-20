@@ -278,10 +278,16 @@ public class MemberController {
                                                    Authentication authentication,
                                                    HttpSession session) {
 //        int categoryCode = Integer.parseInt(inqCategoryCode.trim());
-        int categoryCode = Integer.parseInt(inqCategoryCode.substring(2));
+
+//        int categoryCode = Integer.parseInt(inqCategoryCode.trim());
+
+        String cleanString = inqCategoryCode.replaceAll("[^\\d]", "");
+
+        int cateCode = Integer.parseInt(cleanString);
         System.out.println(inqCategoryCode); // 가져온 categoryCode 값
+
 //        System.out.println(inquiryCateDTO.getInqCateName()); // 확인용
-        System.out.println(inputtedText);                    // 확인용
+        System.out.println(inputtedText);                      // 확인용
 
 //        model.addAttribute("inquiryDetails", inquiryCateDTO);
 //        model.addAttribute("inquiryContext", inputtedText);
@@ -293,12 +299,12 @@ public class MemberController {
         Timestamp timestamp = Timestamp.valueOf(formattedTime); // timestamp 방식으로 저장을 한다
 
         InquiryDTO inquiryDTO = new InquiryDTO();
-        inquiryDTO.setMemId(authentication.getName());              // 회원ID
-        inquiryDTO.setProCode((int)session.getAttribute("proCode123"));                             // 프로젝트 코드
-        inquiryDTO.setInqContent(inputtedText);                     // 작성한 내용
-        inquiryDTO.setInqDateTime(timestamp);                       // 문의한 시간
-        // inquiryDTO.setInqAnswer();                               // 아직 미정
-        inquiryDTO.setInqCateCode(categoryCode); // categoryCode
+        inquiryDTO.setMemId(authentication.getName());                       // 회원ID
+        inquiryDTO.setProCode((int)session.getAttribute("proCode123"));   // 프로젝트 코드
+        inquiryDTO.setInqContent(inputtedText);                              // 작성한 내용
+        inquiryDTO.setInqDateTime(timestamp);                                // 문의한 시간
+        // inquiryDTO.setInqAnswer();                                        // 아직 미정
+        inquiryDTO.setInqCateCode(cateCode); // categoryCode
 
         memberService.setSupporterInquiredProject(inquiryDTO); // 저장이 잘 됐으면 성공 페이지로 이동한다
         return "/contents/member/inquiredSubmitSuccess";
