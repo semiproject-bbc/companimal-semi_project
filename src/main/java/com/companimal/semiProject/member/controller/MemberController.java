@@ -283,4 +283,9 @@ public class MemberController {
         return "/contents/member/mypage/ongoingProject";
     }
 
+    @RequestMapping("/mypage/coupon")
+    public String couponPage() {
+            return "/contents/member/supportercoupon";
+    }
+
 }
