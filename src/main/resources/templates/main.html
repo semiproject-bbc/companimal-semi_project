@@ -11,58 +11,6 @@
 
 <th:block layout:fragment="content">
 
-    <div sec:authorize="hasAnyAuthority('SUPPORTER')">서포터</div>
-    <button onclick="location.href='/member/regist'">회원가입</button>
-
-    <button th:onclick="|location.href='@{/evaluation/evacalculationlist}'|">- 후원금 최종 정산 심사</button>
-
-    <button onclick="location.href='/project/projectRegist'">펀딩 등록</button>
-    <button onclick="location.href='/project/projectImage'">이미지 등록</button>
-    <button onclick="location.href='/evaluation/creatorEvaluationRegist'">개인 크리에이터 등록</button>
-    <button onclick="location.href='/evaluation/creatorBusinessEvaluationRegist'">사업자 크리에이터 등록</button>
-    <button onclick="location.href='/evaluation/manager/creatorEvaluationList'">크리에이터 심사 목록</button>
-    <button onclick="location.href='/member/mypage/ongoingProject'">진행중인 프로젝트</button>
-
-
-    <form th:action="@{/auth/logout}" method="post">
-        <button>로그아웃</button>
-    </form>
-    <form method="get" action="/order/orderpayment">
-        <button>주문결제</button>
-    </form>
-    <form method="get" action="/coupon">
-        <button>쿠폰</button>
-    </form>
-
-    <form method="post" action="/ontoKakaoPayPage">
-        <input type="text" name = "name">
-        <button>카카오페이 임시</button>
-    </form>
-
-    <form method="get" action="/ontoKakaoPayPage">
-        <button>카카오페이</button>
-    </form>
-
-    <form method="get" action="/member/supporterProject">
-        <button>supporter Project</button>
-    </form>
-
-    <form method="get" action="/member/supporterInquiry">
-        <button>supporter Inquiry</button>
-    </form>
-
-
-<!--    <form method="get" action="/kakaoPay">-->
-<!--        <button>카카오페이</button>-->
-<!--    </form>-->
-
-    <form method="get" action="/interest">
-        <button>participate</button>
-    </form>
-
-<!--    <form method="get" action="/orderpayment">-->
-
-<!--    </form>-->
     <div class="mainPageContainer">
         <section class="banner">
 

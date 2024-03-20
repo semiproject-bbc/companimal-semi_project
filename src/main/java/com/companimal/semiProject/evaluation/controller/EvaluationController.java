@@ -221,7 +221,7 @@ public class EvaluationController {
         map.put("evaSituation", "반려");
         creatorEvaluationService.updateReaRejection(map);
 
-        return  "/contents/evaluation/manager/creatorEvaluationList";
+        return  "/main";
     }
 
     @GetMapping("/evaluationProcessAfter")

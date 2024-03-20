@@ -13,7 +13,7 @@
             </div>
             <div class="sidemenu">
                 <p>심사 관리</p>
-                <button>- 크리에이터 심사</button>
+                <button onclick="location.href='/evaluation/manager/creatorEvaluationList'">- 크리에이터 심사</button>
                 <button th:onclick="|location.href='@{/evaluation/projectEvaluationList}'|">- 펀딩 프로젝트 심사</button>
                 <button th:onclick="|location.href='@{/evaluation/evacalculationlist}'|">- 후원금 최종 정산 심사</button>
                 <p>신고 관리</p>
@@ -28,7 +28,7 @@
         <div class="sidewrap">
             <div class="d-flex rolechangebtn">
                 <button class="supporterbtn">서포터</button>
-                <button class="creatorbtn focusbtn">크리에이터</button>
+                <button class="creatorbtn focusbtn" >크리에이터</button>
             </div>
             <div class="roleimage">
                 <img src="/image/member.png" alt="이미지">
@@ -49,7 +49,7 @@
         <div class="sidewrap">
             <div class="d-flex rolechangebtn">
                 <button class="supporterbtn focusbtn">서포터</button>
-                <button class="creatorbtn" th:onclick="|location.href='@{/member/creator}'|">크리에이터</button>
+                <button class="creatorbtn" th:onclick="|location.href='@{/member/creatorEvaluation}'|">크리에이터</button>
             </div>
             <div class="roleimage">
                 <img src="/image/profileimg.png" alt="이미지">
