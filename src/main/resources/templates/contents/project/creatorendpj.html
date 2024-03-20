@@ -20,7 +20,7 @@
                     <input type="hidden" id="proCode" name="proCode" th:value="${endpjlist.proCode}"/>
                     <div class="projectbox">
                         <a th:href="@{|/project/projectDetail/${endpjlist.proCode}|}">
-                            <img src="/image/thumb2.jpg" alt="프로젝트 썸네일"/>
+                            <img class="thumbimg" th:src="@{|/image/store/${endpjlist.image[0].proImgName}|}" alt="프로젝트 썸네일"/>
                         </a>
                         <div>
                             <h3 th:text="${endpjlist.proName}"></h3>

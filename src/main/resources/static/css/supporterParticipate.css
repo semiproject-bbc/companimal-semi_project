@@ -8,10 +8,10 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr;
 
-    .projectbox img {
-        width: 90%;
-        height: auto;
-        border-radius: 10px;
+    .thumbimg {
+        width:90%;
+        height:260px;
+        border-radius:10px;
     }
 
     .projectbox {

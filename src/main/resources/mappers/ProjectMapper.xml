@@ -242,6 +242,25 @@
         <collection property="orderProPayment" resultMap="orderProPaymentResultMap" />
     </resultMap>
 
+    <resultMap id="projectShowResultMap" type="com.companimal.semiProject.project.model.dto.ProjectDTO">
+        <id property="proCode" column="pro_code"/>
+        <result property="proName" column="pro_name"/>
+        <result property="proIntro" column="pro_intro"/>
+        <result property="goalAmount" column="goal_amount"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="proStory" column="pro_story"/>
+        <result property="polNoRefund" column="pol_no_refund"/>
+        <result property="polAs" column="pol_as"/>
+        <result property="memId" column="mem_id"/>
+        <result property="estDate" column="est_date"/>
+        <result property="achRate" column="ach_rate"/>
+        <result property="evaStatus" column="eva_status"/>
+        <result property="cateMain" column="cate_main"/>
+        <result property="cateSub" column="cate_sub"/>
+        <collection property="image" resultMap="projectImageResultMap"/>
+    </resultMap>
+
 <!--    <resultMap id="evaluationResultMap" type="com.companimal.semiProject.evaluation.model.dto.EvaluationDTO">-->
 <!--        <id property="evaNum" column="eva_num"/>-->
 <!--        <result property="evaDateTime" column="eva_datetime"/>-->
@@ -523,25 +542,25 @@
     </insert>
 
     <!-- 종료된 프로젝트 가져오는 쿼리 -->
-    <select id="selectEndProjectList" parameterType="String" resultMap="projectResultMap">
-        SELECT pro_code
-        ,pro_name
-        ,pro_intro
-        ,goal_amount
-        ,start_date
-        ,end_date
-        ,pro_story
-        ,pol_no_refund
-        ,pol_as
-        ,mem_id
-        ,est_date
-        ,ach_rate
-        ,eva_status
-        ,cate_main
-        ,cate_sub
-        FROM project
-        WHERE eva_status = 'N' and replace(end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
-        ORDER BY end_date desc
+    <select id="selectEndProjectList" parameterType="String" resultMap="projectShowResultMap">
+        SELECT p.pro_code
+        ,p.pro_name
+        ,p.goal_amount
+        ,p.start_date
+        ,p.end_date
+        ,p.mem_id
+        ,p.est_date
+        ,p.ach_rate
+        ,p.eva_status
+        ,i.pro_img_num
+        ,i.pro_code
+        ,i.pro_img_path
+        ,i.pro_img_name
+        ,i.pro_img_ori_name
+        FROM project p
+        JOIN project_image i ON (p.pro_code = i.pro_code)
+        WHERE p.eva_status = 'N' and replace(p.end_date,'-','') <![CDATA[ < ]]>  replace(CURRENT_DATE(), '-', '') and p.mem_id = #{id}
+        ORDER BY p.end_date desc
     </select>
 
     <!-- 배송 예정일 업데이트 쿼리 -->
@@ -623,7 +642,7 @@
     </select>
 
     <!-- 펀딩 플러스 조회 -->
-    <select id="selectMenuProject" parameterType="int" resultMap="projectDetailResultMap">
+    <select id="selectMenuProject" parameterType="int" resultMap="projectResultMap">
         SELECT
             p.pro_code
             ,p.pro_name
@@ -637,7 +656,13 @@
             ,c.pro_cate_code
             ,c.pro_cate_name
             ,c.pro_cate_type
+            ,i.pro_img_num
+            ,i.pro_code
+            ,i.pro_img_path
+            ,i.pro_img_name
+            ,i.pro_img_ori_name
             FROM project p
+            JOIN project_image i ON (p.pro_code = i.pro_code)
             JOIN project_cate c ON (c.pro_cate_code = p.cate_main)
     </select>
   
@@ -688,24 +713,24 @@
                 )
     </insert>
 
-    <select id="selectIngPro" parameterType="String" resultMap="projectResultMap">
-        SELECT pro_code
-        ,pro_name
-        ,pro_intro
-        ,goal_amount
-        ,start_date
-        ,end_date
-        ,pro_story
-        ,pol_no_refund
-        ,pol_as
-        ,mem_id
-        ,est_date
-        ,ach_rate
-        ,eva_status
-        ,cate_main
-        ,cate_sub
-        FROM project
-        WHERE eva_status = 'N' and replace(end_date,'-','') <![CDATA[ >= ]]>  replace(CURRENT_DATE(), '-', '') and mem_id = #{id}
-        ORDER BY end_date desc
+    <select id="selectIngPro" parameterType="String" resultMap="projectShowResultMap">
+        SELECT p.pro_code
+        ,p.pro_name
+        ,p.goal_amount
+        ,p.start_date
+        ,p.end_date
+        ,p.mem_id
+        ,p.est_date
+        ,p.ach_rate
+        ,p.eva_status
+        ,i.pro_img_num
+        ,i.pro_code
+        ,i.pro_img_path
+        ,i.pro_img_name
+        ,i.pro_img_ori_name
+        FROM project p
+        JOIN project_image i ON (p.pro_code = i.pro_code)
+        WHERE p.eva_status = 'N' and replace(p.end_date,'-','') <![CDATA[ >= ]]>  replace(CURRENT_DATE(), '-', '') and p.mem_id = #{id}
+        ORDER BY p.end_date desc
     </select>
 </mapper>

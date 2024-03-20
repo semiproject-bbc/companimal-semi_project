@@ -55,9 +55,9 @@ input:focus {
 .projectlistbox>div {
     width:50%;
 }
-.projectbox img {
+.thumbimg {
     width:90%;
-    height:auto;
+    height:260px;
     border-radius:10px;
 }
 .pjpercentage {
