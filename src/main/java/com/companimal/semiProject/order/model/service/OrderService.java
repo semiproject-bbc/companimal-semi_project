@@ -20,4 +20,5 @@ public interface OrderService {
 
     void updateUsedCoupon(String couCode);
 
+    void updateEstRate(int proCode, int totalPrice);
 }

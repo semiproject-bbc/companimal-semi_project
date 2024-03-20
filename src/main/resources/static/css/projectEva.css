@@ -11,3 +11,14 @@
     width: 640px;
     height: 404px;
 }
+.main, .evaBox, .evaTable {
+    width:700px;
+    white-space: normal;
+    /*word-break:break-all;*/
+    table-layout:fixed;
+}
+
+/*td {*/
+/*    padding: 10px;*/
+/*    border: 1px solid #666666;*/
+/*}*/

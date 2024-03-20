@@ -18,4 +18,5 @@ public interface OrderMapper {
 
     void updateUsedCoupon(String couCode); // 결제가 완료 되면 쿠폰 사용여부를 'y'에서 'n'으로 바꾸기 위해서
 
+    void updateEstRate(int proCode, int totalPrice);
 }

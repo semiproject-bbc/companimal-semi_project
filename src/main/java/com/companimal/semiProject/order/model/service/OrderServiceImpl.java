@@ -38,5 +38,10 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.updateUsedCoupon(couCode);
     }
 
+    @Override
+    public void updateEstRate(int proCode, int totalPrice) {
+        orderMapper.updateEstRate(proCode, totalPrice);
+    }
+
 }
 
