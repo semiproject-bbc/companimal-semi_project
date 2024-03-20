@@ -125,6 +125,81 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    var selectedCoupon = document.getElementById('couponAmountId');         // 쿠폰을 선택할 때 id
+    var preFinalPayment = document.getElementById('finalPaymentAmountId');  // 최종 결제 금액 id
+    var originalFinalPayment = parseInt(preFinalPayment.textContent.replace('원', '')); // Original final payment amount
+    // 쿠폰이 선택될때 마다 작동하는 코드
+    function applyCoupon(selectedCouponAmount, selectedCouponCode) {
+        var finalPaymentAfterCoupon = originalFinalPayment - selectedCouponAmount;
+        preFinalPayment.textContent = finalPaymentAfterCoupon + '원'; // 쿠폰이 선택이 되면 최종결제 금액이 적용이 되겠금 하는 코드
+        if (selectedCouponAmount > 0) {
+            var selectedCoupon = document.getElementById('couponAmountId'); // 쿠폰 listbox의 id를 가져온다
+            var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];       // 선택한 쿠폰의 index를 불러온다
+            selectedCouponCode = selectedCouponOption.id;                                      // 쿠폰Code 값을 가져온다
+        } else {
+            selectedCouponCode = null;
+        }
+        // couponCode를 잘 담았는지 확인할 것
+        console.log('Selected coupon code : ', selectedCouponCode); // 확인용
+        console.log('Coupon Amount : ', selectedCouponAmount);
+        console.log('Amount after subtractions : ', finalPaymentAfterCoupon);
+        // Update hidden input for totalAmount
+        var hiddenInputTotalAmount = document.createElement('input');
+        hiddenInputTotalAmount.type = 'hidden';
+        hiddenInputTotalAmount.name = 'totalAmount';
+        hiddenInputTotalAmount.value = String(finalPaymentAfterCoupon);
+        var hiddenInputCouponCode = document.createElement('input');
+        hiddenInputCouponCode.type = 'hidden';
+        hiddenInputCouponCode.name = 'couponCode';
+        hiddenInputCouponCode.value = String(selectedCouponCode);
+        // Remove existing hidden inputs
+        var form = document.getElementById('myForm');
+        var existingTotalAmountInput = form.querySelector('input[name="totalAmount"]');
+        if (existingTotalAmountInput) {
+            existingTotalAmountInput.remove();
+        }
+        var existingCouponCodeInput = form.querySelector('input[name="couponCode"]');
+        if (existingCouponCodeInput) {
+            existingCouponCodeInput.remove();
+        }
+        // Append the new hidden inputs
+        form.append(hiddenInputTotalAmount);
+        form.append(hiddenInputCouponCode);
+    }
+    // Event listener for coupon select element
+    selectedCoupon.addEventListener('change', function() {
+        var selectedCouponOption = selectedCoupon.options[selectedCoupon.selectedIndex];
+        var selectedCouponAmount = parseInt(selectedCouponOption.value);
+        if (selectedCouponAmount !== 0) { // 쿠폰 선택이 됐으면
+            applyCoupon(selectedCouponAmount); // 값을 넣는다
+        } else {
+            // 쿠폰을 선택을 하지 않으면, 원래 값으로 돌아간다
+            preFinalPayment.textContent = originalFinalPayment + '원';
+            form.querySelector('input[name="totalAmount"]').remove(); // Remove existing hidden input
+        }
+    });
+    // 쿠폰을 선택을 했을 때
+    var initialSelectedCouponAmount = parseInt(selectedCoupon.options[selectedCoupon.selectedIndex].value);
+    if (initialSelectedCouponAmount !== 0) {
+        applyCoupon(initialSelectedCouponAmount);
+    } else {
+        // 쿠폰을 선택을 하지 않으면, 원래 값으로 돌아간다
+        preFinalPayment.textContent = originalFinalPayment + '원';
+        // Remove existing hidden inputs
+        var form = document.getElementById('myForm');
+        var existingTotalAmountInput = form.querySelector('input[name="totalAmount"]');
+        if (existingTotalAmountInput) {
+            existingTotalAmountInput.remove();
+        }
+        var existingCouponCodeInput = form.querySelector('input[name="couponCode"]');
+        if (existingCouponCodeInput) {
+            existingCouponCodeInput.remove();
+        }
+    }
+});
+
 /* ====================================================================================================== */
 /* 약관동의 보기 */
 document.addEventListener('DOMContentLoaded', function() {

@@ -31,14 +31,14 @@ public class OrderController {
         this.httpSession = httpSession;
     }
 
-    @PostMapping("/orderPayment") // 메인 페이지에서 주문 결제 화면으로 넘어오면 값들이 화면에 출력한다
+    @PostMapping("/orderPayment")
     public String orderPaymentPage(Model model,
                                    @ModelAttribute GetOrderDetailsInfoDTO getOrderDetailsInfoDTO,
                                    @ModelAttribute GetOrderOptionsInfoDTO getOrderOptionsInfoDTOList,
                                    Authentication authentication) {
 
-        System.out.println(getOrderDetailsInfoDTO); // !!!!!!!!!
-        System.out.println(getOrderOptionsInfoDTOList);
+        System.out.println(getOrderDetailsInfoDTO);                                         // 확인용
+        System.out.println(getOrderOptionsInfoDTOList);                                     // 확인용
 
         // form에서 받아온 값들을 process 해준다
         String[] sArr1 = getOrderOptionsInfoDTOList.getRewName().split(",");
@@ -49,36 +49,38 @@ public class OrderController {
         String[] sArr6 = getOrderOptionsInfoDTOList.getRewAmount().split(",");
         String[] sArr7 = getOrderOptionsInfoDTOList.getNoOfOrder().split(",");
 
+        // 각 옵션들의 정보들을 가져와서 묶는 코드
         List<GetOrderOptionsInfoDTO> realGetOrderOptionsInfoDTOList = new ArrayList<>();
         for(int i = 0; i < sArr1.length; i++) {
             GetOrderOptionsInfoDTO temp = new GetOrderOptionsInfoDTO(sArr1[i], sArr2[i], sArr3[i],sArr4[i], sArr5[i], sArr6[i], sArr7[i]);
             realGetOrderOptionsInfoDTOList.add(temp);
         }
 
-        System.out.println(realGetOrderOptionsInfoDTOList);  // !!!!!!!!! // 확인용
-        List<CouponDTO> couponDTO = orderService.couponInfo(authentication.getName());        // memId에 맞는 coupon 정보들을 가져한다
-        MemberDTO memberDTO = orderService.memberInfo(authentication.getName());        // memId에 맞는 member 정보들을 가져온다
+        System.out.println(realGetOrderOptionsInfoDTOList);                                 // 확인용
+        List<CouponDTO> couponDTO = orderService.couponInfo(authentication.getName());      // memId에 맞는 coupon 정보들을 가져한다
+        MemberDTO memberDTO = orderService.memberInfo(authentication.getName());            // memId에 맞는 member 정보들을 가져온다
 
-        List<CouponDTO> couponDTOList = orderService.couponInfo(authentication.getName());        // memId에 맞는 coupon 정보들을 가져한다
+        List<CouponDTO> couponDTOList = orderService.couponInfo(authentication.getName());  // memId에 맞는 coupon 정보들을 가져한다
         for(CouponDTO couponDTO1 : couponDTOList) {
             System.out.println(couponDTO1);
         }
 
         /* 화면에 띄우기 위한 정보들 */
-        model.addAttribute("rewardInfo", getOrderDetailsInfoDTO);           // 리워드 정보를 화면에 출력을 하기 위해서
-        model.addAttribute("rewardOptInfo", realGetOrderOptionsInfoDTOList);// 리워드 옵션 정보를 화면에 출력을 하기 위해서
+        model.addAttribute("rewardInfo", getOrderDetailsInfoDTO);               // 리워드 정보를 화면에 출력을 하기 위해서
+        model.addAttribute("rewardOptInfo", realGetOrderOptionsInfoDTOList);    // 리워드 옵션 정보를 화면에 출력을 하기 위해서
+
         /* login 한 회원에 대한 정보들을 담았다 */
         model.addAttribute("couponInfo", couponDTOList);                        // coupon 정보를 화면에 출력을 하기 위해서
-        model.addAttribute("memberInfo", memberDTO);                        // 회원 정보를 화면에 출력을 하기 위해서
+        model.addAttribute("memberInfo", memberDTO);                            // 회원 정보를 화면에 출력을 하기 위해서
 
 
         /* 결제화면에서 결제 성공시 DB에 담기 위해서 정보를 session에다가 담는다 */
-        httpSession.setAttribute("rewardInfo", getOrderDetailsInfoDTO);               // 리워드 정보를 session에 담음
-        httpSession.setAttribute("rewardOptInfo", realGetOrderOptionsInfoDTOList);    // 리워드 옵션 정보를 session에 담음
-        httpSession.setAttribute("couponInfo", couponDTO);                            // 쿠폰 정보를 session에 담음
-        httpSession.setAttribute("memberInfo", memberDTO);                            // 회원 정보를 session에 담음
+        httpSession.setAttribute("rewardInfo", getOrderDetailsInfoDTO);                   // 리워드 정보를 session에 담음
+        httpSession.setAttribute("rewardOptInfo", realGetOrderOptionsInfoDTOList);        // 리워드 옵션 정보를 session에 담음
+        httpSession.setAttribute("couponInfo", couponDTO);                                // 쿠폰 정보를 session에 담음
+        httpSession.setAttribute("memberInfo", memberDTO);                                // 회원 정보를 session에 담음
 
-        System.out.println("주문 결제화면으로 이동"); // double check
+        System.out.println("주문 결제화면으로 이동");                                              // 확인용
 
         return "contents/order/orderpayment";
     }
