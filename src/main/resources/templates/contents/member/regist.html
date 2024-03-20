@@ -20,7 +20,7 @@
 
             <h1 class="AccountContainer_title">회원가입</h1>
 
-
+<!--            각각의 입력 필드는 validateForm.js에 의해 해당 입력필드에서 포커스가 떠나면 유효성 검사를 진행-->
             <form class="registForm_form" th:action="@{/member/regist}" th:method="post">
 
                 <div class="registFormRegistField">
@@ -68,6 +68,9 @@
                         <input id="email" name="memberEmail1" class="emailField" placeholder="   이메일" type="text">
                         <div id="atSign">@</div>
                         <input id="email2" name="memberEmail2" class="emailField2" disabled>
+
+<!--                        이메일 아이디와 도메인을 따로 받는 구조로 만들어서 이메일 아이디와 도메인을 합쳐주기 위해 생성-->
+<!--                        fullEamilAddress.js 에 의해 #email과 #email2의 값이 합쳐서 온전한 이메일 주소의 값이 저장됨-->
                         <input name="memberEmail" style="display: none;">
                         <select class="emailSelect">
                             <option selected disabled>선택</option>
@@ -89,6 +92,8 @@
 
                 </div>
 
+<!--                termOfUse.js에 의해 전체 동의를 누르면 모든 약관에 체크가 되고, 개별 약관의 체크가 해제되면 전체 동의의 체크도 해제됨-->
+<!--                약관을 따로 체크해도 전부 다 체크하면 전체 동의도 체크됨-->
                 <div class="agreement">
                     <input type="checkbox" class="individualCheckbox" id="selectAll">
                     <p>이용 약관 전체 동의</p>
@@ -115,43 +120,13 @@
 
                 <div class="registButton">
 
-                    <div class="agreement">
-                        <img class="icon" th:src="@{/image/check.png}">
-                        <p>이용 약관 전체 동의</p>
-                      </div>
-                      
-                      <section class="agreement-contents">
-                        <div class="terms">
-                          <div class="item">
-                            <div class="term">
-                              <img class="icon" th:src="@{/image/check.png}">
-                              <p class="agreementName">회원가입 약관</p>
-                            </div>
-                            <p class="view">보기</p>
-                          </div>
-                          <div class="item">
-                            <div class="term">
-                              <img class="icon" th:src="@{/image/check.png}">
-                              <p class="agreementName">개인정보 수집 및 이용 동의</p>
-                            </div>
-                            <p class="view">보기</p>
-                          </div>
-                          <div class="item">
-                            <div class="term">
-                              <img class="icon" th:src="@{/image/check.png}">
-                              <p class="agreementName">만 14세 이상입니다.</p>
-                            </div>
-                            <p class="view">보기</p>
-                          </div>
-                        </div>
-                      </section>
+                    <input name="memberRole" value="CREATOR" type="hidden"/>
 
-                    <div class="registButton">
-
-                        <input name="memberRole" value="CREATOR" type="hidden"/>
-
+<!--                    회원가입 버튼은 기본적으로 비활성화 상태이며, registEnabled.js에 의해-->
+<!--                    아이디 중복확인, 이메일 인증번호 확인, 각 입력필드 유효성 확인, 약관 전체 동의 체크 상태가 전부 true가 되면-->
+<!--                    회원가입 버튼이 활성화 된다.-->
                     <button class="registSubmitButton disabled" id="registSubmitButton" type="submit" disabled>
-                        <span class="registSubmitButtonText">가입</span>
+                        <span class="registSubmitButtonText">회원 가입</span>
                     </button>
                 </div>
 
@@ -163,6 +138,7 @@
 
 </div>
 
+<!--기타 알림 내용을 표시하는 모달-->
 <div id="myModal" class="modal">
 
     <div class="modalContent">
@@ -175,6 +151,7 @@
     </div>
 </div>
 
+<!--약관 표시를 위한 모달-->
 <div id="myModal1" class="modal1">
 
     <div class="modalContent1">

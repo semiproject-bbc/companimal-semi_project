@@ -43,7 +43,7 @@ public class MemberController {
 
         int result = memberService.registMember(memberDTO);
 
-        String message ="";
+        String message = "";
 
         if (result > 0) {
             message = "회원가입이 정상적으로 완료되었습니다.";
@@ -59,31 +59,29 @@ public class MemberController {
     }
 
     @ResponseBody
+    @GetMapping("/idDuplicateCheck")
+    public Boolean idDuplicateCheck(@RequestParam("id") String id) {
+        // DB에 입력한 아이디로 조회되는 결과가 있다면 true, 없다면 false를 반환
+        return duplicateCheckService.idDuplicateCheck(id);
+    }
+
+    @ResponseBody
     @PostMapping("/sendEmail")
     public void sendEmail(@RequestParam("email") String email, HttpSession session) {
 
-        System.out.println(email);
+        // 회원가입 창에서 입력한 이메일 주소로 이메일을 보내기 위해 메일서비스에서 semdMail 메소드 호출
+        // 인증번호 화인에 세션을 활용하기 위해 세션도 매개변수에 넣음
         mailService.sendMail(email, session);
     }
 
     @ResponseBody
     @PostMapping("/verifyEmail")
     public boolean verifyEmail(@RequestParam("email") String email, @RequestParam("authCode") String inputAuthCode, HttpSession session) {
+
+        // 입력한 에메일 주소로 메일을 발송하면서 세션에 저장한 인증코드와 사용자가 입력한 인증코드를 비교
+        // 세션에 저장된 값이 있고, 그 값이 입력한 인증번호와 같다면 true, 그렇지 않다면 false를 반환
         String authCode = (String) session.getAttribute(email);
         return authCode != null && authCode.equals(inputAuthCode);
-    }
-
-    @ResponseBody
-    @GetMapping("/idDuplicateCheck")
-    public Boolean idDuplicateCheck(@RequestParam("id") String id) {
-        int result = duplicateCheckService.idDuplicateCheck(id);
-        boolean isDuplicate = true;
-
-        if (result == 0) {
-            isDuplicate = false;
-        }
-
-        return isDuplicate;
     }
 
     @GetMapping("/findId")
@@ -100,7 +98,7 @@ public class MemberController {
         if (memId == null) {
             modelAndView.setViewName("/contents/member/findIdFail");
         } else {
-                modelAndView.addObject("memId", memId);
+            modelAndView.addObject("memId", memId);
             modelAndView.setViewName("/contents/member/findIdSuccess");
         }
 
@@ -208,9 +206,9 @@ public class MemberController {
 
         int result = memberService.updatePurchaseConfirm(orderCode);
 
-        if(result > 0) {
+        if (result > 0) {
             System.out.println("구매 확정 완료");
-        }else {
+        } else {
             System.out.println("구매 확정 실패");
         }
 

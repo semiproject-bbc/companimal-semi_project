@@ -20,10 +20,10 @@ function creatorAccept() {
         url: "/evaluation/manager/accept",
         data: {evaNum: evaNum},
         success: function () {
-            window.location.href = "/evaluation/evaluationProcessAfter";
+            window.location.href = "/evaluation/manager/creatorEvaluationList";
         },
         error: function () {
-            $('#modalText').text("요청을 보내는 동안 오류가 발생했습니다");
+            $('#modalText').text("요청을 보내는 동안 오류가 발생했습니다)");
             $('#myModal').show();
         }
     });
@@ -40,7 +40,7 @@ function sendRejectionReason() {
         url: "/evaluation/manager/return",
         data: {evaNum: evaNum, reaRejection: reaRejection},
         success: function () {
-            window.location.href = "/evaluation/evaluationProcessAfter";
+            window.location.href = "/evaluation/manager/creatorEvaluationList";
         },
         error: function () {
             $('#modalText').text("요청을 보내는 동안 오류가 발생했습니다");

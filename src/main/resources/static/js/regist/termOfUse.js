@@ -38,6 +38,8 @@ function updateSelectAllCheckbox() {
     });
     if (allChecked) {
         selectAllCheckbox.checked = allChecked;
+
+        // 전체 약관
         updateStatus('termsChecked', true);
         console.log('true');
     } else {

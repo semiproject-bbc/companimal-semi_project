@@ -26,12 +26,16 @@ public class MailService {
         javaMailSender.send(simpleMessage);
 
         System.out.println(authCode);
+
+        // 입력받은 이메일 주소를 키로, 생성된 인증번호를 값으로 세션에 저장
         session.setAttribute(email, authCode);
     }
 
     private String createAuthCode() {
 
+        // 0부터 999999까지의 무작위 정수 생성
         int randomNumber = (int)(Math.random() * 1000000);
+        // 6자리가 정수만 나오는 게 아니기 때문에 6자리 정수가 아닐 경우 앞에 0을 붙여서 리턴
         return String.format("%06d", randomNumber);
     }
 
